@@ -84,7 +84,7 @@
   object-position: left center;
 }
 
-/* Search */
+/* Search*/
 .searchLink {
   flex-grow: 1;
   height: 100%;
@@ -135,6 +135,26 @@
   }
 }
 
+.createHostInfoLink {
+  @apply --TopbarDesktop_linkHover;
+  @apply --marketplaceH5FontStyles;
+
+  flex-shrink: 0;
+  height: 100%;
+  padding: 0 12px 0 12px;
+  color: var(--matterColor);
+  margin-top: 0;
+  margin-bottom: 0;
+
+  &:hover {
+    color: var(--matterColorDark);
+  }
+
+  @media (--viewportMedium) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
 .createListing {
   @apply --TopbarDesktop_label;
 }

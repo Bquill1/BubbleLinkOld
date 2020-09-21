@@ -85,10 +85,11 @@ export const filters = [
       // Note: label is not added through the translation files
       // to make filter customizations a bit easier.
       options: [
-        { key: 'smoke', label: 'Smoke' },
-        { key: 'electric', label: 'Electric' },
-        { key: 'wood', label: 'Wood' },
-        { key: 'other', label: 'Other' },
+        { key: 'work', label: 'Work' },
+        { key: 'event', label: 'Event' },
+	{ key: 'other', label: 'Other' },
+        { key: 'meeting', label: 'Meeting' },
+        { key: 'study', label: 'Study' },
       ],
     },
   },
@@ -109,38 +110,78 @@ export const filters = [
       // to make filter customizations a bit easier.
       options: [
         {
-          key: 'towels',
-          label: 'Towels',
+          key: 'wifi',
+          label: 'Wifi',
         },
         {
-          key: 'bathroom',
-          label: 'Bathroom',
+          key: 'microwave',
+          label: 'Microwave',
         },
         {
-          key: 'swimming_pool',
-          label: 'Swimming pool',
+          key: 'keyboard',
+          label: 'Keyboard',
         },
         {
-          key: 'own_drinks',
-          label: 'Own drinks allowed',
+          key: 'office_chair',
+          label: 'Office Chair',
         },
         {
-          key: 'jacuzzi',
-          label: 'Jacuzzi',
+          key: 'fridge',
+          label: 'Fridge',
         },
         {
-          key: 'audiovisual_entertainment',
-          label: 'Audiovisual entertainment',
+          key: 'tea_coffee',
+          label: 'Tea/Coffee Facilities',
         },
         {
-          key: 'barbeque',
-          label: 'Barbeque',
+          key: 'pen_paper',
+          label: 'Pens and Paper',
         },
         {
-          key: 'own_food_allowed',
-          label: 'Own food allowed',
+          key: 'oven',
+          label: 'Oven',
         },
       ],
+    },
+  },
+{
+    id: 'propertyType',
+    label: 'PropertyType',
+    type: 'SelectSingleFilter',
+    group: 'secondary',
+    queryParamNames: ['pub_propertyType'],
+    config: {
+      // "key" is the option you see in Flex Console.
+      // "label" is set here for the UI only.
+      // Note: label is not added through the translation files
+      // to make filter customizations a bit easier.
+      options: [
+        { key: 'house', label: 'House' },
+        { key: 'apartment', label: 'Apartment' },
+	{ key: 'business', label: 'Business' },
+        { key: 'unique', label: 'Unique' },
+	{ key: 'other', label: 'Other' },
+      ],
+    },
+  },
+{
+    id: 'numSpaces',
+    label: 'NumSpaces',
+    type: 'SelectSingleFilter',
+    group: 'secondary',
+    queryParamNames: ['pub_numSpaces'],
+    config: {
+      // "key" is the option you see in Flex Console.
+      // "label" is set here for the UI only.
+      // Note: label is not added through the translation files
+      // to make filter customizations a bit easier.
+      options: [
+        { key: 'one', label: 'One' },
+        { key: 'two', label: 'Two' },
+	{ key: 'three', label: 'Three' },
+        { key: 'four', label: 'Four' },
+      ],
+    
     },
   },
 ];

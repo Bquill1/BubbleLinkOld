@@ -8,6 +8,7 @@ import { propTypes } from '../../util/types';
 import { maxLength, required, composeValidators } from '../../util/validators';
 import { Form, Button, FieldTextInput } from '../../components';
 import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
+import CustomPropertyTypeSelectFieldMaybe from './CustomPropertyTypeSelectFieldMaybe';
 
 import css from './EditListingDescriptionForm.css';
 
@@ -19,6 +20,7 @@ const EditListingDescriptionFormComponent = props => (
     render={formRenderProps => {
       const {
         categories,
+	propertyType,
         className,
         disabled,
         ready,
@@ -87,6 +89,21 @@ const EditListingDescriptionFormComponent = props => (
           {errorMessageCreateListingDraft}
           {errorMessageUpdateListing}
           {errorMessageShowListing}
+
+	<CustomPropertyTypeSelectFieldMaybe
+            id="propertyType"
+            name="propertyType"
+            propertyType={propertyType}
+            intl={intl}
+          />
+
+ 		<CustomCategorySelectFieldMaybe
+            id="category"
+            name="category"
+            categories={categories}
+            intl={intl}
+          />
+
           <FieldTextInput
             id="title"
             name="title"
@@ -109,12 +126,6 @@ const EditListingDescriptionFormComponent = props => (
             validate={composeValidators(required(descriptionRequiredMessage))}
           />
 
-          <CustomCategorySelectFieldMaybe
-            id="category"
-            name="category"
-            categories={categories}
-            intl={intl}
-          />
 
           <Button
             className={css.submitButton}
@@ -148,6 +159,12 @@ EditListingDescriptionFormComponent.propTypes = {
     updateListingError: propTypes.error,
   }),
   categories: arrayOf(
+    shape({
+      key: string.isRequired,
+      label: string.isRequired,
+    })
+  ),
+propertyType: arrayOf(
     shape({
       key: string.isRequired,
       label: string.isRequired,

@@ -49,6 +49,10 @@
   flex-shrink: 0;
 }
 
+.propertyType {
+  @apply --EditListingDescriptionForm_formMargins;
+}
+
 .category {
   @apply --EditListingDescriptionForm_formMargins;
 }

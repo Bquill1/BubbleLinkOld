@@ -23,6 +23,7 @@ import {
   StyleguidePage,
   TermsOfServicePage,
   TransactionPage,
+  HostPage
 } from './containers';
 
 // routeConfiguration needs to initialize containers first
@@ -62,6 +63,11 @@ const routeConfiguration = () => {
       path: '/about',
       name: 'AboutPage',
       component: AboutPage,
+    },
+    {
+      path: '/hostinfo',
+      name: 'HostPage',
+      component: HostPage,
     },
     {
       path: '/s',

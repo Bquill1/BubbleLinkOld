@@ -58,6 +58,7 @@ import SectionHostMaybe from './SectionHostMaybe';
 import SectionRulesMaybe from './SectionRulesMaybe';
 import SectionMapMaybe from './SectionMapMaybe';
 import css from './ListingPage.css';
+import SectionViewMaybe from './SectionViewMaybe';
 
 const MIN_LENGTH_FOR_LONG_WORDS_IN_TITLE = 16;
 
@@ -379,6 +380,7 @@ export class ListingPageComponent extends Component {
       </NamedLink>
     );
 
+    const propertyTypeOptions = findOptionsForSelectFilter('propertyType', filterConfig);
     const amenityOptions = findOptionsForSelectFilter('amenities', filterConfig);
     const categoryOptions = findOptionsForSelectFilter('category', filterConfig);
     const category =
@@ -437,6 +439,7 @@ export class ListingPageComponent extends Component {
                     showContactUser={showContactUser}
                     onContactUser={this.onContactUser}
                   />
+		  <SectionViewMaybe options={propertyTypeOptions} publicData={publicData} />
                   <SectionDescriptionMaybe description={description} />
                   <SectionFeaturesMaybe options={amenityOptions} publicData={publicData} />
                   <SectionRulesMaybe publicData={publicData} />

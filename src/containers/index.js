@@ -23,3 +23,5 @@ export { default as StyleguidePage } from './StyleguidePage/StyleguidePage';
 export { default as TermsOfServicePage } from './TermsOfServicePage/TermsOfServicePage';
 export { default as TopbarContainer } from './TopbarContainer/TopbarContainer';
 export { default as TransactionPage } from './TransactionPage/TransactionPage';
+// Custom Pages
+export { default as HostPage } from './HostPage/HostPage';

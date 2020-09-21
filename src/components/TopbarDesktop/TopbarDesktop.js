@@ -147,6 +147,11 @@ const TopbarDesktop = props => {
           <FormattedMessage id="TopbarDesktop.createListing" />
         </span>
       </NamedLink>
+      <NamedLink className={css.createHostInfoLink} name="HostPage">
+        <span className={css.createListing}>
+          <FormattedMessage id="TopbarDesktop.hostInfo" />
+        </span>
+      </NamedLink>
       {inboxLink}
       {profileMenu}
       {signupLink}

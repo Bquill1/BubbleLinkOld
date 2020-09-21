@@ -8,9 +8,10 @@ import { NamedLink } from '../../components';
 
 import css from './SectionLocations.css';
 
-import helsinkiImage from './images/location_helsinki.jpg';
-import rovaniemiImage from './images/location_rovaniemi.jpg';
-import rukaImage from './images/location_ruka.jpg';
+import dublinImage from './images/location_dublin.jpg';
+import corkImage from './images/location_cork.jpg';
+import galwayImage from './images/location_galway.jpg';
+import limerickImage from './images/location_limerick.jpg';
 
 class LocationImage extends Component {
   render() {
@@ -51,19 +52,24 @@ const SectionLocations = props => {
       </div>
       <div className={css.locations}>
         {locationLink(
-          'Helsinki',
-          helsinkiImage,
-          '?address=Helsinki%2C%20Finland&bounds=60.2978389%2C25.254484899999966%2C59.9224887%2C24.782875800000056&origin=60.16985569999999%2C24.93837910000002'
+          'Dublin',
+          dublinImage,
+          '?address=Dublin%2C%20Ireland&bounds=53.41166%2C-6.112993%2C53.298881%2C-6.386999&origin=53.3511492%2C-6.2629457'
         )}
         {locationLink(
-          'Rovaniemi',
-          rovaniemiImage,
-          '?address=Rovaniemi%2C%20Finland&bounds=67.18452510000002%2C27.32667850000007%2C66.1553745%2C24.736871199999996&origin=66.50394779999999%2C25.729390599999988'
+          'Cork',
+          corkImage,
+          '?address=Cork%2C%20Ireland&bounds=51.937444%2C-8.389492%2C51.866048%2C-8.584363&origin=51.8985038%2C-8.4727372'
         )}
         {locationLink(
-          'Ruka',
-          rukaImage,
-          '?address=Ruka%2C%20Finland&bounds=66.1704578%2C29.14246849999995%2C66.1614402%2C29.110453699999994&origin=66.16594940000002%2C29.12646110000003'
+          'Galway',
+          galwayImage,
+          '?address=Galway%2C%20Ireland&bounds=53.319252%2C-8.954801%2C53.248361%2C-9.132927&origin=53.2744962%2C-9.0519317'
+        )}
+	{locationLink(
+          'Limerick',
+          limerickImage,
+          '?address=Limerick%2C%20Ireland&bounds=52.689981%2C-8.573346%2C52.61291%2C-8.726285&origin=52.6616822%2C-8.6311847'
         )}
       </div>
     </div>

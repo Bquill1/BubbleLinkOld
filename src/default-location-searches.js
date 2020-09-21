@@ -9,38 +9,38 @@ const { LatLng, LatLngBounds } = sdkTypes;
 // `predictionPlace` (util.types.place) properties.
 export default [
   {
-    id: 'default-helsinki',
+    id: 'default-dublin',
     predictionPlace: {
-      address: 'Helsinki, Finland',
-      bounds: new LatLngBounds(new LatLng(60.29783, 25.25448), new LatLng(59.92248, 24.78287)),
+      address: 'Dublin, Ireland',
+      bounds: new LatLngBounds(new LatLng(53.41166, -6.112993), new LatLng(53.298881, -6.386999)),
     },
   },
   {
-    id: 'default-turku',
+    id: 'default-cork',
     predictionPlace: {
-      address: 'Turku, Finland',
-      bounds: new LatLngBounds(new LatLng(60.53045, 22.38197), new LatLng(60.33361, 22.06644)),
+      address: 'Cork, Ireland',
+      bounds: new LatLngBounds(new LatLng(51.937444, -8.389492), new LatLng(51.866048, -8.584363)),
     },
   },
   {
-    id: 'default-tampere',
+    id: 'default-galway',
     predictionPlace: {
-      address: 'Tampere, Finland',
-      bounds: new LatLngBounds(new LatLng(61.83657, 24.11838), new LatLng(61.42728, 23.5422)),
+      address: 'Galway, Ireland',
+      bounds: new LatLngBounds(new LatLng(53.319252, -8.954801), new LatLng(53.248361, -9.132927)),
     },
   },
   {
-    id: 'default-oulu',
+    id: 'default-limerick',
     predictionPlace: {
-      address: 'Oulu, Finland',
-      bounds: new LatLngBounds(new LatLng(65.56434, 26.77069), new LatLng(64.8443, 24.11494)),
+      address: 'Limerick, Ireland',
+      bounds: new LatLngBounds(new LatLng(52.689981, -8.573346), new LatLng(52.61291, -8.726285)),
     },
   },
   {
-    id: 'default-ruka',
+    id: 'default-waterford',
     predictionPlace: {
-      address: 'Ruka, Finland',
-      bounds: new LatLngBounds(new LatLng(66.16997, 29.16773), new LatLng(66.16095, 29.13572)),
+      address: 'Waterford, Ireland',
+      bounds: new LatLngBounds(new LatLng(52.279827, -7.03399), new LatLng(52.210183, -7.187132)),
     },
   },
 ];

@@ -9,10 +9,14 @@
 .list {
   margin: 0;
 }
-
 .twoColumns {
   @media (--viewportMedium) {
     columns: 2;
+  }
+}
+.threeColumns {
+  @media (--viewportMedium) {
+    columns: 3;
   }
 }
 

@@ -11,6 +11,7 @@ import { ensureListing } from '../../util/data';
 import { createResourceLocatorString } from '../../util/routes';
 import {
   EditListingAvailabilityPanel,
+  EditListingBasicsPanel,
   EditListingDescriptionPanel,
   EditListingFeaturesPanel,
   EditListingLocationPanel,
@@ -21,9 +22,11 @@ import {
 
 import css from './EditListingWizard.css';
 
+
 export const AVAILABILITY = 'availability';
-export const DESCRIPTION = 'description';
+export const BASICS = 'basics';
 export const FEATURES = 'features';
+export const DESCRIPTION = 'description';
 export const POLICY = 'policy';
 export const LOCATION = 'location';
 export const PRICING = 'pricing';
@@ -31,8 +34,9 @@ export const PHOTOS = 'photos';
 
 // EditListingWizardTab component supports these tabs
 export const SUPPORTED_TABS = [
-  DESCRIPTION,
+  BASICS,
   FEATURES,
+  DESCRIPTION,
   POLICY,
   LOCATION,
   PRICING,
@@ -95,7 +99,7 @@ const EditListingWizardTab = props => {
     updateInProgress,
     intl,
   } = props;
-
+console.log(props)
   const { type } = params;
   const isNewURI = type === LISTING_PAGE_PARAM_TYPE_NEW;
   const isDraftURI = type === LISTING_PAGE_PARAM_TYPE_DRAFT;
@@ -157,6 +161,20 @@ const EditListingWizardTab = props => {
   };
 
   switch (tab) {
+    case BASICS: {
+      const submitButtonTranslationKey = isNewListingFlow
+        ? 'EditListingWizard.saveNewBasics'
+        : 'EditListingWizard.saveEditBasics';
+      return (
+        <EditListingBasicsPanel
+          {...panelProps(BASICS)}
+          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
+          onSubmit={values => {
+            onCompleteEditListingWizardTab(tab, values);
+          }}
+        />
+      );
+    }
     case DESCRIPTION: {
       const submitButtonTranslationKey = isNewListingFlow
         ? 'EditListingWizard.saveNewDescription'

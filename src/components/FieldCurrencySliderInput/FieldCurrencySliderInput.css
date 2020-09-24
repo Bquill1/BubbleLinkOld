@@ -1,8 +1,5 @@
 @import '../../marketplace.css';
 
-.root {
-}
-
 .input {
   border-bottom-color: var(--attentionColor);
 }
@@ -13,8 +10,4 @@
 
 .inputError {
   border-bottom-color: var(--failColor);
-}
-
-.textarea {
-  min-height: 60px;
 }

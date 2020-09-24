@@ -68,13 +68,15 @@
     margin-top: 100px;
   }
 }
-.sliderWrapper{
+.sliderWrapper {
   display: flex;
   flex-direction: row;
-
+  margin-bottom: 32px;
 }
-.sliderLabel{
+.sliderLabel {
+  font-size: 24px;
   align-self: flex-end;
-  padding: 3px;
-  margin-bottom: -5px;
+  padding: 8px;
+  margin-left: 24px;
+  margin-bottom: -13px;
 }

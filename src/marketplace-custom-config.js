@@ -34,157 +34,202 @@
  */
 
 export const filters = [
-  {
-    id: 'dates',
-    label: 'Dates',
-    type: 'BookingDateRangeFilter',
-    group: 'primary',
-    // Note: BookingDateRangeFilter is fixed filter,
-    // you can't change "queryParamNames: ['dates'],"
-    queryParamNames: ['dates'],
-    config: {},
-  },
-  {
-    id: 'price',
-    label: 'Price',
-    type: 'PriceFilter',
-    group: 'primary',
-    // Note: PriceFilter is fixed filter,
-    // you can't change "queryParamNames: ['price'],"
-    queryParamNames: ['price'],
-    // Price filter configuration
-    // Note: unlike most prices this is not handled in subunits
-    config: {
-      min: 0,
-      max: 1000,
-      step: 5,
-    },
-  },
-  {
-    id: 'keyword',
-    label: 'Keyword',
-    type: 'KeywordFilter',
-    group: 'primary',
-    // Note: KeywordFilter is fixed filter,
-    // you can't change "queryParamNames: ['keywords'],"
-    queryParamNames: ['keywords'],
-    // NOTE: If you are ordering search results by distance
-    // the keyword search can't be used at the same time.
-    // You can turn on/off ordering by distance from config.js file.
-    config: {},
-  },
-  {
-    id: 'category',
-    label: 'Category',
-    type: 'SelectSingleFilter',
-    group: 'secondary',
-    queryParamNames: ['pub_category'],
-    config: {
-      // "key" is the option you see in Flex Console.
-      // "label" is set here for the UI only.
-      // Note: label is not added through the translation files
-      // to make filter customizations a bit easier.
-      options: [
-        { key: 'work', label: 'Work' },
-        { key: 'event', label: 'Event' },
-	{ key: 'other', label: 'Other' },
-        { key: 'meeting', label: 'Meeting' },
-        { key: 'study', label: 'Study' },
-      ],
-    },
-  },
-  {
-    id: 'amenities',
-    label: 'Amenities',
-    type: 'SelectMultipleFilter',
-    group: 'secondary',
-    queryParamNames: ['pub_amenities'],
-    config: {
-      // Optional modes: 'has_all', 'has_any'
-      // https://www.sharetribe.com/api-reference/marketplace.html#extended-data-filtering
-      searchMode: 'has_all',
+         {
+           id: 'dates',
+           label: 'Dates',
+           type: 'BookingDateRangeFilter',
+           group: 'primary',
+           // Note: BookingDateRangeFilter is fixed filter,
+           // you can't change "queryParamNames: ['dates'],"
+           queryParamNames: ['dates'],
+           config: {},
+         },
+         {
+           id: 'price',
+           label: 'Price',
+           type: 'PriceFilter',
+           group: 'primary',
+           // Note: PriceFilter is fixed filter,
+           // you can't change "queryParamNames: ['price'],"
+           queryParamNames: ['price'],
+           // Price filter configuration
+           // Note: unlike most prices this is not handled in subunits
+           config: {
+             min: 0,
+             max: 1000,
+             step: 5,
+           },
+         },
+         {
+           id: 'keyword',
+           label: 'Keyword',
+           type: 'KeywordFilter',
+           group: 'primary',
+           // Note: KeywordFilter is fixed filter,
+           // you can't change "queryParamNames: ['keywords'],"
+           queryParamNames: ['keywords'],
+           // NOTE: If you are ordering search results by distance
+           // the keyword search can't be used at the same time.
+           // You can turn on/off ordering by distance from config.js file.
+           config: {},
+         },
+         {
+           id: 'category',
+           label: 'Category',
+           type: 'SelectSingleFilter',
+           group: 'secondary',
+           queryParamNames: ['pub_category'],
+           config: {
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for the UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [
+               { key: 'work', label: 'Work' },
+               { key: 'event', label: 'Event' },
+               { key: 'other', label: 'Other' },
+               { key: 'meeting', label: 'Meeting' },
+               { key: 'study', label: 'Study' },
+             ],
+           },
+         },
+         {
+           id: 'spaceType',
+           label: 'Type Of Space',
+           type: 'SelectSingleFilter',
+           group: 'secondary',
+           queryParamNames: ['pub_spaceType'],
+           config: {
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for the UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [
+               { key: 'private', label: 'Private' },
+               { key: 'sharedHost', label: 'Shared with the host' },
+               { key: 'sharedGuest', label: 'Shared with other guests' },
+             ],
+           },
+         },
+         {
+           id: 'amenities',
+           label: 'Amenities',
+           type: 'SelectMultipleFilter',
+           group: 'secondary',
+           queryParamNames: ['pub_amenities'],
+           config: {
+             // Optional modes: 'has_all', 'has_any'
+             // https://www.sharetribe.com/api-reference/marketplace.html#extended-data-filtering
+             searchMode: 'has_all',
 
-      // "key" is the option you see in Flex Console.
-      // "label" is set here for this web app's UI only.
-      // Note: label is not added through the translation files
-      // to make filter customizations a bit easier.
-      options: [
-        {
-          key: 'wifi',
-          label: 'Wifi',
-        },
-        {
-          key: 'microwave',
-          label: 'Microwave',
-        },
-        {
-          key: 'keyboard',
-          label: 'Keyboard',
-        },
-        {
-          key: 'office_chair',
-          label: 'Office Chair',
-        },
-        {
-          key: 'fridge',
-          label: 'Fridge',
-        },
-        {
-          key: 'tea_coffee',
-          label: 'Tea/Coffee Facilities',
-        },
-        {
-          key: 'pen_paper',
-          label: 'Pens and Paper',
-        },
-        {
-          key: 'oven',
-          label: 'Oven',
-        },
-      ],
-    },
-  },
-{
-    id: 'propertyType',
-    label: 'PropertyType',
-    type: 'SelectSingleFilter',
-    group: 'secondary',
-    queryParamNames: ['pub_propertyType'],
-    config: {
-      // "key" is the option you see in Flex Console.
-      // "label" is set here for the UI only.
-      // Note: label is not added through the translation files
-      // to make filter customizations a bit easier.
-      options: [
-        { key: 'house', label: 'House' },
-        { key: 'apartment', label: 'Apartment' },
-	{ key: 'business', label: 'Business' },
-        { key: 'unique', label: 'Unique' },
-	{ key: 'other', label: 'Other' },
-      ],
-    },
-  },
-{
-    id: 'numSpaces',
-    label: 'NumSpaces',
-    type: 'SelectSingleFilter',
-    group: 'secondary',
-    queryParamNames: ['pub_numSpaces'],
-    config: {
-      // "key" is the option you see in Flex Console.
-      // "label" is set here for the UI only.
-      // Note: label is not added through the translation files
-      // to make filter customizations a bit easier.
-      options: [
-        { key: 'one', label: 'One' },
-        { key: 'two', label: 'Two' },
-	{ key: 'three', label: 'Three' },
-        { key: 'four', label: 'Four' },
-      ],
-    
-    },
-  },
-];
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for this web app's UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [
+               {
+                 key: 'wifi',
+                 label: 'Wifi',
+               },
+               {
+                 key: 'microwave',
+                 label: 'Microwave',
+               },
+               {
+                 key: 'keyboard',
+                 label: 'Keyboard',
+               },
+               {
+                 key: 'office_chair',
+                 label: 'Office Chair',
+               },
+               {
+                 key: 'fridge',
+                 label: 'Fridge',
+               },
+               {
+                 key: 'tea_coffee',
+                 label: 'Tea/Coffee Facilities',
+               },
+               {
+                 key: 'pen_paper',
+                 label: 'Pens and Paper',
+               },
+               {
+                 key: 'oven',
+                 label: 'Oven',
+               },
+             ],
+           },
+         },
+         {
+           id: 'propertyType',
+           label: 'PropertyType',
+           type: 'SelectMultipleFilter',
+           group: 'secondary',
+           queryParamNames: ['pub_propertyType'],
+           config: {
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for the UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [
+               { key: 'house', label: 'House' },
+               { key: 'apartment', label: 'Apartment' },
+               { key: 'business', label: 'Business' },
+               { key: 'unique', label: 'Unique' },
+               { key: 'other', label: 'Other' },
+             ],
+           },
+         },
+         {
+           id: 'bookingType',
+           label: 'Booking Type',
+           type: 'SelectMultipleFilter',
+           group: 'secondary',
+           queryParamNames: ['pub_bookingType'],
+           config: {
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for the UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [{ key: 'hourly', label: 'Hourly' }, { key: 'daily', label: 'Daily' }],
+           },
+         },
+         {
+           id: 'spaceRentalAvailability',
+           label: 'Rental Availability',
+           type: 'SelectMultipleFilter',
+           group: 'secondary',
+           queryParamNames: ['pub_spaceRentalAvailability'],
+           config: {
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for the UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [{ key: 'entireSpace', label: 'Entire Space' }, { key: 'individual', label: 'Individually' }, { key: 'both', label: 'both'} ],
+           },
+         },
+         {
+           id: 'numSpaces',
+           label: 'NumSpaces',
+           type: 'SelectSingleFilter',
+           group: 'secondary',
+           queryParamNames: ['pub_numSpaces'],
+           config: {
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for the UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [
+               { key: 'one', label: 'One' },
+               { key: 'two', label: 'Two' },
+               { key: 'three', label: 'Three' },
+               { key: 'four', label: 'Four' },
+             ],
+           },
+         },
+       ];
 
 export const sortConfig = {
   // Enable/disable the sorting control in the SearchPage

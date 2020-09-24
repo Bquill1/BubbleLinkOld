@@ -34,6 +34,12 @@ export const EditListingPoliciesFormComponent = props => (
         id: 'EditListingPoliciesForm.rulesPlaceholder',
       });
 
+      const specialConsiderationsLabelMessage = intl.formatMessage({
+        id: 'EditListingPoliciesForm.specialConsiderationsLabel',
+      });
+      const specialConsiderationsPlaceholderMessage = intl.formatMessage({
+        id: 'EditListingPoliciesForm.specialConsiderationsPlaceholder',
+      });
       const { updateListingError, showListingsError } = fetchErrors || {};
       const errorMessage = updateListingError ? (
         <p className={css.error}>
@@ -63,6 +69,14 @@ export const EditListingPoliciesFormComponent = props => (
             type="textarea"
             label={rulesLabelMessage}
             placeholder={rulesPlaceholderMessage}
+          />
+          <FieldTextInput
+            id="specialConsiderations"
+            name="specialConsiderations"
+            className={css.policy}
+            type="textarea"
+            label={specialConsiderationsLabelMessage}
+            placeholder={specialConsiderationsPlaceholderMessage}
           />
 
           <Button

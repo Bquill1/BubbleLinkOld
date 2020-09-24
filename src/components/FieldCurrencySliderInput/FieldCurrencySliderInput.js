@@ -1,5 +1,5 @@
 /**
- * CurrencyInput renders an input field that format it's value according to currency formatting rules
+ * CurrencySliderInput renders an input field that format it's value according to currency formatting rules
  * onFocus: renders given value in unformatted manner: "9999,99"
  * onBlur: formats the given input: "9 999,99 €"
  */
@@ -9,7 +9,7 @@ import { intlShape, injectIntl } from '../../util/reactIntl';
 import { Field } from 'react-final-form';
 import classNames from 'classnames';
 import Decimal from 'decimal.js';
-import { ValidationError } from '../../components';
+import { ValidationError } from '..';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import {
   isSafeNumber,
@@ -21,9 +21,10 @@ import {
   truncateToSubUnitPrecision,
 } from '../../util/currency';
 import { propTypes } from '../../util/types';
+import {RangeSlider} from '../../components'
 import * as log from '../../util/log';
 
-import css from './FieldCurrencyInput.css';
+import css from './FieldCurrencySliderInput.css';
 
 const { Money } = sdkTypes;
 
@@ -49,7 +50,7 @@ const getPrice = (unformattedValue, currencyConfig) => {
   }
 };
 
-class CurrencyInputComponent extends Component {
+class CurrencySliderInputComponent extends Component {
   constructor(props) {
     super(props);
     const { currencyConfig, defaultValue, input, intl } = props;
@@ -102,8 +103,7 @@ class CurrencyInputComponent extends Component {
   }
 
   onInputChange(event) {
-    event.preventDefault();
-    event.stopPropagation();
+    console.log(event)
     // Update value strings on state
     const { unformattedValue } = this.updateValues(event);
     // Notify parent component about current price change
@@ -152,7 +152,7 @@ class CurrencyInputComponent extends Component {
   updateValues(event) {
     try {
       const { currencyConfig, intl } = this.props;
-      const targetValue = event.target.value.trim();
+      const targetValue = event[0] + ".00";
       const isEmptyString = targetValue === '';
       const valueOrZero = isEmptyString ? '0' : targetValue;
 
@@ -196,24 +196,28 @@ class CurrencyInputComponent extends Component {
   }
 
   render() {
-    const { className, currencyConfig, defaultValue, placeholder, intl } = this.props;
+    const { className, currencyConfig, defaultValue, placeholder, intl, min, max } = this.props;
     const placeholderText = placeholder || intl.formatNumber(defaultValue, currencyConfig);
+    console.log(this.state)
+    const currentValue = parseInt(this.state.value)
     return (
-      <input
+      <RangeSlider
         className={className}
         {...allowedInputProps(this.props)}
         value={this.state.value}
         onChange={this.onInputChange}
         onBlur={this.onInputBlur}
         onFocus={this.onInputFocus}
-        type="slider"
+        min={min}
+        max={max}
+        handles={[currentValue || 5 ]}
         placeholder={placeholderText}
       />
     );
   }
 }
 
-CurrencyInputComponent.defaultProps = {
+CurrencySliderInputComponent.defaultProps = {
   className: null,
   currencyConfig: null,
   defaultValue: null,
@@ -223,7 +227,7 @@ CurrencyInputComponent.defaultProps = {
 
 const { func, oneOfType, number, shape, string, object } = PropTypes;
 
-CurrencyInputComponent.propTypes = {
+CurrencySliderInputComponent.propTypes = {
   className: string,
   currencyConfig: propTypes.currencyConfig.isRequired,
   defaultValue: number,
@@ -238,9 +242,9 @@ CurrencyInputComponent.propTypes = {
   placeholder: string,
 };
 
-export const CurrencyInput = injectIntl(CurrencyInputComponent);
+export const CurrencySliderInput = injectIntl(CurrencySliderInputComponent);
 
-const FieldCurrencyInputComponent = props => {
+const FieldCurrencySliderInputComponent = props => {
   const { rootClassName, className, id, label, input, meta, ...rest } = props;
 
   if (label && !id) {
@@ -263,20 +267,20 @@ const FieldCurrencyInputComponent = props => {
   return (
     <div className={classes}>
       {label ? <label htmlFor={id}>{label}</label> : null}
-      <CurrencyInput {...inputProps} />
+      <CurrencySliderInput {...inputProps} />
       <ValidationError fieldMeta={meta} />
     </div>
   );
 };
 
-FieldCurrencyInputComponent.defaultProps = {
+FieldCurrencySliderInputComponent.defaultProps = {
   rootClassName: null,
   className: null,
   id: null,
   label: null,
 };
 
-FieldCurrencyInputComponent.propTypes = {
+FieldCurrencySliderInputComponent.propTypes = {
   rootClassName: string,
   className: string,
 
@@ -290,8 +294,8 @@ FieldCurrencyInputComponent.propTypes = {
   meta: object.isRequired,
 };
 
-const FieldCurrencyInput = props => {
-  return <Field component={FieldCurrencyInputComponent} {...props} />;
+const FieldCurrencySliderInput = props => {
+  return <Field component={FieldCurrencySliderInputComponent} {...props} />;
 };
 
-export default FieldCurrencyInput;
+export default FieldCurrencySliderInput;

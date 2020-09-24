@@ -7,6 +7,8 @@ import { ListingLink } from '../../components';
 import { EditListingPricingForm } from '../../forms';
 import { ensureOwnListing } from '../../util/data';
 import { types as sdkTypes } from '../../util/sdkLoader';
+import { findOptionsForSelectFilter } from '../../util/search';
+
 import config from '../../config';
 
 import css from './EditListingPricingPanel.css';
@@ -30,7 +32,8 @@ const EditListingPricingPanel = props => {
 
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
-  const { price } = currentListing.attributes;
+  const { price, publicData } = currentListing.attributes;
+  const { bookingType, spaceRentalAvailability } = publicData;
 
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
   const panelTitle = isPublished ? (
@@ -42,12 +45,35 @@ const EditListingPricingPanel = props => {
     <FormattedMessage id="EditListingPricingPanel.createListingTitle" />
   );
 
+  const bookingTypeOptions = findOptionsForSelectFilter('bookingType', config.custom.filters);
+  const spaceRentalAvailabilityOptions = findOptionsForSelectFilter(
+    'spaceRentalAvailability',
+    config.custom.filters
+  );
+
+
   const priceCurrencyValid = price instanceof Money ? price.currency === config.currency : true;
   const form = priceCurrencyValid ? (
     <EditListingPricingForm
       className={css.form}
-      initialValues={{ price }}
-      onSubmit={onSubmit}
+      initialValues={{
+        price,
+        bookingType,
+        spaceRentalAvailability,
+      }}
+      onSubmit={values => {
+        const { price, bookingType, spaceRentalAvailability } = values;
+        const updatedValues = {
+          price,
+          publicData: {
+            bookingType,
+            spaceRentalAvailability,
+          },
+        };
+        console.log(updatedValues);
+
+        onSubmit(updatedValues);
+      }}
       onChange={onChange}
       saveActionMsg={submitButtonText}
       disabled={disabled}
@@ -55,6 +81,8 @@ const EditListingPricingPanel = props => {
       updated={panelUpdated}
       updateInProgress={updateInProgress}
       fetchErrors={errors}
+      bookingTypeOptions={bookingTypeOptions}
+      spaceRentalAvailabilityOptions={spaceRentalAvailabilityOptions}
     />
   ) : (
     <div className={css.priceCurrencyInvalid}>

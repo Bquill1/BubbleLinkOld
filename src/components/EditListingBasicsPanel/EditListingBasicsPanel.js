@@ -5,13 +5,13 @@ import { FormattedMessage } from '../../util/reactIntl';
 import { ensureOwnListing } from '../../util/data';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { LISTING_STATE_DRAFT } from '../../util/types';
-import { ListingLink } from '../../components';
-import { EditListingDescriptionForm } from '../../forms';
+import { ListingLink } from '..';
+import { EditListingBasicsForm } from '../../forms';
 import config from '../../config';
 
-import css from './EditListingDescriptionPanel.css';
+import css from './EditListingBasicsPanel.css';
 
-const EditListingDescriptionPanel = props => {
+const   EditListingBasicsPanel = props => {
   const {
     className,
     rootClassName,
@@ -33,31 +33,32 @@ const EditListingDescriptionPanel = props => {
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
   const panelTitle = isPublished ? (
     <FormattedMessage
-      id="EditListingDescriptionPanel.title"
+      id="EditListingBasicsPanel.title"
       values={{ listingTitle: <ListingLink listing={listing} /> }}
     />
   ) : (
-    <FormattedMessage id="EditListingDescriptionPanel.createListingTitle" />
+    <FormattedMessage id="EditListingBasicsPanel.createListingTitle" />
   );
 
+  const spaceTypeOptions = findOptionsForSelectFilter('spaceType', config.custom.filters);
   const propertyTypeOptions = findOptionsForSelectFilter('propertyType', config.custom.filters);
   const categoryOptions = findOptionsForSelectFilter('category', config.custom.filters);
-  const {category, propertyType, capacity} = publicData
+  const {category, propertyType, capacity, spaceType} = publicData
   return (
     <div className={classes}>
       <h1 className={css.title}>{panelTitle}</h1>
-      <EditListingDescriptionForm
+      <EditListingBasicsForm
         className={css.form}
-        initialValues={{ title, description, category, propertyType, capacity }}
+        initialValues={{ title, description, category, propertyType, capacity, spaceType }}
         saveActionMsg={submitButtonText}
         onSubmit={values => {
-          const { title, description, category, propertyType } = values;
+          const { title, description, category, propertyType, capacity, spaceType } = values;
           const updateValues = {
             title: title.trim(),
             description,
-            publicData: { category, propertyType, capacity}
+            publicData: { category, propertyType, capacity, spaceType },
           };
-
+console.log(updateValues)
           onSubmit(updateValues);
         }}
         onChange={onChange}
@@ -66,21 +67,22 @@ const EditListingDescriptionPanel = props => {
         updated={panelUpdated}
         updateInProgress={updateInProgress}
         fetchErrors={errors}
+        spaceTypeOptions={spaceTypeOptions}
         categories={categoryOptions}
-	propertyType={propertyTypeOptions}
+        propertyType={propertyTypeOptions}
       />
     </div>
   );
 };
 
-EditListingDescriptionPanel.defaultProps = {
+  EditListingBasicsPanel.defaultProps = {
   className: null,
   rootClassName: null,
   errors: null,
   listing: null,
 };
 
-EditListingDescriptionPanel.propTypes = {
+  EditListingBasicsPanel.propTypes = {
   className: string,
   rootClassName: string,
 
@@ -97,4 +99,4 @@ EditListingDescriptionPanel.propTypes = {
   errors: object.isRequired,
 };
 
-export default EditListingDescriptionPanel;
+export default   EditListingBasicsPanel;

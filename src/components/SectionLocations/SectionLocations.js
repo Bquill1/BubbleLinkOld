@@ -9,9 +9,9 @@ import { NamedLink } from '../../components';
 import css from './SectionLocations.css';
 
 import dublinImage from './images/location_dublin.jpg';
-import corkImage from './images/location_cork.jpg';
-import galwayImage from './images/location_galway.jpg';
-import limerickImage from './images/location_limerick.jpg';
+import londonImage from './images/location_london.jpg';
+import parisImage from './images/location_paris.jpg';
+import berlinImage from './images/location_berlin.jpg';
 
 class LocationImage extends Component {
   render() {
@@ -57,19 +57,19 @@ const SectionLocations = props => {
           '?address=Dublin%2C%20Ireland&bounds=53.41166%2C-6.112993%2C53.298881%2C-6.386999&origin=53.3511492%2C-6.2629457'
         )}
         {locationLink(
-          'Cork',
-          corkImage,
-          '?address=Cork%2C%20Ireland&bounds=51.937444%2C-8.389492%2C51.866048%2C-8.584363&origin=51.8985038%2C-8.4727372'
+          'London',
+          londonImage,
+          '?address=London%2C%20England&bounds=51.669993%2C0.152641%2C51.384598%2C-0.35167&origin=51.5007325%2C-0.1268141'
         )}
         {locationLink(
-          'Galway',
-          galwayImage,
-          '?address=Galway%2C%20Ireland&bounds=53.319252%2C-8.954801%2C53.248361%2C-9.132927&origin=53.2744962%2C-9.0519317'
+          'Paris',
+          parisImage,
+          '?address=Paris%2C%20France&bounds=48.9020129995121%2C2.46976999462145%2C48.8156060108013%2C2.22422400085346&origin=48.8737952%2C2.2928388'
         )}
 	{locationLink(
-          'Limerick',
-          limerickImage,
-          '?address=Limerick%2C%20Ireland&bounds=52.689981%2C-8.573346%2C52.61291%2C-8.726285&origin=52.6616822%2C-8.6311847'
+          'Berlin',
+          berlinImage,
+          '?address=Berlin%2C%20Germany&bounds=52.6755029827484%2C13.761131997363%2C52.3382670008426%2C13.0883590415111&origin=52.5162778%2C13.3755154'
         )}
       </div>
     </div>

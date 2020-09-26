@@ -17,14 +17,7 @@ https://github.com/sharetribe/flex-template-web/
 
 ## Upcoming version 2020-XX-XX
 
-<<<<<<< HEAD
-- [fix] Remove duplicate page schema from body.
-  [#1355](https://github.com/sharetribe/ftw-daily/pull/1355)
-
-## [v6.3.1] 2020-08-19
-=======
 ## [v8.3.1] 2020-08-19
->>>>>>> upstream/master
 
 - [fix] Fix popup-button in SelectSingleFilterPopup.css and adjust Footer with correct baselines.
   [#1353](https://github.com/sharetribe/ftw-daily/pull/1353)

@@ -186,7 +186,7 @@ EditListingDescriptionFormComponent.propTypes = {
     showListingsError: propTypes.error,
     updateListingError: propTypes.error,
   }),
-  categories: arrayOf(
+  certificateOptions: arrayOf(
     shape({
       key: string.isRequired,
       label: string.isRequired,

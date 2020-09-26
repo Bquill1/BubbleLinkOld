@@ -1,10 +1,10 @@
-const { calculateQuantityFromDates, calculateTotalFromLineItems } = require('./lineItemHelpers');
+const { calculateQuantityFromHours, calculateTotalFromLineItems } = require('./lineItemHelpers');
 const { types } = require('sharetribe-flex-sdk');
 const { Money } = types;
 
 // This bookingUnitType needs to be one of the following:
 // line-item/night, line-item/day or line-item/units
-const bookingUnitType = 'line-item/night';
+const bookingUnitType = 'line-item/units';
 const PROVIDER_COMMISSION_PERCENTAGE = -10;
 
 /** Returns collection of lineItems (max 50)
@@ -33,8 +33,7 @@ exports.transactionLineItems = (listing, bookingData) => {
 
   /**
    * If you want to use pre-defined component and translations for printing the lineItems base price for booking,
-   * you should use one of the codes:
-   * line-item/night, line-item/day or line-item/units (translated to persons).
+   * you should use code line-item/units
    *
    * Pre-definded commission components expects line item code to be one of the following:
    * 'line-item/provider-commission', 'line-item/customer-commission'
@@ -44,7 +43,7 @@ exports.transactionLineItems = (listing, bookingData) => {
   const booking = {
     code: bookingUnitType,
     unitPrice,
-    quantity: calculateQuantityFromDates(startDate, endDate, bookingUnitType),
+    quantity: calculateQuantityFromHours(startDate, endDate),
     includeFor: ['customer', 'provider'],
   };
 

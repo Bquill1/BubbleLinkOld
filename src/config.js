@@ -44,7 +44,11 @@ const bookingProcessAlias = 'flex-hourly-default-process/release-1';
 //
 // Note 2: Translations will use different translation keys for night, day or unit
 //         depending on the value chosen.
+<<<<<<< HEAD
 const bookingUnitType = 'line-item/day';
+=======
+const bookingUnitType = 'line-item/units';
+>>>>>>> upstream/master
 
 // Should the application fetch available time slots (currently defined as
 // start and end dates) to be shown on listing page.
@@ -90,7 +94,7 @@ const streetAddress = 'Bulevardi 14';
 const canonicalRootURL = process.env.REACT_APP_CANONICAL_ROOT_URL;
 
 // Site title is needed in meta tags (bots and social media sharing reads those)
-const siteTitle = 'Saunatime';
+const siteTitle = 'Yogatime';
 
 // Twitter handle is needed in meta tags (twitter:site). Start it with '@' character
 const siteTwitterHandle = '@sharetribe';

@@ -32,21 +32,21 @@ const noop = () => null;
 
 const filterConfig = [
   {
-    id: 'category',
-    label: 'Category',
+    id: 'certificate',
+    label: 'Certificate',
     type: 'SelectSingleFilter',
     group: 'secondary',
-    queryParamName: 'pub_category',
+    queryParamName: 'pub_certificate',
     config: {
       options: [{ key: 'cat1', label: 'Cat 1' }, { key: 'cat2', label: 'Cat 2' }],
     },
   },
   {
-    id: 'amenities',
-    label: 'Amenities',
+    id: 'yogaStyles',
+    label: 'yogaStyles',
     type: 'SelectMultipleFilter',
     group: 'secondary',
-    queryParamName: 'pub_amenities',
+    queryParamName: 'pub_yogaStyles',
     config: {
       mode: 'has_all',
       options: [
@@ -66,6 +66,7 @@ const filterConfig = [
     },
   },
 ];
+
 describe('ListingPage', () => {
   it('matches snapshot', () => {
     const currentUser = createCurrentUser('user-2');
@@ -104,6 +105,7 @@ describe('ListingPage', () => {
       onInitializeCardPaymentData: noop,
       sendEnquiryInProgress: false,
       onSendEnquiry: noop,
+      onFetchTimeSlots: noop,
       filterConfig,
       fetchLineItemsInProgress: false,
       onFetchTransactionLineItems: () => null,

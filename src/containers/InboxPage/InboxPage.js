@@ -14,8 +14,9 @@ import {
   txIsPaymentExpired,
   txIsPaymentPending,
 } from '../../util/transaction';
-import { propTypes, DATE_TYPE_DATE } from '../../util/types';
-import { ensureCurrentUser } from '../../util/data';
+import { propTypes, DATE_TYPE_DATETIME } from '../../util/types';
+import { createSlug, stringify } from '../../util/urlHelpers';
+import { ensureCurrentUser, ensureListing } from '../../util/data';
 import { getMarketplaceEntities } from '../../ducks/marketplaceData.duck';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
 import {
@@ -161,6 +162,10 @@ const BookingInfoMaybe = props => {
   if (isEnquiry) {
     return null;
   }
+  const listingAttributes = ensureListing(tx.listing).attributes;
+  const timeZone = listingAttributes.availabilityPlan
+    ? listingAttributes.availabilityPlan.timezone
+    : 'Etc/UTC';
 
   // If you want to show the booking price after the booking time on InboxPage you can
   // add the price after the BookingTimeInfo component. You can get the price by uncommenting
@@ -180,7 +185,8 @@ const BookingInfoMaybe = props => {
         intl={intl}
         tx={tx}
         unitType={unitType}
-        dateType={DATE_TYPE_DATE}
+        dateType={DATE_TYPE_DATETIME}
+        timeZone={timeZone}
       />
     </div>
   );
@@ -193,9 +199,27 @@ BookingInfoMaybe.propTypes = {
   unitType: propTypes.bookingUnitType.isRequired,
 };
 
+const createListingLink = (listing, otherUser, searchParams = {}, className = '') => {
+  const listingId = listing.id && listing.id.uuid;
+  const label = listing.attributes.title;
+  const listingDeleted = listing.attributes.deleted;
+
+  if (!listingDeleted) {
+    const params = { id: listingId, slug: createSlug(label) };
+    const to = { search: stringify(searchParams) };
+    return (
+      <NamedLink className={className} name="ListingPage" params={params} to={to}>
+        <Avatar user={otherUser} disableProfileLink />
+      </NamedLink>
+    );
+  } else {
+    return <FormattedMessage id="TransactionPanel.deletedListingOrderTitle" />;
+  }
+};
+
 export const InboxItem = props => {
   const { unitType, type, tx, intl, stateData } = props;
-  const { customer, provider } = tx;
+  const { customer, provider, listing } = tx;
   const isOrder = type === 'order';
 
   const otherUser = isOrder ? provider : customer;
@@ -210,10 +234,12 @@ export const InboxItem = props => {
     [css.bannedUserLink]: isOtherUserBanned,
   });
 
+  const listingLink = listing ? createListingLink(listing, otherUser) : null;
+
   return (
     <div className={css.item}>
       <div className={css.itemAvatar}>
-        <Avatar user={otherUser} />
+        {isOrder && listing ? listingLink : <Avatar user={otherUser} />}
       </div>
       <NamedLink
         className={linkClasses}
@@ -260,6 +286,7 @@ export const InboxPageComponent = props => {
   const {
     unitType,
     currentUser,
+    currentUserListing,
     fetchInProgress,
     fetchOrdersOrSalesError,
     intl,
@@ -327,6 +354,7 @@ export const InboxPageComponent = props => {
 
   const providerNotificationBadge =
     providerNotificationCount > 0 ? <NotificationBadge count={providerNotificationCount} /> : null;
+
   const tabs = [
     {
       text: (
@@ -371,7 +399,7 @@ export const InboxPageComponent = props => {
           <h1 className={css.title}>
             <FormattedMessage id="InboxPage.title" />
           </h1>
-          {nav}
+          {currentUserListing ? nav : <div className={css.navPlaceholder} />}
         </LayoutWrapperSideNav>
         <LayoutWrapperMain>
           {error}
@@ -398,6 +426,7 @@ export const InboxPageComponent = props => {
 InboxPageComponent.defaultProps = {
   unitType: config.bookingUnitType,
   currentUser: null,
+  currentUserListing: null,
   currentUserHasOrders: null,
   fetchOrdersOrSalesError: null,
   pagination: null,
@@ -412,6 +441,7 @@ InboxPageComponent.propTypes = {
 
   unitType: propTypes.bookingUnitType,
   currentUser: propTypes.currentUser,
+  currentUserListing: propTypes.ownListing,
   fetchInProgress: bool.isRequired,
   fetchOrdersOrSalesError: propTypes.error,
   pagination: propTypes.pagination,
@@ -425,9 +455,14 @@ InboxPageComponent.propTypes = {
 
 const mapStateToProps = state => {
   const { fetchInProgress, fetchOrdersOrSalesError, pagination, transactionRefs } = state.InboxPage;
-  const { currentUser, currentUserNotificationCount: providerNotificationCount } = state.user;
+  const {
+    currentUser,
+    currentUserListing,
+    currentUserNotificationCount: providerNotificationCount,
+  } = state.user;
   return {
     currentUser,
+    currentUserListing,
     fetchInProgress,
     fetchOrdersOrSalesError,
     pagination,

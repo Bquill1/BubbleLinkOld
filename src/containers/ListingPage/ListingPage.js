@@ -58,6 +58,8 @@ import SectionHeading from './SectionHeading';
 import SectionDescriptionMaybe from './SectionDescriptionMaybe';
 import SectionFeaturesMaybe from './SectionFeaturesMaybe';
 import SectionReviews from './SectionReviews';
+import SectionHostMaybe from './SectionHostMaybe';
+import SectionRulesMaybe from './SectionRulesMaybe';
 import SectionMapMaybe from './SectionMapMaybe';
 import css from './ListingPage.css';
 import SectionViewMaybe from './SectionViewMaybe';
@@ -77,6 +79,11 @@ const priceData = (price, intl) => {
     };
   }
   return {};
+};
+
+const categoryLabel = (categories, key) => {
+  const cat = categories.find(c => c.key === key);
+  return cat ? cat.label : key;
 };
 
 export class ListingPageComponent extends Component {
@@ -262,6 +269,8 @@ export class ListingPageComponent extends Component {
     const bookingTitle = (
       <FormattedMessage id="ListingPage.bookingTitle" values={{ title: richTitle }} />
     );
+        const bookingSubTitle = intl.formatMessage({ id: 'ListingPage.bookingSubTitle' });
+
 
     const topbar = <TopbarContainer />;
 
@@ -437,21 +446,34 @@ export class ListingPageComponent extends Component {
                     priceTitle={priceTitle}
                     formattedPrice={formattedPrice}
                     richTitle={richTitle}
-                    listingCertificate={publicData ? publicData.certificate : null}
-                    certificateOptions={certificateOptions}
+                    category={category}
                     hostLink={hostLink}
                     showContactUser={showContactUser}
                     onContactUser={this.onContactUser}
                   />
-		  <SectionViewMaybe options={propertyTypeOptions} publicData={publicData} />
+                  <SectionViewMaybe options={propertyTypeOptions} publicData={publicData} />
                   <SectionDescriptionMaybe description={description} />
-                  <SectionFeaturesMaybe options={yogaStylesOptions} publicData={publicData} />
+                  <SectionFeaturesMaybe options={amenityOptions} publicData={publicData} />
+                  <SectionRulesMaybe publicData={publicData} />
                   <SectionMapMaybe
                     geolocation={geolocation}
                     publicData={publicData}
                     listingId={currentListing.id}
                   />
                   <SectionReviews reviews={reviews} fetchReviewsError={fetchReviewsError} />
+                  <SectionHostMaybe
+                    title={title}
+                    listing={currentListing}
+                    authorDisplayName={authorDisplayName}
+                    onContactUser={this.onContactUser}
+                    isEnquiryModalOpen={isAuthenticated && this.state.enquiryModalOpen}
+                    onCloseEnquiryModal={() => this.setState({ enquiryModalOpen: false })}
+                    sendEnquiryError={sendEnquiryError}
+                    sendEnquiryInProgress={sendEnquiryInProgress}
+                    onSubmitEnquiry={this.onSubmitEnquiry}
+                    currentUser={currentUser}
+                    onManageDisableScrolling={onManageDisableScrolling}
+                  />
                 </div>
                 <BookingPanel
                   className={css.bookingPanel}
@@ -460,6 +482,7 @@ export class ListingPageComponent extends Component {
                   unitType={unitType}
                   onSubmit={handleBookingSubmit}
                   title={bookingTitle}
+                  subTitle={bookingSubTitle}
                   authorDisplayName={authorDisplayName}
                   onManageDisableScrolling={onManageDisableScrolling}
                   monthlyTimeSlots={monthlyTimeSlots}

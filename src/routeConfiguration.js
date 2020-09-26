@@ -9,6 +9,7 @@ import {
   InboxPage,
   LandingPage,
   ListingPage,
+  ManageListingsPage,
   NotFoundPage,
   PasswordChangePage,
   PasswordRecoveryPage,
@@ -22,7 +23,7 @@ import {
   StyleguidePage,
   TermsOfServicePage,
   TransactionPage,
-  HostPage
+  HostPage,
 } from './containers';
 
 // routeConfiguration needs to initialize containers first
@@ -133,7 +134,7 @@ const routeConfiguration = () => {
       path: '/l/:slug/:id/:type/:tab',
       name: 'EditListingPage',
       auth: true,
-      component: props => <EditListingPage {...props} allowOnlyOneListing />,
+      component: props => <EditListingPage {...props} />,
       loadData: EditListingPage.loadData,
     },
     {
@@ -230,6 +231,14 @@ const routeConfiguration = () => {
       authPage: 'LoginPage',
       component: props => <TransactionPage {...props} transactionRole="provider" />,
       loadData: params => TransactionPage.loadData({ ...params, transactionRole: 'provider' }),
+    },
+    {
+      path: '/listings',
+      name: 'ManageListingsPage',
+      auth: true,
+      authPage: 'LoginPage',
+      component: props => <ManageListingsPage {...props} />,
+      loadData: ManageListingsPage.loadData,
     },
     {
       path: '/account',

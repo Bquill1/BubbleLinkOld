@@ -33,7 +33,12 @@ const EditListingPricingPanel = props => {
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
   const { price, publicData } = currentListing.attributes;
-  const { bookingType, spaceRentalAvailability } = publicData;
+  const {
+    bookingType = 'hourly',
+    spaceRentalAvailability = 'entireSpace',
+    pricePerSpace = 0,
+    priceForEntire = 0,
+  } = publicData;
 
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
   const panelTitle = isPublished ? (
@@ -51,21 +56,28 @@ const EditListingPricingPanel = props => {
     config.custom.filters
   );
 
-
   const priceCurrencyValid = price instanceof Money ? price.currency === config.currency : true;
   const form = priceCurrencyValid ? (
     <EditListingPricingForm
       className={css.form}
       initialValues={{
-        price,
+        pricePerSpace: new Money(pricePerSpace, config.currency),
+        priceForEntire: new Money(priceForEntire, config.currency),
         bookingType,
         spaceRentalAvailability,
       }}
       onSubmit={values => {
-        const { price, bookingType, spaceRentalAvailability } = values;
+        console.log(values);
+        const { pricePerSpace, priceForEntire, bookingType, spaceRentalAvailability } = values;
+        const price = [pricePerSpace, priceForEntire].reduce((min, price) => {
+          return min.amount < price.amount ? min : price;
+        });
+        console.log(price);
         const updatedValues = {
           price,
           publicData: {
+            pricePerSpace: pricePerSpace.amount,
+            priceForEntire: priceForEntire.amount,
             bookingType,
             spaceRentalAvailability,
           },

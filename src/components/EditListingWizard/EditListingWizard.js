@@ -23,7 +23,7 @@ import EditListingWizardTab, {
   BASICS,
   DESCRIPTION,
   FEATURES,
-  POLICY,
+  // POLICY,
   LOCATION,
   PRICING,
   PHOTOS,
@@ -41,7 +41,7 @@ export const TABS = [
   BASICS,
   FEATURES,
   DESCRIPTION,
-  POLICY,
+  // POLICY,
   LOCATION,
   PRICING,
   ...availabilityMaybe,
@@ -56,14 +56,14 @@ const STRIPE_ONBOARDING_RETURN_URL_FAILURE = 'failure';
 
 const tabLabel = (intl, tab) => {
   let key = null;
-   if (tab === BASICS) {
+  if (tab === BASICS) {
     key = 'EditListingWizard.tabLabelBasics';
   } else if (tab === FEATURES) {
     key = 'EditListingWizard.tabLabelFeatures';
   } else if (tab === DESCRIPTION) {
-   key = 'EditListingWizard.tabLabelDescription';
-  } else if (tab === POLICY) {
-    key = 'EditListingWizard.tabLabelPolicy';
+    key = 'EditListingWizard.tabLabelDescription';
+    // } else if (tab === POLICY) {
+    //   key = 'EditListingWizard.tabLabelPolicy';
   } else if (tab === LOCATION) {
     key = 'EditListingWizard.tabLabelLocation';
   } else if (tab === PRICING) {
@@ -98,13 +98,18 @@ const tabCompleted = (tab, listing) => {
 
   switch (tab) {
     case BASICS:
-      return !!(publicData.propertyType && publicData.category && publicData.capacity &&  publicData.spaceType);
-    case DESCRIPTION:
-      return !!(description && title);
+      return !!(
+        publicData.propertyType &&
+        publicData.category &&
+        publicData.capacity &&
+        publicData.spaceType
+      );
     case FEATURES:
       return !!(publicData && publicData.amenities);
-    case POLICY:
-      return !!(publicData && typeof publicData.rules !== 'undefined');
+    case DESCRIPTION:
+      return !!(description && title);
+    // case POLICY:
+    //   return !!(publicData && typeof publicData.rules !== 'undefined');
     case LOCATION:
       return !!(geolocation && publicData && publicData.location && publicData.location.address);
     case PRICING:

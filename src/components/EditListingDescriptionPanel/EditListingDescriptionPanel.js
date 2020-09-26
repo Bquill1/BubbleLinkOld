@@ -42,20 +42,20 @@ const EditListingDescriptionPanel = props => {
 
   const propertyTypeOptions = findOptionsForSelectFilter('propertyType', config.custom.filters);
   const categoryOptions = findOptionsForSelectFilter('category', config.custom.filters);
-  const {category, propertyType, capacity} = publicData
+  const {rules, specialConsiderations} = publicData
   return (
     <div className={classes}>
       <h1 className={css.title}>{panelTitle}</h1>
       <EditListingDescriptionForm
         className={css.form}
-        initialValues={{ title, description, category, propertyType, capacity }}
+        initialValues={{ title, description, rules, specialConsiderations }}
         saveActionMsg={submitButtonText}
         onSubmit={values => {
-          const { title, description, category, propertyType } = values;
+          const { title, description, rules, specialConsiderations } = values;
           const updateValues = {
             title: title.trim(),
             description,
-            publicData: { category, propertyType, capacity}
+            publicData: { rules, specialConsiderations },
           };
 
           onSubmit(updateValues);
@@ -67,7 +67,7 @@ const EditListingDescriptionPanel = props => {
         updateInProgress={updateInProgress}
         fetchErrors={errors}
         categories={categoryOptions}
-	propertyType={propertyTypeOptions}
+        propertyType={propertyTypeOptions}
       />
     </div>
   );

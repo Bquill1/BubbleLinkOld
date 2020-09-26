@@ -5,24 +5,22 @@ import { Form as FinalForm } from 'react-final-form';
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
-import { maxLength, required, composeValidators } from '../../util/validators';
-import { Form, Button, FieldTextInput, FieldRangeSlider } from '../../components';
-import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
-import CustomPropertyTypeSelectFieldMaybe from './CustomPropertyTypeSelectFieldMaybe';
+import { maxLength, required, composeValidators, notDefault } from '../../util/validators';
+import { Form, Button, FieldTextInput } from '../../components';
 
 import css from './EditListingDescriptionForm.css';
 
 const TITLE_MAX_LENGTH = 60;
 const MIN_GUESTS = 1;
 const MAX_GUESTS = 100;
-const STEP_GUESTS = 1
+const STEP_GUESTS = 1;
 const EditListingDescriptionFormComponent = props => (
   <FinalForm
     {...props}
     render={formRenderProps => {
       const {
         categories,
-	propertyType,
+        propertyType,
         className,
         disabled,
         ready,
@@ -35,7 +33,7 @@ const EditListingDescriptionFormComponent = props => (
         updateInProgress,
         fetchErrors,
         initialValues,
-        values
+        values,
       } = formRenderProps;
       const titleMessage = intl.formatMessage({ id: 'EditListingDescriptionForm.title' });
       const titlePlaceholderMessage = intl.formatMessage({
@@ -50,6 +48,7 @@ const EditListingDescriptionFormComponent = props => (
           maxLength: TITLE_MAX_LENGTH,
         }
       );
+      const notDefaultMessage = intl.formatMessage({ id: 'EditListingDescriptionForm.notDefault' });
 
       const descriptionMessage = intl.formatMessage({
         id: 'EditListingDescriptionForm.description',
@@ -61,6 +60,8 @@ const EditListingDescriptionFormComponent = props => (
       const descriptionRequiredMessage = intl.formatMessage({
         id: 'EditListingDescriptionForm.descriptionRequired',
       });
+
+      const notDefaultError = notDefault(notDefaultMessage);
 
       const { updateListingError, createListingDraftError, showListingsError } = fetchErrors || {};
       const errorMessageUpdateListing = updateListingError ? (
@@ -79,6 +80,25 @@ const EditListingDescriptionFormComponent = props => (
       const errorMessageShowListing = showListingsError ? (
         <p className={css.error}>
           <FormattedMessage id="EditListingDescriptionForm.showListingFailed" />
+        </p>
+      ) : null;
+
+      const rulesLabelMessage = intl.formatMessage({
+        id: 'EditListingPoliciesForm.rulesLabel',
+      });
+      const rulesPlaceholderMessage = intl.formatMessage({
+        id: 'EditListingPoliciesForm.rulesPlaceholder',
+      });
+
+      const specialConsiderationsLabelMessage = intl.formatMessage({
+        id: 'EditListingPoliciesForm.specialConsiderationsLabel',
+      });
+      const specialConsiderationsPlaceholderMessage = intl.formatMessage({
+        id: 'EditListingPoliciesForm.specialConsiderationsPlaceholder',
+      });
+      const errorMessage = updateListingError ? (
+        <p className={css.error}>
+          <FormattedMessage id="EditListingPoliciesForm.updateFailed" />
         </p>
       ) : null;
 
@@ -101,7 +121,11 @@ const EditListingDescriptionFormComponent = props => (
             label={titleMessage}
             placeholder={titlePlaceholderMessage}
             maxLength={TITLE_MAX_LENGTH}
-            validate={composeValidators(required(titleRequiredMessage), maxLength60Message)}
+            validate={composeValidators(
+              required(titleRequiredMessage),
+              maxLength60Message,
+              notDefaultError
+            )}
             autoFocus
           />
 
@@ -113,6 +137,22 @@ const EditListingDescriptionFormComponent = props => (
             label={descriptionMessage}
             placeholder={descriptionPlaceholderMessage}
             validate={composeValidators(required(descriptionRequiredMessage))}
+          />
+          <FieldTextInput
+            id="rules"
+            name="rules"
+            className={css.description}
+            type="textarea"
+            label={rulesLabelMessage}
+            placeholder={rulesPlaceholderMessage}
+          />
+          <FieldTextInput
+            id="specialConsiderations"
+            name="specialConsiderations"
+            className={css.description}
+            type="textarea"
+            label={specialConsiderationsLabelMessage}
+            placeholder={specialConsiderationsPlaceholderMessage}
           />
 
           <Button
@@ -152,7 +192,7 @@ EditListingDescriptionFormComponent.propTypes = {
       label: string.isRequired,
     })
   ),
-propertyType: arrayOf(
+  propertyType: arrayOf(
     shape({
       key: string.isRequired,
       label: string.isRequired,

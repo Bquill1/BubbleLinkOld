@@ -196,10 +196,10 @@ class CurrencySliderInputComponent extends Component {
   }
 
   render() {
+    console.log(this.state)
     const { className, currencyConfig, defaultValue, placeholder, intl, min, max } = this.props;
     const placeholderText = placeholder || intl.formatNumber(defaultValue, currencyConfig);
-    console.log(this.state)
-    const currentValue = parseInt(this.state.value)
+    const currentValue = parseInt(this.state.unformattedValue)
     return (
       <RangeSlider
         className={className}

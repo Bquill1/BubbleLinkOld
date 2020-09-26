@@ -165,8 +165,8 @@ export const EditListingPricingFormComponent = props => (
           values.spaceRentalAvailability === 'individual' ? (
             <div className={css.sliderWrapper}>
               <FieldCurrencySliderInput
-                id="price"
-                name="price"
+                id="pricePerSpace"
+                name="pricePerSpace"
                 className={css.priceInput}
                 autoFocus
                 label={
@@ -179,13 +179,14 @@ export const EditListingPricingFormComponent = props => (
                 max={MAX_PRICE_PER_PERSON}
               />
               <span className={css.sliderLabel}>
-                {(values && values.price && values.price.amount / 100) ||
+                {(values && values.pricePerSpace && values.pricePerSpace.amount / 100) ||
                   (initialValues &&
-                    initialValues.price &&
-                    initialValues.price.amount / 100)}
+                    initialValues.pricePerSpace &&
+                    initialValues.pricePerSpace.amount / 100)}
               </span>
             </div>
           ) : null}
+
           {values.spaceRentalAvailability === 'both' ||
           values.spaceRentalAvailability === 'entireSpace' ? (
             <div className={css.sliderWrapper}>

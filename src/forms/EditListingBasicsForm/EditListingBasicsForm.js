@@ -5,8 +5,8 @@ import { Form as FinalForm } from 'react-final-form';
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
-import { maxLength, required, composeValidators } from '../../util/validators';
-import { Form, Button, FieldTextInput, FieldRangeSlider, FieldSelect } from '../../components';
+import {  required } from '../../util/validators';
+import { Form, Button,  FieldRangeSlider, FieldSelect } from '../../components';
 import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
 import CustomPropertyTypeSelectFieldMaybe from './CustomPropertyTypeSelectFieldMaybe';
 
@@ -47,20 +47,20 @@ const EditListingBasicsFormComponent = props => (
       const { updateListingError, createListingDraftError, showListingsError } = fetchErrors || {};
       const errorMessageUpdateListing = updateListingError ? (
         <p className={css.error}>
-          <FormattedMessage id="  EditListingBasicsForm.updateFailed" />
+          <FormattedMessage id="EditListingBasicsForm.updateFailed" />
         </p>
       ) : null;
 
       // This error happens only on first tab (of EditListingWizard)
       const errorMessageCreateListingDraft = createListingDraftError ? (
         <p className={css.error}>
-          <FormattedMessage id="  EditListingBasicsForm.createListingDraftError" />
+          <FormattedMessage id="EditListingBasicsForm.createListingDraftError" />
         </p>
       ) : null;
 
       const errorMessageShowListing = showListingsError ? (
         <p className={css.error}>
-          <FormattedMessage id="  EditListingBasicsForm.showListingFailed" />
+          <FormattedMessage id="EditListingBasicsForm.showListingFailed" />
         </p>
       ) : null;
 
@@ -99,7 +99,7 @@ const EditListingBasicsFormComponent = props => (
               step={STEP_GUESTS}
               handles={[initialValues.capacity]}
             />
-            <span className={css.sliderLabel}> {values.capacity || initialValues.capacity} </span>
+            <span className={css.sliderLabel}> {values.capacity || initialValues.capacity || 0} </span>
           </div>
           <FieldSelect
             className={css.category}

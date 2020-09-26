@@ -11,7 +11,7 @@ import config from '../../config';
 
 import css from './EditListingBasicsPanel.css';
 
-const   EditListingBasicsPanel = props => {
+const EditListingBasicsPanel = props => {
   const {
     className,
     rootClassName,
@@ -43,20 +43,21 @@ const   EditListingBasicsPanel = props => {
   const spaceTypeOptions = findOptionsForSelectFilter('spaceType', config.custom.filters);
   const propertyTypeOptions = findOptionsForSelectFilter('propertyType', config.custom.filters);
   const categoryOptions = findOptionsForSelectFilter('category', config.custom.filters);
-  const {category, propertyType, capacity, spaceType} = publicData
+  const { category, propertyType, capacity, spaceType } = publicData;
   return (
     <div className={classes}>
       <h1 className={css.title}>{panelTitle}</h1>
       <EditListingBasicsForm
         className={css.form}
-        initialValues={{ title, description, category, propertyType, capacity, spaceType }}
+        initialValues={{ category, propertyType, capacity, spaceType }}
         saveActionMsg={submitButtonText}
         onSubmit={values => {
           const { category, propertyType, capacity, spaceType } = values;
           const updateValues = {
-            publicData: { category, propertyType, capacity, spaceType },
+            title: title || 'Your Space',
+            publicData: { propertyType, category, capacity, spaceType },
           };
-console.log(updateValues)
+          console.log(updateValues);
           onSubmit(updateValues);
         }}
         onChange={onChange}
@@ -73,14 +74,14 @@ console.log(updateValues)
   );
 };
 
-  EditListingBasicsPanel.defaultProps = {
+EditListingBasicsPanel.defaultProps = {
   className: null,
   rootClassName: null,
   errors: null,
   listing: null,
 };
 
-  EditListingBasicsPanel.propTypes = {
+EditListingBasicsPanel.propTypes = {
   className: string,
   rootClassName: string,
 
@@ -97,4 +98,4 @@ console.log(updateValues)
   errors: object.isRequired,
 };
 
-export default   EditListingBasicsPanel;
+export default EditListingBasicsPanel;

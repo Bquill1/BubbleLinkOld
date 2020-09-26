@@ -225,3 +225,13 @@ export const validSGID = message => value => {
 
 export const composeValidators = (...validators) => value =>
   validators.reduce((error, validator) => error || validator(value), VALID);
+
+  //  JUST FOR DESCRIPTION PANEL
+
+export const notDefault = message => value => {
+  if (typeof value === 'undefined' || value === 'Your Place') {
+    // undefined or null values are invalid
+    return message;
+  }
+  return VALID;
+};

@@ -16,7 +16,7 @@ import {
   EditListingFeaturesPanel,
   EditListingLocationPanel,
   EditListingPhotosPanel,
-  EditListingPoliciesPanel,
+  // EditListingPoliciesPanel,
   EditListingPricingPanel,
 } from '../../components';
 
@@ -27,7 +27,7 @@ export const AVAILABILITY = 'availability';
 export const BASICS = 'basics';
 export const FEATURES = 'features';
 export const DESCRIPTION = 'description';
-export const POLICY = 'policy';
+// export const POLICY = 'policy';
 export const LOCATION = 'location';
 export const PRICING = 'pricing';
 export const PHOTOS = 'photos';
@@ -37,7 +37,7 @@ export const SUPPORTED_TABS = [
   BASICS,
   FEATURES,
   DESCRIPTION,
-  POLICY,
+  // POLICY,
   LOCATION,
   PRICING,
   AVAILABILITY,
@@ -203,20 +203,20 @@ console.log(props)
         />
       );
     }
-    case POLICY: {
-      const submitButtonTranslationKey = isNewListingFlow
-        ? 'EditListingWizard.saveNewPolicies'
-        : 'EditListingWizard.saveEditPolicies';
-      return (
-        <EditListingPoliciesPanel
-          {...panelProps(POLICY)}
-          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
-          onSubmit={values => {
-            onCompleteEditListingWizardTab(tab, values);
-          }}
-        />
-      );
-    }
+    // case POLICY: {
+    //   const submitButtonTranslationKey = isNewListingFlow
+    //     ? 'EditListingWizard.saveNewPolicies'
+    //     : 'EditListingWizard.saveEditPolicies';
+    //   return (
+    //     <EditListingPoliciesPanel
+    //       {...panelProps(POLICY)}
+    //       submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
+    //       onSubmit={values => {
+    //         onCompleteEditListingWizardTab(tab, values);
+    //       }}
+    //     />
+    //   );
+    // }
     case LOCATION: {
       const submitButtonTranslationKey = isNewListingFlow
         ? 'EditListingWizard.saveNewLocation'

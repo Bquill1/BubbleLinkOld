@@ -103,7 +103,6 @@ class CurrencySliderInputComponent extends Component {
   }
 
   onInputChange(event) {
-    console.log(event)
     // Update value strings on state
     const { unformattedValue } = this.updateValues(event);
     // Notify parent component about current price change
@@ -196,7 +195,6 @@ class CurrencySliderInputComponent extends Component {
   }
 
   render() {
-    console.log(this.state)
     const { className, currencyConfig, defaultValue, placeholder, intl, min, max } = this.props;
     const placeholderText = placeholder || intl.formatNumber(defaultValue, currencyConfig);
     const currentValue = parseInt(this.state.unformattedValue)

@@ -34,34 +34,34 @@
  */
 
 export const filters = [
-   {
-    id: 'dates-length',
-    label: 'Dates',
-    type: 'BookingDateRangeLengthFilter',
-    group: 'primary',
-    // Note: BookingDateRangeFilter is fixed filter,
-    // you can't change "queryParamNames: ['dates'],"
-    queryParamNames: ['dates', 'minDuration'],
-    config: {
-      // A global time zone to use in availability searches. As listings
-      // can be in various time zones, we must decide what time zone we
-      // use in search when looking for available listings within a
-      // certain time interval.
-      //
-      // If you have all/most listings in a certain time zone, change this
-      // config value to that.
-      //
-      // See: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-      searchTimeZone: 'Etc/UTC',
+         {
+           id: 'dates-length',
+           label: 'Dates',
+           type: 'BookingDateRangeLengthFilter',
+           group: 'primary',
+           // Note: BookingDateRangeFilter is fixed filter,
+           // you can't change "queryParamNames: ['dates'],"
+           queryParamNames: ['dates', 'minDuration'],
+           config: {
+             // A global time zone to use in availability searches. As listings
+             // can be in various time zones, we must decide what time zone we
+             // use in search when looking for available listings within a
+             // certain time interval.
+             //
+             // If you have all/most listings in a certain time zone, change this
+             // config value to that.
+             //
+             // See: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+             searchTimeZone: 'Etc/UTC',
 
-      // Options for the minimum duration of the booking
-      options: [
-        { key: '0', label: 'Any length' },
-        { key: '60', label: '1 hour', shortLabel: '1h' },
-        { key: '120', label: '2 hours', shortLabel: '2h' },
-      ],
-    },
-  },
+             // Options for the minimum duration of the booking
+             options: [
+               { key: '0', label: 'Any length' },
+               { key: '60', label: '1 hour', shortLabel: '1h' },
+               { key: '120', label: '2 hours', shortLabel: '2h' },
+             ],
+           },
+         },
          {
            id: 'dates',
            label: 'Dates',
@@ -104,7 +104,7 @@ export const filters = [
          {
            id: 'category',
            label: 'Category',
-           type: 'SelectSingleFilter',
+           type: 'SelectMultipleFilter',
            group: 'secondary',
            queryParamNames: ['pub_category'],
            config: {
@@ -148,7 +148,7 @@ export const filters = [
            config: {
              // Optional modes: 'has_all', 'has_any'
              // https://www.sharetribe.com/api-reference/marketplace.html#extended-data-filtering
-             searchMode: 'has_all',
+             searchMode: 'has_any',
 
              // "key" is the option you see in Flex Console.
              // "label" is set here for this web app's UI only.
@@ -197,6 +197,7 @@ export const filters = [
            group: 'secondary',
            queryParamNames: ['pub_propertyType'],
            config: {
+             searchMode: 'has_any',
              // "key" is the option you see in Flex Console.
              // "label" is set here for the UI only.
              // Note: label is not added through the translation files
@@ -221,7 +222,10 @@ export const filters = [
              // "label" is set here for the UI only.
              // Note: label is not added through the translation files
              // to make filter customizations a bit easier.
-             options: [{ key: 'hourly', label: 'Hourly' }, { key: 'daily', label: 'Daily' }],
+             options: [
+               { key: 'hourly', label: 'Hourly' },
+               { key: 'daily', label: 'Daily' },
+             ],
            },
          },
          {
@@ -235,25 +239,9 @@ export const filters = [
              // "label" is set here for the UI only.
              // Note: label is not added through the translation files
              // to make filter customizations a bit easier.
-             options: [{ key: 'entireSpace', label: 'Entire Space' }, { key: 'individual', label: 'Individually' }, { key: 'both', label: 'both'} ],
-           },
-         },
-         {
-           id: 'numSpaces',
-           label: 'NumSpaces',
-           type: 'SelectSingleFilter',
-           group: 'secondary',
-           queryParamNames: ['pub_numSpaces'],
-           config: {
-             // "key" is the option you see in Flex Console.
-             // "label" is set here for the UI only.
-             // Note: label is not added through the translation files
-             // to make filter customizations a bit easier.
              options: [
-               { key: 'one', label: 'One' },
-               { key: 'two', label: 'Two' },
-               { key: 'three', label: 'Three' },
-               { key: 'four', label: 'Four' },
+               { key: 'entireSpace', label: 'Entire Space' },
+               { key: 'individual', label: 'Individually' },
              ],
            },
          },

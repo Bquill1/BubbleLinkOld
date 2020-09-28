@@ -35,11 +35,11 @@
 }
 .buttonWrapper{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 .priceOptionButton{
   display: inline-flex;
-  margin: 24px;
+  margin: 10px 0 0 0;
 }
 
 .sliderWrapper {
@@ -56,4 +56,21 @@
 }
 .priceSlider{
   min-width: 200px;
+}
+
+.fieldWrapper{
+display: flex;
+flex-direction: column;
+
+}
+.spaceRentalAvailabilityWrapper{
+display: flex;
+flex-direction: column;
+
+}
+.bookingTypeWrapper{
+display: flex;
+flex-direction: column;
+margin-left: 30px;
+
 }

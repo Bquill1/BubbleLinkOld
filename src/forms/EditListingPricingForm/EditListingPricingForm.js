@@ -50,7 +50,6 @@ export const EditListingPricingFormComponent = props => (
         initialValues,
       } = formRenderProps;
       console.log(values);
-      console.log(initialValues);
       const unitType = config.bookingUnitType;
       const isNightly = unitType === LINE_ITEM_NIGHT;
       const isDaily = unitType === LINE_ITEM_DAY;
@@ -125,22 +124,45 @@ export const EditListingPricingFormComponent = props => (
               <FormattedMessage id="EditListingPricingForm.showListingFailed" />
             </p>
           ) : null}
-          <div className={css.bookingTypeWrapper}>
+          <div className={''}>
             <div className={css.inputHeading}>
               <label htmlFor={'bookingType'}>{bookingTypeMessage}</label>
             </div>
             <div className={css.buttonWrapper}>
-              {bookingTypeOptions.map(b => {
-                return (
-                  <FieldRadioButton
-                    id={`bookingType-${b.key}`}
-                    className={css.priceOptionButton}
-                    name="bookingType"
-                    label={b.label}
-                    value={b.key}
-                  />
-                );
-              })}
+              <div className={css.spaceRentalAvailabilityWrapper}>
+                <div className={css.buttonWrapper}>
+                  {spaceRentalAvailabilityOptions.map(c => {
+                    return (
+                      <div className={css.fieldWrapper}>
+                        <div className={css.spaceRentalAvailabilityWrapper}>
+                          <FieldRadioButton
+                            id={`${classNames.key}-spaceRentalAvailability-${c.key}`}
+                            className={css.priceOptionButton}
+                            name="spaceRentalAvailability"
+                            label={c.label}
+                            value={c.key}
+                          />
+                        </div>
+                        <div className={css.bookingTypeWrapper}>
+                          {bookingTypeOptions.map(b => {
+                            return (
+                              <>
+                                <FieldRadioButton
+                                  id={`bookingType-${b.key}`}
+                                  className={css.priceOptionButton}
+                                  name="bookingType"
+                                  label={b.label}
+                                  value={b.key}
+                                />
+                              </>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
           <div className={css.spaceRentalAvailabilityWrapper}>

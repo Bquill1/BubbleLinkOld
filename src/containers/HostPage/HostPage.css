@@ -2,6 +2,7 @@
 
 .pageTitle {
   text-align: center;
+  color: var(--marketplaceColor);
 }
 
 .staticPageWrapper {
@@ -34,11 +35,13 @@
 
 .contentSide {
   font-style: italic;
+  color: var(--marketplaceColor);
+
 
   @media (--viewportMedium) {
     width: 193px;
     margin-right: 103px;
-    margin-top: 0px;
+
   }
 }
 
@@ -55,3 +58,6 @@
   margin-top: 32px;
   margin-bottom: 16px;
 }
+
+
+

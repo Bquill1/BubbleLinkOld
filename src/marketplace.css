@@ -42,9 +42,9 @@
 
   /* ================ Colors ================ */
 
-  --marketplaceColor: #B22222;
-  --marketplaceColorLight: #FFD700;
-  --marketplaceColorDark: #8c291e;
+  --marketplaceColor: #A21F38;
+  --marketplaceColorLight: #D8806B;
+  --marketplaceColorDark: #D8806B;
 
   /* Used with inline CSS SVGs */
   --marketplaceColorEncoded: %23c0392b;
@@ -162,8 +162,8 @@
   --marketplaceButtonFontStyles: {
     font-family: 'poppins', Helvetica, Arial, sans-serif;
     font-weight: var(--fontWeightSemiBold);
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 20px;
+    line-height: 20px;
     letter-spacing: 0.2px;
 
     @media (--viewportMedium) {

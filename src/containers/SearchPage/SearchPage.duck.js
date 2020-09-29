@@ -120,7 +120,7 @@ export const searchMapListingsError = e => ({
 
 export const searchListings = searchParams => (dispatch, getState, sdk) => {
   dispatch(searchListingsRequest(searchParams));
-
+console.log(searchParams)
   const priceSearchParams = priceParam => {
     const inSubunits = value =>
       convertUnitToSubUnit(value, unitDivisor(config.currencyConfig.currency));

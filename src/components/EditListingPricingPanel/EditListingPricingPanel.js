@@ -34,10 +34,13 @@ const EditListingPricingPanel = props => {
   const currentListing = ensureOwnListing(listing);
   const { price, publicData } = currentListing.attributes;
   const {
-    bookingType = 'hourly',
-    spaceRentalAvailability = 'entireSpace',
-    pricePerSpace = 0,
-    priceForEntire = 0,
+    bookingType_entireSpace,
+    bookingType_individual,
+    price_entireSpace_daily = 0,
+    price_entireSpace_hourly = 0,
+    price_individual_daily = 0,
+    price_individual_hourly = 0,
+    spaceRentalAvailability,
   } = publicData;
 
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
@@ -56,35 +59,57 @@ const EditListingPricingPanel = props => {
     <FormattedMessage id="EditListingPricingPanel.createListingTitle" />
   );
 
-  const bookingTypeOptions = findOptionsForSelectFilter('bookingType', config.custom.filters);
+  // const bookingTypeOptions = findOptionsForSelectFilter('bookingType', config.custom.filters);
   const spaceRentalAvailabilityOptions = findOptionsForSelectFilter(
     'spaceRentalAvailability',
     config.custom.filters
   );
-
+  const bookingTypeOptions = [
+    { key: 'hourly', label: 'Hourly' },
+    { key: 'daily', label: 'Daily' },
+  ];
   const priceCurrencyValid = price instanceof Money ? price.currency === config.currency : true;
   const form = priceCurrencyValid ? (
     <EditListingPricingForm
       className={css.form}
       initialValues={{
-        pricePerSpace: new Money(pricePerSpace, config.currency),
-        priceForEntire: new Money(priceForEntire, config.currency),
-        bookingType,
+        bookingType_entireSpace,
+        bookingType_individual,
+        price_entireSpace_daily: new Money(price_entireSpace_daily, config.currency),
+        price_entireSpace_hourly: new Money(price_entireSpace_hourly, config.currency),
+        price_individual_daily: new Money(price_individual_daily, config.currency),
+        price_individual_hourly: new Money(price_individual_hourly, config.currency),
         spaceRentalAvailability,
       }}
       onSubmit={values => {
         console.log(values);
-        const { pricePerSpace, priceForEntire, bookingType, spaceRentalAvailability } = values;
-        const price = [pricePerSpace, priceForEntire].reduce((min, price) => {
+        const {
+          bookingType_entireSpace,
+          bookingType_individual,
+          price_entireSpace_daily,
+          price_entireSpace_hourly,
+          price_individual_daily,
+          price_individual_hourly,
+          spaceRentalAvailability,
+        } = values;
+        const price = [
+          price_entireSpace_daily,
+          price_entireSpace_hourly,
+          price_individual_daily,
+          price_individual_hourly,
+        ].reduce((min, price) => {
           return min.amount < price.amount ? min : price;
         });
         console.log(price);
         const updatedValues = {
           price,
           publicData: {
-            pricePerSpace: pricePerSpace.amount,
-            priceForEntire: priceForEntire.amount,
-            bookingType,
+            bookingType_entireSpace,
+            bookingType_individual,
+            price_entireSpace_daily: price_entireSpace_daily.amount,
+            price_entireSpace_hourly: price_entireSpace_hourly.amount,
+            price_individual_daily: price_individual_daily.amount,
+            price_individual_hourly: price_individual_hourly.amount,
             spaceRentalAvailability,
           },
         };

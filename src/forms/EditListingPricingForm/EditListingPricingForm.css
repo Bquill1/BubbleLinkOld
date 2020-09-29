@@ -39,13 +39,13 @@
 }
 .priceOptionButton{
   display: inline-flex;
-  margin: 10px 0 0 0;
+  margin: 0 0 0 0;
 }
 
 .sliderWrapper {
   display: flex;
   flex-direction: row;
-  margin-bottom: 32px;
+  margin: 0 0 4px 0;
 }
 .sliderLabel {
   font-size: 24px;
@@ -61,7 +61,12 @@
 .fieldWrapper{
 display: flex;
 flex-direction: column;
+margin-bottom: 2px;
+padding: 5px;
+}
 
+.fieldWrapper:last-child{
+border-top: 2px solid grey;
 }
 .spaceRentalAvailabilityWrapper{
 display: flex;

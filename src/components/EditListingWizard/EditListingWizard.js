@@ -291,6 +291,7 @@ class EditListingWizard extends Component {
       currentUser,
       ...rest
     } = this.props;
+    console.log(this.props)
 
     const selectedTab = params.tab;
     const isNewListingFlow = [LISTING_PAGE_PARAM_TYPE_NEW, LISTING_PAGE_PARAM_TYPE_DRAFT].includes(

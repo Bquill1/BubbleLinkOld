@@ -18,7 +18,7 @@ const SearchFiltersPrimaryComponent = props => {
     toggleSecondaryFiltersOpen,
     selectedSecondaryFiltersCount,
   } = props;
-
+console.log(props)
   const hasNoResult = listingsAreLoaded && resultsCount === 0;
   const classes = classNames(rootClassName || css.root, className);
 

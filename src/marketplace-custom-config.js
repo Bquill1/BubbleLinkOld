@@ -72,17 +72,40 @@ export const filters = [
            queryParamNames: ['dates'],
            config: {},
          },
+          // {
+          //   id: 'price',
+          //   label: 'Price',
+          //   type: 'PriceFilter',
+          //   group: 'primary',
+          //   // Note: PriceFilter is fixed filter,
+          //   // you can't change "queryParamNames: ['price'],"
+          //   queryParamNames: ['price'],
+          //   // Price filter configuration
+          //   // Note: unlike most prices this is not handled in subunits
+          //   config: {
+          //     min: 0,
+          //     max: 1000,
+          //     step: 5,
+          //   },
+          // },
          {
-           id: 'price',
+           id: 'priceMulti',
            label: 'Price',
-           type: 'PriceFilter',
+           type: 'PriceFilterMulti',
            group: 'primary',
            // Note: PriceFilter is fixed filter,
            // you can't change "queryParamNames: ['price'],"
-           queryParamNames: ['price'],
+           queryParamNames: [
+             'pub_price_entireSpace_daily',
+             'pub_price_entireSpace_hourly',
+             'pub_price_individual_daily',
+             'pub_price_individual_hourly',
+           ],
+           
            // Price filter configuration
            // Note: unlike most prices this is not handled in subunits
            config: {
+            searchMode: 'has_any',
              min: 0,
              max: 1000,
              step: 5,
@@ -212,12 +235,31 @@ export const filters = [
            },
          },
          {
-           id: 'bookingType',
-           label: 'Booking Type',
+           id: 'bookingType_individual',
+           label: 'Booking Type - Individual',
            type: 'SelectMultipleFilter',
            group: 'secondary',
-           queryParamNames: ['pub_bookingType'],
+           queryParamNames: ['pub_bookingType_individual'],
            config: {
+             searchMode: 'has_any',
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for the UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [
+               { key: 'hourly', label: 'Hourly' },
+               { key: 'daily', label: 'Daily' },
+             ],
+           },
+         },
+         {
+           id: 'bookingType_entireSpace',
+           label: 'Booking Type - Entire Space',
+           type: 'SelectMultipleFilter',
+           group: 'secondary',
+           queryParamNames: ['pub_bookingType_entireSpace'],
+           config: {
+             searchMode: 'has_any',
              // "key" is the option you see in Flex Console.
              // "label" is set here for the UI only.
              // Note: label is not added through the translation files

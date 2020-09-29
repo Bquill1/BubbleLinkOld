@@ -17,6 +17,7 @@ import {
   FieldRadioButton,
   FieldRangeSlider,
   FieldCurrencySliderInput,
+  FieldCheckbox,
 } from '../../components';
 import css from './EditListingPricingForm.css';
 
@@ -49,6 +50,7 @@ export const EditListingPricingFormComponent = props => (
         values,
         initialValues,
       } = formRenderProps;
+      console.log(initialValues)
       console.log(values);
       const unitType = config.bookingUnitType;
       const isNightly = unitType === LINE_ITEM_NIGHT;
@@ -133,39 +135,75 @@ export const EditListingPricingFormComponent = props => (
                 <div className={css.buttonWrapper}>
                   {spaceRentalAvailabilityOptions.map(c => {
                     return (
-                      <div className={css.fieldWrapper}>
-                        <div className={css.spaceRentalAvailabilityWrapper}>
-                          <FieldRadioButton
-                            id={`${classNames.key}-spaceRentalAvailability-${c.key}`}
-                            className={css.priceOptionButton}
-                            name="spaceRentalAvailability"
-                            label={c.label}
-                            value={c.key}
-                          />
+                      <>
+                        <div className={css.fieldWrapper}>
+                          <div className={css.spaceRentalAvailabilityWrapper}>
+                            <FieldCheckbox
+                              id={`spaceRentalAvailability_${c.key}`}
+                              className={css.priceOptionButton}
+                              name="spaceRentalAvailability"
+                              label={c.label}
+                              value={c.key}
+                            />
+                          </div>
+                          <div className={css.bookingTypeWrapper}>
+                            {bookingTypeOptions.map(b => {
+                              console.log(c)
+                              return (
+                                <>
+                                  {values.spaceRentalAvailability?.includes(c.key) ? (
+                                    <>
+                                      <FieldCheckbox
+                                        id={`${c.key}_bookingType_${b.key}`}
+                                        className={css.priceOptionButton}
+                                        name={`bookingType_${c.key}`}
+                                        label={b.label}
+                                        value={b.key}
+                                      />
+                                      {values?.[`bookingType_${c.key}`]?.includes(b.key) ? (
+                                        <div className={css.sliderWrapper}>
+                                          <FieldCurrencySliderInput
+                                            id={`price_${c.key}_${b.key}`}
+                                            name={`price_${c.key}_${b.key}`}
+                                            className={css.priceInput}
+                                            autoFocus
+                                            label={
+                                              values.bookingType === 'hourly'
+                                                ? pricePerPersonLabelHour
+                                                : pricePerPersonLabelDay
+                                            }
+                                            placeholder={pricePlaceholderMessage}
+                                            currencyConfig={config.currencyConfig}
+                                            validate={priceValidators}
+                                            min={MIN_PRICE_PER_PERSON}
+                                            max={MAX_PRICE_PER_PERSON}
+                                          />
+                                          <span className={css.sliderLabel}>
+                                            {(values &&
+                                              values[`price_${c.key}_${b.key}`] &&
+                                              values[`price_${c.key}_${b.key}`].amount / 100) ||
+                                              (initialValues &&
+                                                initialValues[`price_${c.key}_${b.key}`] &&
+                                                initialValues[`price_${c.key}_${b.key}`].amount /
+                                                  100)}
+                                          </span>
+                                        </div>
+                                      ) : null}
+                                    </>
+                                  ) : null}
+                                </>
+                              );
+                            })}
+                          </div>
                         </div>
-                        <div className={css.bookingTypeWrapper}>
-                          {bookingTypeOptions.map(b => {
-                            return (
-                              <>
-                                <FieldRadioButton
-                                  id={`bookingType-${b.key}`}
-                                  className={css.priceOptionButton}
-                                  name="bookingType"
-                                  label={b.label}
-                                  value={b.key}
-                                />
-                              </>
-                            );
-                          })}
-                        </div>
-                      </div>
+                      </>
                     );
                   })}
                 </div>
               </div>
             </div>
           </div>
-          <div className={css.spaceRentalAvailabilityWrapper}>
+          {/* <div className={css.spaceRentalAvailabilityWrapper}>
             <div className={css.inputHeading}>
               <label htmlFor={'bookingType'}>{spaceRentalAvailabilityMessage}</label>
             </div>
@@ -233,7 +271,7 @@ export const EditListingPricingFormComponent = props => (
                     initialValues.priceForEntire.amount / 100)}
               </span>
             </div>
-          ) : null}
+          ) : null} */}
           <Button
             className={css.submitButton}
             type="submit"

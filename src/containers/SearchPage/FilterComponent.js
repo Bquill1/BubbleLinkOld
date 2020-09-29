@@ -3,6 +3,7 @@ import {
   BookingDateRangeFilter,
   BookingDateRangeLengthFilter,
   PriceFilter,
+  PriceFilterMulti,
   KeywordFilter,
   SelectSingleFilter,
   SelectMultipleFilter,
@@ -86,6 +87,19 @@ const FilterComponent = props => {
     case 'PriceFilter': {
       return (
         <PriceFilter
+          id={componentId}
+          label={label}
+          queryParamNames={queryParamNames}
+          initialValues={initialValues(queryParamNames)}
+          onSubmit={getHandleChangedValueFn(useHistoryPush)}
+          {...config}
+          {...rest}
+        />
+      );
+    }
+    case 'PriceFilterMulti': {
+      return (
+        <PriceFilterMulti
           id={componentId}
           label={label}
           queryParamNames={queryParamNames}

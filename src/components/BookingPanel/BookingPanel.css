@@ -71,7 +71,7 @@
 
   @media (--viewportLarge) {
     display: block;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
   }
 }
 .desktopPriceContainer {

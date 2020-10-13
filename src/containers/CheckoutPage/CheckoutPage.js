@@ -142,6 +142,7 @@ export class CheckoutPageComponent extends Component {
       fetchStripeCustomer,
       history,
     } = this.props;
+    console.log(this.props);
 
     // Fetch currentUser with stripeCustomer entity
     // Note: since there's need for data loading in "componentWillMount" function,
@@ -179,12 +180,12 @@ export class CheckoutPageComponent extends Component {
       pageData.bookingDates.bookingEnd &&
       pageData.bookingData.quantity &&
       !isBookingCreated;
-
+    console.log(shouldFetchSpeculatedTransaction);
     if (shouldFetchSpeculatedTransaction) {
       const listingId = pageData.listing.id;
       const transactionId = tx ? tx.id : null;
+      console.log(pageData)
       const { bookingStart, bookingEnd } = pageData.bookingDates;
-
       // Fetch speculated transaction for showing price in booking breakdown
       // NOTE: if unit type is line-item/units, quantity needs to be added.
       // The way to pass it to checkout page is through pageData.bookingData
@@ -503,7 +504,7 @@ export class CheckoutPageComponent extends Component {
       retrievePaymentIntentError,
       stripeCustomerFetched,
     } = this.props;
-
+    console.log(this.props);
     // Since the listing data is already given from the ListingPage
     // and stored to handle refreshes, it might not have the possible
     // deleted or closed information in it. If the transaction
@@ -951,10 +952,7 @@ const mapDispatchToProps = dispatch => ({
 
 const CheckoutPage = compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(CheckoutPageComponent);
 

@@ -209,3 +209,11 @@
     transition: width var(--transitionStyleButton);
   }
 }
+
+.pricePerHourWrapper{
+width:100%;
+}
+
+.pricePerDayWrapper{
+  width:100%;
+}

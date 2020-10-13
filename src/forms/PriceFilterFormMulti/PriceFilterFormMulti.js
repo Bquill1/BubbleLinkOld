@@ -95,11 +95,13 @@ const PriceFilterFormComponent = props => {
           style,
           intl,
           values,
+          priceFilterParams,
           initialValues,
           min,
           max,
           step,
         } = formRenderProps;
+        console.log(priceFilterParams)
         const {
           minPricePerDay: minPricePerDayRaw,
           maxPricePerDay: maxPricePerDayRaw,
@@ -136,95 +138,99 @@ const PriceFilterFormComponent = props => {
             style={{ minWidth: '300px', ...style }}
           >
             <div className={css.contentWrapper}>
-              <div className={css.pricePerHourWrapper}>
-              <span className={css.label}>
-                <FormattedMessage id="PriceFilterForm.labelHour" />
-              </span>
-                <div className={css.inputsWrapper}>
-                  <Field
-                    className={css.minPrice}
-                    id={`${id}.hour.minPrice`}
-                    name="minPricePerHour"
-                    component="input"
-                    type="number"
-                    placeholder={min}
-                    min={min}
-                    max={max}
-                    step={step}
-                    parse={parseMin(min, maxPricePerHour)}
-                  />
-                  <span className={css.priceSeparator}>-</span>
-                  <Field
-                    className={css.maxPrice}
-                    id={`${id}.hour.maxPrice`}
-                    name="maxPricePerHour"
-                    component="input"
-                    type="number"
-                    placeholder={max}
-                    min={min}
-                    max={max}
-                    step={step}
-                    parse={parseMax(max, minPricePerHour)}
-                  />
+              {!priceFilterParams || priceFilterParams === 'hourly' ? (
+                <div className={css.pricePerHourWrapper}>
+                  <span className={css.label}>
+                    <FormattedMessage id="PriceFilterForm.labelHour" />
+                  </span>
+                  <div className={css.inputsWrapper}>
+                    <Field
+                      className={css.minPrice}
+                      id={`${id}.hour.minPrice`}
+                      name="minPricePerHour"
+                      component="input"
+                      type="number"
+                      placeholder={min}
+                      min={min}
+                      max={max}
+                      step={step}
+                      parse={parseMin(min, maxPricePerHour)}
+                    />
+                    <span className={css.priceSeparator}>-</span>
+                    <Field
+                      className={css.maxPrice}
+                      id={`${id}.hour.maxPrice`}
+                      name="maxPricePerHour"
+                      component="input"
+                      type="number"
+                      placeholder={max}
+                      min={min}
+                      max={max}
+                      step={step}
+                      parse={parseMax(max, minPricePerHour)}
+                    />
+                  </div>
+                  <div className={css.sliderWrapper}>
+                    <RangeSlider
+                      min={min}
+                      max={max}
+                      step={step}
+                      handles={[minPricePerHour || min, maxPricePerHour || max]}
+                      onChange={handles => {
+                        form.change('minPricePerHour', handles[0]);
+                        form.change('maxPricePerHour', handles[1]);
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className={css.sliderWrapper}>
-                  <RangeSlider
-                    min={min}
-                    max={max}
-                    step={step}
-                    handles={[minPricePerHour || min, maxPricePerHour || max]}
-                    onChange={handles => {
-                      form.change('minPricePerHour', handles[0]);
-                      form.change('maxPricePerHour', handles[1]);
-                    }}
-                  />
-                </div>
-              </div>
-              <div className={css.pricePerDayWrapper}>
-              <span className={css.label}>
-                <FormattedMessage id="PriceFilterForm.labelDay" />
-              </span>
-                <div className={css.inputsWrapper}>
-                  <Field
-                    className={css.minPrice}
-                    id={`${id}.day.minPrice`}
-                    name="minPricePerDay"
-                    component="input"
-                    type="number"
-                    placeholder={min}
-                    min={min}
-                    max={max}
-                    step={step}
-                    parse={parseMin(min, maxPricePerDay)}
-                  />
-                  <span className={css.priceSeparator}>-</span>
-                  <Field
-                    className={css.maxPrice}
-                    id={`${id}.day.maxPrice`}
-                    name="maxPricePerDay"
-                    component="input"
-                    type="number"
-                    placeholder={max}
-                    min={min}
-                    max={max}
-                    step={step}
-                    parse={parseMax(max, minPricePerDay)}
-                  />
-                </div>
+              ) : null}
+              {!priceFilterParams || priceFilterParams === 'daily' ? (
+                <div className={css.pricePerDayWrapper}>
+                  <span className={css.label}>
+                    <FormattedMessage id="PriceFilterForm.labelDay" />
+                  </span>
+                  <div className={css.inputsWrapper}>
+                    <Field
+                      className={css.minPrice}
+                      id={`${id}.day.minPrice`}
+                      name="minPricePerDay"
+                      component="input"
+                      type="number"
+                      placeholder={min}
+                      min={min}
+                      max={max}
+                      step={step}
+                      parse={parseMin(min, maxPricePerDay)}
+                    />
+                    <span className={css.priceSeparator}>-</span>
+                    <Field
+                      className={css.maxPrice}
+                      id={`${id}.day.maxPrice`}
+                      name="maxPricePerDay"
+                      component="input"
+                      type="number"
+                      placeholder={max}
+                      min={min}
+                      max={max}
+                      step={step}
+                      parse={parseMax(max, minPricePerDay)}
+                    />
+                  </div>
 
-                <div className={css.sliderWrapper}>
-                  <RangeSlider
-                    min={min}
-                    max={max}
-                    step={step}
-                    handles={[minPricePerDay || min, maxPricePerDay || max]}
-                    onChange={handles => {
-                      form.change('minPricePerDay', handles[0]);
-                      form.change('maxPricePerDay', handles[1]);
-                    }}
-                  />
+                  <div className={css.sliderWrapper}>
+                    <RangeSlider
+                      min={min}
+                      max={max}
+                      step={step}
+                      handles={[minPricePerDay || min, maxPricePerDay || max]}
+                      onChange={handles => {
+                        form.change('minPricePerDay', handles[0]);
+                        form.change('maxPricePerDay', handles[1]);
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
+              ) : null}
             </div>
 
             {liveEdit ? (

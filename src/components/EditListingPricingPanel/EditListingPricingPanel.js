@@ -100,12 +100,24 @@ const EditListingPricingPanel = props => {
         ].reduce((min, price) => {
           return min.amount < price.amount ? min : price;
         });
-        console.log(price);
+        console.log(values);
+        let bookingType_searchOptions = [];
+        if (
+          bookingType_entireSpace.includes('hourly') ||
+          bookingType_individual.includes('hourly')
+        ) {
+          bookingType_searchOptions.push('hourly');
+        }
+        if (bookingType_entireSpace.includes('daily') || bookingType_individual.includes('daily')) {
+          bookingType_searchOptions.push('daily');
+        }
+        console.log(bookingType_searchOptions);
         const updatedValues = {
           price,
           publicData: {
             bookingType_entireSpace,
             bookingType_individual,
+            bookingTypes: bookingType_searchOptions,
             price_entireSpace_daily: price_entireSpace_daily.amount,
             price_entireSpace_hourly: price_entireSpace_hourly.amount,
             price_individual_daily: price_individual_daily.amount,

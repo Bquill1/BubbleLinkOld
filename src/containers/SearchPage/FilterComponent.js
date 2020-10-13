@@ -8,6 +8,7 @@ import {
   SelectSingleFilter,
   SelectMultipleFilter,
 } from '../../components';
+import { createListingDraft } from '../EditListingPage/EditListingPage.duck';
 
 /**
  * FilterComponent is used to map configured filter types
@@ -22,6 +23,7 @@ const FilterComponent = props => {
     getHandleChangedValueFn,
     ...rest
   } = props;
+  console.log(props)
   const { id, type, queryParamNames, label, config } = filterConfig;
   const { liveEdit, showAsPopup } = rest;
 
@@ -103,6 +105,7 @@ const FilterComponent = props => {
           id={componentId}
           label={label}
           queryParamNames={queryParamNames}
+          urlQueryParams={urlQueryParams}
           initialValues={initialValues(queryParamNames)}
           onSubmit={getHandleChangedValueFn(useHistoryPush)}
           {...config}

@@ -70,6 +70,7 @@ class PriceFilterMultiPlainComponent extends Component {
       id,
       label,
       queryParamNames,
+      urlQueryParams,
       initialValues,
       min,
       max,
@@ -77,8 +78,8 @@ class PriceFilterMultiPlainComponent extends Component {
       intl,
       currencyConfig,
     } = this.props;
+    console.log(this.props)
     const classes = classNames(rootClassName || css.root, className);
-
     const priceQueryParam = getPriceQueryParamName(queryParamNames);
     const initialPrice = initialValues ? parse(initialValues[priceQueryParam]) : {};
     const { minPrice, maxPrice } = initialPrice || {};
@@ -123,6 +124,7 @@ class PriceFilterMultiPlainComponent extends Component {
             step={step}
             liveEdit
             isOpen={this.state.isOpen}
+            priceFilterParams={urlQueryParams.pub_bookingTypes}
           />
         </div>
       </div>

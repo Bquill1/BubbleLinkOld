@@ -7,7 +7,6 @@ import css from './BookingBreakdown.css';
 
 const BookingPeriod = props => {
   const { startDate, endDate, dateType, timeZone } = props;
-
   const timeFormatOptions =
     dateType === DATE_TYPE_DATE
       ? {
@@ -70,8 +69,7 @@ const LineItemBookingPeriod = props => {
 
   const isNightly = unitType === LINE_ITEM_NIGHT;
   const isUnit = unitType === LINE_ITEM_UNITS;
-  const endDay =
-    isUnit || isNightly ? localEndDateRaw : moment(localEndDateRaw).subtract(1, 'days');
+  const endDay = localEndDateRaw
 
   return (
     <>

@@ -109,18 +109,19 @@ export class ListingPageComponent extends Component {
       callSetInitialValues,
       onInitializeCardPaymentData,
     } = this.props;
+    console.log(11111111111111)
     const listingId = new UUID(params.id);
     const listing = getListing(listingId);
-
+    const isDaily = values.bookingType === "daily"
     const { bookingStartTime, bookingEndTime, ...restOfValues } = values;
     const bookingStart = timestampToDate(bookingStartTime);
     const bookingEnd = timestampToDate(bookingEndTime);
-
+    
+    console.log(values)
     const bookingData = {
-      quantity: calculateQuantityFromHours(bookingStart, bookingEnd),
+      quantity: isDaily ? 1 : calculateQuantityFromHours(bookingStart, bookingEnd),
       ...restOfValues,
     };
-
     const initialValues = {
       listing,
       bookingData,

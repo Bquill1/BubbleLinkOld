@@ -3,9 +3,8 @@ const { getSdk, getTrustedSdk, handleError, serialize } = require('../api-util/s
 
 module.exports = (req, res) => {
   const { isSpeculative, bookingData, bodyParams, queryParams } = req.body;
-
   const listingId = bodyParams && bodyParams.params ? bodyParams.params.listingId : null;
-
+  console.log(req.body);
   const sdk = getSdk(req, res);
   let lineItems = null;
 
@@ -28,10 +27,13 @@ module.exports = (req, res) => {
           lineItems,
         },
       };
-
+console.log(body)
       if (isSpeculative) {
+        console.log('specuuuuulative')
         return trustedSdk.transactions.initiateSpeculative(body, queryParams);
       }
+        console.log('nooooooooooot specuuuuulative');
+
       return trustedSdk.transactions.initiate(body, queryParams);
     })
     .then(apiResponse => {

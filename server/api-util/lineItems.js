@@ -1,6 +1,5 @@
 const { calculateQuantityFromHours, calculateTotalFromLineItems } = require('./lineItemHelpers');
 const { types } = require('sharetribe-flex-sdk');
-const { Money } = types;
 
 // This bookingUnitType needs to be one of the following:
 // line-item/night, line-item/day or line-item/units

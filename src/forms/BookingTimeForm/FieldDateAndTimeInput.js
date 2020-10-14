@@ -67,7 +67,9 @@ const getAvailableEndTimes = (
   bookingEndDate,
   selectedTimeSlot
 ) => {
+  console.log(selectedTimeSlot)
   if (!selectedTimeSlot || !selectedTimeSlot.attributes || !bookingEndDate || !bookingStartTime) {
+    console.log('baaad')
     return [];
   }
 
@@ -102,6 +104,9 @@ const getAvailableEndTimes = (
 };
 
 const getTimeSlots = (timeSlots, date, timeZone) => {
+  console.log(timeSlots && timeSlots[0]
+    ? timeSlots.filter(t => isInRange(date, t.attributes.start, t.attributes.end, 'day', timeZone))
+    : [])
   return timeSlots && timeSlots[0]
     ? timeSlots.filter(t => isInRange(date, t.attributes.start, t.attributes.end, 'day', timeZone))
     : [];
@@ -150,8 +155,6 @@ const getAllTimeValues = (
   );
 
   const endTimes = getAvailableEndTimes(intl, timeZone, startTime, endDate, selectedTimeSlot);
-  console.log(2222222222);
-  console.log(endTimes);
   const endTime =
     isDaily &&
     endTimes.length > 0 &&
@@ -161,13 +164,16 @@ const getAllTimeValues = (
       : endTimes.length > 0 && endTimes[0] && endTimes[0].timestamp
       ? endTimes[0].timestamp
       : null;
-  console.log(endTime);
   return { startTime, endDate, endTime, selectedTimeSlot };
 };
 
 const getMonthlyTimeSlots = (monthlyTimeSlots, date, timeZone) => {
   const monthId = monthIdStringInTimeZone(date, timeZone);
-
+console.log( !monthlyTimeSlots || Object.keys(monthlyTimeSlots).length === 0
+    ? []
+    : monthlyTimeSlots[monthId] && monthlyTimeSlots[monthId].timeSlots
+    ? monthlyTimeSlots[monthId].timeSlots
+    : [])
   return !monthlyTimeSlots || Object.keys(monthlyTimeSlots).length === 0
     ? []
     : monthlyTimeSlots[monthId] && monthlyTimeSlots[monthId].timeSlots
@@ -374,9 +380,7 @@ class FieldDateAndTimeInput extends Component {
       bookingType,
       spaceRentalAvailability,
     } = this.props;
-    console.log(this.props);
     const isDaily = bookingType === 'daily';
-    console.log(values);
     const classes = classNames(rootClassName || css.root, className);
 
     const bookingStartDate =
@@ -406,6 +410,7 @@ class FieldDateAndTimeInput extends Component {
       bookingStartDate,
       timeSlotsOnSelectedDate
     );
+console.log(availableStartTimes);
 
     const firstAvailableStartTime =
       availableStartTimes.length > 0 && availableStartTimes[0] && availableStartTimes[0].timestamp
@@ -429,14 +434,18 @@ class FieldDateAndTimeInput extends Component {
       bookingEndDate || endDate,
       selectedTimeSlot
     );
-
+    console.log(bookingStartTime || startTime);
+    console.log(bookingEndDate)
+    console.log(endDate);
+    console.log(bookingEndDate || endDate);
+    console.log(selectedTimeSlot);
+console.log(availableEndTimes)
     // If the customer selects daily, start and end times should be first and last available slots
     if (isDaily) {
       values.bookingStartTime = availableStartTimes[0]?.timestamp;
       values.bookingEndTime = availableEndTimes[availableEndTimes.length - 1]?.timestamp;
     }
     
-    console.log(values);
     const isDayBlocked = timeSlotsOnSelectedMonth
       ? day =>
           !timeSlotsOnSelectedMonth.find(timeSlot =>

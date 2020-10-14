@@ -104,7 +104,6 @@ const EstimatedBreakdownMaybe = props => {
   const { unitType, startDate, endDate, timeZone } = props.bookingData;
   const lineItems = props.lineItems;
 
-  console.log(props)
   // Currently the estimated breakdown is used only on ListingPage where we want to
   // show the breakdown for customer so we can use hard-coded value here
   const userRole = 'customer';

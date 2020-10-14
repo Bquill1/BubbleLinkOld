@@ -49,8 +49,10 @@ import PanelHeading, {
   HEADING_CANCELED,
   HEADING_DELIVERED,
 } from './PanelHeading';
+import { types as sdkTypes } from '../../util/sdkLoader';
 
 import css from './TransactionPanel.css';
+const { Money } = sdkTypes;
 
 // Helper function to get display names for different roles
 const displayNames = (currentUser, currentProvider, currentCustomer, intl) => {
@@ -196,14 +198,14 @@ export class TransactionPanelComponent extends Component {
       fetchLineItemsInProgress,
       fetchLineItemsError,
     } = this.props;
-
+    console.log(this.props);
     const currentTransaction = ensureTransaction(transaction);
     const currentListing = ensureListing(currentTransaction.listing);
     const currentProvider = ensureUser(currentTransaction.provider);
     const currentCustomer = ensureUser(currentTransaction.customer);
     const isCustomer = transactionRole === 'customer';
     const isProvider = transactionRole === 'provider';
-
+    const bookingData = currentTransaction.attributes.protectedData.bookingData;
     const listingLoaded = !!currentListing.id;
     const listingDeleted = listingLoaded && currentListing.attributes.deleted;
     const iscustomerLoaded = !!currentCustomer.id;
@@ -287,20 +289,19 @@ export class TransactionPanelComponent extends Component {
       ? deletedListingTitle
       : currentListing.attributes.title;
 
-    const unitType = config.bookingUnitType;
-    const isNightly = unitType === LINE_ITEM_NIGHT;
-    const isDaily = unitType === LINE_ITEM_DAY;
+    const isDaily = bookingData.bookingType === 'daily';
+    const isEntireSpace = bookingData.spaceRentalAvailability === 'entireSpace';
 
-    const unitTranslationKey = isNightly
-      ? 'TransactionPanel.perNight'
-      : isDaily
-      ? 'TransactionPanel.perDay'
-      : 'TransactionPanel.perUnit';
+    const unitTranslationKey = isDaily ? 'CheckoutPage.perDay' : 'CheckoutPage.perHour';
+    const spaceTranslationKey = isEntireSpace
+      ? 'CheckoutPage.perEntirePlace'
+      : 'CheckoutPage.perSpace';
 
-    const price = currentListing.attributes.price;
-    const bookingSubTitle = price
-      ? `${formatMoney(intl, price)} ${intl.formatMessage({ id: unitTranslationKey })}`
-      : '';
+    const price = new Money(bookingData.price, currentListing.attributes.price.currency);
+    const formattedPrice = formatMoney(intl, price);
+    console.log(formattedPrice);
+    const bookingSubTitle = `${formattedPrice} ${intl.formatMessage({ id: unitTranslationKey })}`;
+    const bookingSubSubTitle = `for ${intl.formatMessage({ id: spaceTranslationKey })}`;
 
     const firstImage =
       currentListing.images && currentListing.images.length > 0 ? currentListing.images[0] : null;
@@ -435,6 +436,7 @@ export class TransactionPanelComponent extends Component {
                 showDetailCardHeadings={stateData.showDetailCardHeadings}
                 listingTitle={listingTitle}
                 subTitle={bookingSubTitle}
+                subSubTitle={bookingSubSubTitle}
                 location={location}
                 geolocation={geolocation}
                 showAddress={stateData.showAddress}

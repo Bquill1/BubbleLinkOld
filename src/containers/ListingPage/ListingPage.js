@@ -117,7 +117,9 @@ export class ListingPageComponent extends Component {
     const bookingStart = timestampToDate(bookingStartTime);
     const bookingEnd = timestampToDate(bookingEndTime);
     
+
     console.log(values)
+    console.log(restOfValues)
     const bookingData = {
       quantity: isDaily ? 1 : calculateQuantityFromHours(bookingStart, bookingEnd),
       ...restOfValues,

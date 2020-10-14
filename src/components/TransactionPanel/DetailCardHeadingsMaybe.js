@@ -9,6 +9,7 @@ const DetailCardHeadingsMaybe = props => {
     showDetailCardHeadings,
     listingTitle,
     subTitle,
+    subSubTitle,
     location,
     geolocation,
     showAddress,
@@ -18,6 +19,7 @@ const DetailCardHeadingsMaybe = props => {
     <div className={css.detailCardHeadings}>
       <h2 className={css.detailCardTitle}>{listingTitle}</h2>
       <p className={css.detailCardSubtitle}>{subTitle}</p>
+      <p className={css.detailCardSubtitle}>{subSubTitle}</p>
       <AddressLinkMaybe location={location} geolocation={geolocation} showAddress={showAddress} />
     </div>
   ) : null;

@@ -6,7 +6,6 @@ import css from './BookingPanelOptionButton.css';
 
 const BookingPanelOptionButton = props => {
   const { rootClassName, className, options, activeOption, setOption, labelKey } = props;
-
   const classes = classNames(rootClassName || css.root, className);
 
   return (

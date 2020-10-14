@@ -6,6 +6,7 @@ import arrayMutators from 'final-form-arrays';
 import { FieldArray } from 'react-final-form-arrays';
 import classNames from 'classnames';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+import { required } from '../../util/validators';
 import {
   Form,
   InlineTextButton,
@@ -124,6 +125,7 @@ const DailyPlan = props => {
   const endTimePlaceholder = intl.formatMessage({
     id: 'EditListingAvailabilityPlanForm.endTimePlaceholder',
   });
+  const seatsRequiredMessage = ' ';
 
   return (
     <div className={classNames(css.weekDay, hasEntries ? css.hasEntries : null)}>
@@ -180,6 +182,37 @@ const DailyPlan = props => {
                               {s}
                             </option>
                           ))}
+                        </FieldSelect>
+                      </div>
+                      <div className={css.seatSelect} id="step_seats">
+                        <span className={css.seatsLabel}>Seats - </span>
+                        <FieldSelect
+                          id={`${name}.seats`}
+                          name={`${name}.seats`}
+                          selectClassName={css.fieldSelect}
+                          validate={required(seatsRequiredMessage)}
+                          seats
+                        >
+                          <option value="1"> 1</option>
+                          <option value="2"> 2</option>
+                          <option value="3"> 3</option>
+                          <option value="4"> 4</option>
+                          <option value="5"> 5</option>
+                          <option value="6"> 6</option>
+                          <option value="7"> 7</option>
+                          <option value="8"> 8</option>
+                          <option value="9"> 9</option>
+                          <option value="10"> 10</option>
+                          <option value="11"> 11</option>
+                          <option value="12"> 12</option>
+                          <option value="13"> 13</option>
+                          <option value="14"> 14</option>
+                          <option value="15"> 15</option>
+                          <option value="16"> 16</option>
+                          <option value="17"> 17</option>
+                          <option value="18"> 18</option>
+                          <option value="19"> 19</option>
+                          <option value="20"> 20</option>
                         </FieldSelect>
                       </div>
                     </div>

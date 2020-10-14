@@ -27,7 +27,8 @@ export class BookingTimeFormComponent extends Component {
   handleFormSubmit(e) {
     console.log(e);
     const {bookingType, spaceRentalAvailability} = this.state
-    this.props.onSubmit({...e, bookingType, spaceRentalAvailability});
+    const {price} = this.props
+    this.props.onSubmit({...e, bookingType, spaceRentalAvailability, price});
   }
   componentDidMount() {
     const { bookingType, spaceRentalAvailability } = this.props;

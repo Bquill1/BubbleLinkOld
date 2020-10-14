@@ -136,14 +136,13 @@ const BookingPanel = props => {
     ? intl.formatMessage({ id: 'BookingPanel.subTitleClosedListing' })
     : null;
 
-  const isNightly = unitType === LINE_ITEM_NIGHT;
-  const isDaily = unitType === LINE_ITEM_DAY;
+    const isDaily = bookingType === 'daily';
+    const isEntireSpace = spaceRentalAvailability === 'entireSpace';
 
-  const unitTranslationKey = isNightly
-    ? 'BookingPanel.perNight'
-    : isDaily
-    ? 'BookingPanel.perDay'
-    : 'BookingPanel.perUnit';
+    const unitTranslationKey = isDaily ? 'CheckoutPage.perDay' : 'CheckoutPage.perHour';
+    const spaceTranslationKey = isEntireSpace
+      ? 'CheckoutPage.perEntirePlace'
+      : 'CheckoutPage.perSpace';
 
   const buttonOptionKey = {
     individual: 'One space',

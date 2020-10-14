@@ -253,6 +253,7 @@ export const fetchReviews = listingId => (dispatch, getState, sdk) => {
 };
 
 const timeSlotsRequest = params => (dispatch, getState, sdk) => {
+  console.log(params)
   return sdk.timeslots.query(params).then(response => {
     return denormalisedResponseEntities(response);
   });
@@ -271,6 +272,7 @@ export const fetchTimeSlots = (listingId, start, end, timeZone) => (dispatch, ge
 
   return dispatch(timeSlotsRequest({ listingId, start, end, ...extraParams }))
     .then(timeSlots => {
+      console.log(timeSlots)
       dispatch(fetchTimeSlotsSuccess(monthId, timeSlots));
     })
     .catch(e => {

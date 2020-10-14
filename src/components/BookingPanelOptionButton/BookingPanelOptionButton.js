@@ -10,17 +10,19 @@ const BookingPanelOptionButton = props => {
 
   return (
     <span className={classes}>
-      {options.map(o => {
-        const isSelected = o === activeOption;
-        return (
-          <div
-            className={classNames(css.optionTab, { [css.selectedOptionTab]: isSelected })}
-            onClick={e => setOption(o)}
-          >
-            {labelKey[o]}
-          </div>
-        );
-      })}
+      <div className={css.buttonShadow}>
+        {options.map(o => {
+          const isSelected = o === activeOption;
+          return (
+            <div
+              className={classNames(css.optionTab, { [css.selectedOptionTab]: isSelected })}
+              onClick={e => setOption(o)}
+            >
+              {labelKey[o]}
+            </div>
+          );
+        })}
+      </div>
     </span>
   );
 };

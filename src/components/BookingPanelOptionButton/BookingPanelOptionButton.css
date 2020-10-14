@@ -5,14 +5,23 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-evenly;
-}
+  margin-bottom: 20px;
 
+}
+.buttonShadow{
+    display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+      width: 100%;
+  box-shadow: var(--boxShadowBottom);
+
+}
 .optionTab {
   flex-basis: 50%;
   flex-grow: 1;
   text-align: center;
   padding: 20px;
-  margin-bottom: 20px;
 }
 .selectedOptionTab {
 

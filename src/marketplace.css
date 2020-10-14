@@ -71,6 +71,7 @@
 
   /* Shadows */
   --boxShadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --boxShadowBottom: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
   --boxShadowTop: 0 -2px 4px 0 rgba(0, 0, 0, 0.1);
   --boxShadowLight: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   --boxShadowPopup: 0 8px 16px 0 rgba(0, 0, 0, 0.3);

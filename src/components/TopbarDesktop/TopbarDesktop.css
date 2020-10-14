@@ -117,6 +117,7 @@
 .createListingLink {
   @apply --TopbarDesktop_linkHover;
   @apply --marketplaceH5FontStyles;
+  margin-left: auto;
 
   flex-shrink: 0;
   height: 100%;

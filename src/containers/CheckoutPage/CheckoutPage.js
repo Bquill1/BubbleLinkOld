@@ -185,7 +185,7 @@ export class CheckoutPageComponent extends Component {
       const listingId = pageData.listing.id;
       const transactionId = tx ? tx.id : null;
       console.log(pageData);
-      const { price, bookingType, spaceRentalAvailability } = pageData.bookingData;
+      const { price, bookingType, spaceRentalAvailability,seats } = pageData.bookingData;
       const { bookingStart, bookingEnd } = pageData.bookingDates;
 
       // Fetch speculated transaction for showing price in booking breakdown
@@ -199,6 +199,7 @@ export class CheckoutPageComponent extends Component {
           price,
           bookingType,
           spaceRentalAvailability,
+          seats
         },
         transactionId
       );
@@ -377,7 +378,7 @@ export class CheckoutPageComponent extends Component {
         : selectedPaymentFlow === PAY_AND_SAVE_FOR_LATER_USE
         ? { setupPaymentMethodForSaving: true }
         : {};
-    const { price, bookingType, spaceRentalAvailability } = pageData.bookingData;
+    const { price, bookingType, spaceRentalAvailability, seats } = pageData.bookingData;
     const orderParams = {
       listingId: pageData.listing.id,
       bookingStart: tx.booking.attributes.start,
@@ -385,6 +386,7 @@ export class CheckoutPageComponent extends Component {
       quantity: pageData.bookingData ? pageData.bookingData.quantity : null,
       ...optionalPaymentParams,
       price,
+      seats,
       bookingType,
       spaceRentalAvailability,
     };

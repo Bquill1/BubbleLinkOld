@@ -99,3 +99,11 @@ export const initiatePrivileged = body => {
 export const transitionPrivileged = body => {
   return post('/api/transition-privileged', body);
 };
+
+// Get original availabililty plan for a listing
+//
+// Required to check if a date has *any* bookings on it
+//
+export const getAvailabilityPlan = body => {
+  return post('/api/get-availability-plan', body);
+};

@@ -65,6 +65,7 @@ import css from './ListingPage.css';
 import SectionViewMaybe from './SectionViewMaybe';
 
 const MIN_LENGTH_FOR_LONG_WORDS_IN_TITLE = 16;
+const DAYS_OF_WEEK = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
 const { UUID } = sdkTypes;
 
@@ -108,12 +109,23 @@ export class ListingPageComponent extends Component {
       params,
       callSetInitialValues,
       onInitializeCardPaymentData,
+      originalAvailabilityPlan,
     } = this.props;
     console.log(11111111111111)
+
+    
     const listingId = new UUID(params.id);
     const listing = getListing(listingId);
-    const isDaily = values.bookingType === "daily"
+    const isDaily = values.bookingType === 'daily';
+    const isEntireSpace = values.spaceRentalAvailability === 'entireSpace';
+    console.log(isEntireSpace)
     const { bookingStartTime, bookingEndTime, ...restOfValues } = values;
+console.log(values)
+    const timeSlotDayString = DAYS_OF_WEEK[values.bookingStartDate.date.getDay()];
+    const originalAvailabilityPlanForDay = originalAvailabilityPlan.entries.find(
+      p => p.dayOfWeek === timeSlotDayString
+    );
+console.log(originalAvailabilityPlanForDay);
     const bookingStart = timestampToDate(bookingStartTime);
     const bookingEnd = timestampToDate(bookingEndTime);
     
@@ -121,9 +133,11 @@ export class ListingPageComponent extends Component {
     console.log(values)
     console.log(restOfValues)
     const bookingData = {
+      seats: isEntireSpace ? originalAvailabilityPlanForDay.seats : 1,
       quantity: isDaily ? 1 : calculateQuantityFromHours(bookingStart, bookingEnd),
       ...restOfValues,
     };
+    console.log(bookingData)
     const initialValues = {
       listing,
       bookingData,
@@ -209,6 +223,7 @@ export class ListingPageComponent extends Component {
       sendEnquiryInProgress,
       sendEnquiryError,
       monthlyTimeSlots,
+      originalAvailabilityPlan,
       filterConfig,
       onFetchTransactionLineItems,
       lineItems,
@@ -352,6 +367,7 @@ export class ListingPageComponent extends Component {
     const { formattedPrice, priceTitle } = priceData(price, intl);
 
     const handleBookingSubmit = values => {
+      console.log(values)
       const isCurrentlyClosed = currentListing.attributes.state === LISTING_STATE_CLOSED;
       if (isOwnListing || isCurrentlyClosed) {
         window.scrollTo(0, 0);
@@ -494,6 +510,7 @@ export class ListingPageComponent extends Component {
                   lineItems={lineItems}
                   fetchLineItemsInProgress={fetchLineItemsInProgress}
                   fetchLineItemsError={fetchLineItemsError}
+                  originalAvailabilityPlan={originalAvailabilityPlan}
                 />
               </div>
             </div>
@@ -595,6 +612,7 @@ const mapStateToProps = state => {
     reviews,
     fetchReviewsError,
     monthlyTimeSlots,
+    originalAvailabilityPlan,
     sendEnquiryInProgress,
     sendEnquiryError,
     lineItems,
@@ -602,6 +620,7 @@ const mapStateToProps = state => {
     fetchLineItemsError,
     enquiryModalOpenForListingId,
   } = state.ListingPage;
+  console.log(state.ListingPage)
   const { currentUser } = state.user;
 
   const getListing = id => {
@@ -627,6 +646,7 @@ const mapStateToProps = state => {
     reviews,
     fetchReviewsError,
     monthlyTimeSlots,
+    originalAvailabilityPlan,
     lineItems,
     fetchLineItemsInProgress,
     fetchLineItemsError,

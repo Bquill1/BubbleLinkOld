@@ -13,7 +13,8 @@ module.exports = (req, res) => {
     .then(listingResponse => {
       const listing = listingResponse.data.data;
       lineItems = transactionLineItems(listing, bookingData);
-
+      console.log(11111)
+      console.log(lineItems);
       return getTrustedSdk(req);
     })
     .then(trustedSdk => {
@@ -27,13 +28,9 @@ module.exports = (req, res) => {
           lineItems,
         },
       };
-console.log(body)
       if (isSpeculative) {
-        console.log('specuuuuulative')
         return trustedSdk.transactions.initiateSpeculative(body, queryParams);
       }
-        console.log('nooooooooooot specuuuuulative');
-
       return trustedSdk.transactions.initiate(body, queryParams);
     })
     .then(apiResponse => {

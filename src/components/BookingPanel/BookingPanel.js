@@ -20,7 +20,7 @@ import css from './BookingPanel.css';
 const { Money, UUID } = sdkTypes;
 const MODAL_BREAKPOINT = 1023;
 const TODAY = new Date();
-
+const DAYS_OF_WEEK = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 const priceData = (price, intl) => {
   if (price && price.currency === config.currency) {
     const formattedPrice = formatMoney(intl, price);
@@ -90,6 +90,7 @@ const BookingPanel = props => {
     onManageDisableScrolling,
     onFetchTimeSlots,
     monthlyTimeSlots,
+    originalAvailabilityPlan,
     history,
     location,
     intl,
@@ -98,29 +99,76 @@ const BookingPanel = props => {
     fetchLineItemsInProgress,
     fetchLineItemsError,
   } = props;
-  console.log(listing);
+  console.log(props);
   const spaceRentalAvailabilityOptions = listing.attributes.publicData.spaceRentalAvailability;
   const bookingType_entireSpace_Options = listing.attributes.publicData.bookingType_entireSpace;
   const bookingType_individual_Options = listing.attributes.publicData.bookingType_individual;
   const bookingTypeSpaceOptions = getSpaceOptions(listing);
-  console.log(spaceRentalAvailabilityOptions);
-  console.log(bookingType_entireSpace_Options);
-  console.log(bookingType_individual_Options);
   const [spaceRentalAvailability, setSpaceRentalAvailability] = useState(
     spaceRentalAvailabilityOptions[0]
   );
   const [bookingType, setBookingType] = useState(
     bookingTypeSpaceOptions[spaceRentalAvailability][0]
   );
-  console.log(spaceRentalAvailability);
-  console.log(bookingType);
+
+  // 
+  // The following section is only for retrieving a new timeslot setup for the multiple booking structure
+  // 
+  // Init an object to replace the current monlyTimeSlots
+  let filteredMonthlyTimeSlots = {};
+  // Here we loop over the months provided in the props.montlyTimeSlots
+  // And examine each time slot, checking if it fits the booking criteria
+  Object.keys(monthlyTimeSlots).forEach(month => {
+    // Examine each time slot in the month, and create a new array,
+    // filling it with only eligible timeslots
+    const newTimeSlots = monthlyTimeSlots?.[month]?.timeSlots?.flatMap(slot => {
+      
+      // gather info about the timeslot
+      const { seats, start, end } = slot.attributes;
+      const timeSlotDayString = DAYS_OF_WEEK[start.getDay()];
+      const startHours = start.getHours();
+      const endHours = end.getHours();
+
+      // get the original availability plan from the array and gather info
+      const originalAvailabilityPlanForDay = originalAvailabilityPlan.entries.find(
+        p => p.dayOfWeek === timeSlotDayString
+      );
+      const originalStartHours = parseInt(originalAvailabilityPlanForDay.startTime.split(':')[0]);
+      const originalEndHours = parseInt(originalAvailabilityPlanForDay.endTime.split(':')[0]);
+
+      // check if entire space is selected, and if it is not available
+      // checked by comparing seats in slot to original availability
+      if (
+        spaceRentalAvailability === 'entireSpace' &&
+        seats !== originalAvailabilityPlanForDay.seats
+      ) {
+        // if not available, return empty array
+        return [];
+      }
+      // check if booking is per day, and if the slot covers the entire day
+      if (
+        bookingType === 'daily' &&
+        (startHours !== originalStartHours || endHours !== originalEndHours)
+      ) {
+        // if slot is partial, return empty array
+        return [];
+      }
+      // otherwise, add the slot to the newTimeSlotsArray
+      return slot;
+    });
+    // populate the replacement monthlyTimeSlotsObject with the original fields as well as the new timeslots
+    filteredMonthlyTimeSlots[month] = {
+      fetchTimeSlotsError: monthlyTimeSlots[month].fetchTimeSlotsError,
+      fetchTimeSlotsInProgress: monthlyTimeSlots[month].fetchTimeSlotsInProgress,
+      timeSlots: newTimeSlots || {},
+    };
+  });
+
   const prices = getMutliPrices(listing);
-  console.log(prices);
   const price =
     convertToMoney(
       prices && prices[spaceRentalAvailability] && prices[spaceRentalAvailability][bookingType]
     ) || listing.attributes.price;
-  console.log(price);
   const timeZone =
     listing.attributes.availabilityPlan && listing.attributes.availabilityPlan.timezone;
   const hasListingState = !!listing.attributes.state;
@@ -136,14 +184,13 @@ const BookingPanel = props => {
     ? intl.formatMessage({ id: 'BookingPanel.subTitleClosedListing' })
     : null;
 
-    const isDaily = bookingType === 'daily';
-    const isEntireSpace = spaceRentalAvailability === 'entireSpace';
+  const isDaily = bookingType === 'daily';
+  const isEntireSpace = spaceRentalAvailability === 'entireSpace';
 
-    const unitTranslationKey = isDaily ? 'CheckoutPage.perDay' : 'CheckoutPage.perHour';
-    const spaceTranslationKey = isEntireSpace
-      ? 'CheckoutPage.perEntirePlace'
-      : 'CheckoutPage.perSpace';
-
+  const unitTranslationKey = isDaily ? 'CheckoutPage.perDay' : 'CheckoutPage.perHour';
+  const spaceTranslationKey = isEntireSpace
+    ? 'CheckoutPage.perEntirePlace'
+    : 'CheckoutPage.perSpace';
   const buttonOptionKey = {
     individual: 'One space',
     entireSpace: 'The whole place',
@@ -174,7 +221,6 @@ const BookingPanel = props => {
       labelKey={buttonOptionKey}
     />
   );
-  console.log(bookingType);
   return (
     <div className={classes}>
       <ModalInMobile
@@ -217,7 +263,8 @@ const BookingPanel = props => {
             bookingType={bookingType}
             spaceRentalAvailability={spaceRentalAvailability}
             isOwnListing={isOwnListing}
-            monthlyTimeSlots={monthlyTimeSlots}
+            monthlyTimeSlots={filteredMonthlyTimeSlots}
+            originalAvailabilityPlan={originalAvailabilityPlan}
             onFetchTimeSlots={onFetchTimeSlots}
             startDatePlaceholder={intl.formatDate(TODAY, dateFormattingOptions)}
             endDatePlaceholder={intl.formatDate(TODAY, dateFormattingOptions)}

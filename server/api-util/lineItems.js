@@ -5,7 +5,6 @@ const { types } = require('sharetribe-flex-sdk');
 // line-item/night, line-item/day or line-item/units
 const bookingUnitType = 'line-item/units';
 const PROVIDER_COMMISSION_PERCENTAGE = -10;
-
 /** Returns collection of lineItems (max 50)
  *
  * Each line items has following fields:
@@ -28,6 +27,10 @@ const PROVIDER_COMMISSION_PERCENTAGE = -10;
  */
 exports.transactionLineItems = (listing, bookingData) => {
   const isDaily = bookingData.bookingType === "daily"
+  console.log(2222)
+  console.log(bookingData)
+  const ogSeats = bookingData.seats
+  const isEntireSpace = bookingData.spaceRentalAvailability === "entireSpace"
   const unitPrice = bookingData.price || listing.attributes.price;
   const { startDate, endDate } = bookingData;
   /**
@@ -45,7 +48,16 @@ exports.transactionLineItems = (listing, bookingData) => {
     quantity: isDaily ? 1 : calculateQuantityFromHours(startDate, endDate),
     includeFor: ['customer', 'provider'],
   };
-
+  console.log(8888888);
+  console.log(isEntireSpace)
+  console.log(isEntireSpace  ? ogSeats || 1 : 1);
+   const spaces = {
+     code: 'line-item/entireSpace',
+     unitPrice:  new types.Money(0, "EUR"),
+     seats: isEntireSpace ? ogSeats || 1 : 1,
+     units: 1,
+     includeFor: [ 'provider'],
+   };
   const providerCommission = {
     code: 'line-item/provider-commission',
     unitPrice: calculateTotalFromLineItems([booking]),
@@ -53,7 +65,7 @@ exports.transactionLineItems = (listing, bookingData) => {
     includeFor: ['provider'],
   };
 
-  const lineItems = [booking, providerCommission];
+  const lineItems = [booking, providerCommission, spaces];
 
   return lineItems;
 };

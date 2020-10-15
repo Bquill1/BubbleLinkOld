@@ -67,9 +67,7 @@ const getAvailableEndTimes = (
   bookingEndDate,
   selectedTimeSlot
 ) => {
-  console.log(selectedTimeSlot)
   if (!selectedTimeSlot || !selectedTimeSlot.attributes || !bookingEndDate || !bookingStartTime) {
-    console.log('baaad')
     return [];
   }
 
@@ -104,9 +102,27 @@ const getAvailableEndTimes = (
 };
 
 const getTimeSlots = (timeSlots, date, timeZone) => {
-  console.log(timeSlots && timeSlots[0]
-    ? timeSlots.filter(t => isInRange(date, t.attributes.start, t.attributes.end, 'day', timeZone))
-    : [])
+  const ogTimeSlots =
+    timeSlots && timeSlots[0]
+      ? timeSlots.filter(t =>
+          isInRange(date, t.attributes.start, t.attributes.end, 'day', timeZone)
+        )
+      : [];
+  const combinedTimeSlots = ogTimeSlots.reduce((arr, ts) => {
+    if (!arr.length) {
+      return [ts];
+    }
+    const tsStart = ts.attributes.start.getTime();
+    const lastEnd = arr[arr.length - 1].attributes.end.getTime();
+    if (tsStart <= lastEnd) {
+      const tsEnd = ts.attributes.end;
+      arr[arr.length - 1].attributes.end = tsEnd;
+      return [...arr];
+    } else {
+      return [...arr, ts];
+    }
+  }, []);
+
   return timeSlots && timeSlots[0]
     ? timeSlots.filter(t => isInRange(date, t.attributes.start, t.attributes.end, 'day', timeZone))
     : [];
@@ -149,7 +165,7 @@ const getAllTimeValues = (
     : startTimeAsDate
     ? new Date(findNextBoundary(timeZone, startTimeAsDate).getTime() - 1)
     : null;
-
+    console.log(timeSlots);
   const selectedTimeSlot = timeSlots.find(t =>
     isInRange(startTimeAsDate, t.attributes.start, t.attributes.end)
   );
@@ -169,11 +185,6 @@ const getAllTimeValues = (
 
 const getMonthlyTimeSlots = (monthlyTimeSlots, date, timeZone) => {
   const monthId = monthIdStringInTimeZone(date, timeZone);
-console.log( !monthlyTimeSlots || Object.keys(monthlyTimeSlots).length === 0
-    ? []
-    : monthlyTimeSlots[monthId] && monthlyTimeSlots[monthId].timeSlots
-    ? monthlyTimeSlots[monthId].timeSlots
-    : [])
   return !monthlyTimeSlots || Object.keys(monthlyTimeSlots).length === 0
     ? []
     : monthlyTimeSlots[monthId] && monthlyTimeSlots[monthId].timeSlots
@@ -410,7 +421,6 @@ class FieldDateAndTimeInput extends Component {
       bookingStartDate,
       timeSlotsOnSelectedDate
     );
-console.log(availableStartTimes);
 
     const firstAvailableStartTime =
       availableStartTimes.length > 0 && availableStartTimes[0] && availableStartTimes[0].timestamp
@@ -434,18 +444,12 @@ console.log(availableStartTimes);
       bookingEndDate || endDate,
       selectedTimeSlot
     );
-    console.log(bookingStartTime || startTime);
-    console.log(bookingEndDate)
-    console.log(endDate);
-    console.log(bookingEndDate || endDate);
-    console.log(selectedTimeSlot);
-console.log(availableEndTimes)
     // If the customer selects daily, start and end times should be first and last available slots
     if (isDaily) {
       values.bookingStartTime = availableStartTimes[0]?.timestamp;
       values.bookingEndTime = availableEndTimes[availableEndTimes.length - 1]?.timestamp;
     }
-    
+
     const isDayBlocked = timeSlotsOnSelectedMonth
       ? day =>
           !timeSlotsOnSelectedMonth.find(timeSlot =>
@@ -547,8 +551,8 @@ console.log(availableEndTimes)
                   onChange={this.onBookingStartTimeChange}
                 >
                   {bookingStartDate ? (
-                    availableStartTimes.map(p => (
-                      <option key={p.timeOfDay} value={p.timestamp}>
+                    availableStartTimes.map((p, index) => (
+                      <option key={p.timeOfDay + `${index}`} value={p.timestamp}>
                         {p.timeOfDay}
                       </option>
                     ))
@@ -568,9 +572,9 @@ console.log(availableEndTimes)
                   disabled={endTimeDisabled}
                 >
                   {bookingStartDate && (bookingStartTime || startTime) ? (
-                    availableEndTimes.map(p => (
+                    availableEndTimes.map((p, index) => (
                       <option
-                        key={p.timeOfDay === '00:00' ? '24:00' : p.timeOfDay}
+                        key={p.timeOfDay === '00:00' ? '24:00' : p.timeOfDay + `${index}`}
                         value={p.timestamp}
                       >
                         {p.timeOfDay === '00:00' ? '24:00' : p.timeOfDay}

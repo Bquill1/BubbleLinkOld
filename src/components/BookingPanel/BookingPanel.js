@@ -99,21 +99,23 @@ const BookingPanel = props => {
     fetchLineItemsInProgress,
     fetchLineItemsError,
   } = props;
-  console.log(props);
-  const spaceRentalAvailabilityOptions = listing.attributes.publicData.spaceRentalAvailability;
-  const bookingType_entireSpace_Options = listing.attributes.publicData.bookingType_entireSpace;
-  const bookingType_individual_Options = listing.attributes.publicData.bookingType_individual;
+  const publicData = listing.attributes.publicData;
+  const spaceRentalAvailabilityOptions = publicData.spaceRentalAvailability;
+  const bookingType_entireSpace_Options = publicData.bookingType_entireSpace;
+  const bookingType_individual_Options = publicData.bookingType_individual;
+  const capacity = publicData.capacity;
   const bookingTypeSpaceOptions = getSpaceOptions(listing);
   const [spaceRentalAvailability, setSpaceRentalAvailability] = useState(
     spaceRentalAvailabilityOptions[0]
   );
+  const [seatsSelected, setSeatsSelected] = useState(1);
   const [bookingType, setBookingType] = useState(
     bookingTypeSpaceOptions[spaceRentalAvailability][0]
   );
 
-  // 
+  //
   // The following section is only for retrieving a new timeslot setup for the multiple booking structure
-  // 
+  //
   // Init an object to replace the current monlyTimeSlots
   let filteredMonthlyTimeSlots = {};
   // Here we loop over the months provided in the props.montlyTimeSlots
@@ -122,7 +124,6 @@ const BookingPanel = props => {
     // Examine each time slot in the month, and create a new array,
     // filling it with only eligible timeslots
     const newTimeSlots = monthlyTimeSlots?.[month]?.timeSlots?.flatMap(slot => {
-      
       // gather info about the timeslot
       const { seats, start, end } = slot.attributes;
       const timeSlotDayString = DAYS_OF_WEEK[start.getDay()];
@@ -135,7 +136,6 @@ const BookingPanel = props => {
       );
       const originalStartHours = parseInt(originalAvailabilityPlanForDay.startTime.split(':')[0]);
       const originalEndHours = parseInt(originalAvailabilityPlanForDay.endTime.split(':')[0]);
-
       // check if entire space is selected, and if it is not available
       // checked by comparing seats in slot to original availability
       if (
@@ -143,6 +143,9 @@ const BookingPanel = props => {
         seats !== originalAvailabilityPlanForDay.seats
       ) {
         // if not available, return empty array
+        return [];
+      }
+      if (seatsSelected > seats) {
         return [];
       }
       // check if booking is per day, and if the slot covers the entire day
@@ -197,8 +200,6 @@ const BookingPanel = props => {
     hourly: 'A couple of hours',
     daily: 'The entire day',
   };
-  console.log(bookingTypeSpaceOptions);
-  console.log(spaceRentalAvailability);
   const classes = classNames(rootClassName || css.root, className);
   const titleClasses = classNames(titleClassName || css.bookingTitle);
   const onSetSpaceRentalAvailability = val => {
@@ -221,6 +222,18 @@ const BookingPanel = props => {
       labelKey={buttonOptionKey}
     />
   );
+
+  const seatsSelector = !isEntireSpace ? (
+    <div className={css.seatSelectorWrapper}>
+      <label className={css.seatSelectorLabel} htmlFor={'seatSelector'}>Spots: </label>
+
+      <select id={'seatSelector'} className={css.seatSelector}onChange={e => setSeatsSelected(e.target.value)}>
+        {[...Array(capacity).keys()].map(n => {
+          return <option value={n + 1}> {n + 1}</option>;
+        })}
+      </select>
+    </div>
+  ) : null;
   return (
     <div className={classes}>
       <ModalInMobile
@@ -238,18 +251,19 @@ const BookingPanel = props => {
         </div>
         <div className={css.bookingHeading}>
           <div className={css.bookingHeadingContainer}>
-            <h2 className={titleClasses}>{title}</h2>
-            {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null}
+            {/* <h2 className={titleClasses}>{title}</h2>
+            {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null} */}
+            {seatsSelector}
           </div>
         </div>
-        <div className={css.desktopPriceContainer}>
+        {/* <div className={css.desktopPriceContainer}>
           <div className={css.desktopPriceValue} title={priceTitle}>
             {formattedPrice}
           </div>
           <div className={css.desktopPerUnit}>
             <FormattedMessage id={unitTranslationKey} />
           </div>
-        </div>
+        </div> */}
         {showBookingTimeForm ? (
           <BookingTimeForm
             className={css.bookingForm}
@@ -273,6 +287,7 @@ const BookingPanel = props => {
             lineItems={lineItems}
             fetchLineItemsInProgress={fetchLineItemsInProgress}
             fetchLineItemsError={fetchLineItemsError}
+            seatsSelected={seatsSelected}
           />
         ) : null}
       </ModalInMobile>

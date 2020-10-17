@@ -10,6 +10,7 @@ import config from '../../config';
 import { IconSpinner, Form, PrimaryButton } from '../../components';
 import EstimatedBreakdownMaybe from './EstimatedBreakdownMaybe';
 import FieldDateAndTimeInput from './FieldDateAndTimeInput';
+import FieldNumberInput from '../../components';
 
 import css from './BookingTimeForm.css';
 
@@ -26,9 +27,15 @@ export class BookingTimeFormComponent extends Component {
 
   handleFormSubmit(e) {
     console.log(e);
-    const {bookingType, spaceRentalAvailability} = this.state
-    const {price} = this.props
-    this.props.onSubmit({...e, bookingType, spaceRentalAvailability, price});
+    const { bookingType, spaceRentalAvailability } = this.state;
+    const { price, seatsSelected } = this.props;
+    this.props.onSubmit({
+      ...e,
+      bookingType,
+      spaceRentalAvailability,
+      price,
+      seats: seatsSelected,
+    });
   }
   componentDidMount() {
     const { bookingType, spaceRentalAvailability } = this.props;
@@ -52,7 +59,7 @@ export class BookingTimeFormComponent extends Component {
     if (!formValues || isEmpty(formValues)) {
       return null;
     }
-    const { bookingType, spaceRentalAvailability, price } = this.props;
+    const { bookingType, spaceRentalAvailability, price, seatsSelected } = this.props;
     const { bookingStartTime, bookingEndTime } = formValues.values;
 
     const startDate = bookingStartTime ? timestampToDate(bookingStartTime) : null;
@@ -62,7 +69,22 @@ export class BookingTimeFormComponent extends Component {
 
     if (bookingStartTime && bookingEndTime && !this.props.fetchLineItemsInProgress) {
       this.props.onFetchTransactionLineItems({
-        bookingData: { startDate, endDate, price, bookingType, spaceRentalAvailability },
+        bookingData: {
+          startDate,
+          endDate,
+          price,
+          bookingType,
+          spaceRentalAvailability,
+          seats: parseInt(seatsSelected) || 1,
+        },
+        // bookingData: {
+        //   startDate,
+        //   endDate,
+        //   price,
+        //   bookingType,
+        //   spaceRentalAvailability,
+        //   seats: seatsSelected || 1,
+        // },
         listingId,
         isOwnListing,
       });
@@ -123,6 +145,7 @@ export class BookingTimeFormComponent extends Component {
             lineItems,
             fetchLineItemsInProgress,
             fetchLineItemsError,
+            seatsSelected,
           } = fieldRenderProps;
           const startTime = values && values.bookingStartTime ? values.bookingStartTime : null;
           const endTime = values && values.bookingEndTime ? values.bookingEndTime : null;
@@ -157,6 +180,7 @@ export class BookingTimeFormComponent extends Component {
                   startDate,
                   endDate,
                   timeZone,
+                  seats: seatsSelected,
                 }
               : null;
 
@@ -165,7 +189,7 @@ export class BookingTimeFormComponent extends Component {
             !!this.props.lineItems &&
             !fetchLineItemsInProgress &&
             !fetchLineItemsError;
-
+          console.log(showEstimatedBreakdown);
           const bookingInfoMaybe = showEstimatedBreakdown ? (
             <div className={css.priceBreakdownContainer}>
               <h3 className={css.priceBreakdownTitle}>
@@ -228,11 +252,9 @@ export class BookingTimeFormComponent extends Component {
                   timeZone={timeZone}
                 />
               ) : null}
-
               {bookingInfoMaybe}
               {loadingSpinnerMaybe}
               {bookingInfoErrorMaybe}
-
               <p className={css.smallPrint}>
                 <FormattedMessage
                   id={

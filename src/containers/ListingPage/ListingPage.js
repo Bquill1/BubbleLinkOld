@@ -119,7 +119,7 @@ export class ListingPageComponent extends Component {
     const isDaily = values.bookingType === 'daily';
     const isEntireSpace = values.spaceRentalAvailability === 'entireSpace';
     console.log(isEntireSpace)
-    const { bookingStartTime, bookingEndTime, ...restOfValues } = values;
+    const { bookingStartTime, bookingEndTime, seats, ...restOfValues } = values;
 console.log(values)
     const timeSlotDayString = DAYS_OF_WEEK[values.bookingStartDate.date.getDay()];
     const originalAvailabilityPlanForDay = originalAvailabilityPlan.entries.find(
@@ -133,8 +133,8 @@ console.log(originalAvailabilityPlanForDay);
     console.log(values)
     console.log(restOfValues)
     const bookingData = {
-      seats: isEntireSpace ? originalAvailabilityPlanForDay.seats : 1,
       quantity: isDaily ? 1 : calculateQuantityFromHours(bookingStart, bookingEnd),
+      seats: isEntireSpace ? originalAvailabilityPlanForDay.seats : parseInt(seats),
       ...restOfValues,
     };
     console.log(bookingData)

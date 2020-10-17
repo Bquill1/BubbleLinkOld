@@ -27,7 +27,7 @@ const PROVIDER_COMMISSION_PERCENTAGE = -10;
  */
 exports.transactionLineItems = (listing, bookingData) => {
   const isDaily = bookingData.bookingType === "daily"
-  console.log(2222)
+  console.log(2225552)
   console.log(bookingData)
   const ogSeats = bookingData.seats
   const isEntireSpace = bookingData.spaceRentalAvailability === "entireSpace"
@@ -45,7 +45,7 @@ exports.transactionLineItems = (listing, bookingData) => {
   const booking = {
     code: bookingUnitType,
     unitPrice,
-    quantity: isDaily ? 1 : calculateQuantityFromHours(startDate, endDate),
+    quantity: isDaily ? ogSeats : calculateQuantityFromHours(startDate, endDate) * ogSeats,
     includeFor: ['customer', 'provider'],
   };
   console.log(8888888);

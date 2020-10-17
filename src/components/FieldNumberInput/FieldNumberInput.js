@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 import { bool, func, object, shape, string } from 'prop-types';
 import { Field } from 'react-final-form';
 import classNames from 'classnames';
-import { ValidationError, ExpandingTextarea, Button } from '..';
+import { ValidationError,  Button } from '..';
 import { isSafeNumber, isPositive } from '../../util/currency';
 
 import css from './FieldNumberInput.css';
@@ -151,7 +151,6 @@ class FieldNumberInputComponent extends Component {
             +
           </Button>
         </div>
-
         <ValidationError fieldMeta={fieldMeta} />
       </div>
     );

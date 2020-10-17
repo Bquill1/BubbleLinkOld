@@ -242,3 +242,16 @@
   padding: 15px 24px 15px 24px;
   text-align: center;
 }
+.seatSelectorWrapper{
+  display: flex;
+      align-items: center;
+
+}
+.seatSelector{
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  width: 15%;
+}
+.seatSelectorLabel{
+  margin-bottom: 1rem;
+}

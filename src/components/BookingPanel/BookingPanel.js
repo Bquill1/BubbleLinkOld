@@ -39,7 +39,7 @@ const convertToMoney = amount => {
 
   return new Money(convertUnitToSubUnit(amount / 100, unitDivisor(currency)), currency);
 };
-const getMutliPrices = listing => {
+const getMultiPrices = listing => {
   return {
     entireSpace: {
       hourly: listing.attributes.publicData.price_entireSpace_hourly,
@@ -164,7 +164,7 @@ const BookingPanel = props => {
     };
   });
 
-  const prices = getMutliPrices(listing);
+  const prices = getMultiPrices(listing);
   const price =
     convertToMoney(
       prices && prices[spaceRentalAvailability] && prices[spaceRentalAvailability][bookingType]

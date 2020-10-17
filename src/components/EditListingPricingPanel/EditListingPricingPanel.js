@@ -29,7 +29,7 @@ const EditListingPricingPanel = props => {
     updateInProgress,
     errors,
   } = props;
-
+console.log(props)
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
   const { price, publicData } = currentListing.attributes;

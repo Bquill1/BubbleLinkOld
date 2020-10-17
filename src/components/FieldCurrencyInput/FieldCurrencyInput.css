@@ -1,13 +1,28 @@
 @import '../../marketplace.css';
 
 .input {
-  border-bottom-color: var(--attentionColor);
+  border: 1px solid;
+  border-color: var(--attentionColor);
+      text-align: center; 
+
 }
 
 .inputSuccess {
-  border-bottom-color: var(--successColor);
+  border: 1px solid;
+
+  border-color: var(--successColor);
 }
 
 .inputError {
-  border-bottom-color: var(--failColor);
+  border: 1px solid;
+
+  border-color: var(--failColor);
+}
+
+.currencyWrapper {
+  display: inline-flex;
+}
+.priceButton {
+  width: 15%;
+  font-size: large;
 }

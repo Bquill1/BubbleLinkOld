@@ -20,7 +20,7 @@
 
 .priceInput {
   flex-shrink: 0;
-  width: 50%;
+  /* width: 50%; */
 }
 
 .submitButton {
@@ -33,11 +33,11 @@
     margin-top: 100px;
   }
 }
-.buttonWrapper{
+.buttonWrapper {
   display: flex;
   flex-direction: column;
 }
-.priceOptionButton{
+.priceOptionButton {
   display: inline-flex;
   margin: 0 0 0 0;
 }
@@ -54,28 +54,42 @@
   margin-left: 24px;
   margin-bottom: -13px;
 }
-.priceSlider{
+.priceSlider {
   min-width: 200px;
 }
 
-.fieldWrapper{
-display: flex;
-flex-direction: column;
-margin-bottom: 2px;
-padding: 5px;
+.fieldWrapper {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2px;
+  padding: 5px;
 }
 
-.fieldWrapper:last-child{
-border-top: 2px solid grey;
+.fieldWrapperLeft {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2px;
+  padding: 5px;
+  flex-basis: 50%;
 }
-.spaceRentalAvailabilityWrapper{
-display: flex;
-flex-direction: column;
 
+.fieldWrapperRight {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2px;
+  padding: 5px;
+  flex-basis: 50%;
 }
-.bookingTypeWrapper{
-display: flex;
-flex-direction: column;
-margin-left: 30px;
 
+.fieldWrapper:last-child {
+  border-top: 2px solid grey;
+}
+.spaceRentalAvailabilityWrapper {
+  display: flex;
+  flex-direction: column;
+}
+.bookingTypeWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
 }

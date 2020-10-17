@@ -9,7 +9,7 @@ import { intlShape, injectIntl } from '../../util/reactIntl';
 import { Field } from 'react-final-form';
 import classNames from 'classnames';
 import Decimal from 'decimal.js';
-import { ValidationError } from '../../components';
+import { ValidationError, Button } from '../../components';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import {
   isSafeNumber,
@@ -20,6 +20,7 @@ import {
   ensureSeparator,
   truncateToSubUnitPrecision,
 } from '../../util/currency';
+
 import { propTypes } from '../../util/types';
 import * as log from '../../util/log';
 
@@ -89,6 +90,7 @@ class CurrencyInputComponent extends Component {
         unformattedValue,
         value: formattedValue,
         usesComma,
+        holding: 0,
       };
     } catch (e) {
       log.error(e, 'currency-input-init-failed', { currencyConfig, defaultValue, initialValue });
@@ -99,11 +101,21 @@ class CurrencyInputComponent extends Component {
     this.onInputBlur = this.onInputBlur.bind(this);
     this.onInputFocus = this.onInputFocus.bind(this);
     this.updateValues = this.updateValues.bind(this);
+    this.onButtonClick = this.onButtonClick.bind(this);
+  }
+
+  onButtonClick(val) {
+    console.log(val);
+    this.onInputChange({
+      target: { value: '' + (parseInt(this.state.unformattedValue) + parseInt(val)) },
+    });
+    this.onInputBlur({});
   }
 
   onInputChange(event) {
-    event.preventDefault();
-    event.stopPropagation();
+    console.log(event);
+    event.preventDefault && event.preventDefault();
+    event.stopPropagation && event.stopPropagation();
     // Update value strings on state
     const { unformattedValue } = this.updateValues(event);
     // Notify parent component about current price change
@@ -112,8 +124,8 @@ class CurrencyInputComponent extends Component {
   }
 
   onInputBlur(event) {
-    event.preventDefault();
-    event.stopPropagation();
+    event.preventDefault && event.preventDefault();
+    event.stopPropagation && event.stopPropagation();
     const {
       currencyConfig,
       input: { onBlur },
@@ -199,16 +211,40 @@ class CurrencyInputComponent extends Component {
     const { className, currencyConfig, defaultValue, placeholder, intl } = this.props;
     const placeholderText = placeholder || intl.formatNumber(defaultValue, currencyConfig);
     return (
-      <input
-        className={className}
-        {...allowedInputProps(this.props)}
-        value={this.state.value}
-        onChange={this.onInputChange}
-        onBlur={this.onInputBlur}
-        onFocus={this.onInputFocus}
-        type="slider"
-        placeholder={placeholderText}
-      />
+      <div className={css.currencyWrapper}>
+        <Button
+          className={css.priceButton}
+          onClick={e => {
+            e.preventDefault();
+            this.onButtonClick(-1);
+          }}
+          onBlur={this.onInputBlur}
+          onFocus={this.onInputFocus}
+        >
+          -
+        </Button>
+        <input
+          className={className}
+          {...allowedInputProps(this.props)}
+          value={this.state.value}
+          onChange={this.onInputChange}
+          onBlur={this.onInputBlur}
+          onFocus={this.onInputFocus}
+          type="slider"
+          placeholder={placeholderText}
+        />
+        <Button
+          className={css.priceButton}
+          onClick={e => {
+            e.preventDefault();
+            this.onButtonClick(1);
+          }}
+          onBlur={this.onInputBlur}
+          onFocus={this.onInputFocus}
+        >
+          +
+        </Button>
+      </div>
     );
   }
 }

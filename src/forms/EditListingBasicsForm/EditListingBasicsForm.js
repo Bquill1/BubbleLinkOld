@@ -5,10 +5,11 @@ import { Form as FinalForm } from 'react-final-form';
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
-import {  required } from '../../util/validators';
-import { Form, Button,  FieldRangeSlider, FieldSelect } from '../../components';
+import { required } from '../../util/validators';
+import { Form, Button, FieldRangeSlider, FieldSelect, FieldNumberInput, EditListingHelperCard } from '../../components';
 import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
 import CustomPropertyTypeSelectFieldMaybe from './CustomPropertyTypeSelectFieldMaybe';
+import * as validators from '../../util/validators';
 
 import css from './EditListingBasicsForm.css';
 
@@ -42,7 +43,7 @@ const EditListingBasicsFormComponent = props => (
       console.log(values);
       const capacityLabel = intl.formatMessage({ id: 'EditListingBasicsForm.capacityLabel' });
       const spaceTypeLabel = intl.formatMessage({ id: 'EditListingBasicsForm.spaceTypeLabel' });
-
+      const basicsHelper = intl.formatMessage({ id: 'EditListingBasicsForm.basicsMessage' });
 
       const { updateListingError, createListingDraftError, showListingsError } = fetchErrors || {};
       const errorMessageUpdateListing = updateListingError ? (
@@ -68,65 +69,79 @@ const EditListingBasicsFormComponent = props => (
       const submitReady = (updated && pristine) || ready;
       const submitInProgress = updateInProgress;
       const submitDisabled = invalid || disabled || submitInProgress;
+      const numberRequired = validators.required(
+        intl.formatMessage({
+          id: 'EditListingBasicsForm.numberRequired',
+        }),
+        MIN_GUESTS,
+        MAX_GUESTS
+      );
+      const numberValidators = numberRequired;
 
       return (
         <Form className={classes} onSubmit={handleSubmit}>
           {errorMessageCreateListingDraft}
           {errorMessageUpdateListing}
           {errorMessageShowListing}
+          <div className={css.formWrapper}>
+            <div className={css.formLeft}>
+              <CustomPropertyTypeSelectFieldMaybe
+                id="propertyType"
+                name="propertyType"
+                propertyType={propertyType}
+                intl={intl}
+              />
 
-          <CustomPropertyTypeSelectFieldMaybe
-            id="propertyType"
-            name="propertyType"
-            propertyType={propertyType}
-            intl={intl}
-          />
+              <CustomCategorySelectFieldMaybe
+                id="category"
+                name="category"
+                categories={categories}
+                intl={intl}
+              />
+              <div className={css.sliderWrapper}>
+                <FieldNumberInput
+                  id={'capacity'}
+                  name="capacity"
+                  className={''}
+                  type={'text'}
+                  label={capacityLabel}
+                  min={MIN_GUESTS}
+                  max={MAX_GUESTS}
+                  initialCap={values.capacity || 1}
+                  validate={numberValidators}
+                />
+              </div>
+              <FieldSelect
+                className={css.category}
+                name={'spaceType'}
+                id={'spaceType'}
+                label={spaceTypeLabel}
+                validate={required('Please select a space type.')}
+              >
+                {spaceTypeOptions.map(c => (
+                  <option key={c.key} value={c.key}>
+                    {c.label}
+                  </option>
+                ))}
+              </FieldSelect>
 
-          <CustomCategorySelectFieldMaybe
-            id="category"
-            name="category"
-            categories={categories}
-            intl={intl}
-          />
-          <div className={css.sliderWrapper}>
-            <FieldRangeSlider
-              id={'capacity'}
-              name="capacity"
-              className={''}
-              label={capacityLabel}
-              min={MIN_GUESTS}
-              max={MAX_GUESTS}
-              step={STEP_GUESTS}
-              handles={[initialValues.capacity]}
-            />
-            <span className={css.sliderLabel}> {values.capacity || initialValues.capacity || 0} </span>
+              <Button
+                className={css.submitButton}
+                type="submit"
+                inProgress={submitInProgress}
+                disabled={submitDisabled}
+                ready={submitReady}
+              >
+                {saveActionMsg}
+              </Button>
+            </div>
+            <div className={css.formRight}>
+              <EditListingHelperCard
+                title={"The Basics"}
+                content={basicsHelper}
+              />
+            </div>
           </div>
-          <FieldSelect
-            className={css.category}
-            name={'spaceType'}
-            id={'spaceType'}
-            label={spaceTypeLabel}
-            validate={required('Please select a space type.')}
-          >
-            <option disabled value="">
-              {'blank'}
-            </option>
-            {spaceTypeOptions.map(c => (
-              <option key={c.key} value={c.key}>
-                {c.label}
-              </option>
-            ))}
-          </FieldSelect>
-
-          <Button
-            className={css.submitButton}
-            type="submit"
-            inProgress={submitInProgress}
-            disabled={submitDisabled}
-            ready={submitReady}
-          >
-            {saveActionMsg}
-          </Button>
         </Form>
       );
     }}

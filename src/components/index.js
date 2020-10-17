@@ -101,6 +101,7 @@ export { default as FieldRangeSlider } from './FieldRangeSlider/FieldRangeSlider
 export { default as FieldReviewRating } from './FieldReviewRating/FieldReviewRating';
 export { default as FieldSelect } from './FieldSelect/FieldSelect';
 export { default as FieldTextInput } from './FieldTextInput/FieldTextInput';
+export { default as FieldNumberInput } from './FieldNumberInput/FieldNumberInput';
 // Fields that use other Fields
 export { default as FieldTimeZoneSelect } from './FieldTimeZoneSelect/FieldTimeZoneSelect';
 export { default as FieldBoolean } from './FieldBoolean/FieldBoolean';

@@ -113,7 +113,7 @@ const getEntryBoundaries = (values, dayOfWeek, intl, findStartHours) => index =>
 };
 
 const DailyPlan = props => {
-  const { dayOfWeek, values, intl } = props;
+  const { dayOfWeek, values, capacity, intl } = props;
   const getEntryStartTimes = getEntryBoundaries(values, dayOfWeek, intl, true);
   const getEntryEndTimes = getEntryBoundaries(values, dayOfWeek, intl, false);
 
@@ -193,26 +193,9 @@ const DailyPlan = props => {
                           validate={required(seatsRequiredMessage)}
                           seats
                         >
-                          <option value="1"> 1</option>
-                          <option value="2"> 2</option>
-                          <option value="3"> 3</option>
-                          <option value="4"> 4</option>
-                          <option value="5"> 5</option>
-                          <option value="6"> 6</option>
-                          <option value="7"> 7</option>
-                          <option value="8"> 8</option>
-                          <option value="9"> 9</option>
-                          <option value="10"> 10</option>
-                          <option value="11"> 11</option>
-                          <option value="12"> 12</option>
-                          <option value="13"> 13</option>
-                          <option value="14"> 14</option>
-                          <option value="15"> 15</option>
-                          <option value="16"> 16</option>
-                          <option value="17"> 17</option>
-                          <option value="18"> 18</option>
-                          <option value="19"> 19</option>
-                          <option value="20"> 20</option>
+                          {[...Array(capacity).keys()].map(n => {
+                            return <option value={n + 1}> {n + 1}</option>;
+                          })}
                         </FieldSelect>
                       </div>
                     </div>
@@ -269,7 +252,7 @@ const submit = (onSubmit, weekdays) => values => {
 };
 
 const EditListingAvailabilityPlanFormComponent = props => {
-  const { onSubmit, ...restOfprops } = props;
+  const { onSubmit, capacity, ...restOfprops } = props;
   return (
     <FinalForm
       {...restOfprops}
@@ -323,7 +306,15 @@ const EditListingAvailabilityPlanFormComponent = props => {
             </h3>
             <div className={css.week}>
               {weekdays.map(w => {
-                return <DailyPlan dayOfWeek={w} key={w} values={values} intl={intl} />;
+                return (
+                  <DailyPlan
+                    dayOfWeek={w}
+                    key={w}
+                    capacity={capacity}
+                    values={values}
+                    intl={intl}
+                  />
+                );
               })}
             </div>
 

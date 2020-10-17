@@ -14,6 +14,7 @@ import {
   ListingLink,
   Modal,
   TimeRange,
+  EditListingHelperCard
 } from '../../components';
 import { EditListingAvailabilityPlanForm, EditListingAvailabilityExceptionForm } from '../../forms';
 
@@ -162,19 +163,21 @@ const EditListingAvailabilityPanel = props => {
 
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
+  const capacity = currentListing.attributes.publicData.capacity
+  console.log(capacity)
   const isNextButtonDisabled = !currentListing.attributes.availabilityPlan;
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
   const defaultAvailabilityPlan = {
     type: 'availability-plan/time',
     timezone: defaultTimeZone(),
     entries: [
-      { dayOfWeek: 'mon', startTime: '09:00', endTime: '17:00', seats: 1 },
-      { dayOfWeek: 'tue', startTime: '09:00', endTime: '17:00', seats: 1 },
-      { dayOfWeek: 'wed', startTime: '09:00', endTime: '17:00', seats: 1 },
-      { dayOfWeek: 'thu', startTime: '09:00', endTime: '17:00', seats: 1 },
-      { dayOfWeek: 'fri', startTime: '09:00', endTime: '17:00', seats: 1 },
-      { dayOfWeek: 'sat', startTime: '09:00', endTime: '17:00', seats: 1 },
-      { dayOfWeek: 'sun', startTime: '09:00', endTime: '17:00', seats: 1 },
+      { dayOfWeek: 'mon', startTime: '09:00', endTime: '17:00', seats: capacity },
+      { dayOfWeek: 'tue', startTime: '09:00', endTime: '17:00', seats: capacity },
+      { dayOfWeek: 'wed', startTime: '09:00', endTime: '17:00', seats: capacity },
+      { dayOfWeek: 'thu', startTime: '09:00', endTime: '17:00', seats: capacity },
+      { dayOfWeek: 'fri', startTime: '09:00', endTime: '17:00', seats: capacity },
+      { dayOfWeek: 'sat', startTime: '09:00', endTime: '17:00', seats: capacity },
+      { dayOfWeek: 'sun', startTime: '09:00', endTime: '17:00', seats: capacity },
     ],
   };
   const availabilityPlan = currentListing.attributes.availabilityPlan || defaultAvailabilityPlan;
@@ -237,31 +240,37 @@ const EditListingAvailabilityPanel = props => {
           <FormattedMessage id="EditListingAvailabilityPanel.createListingTitle" />
         )}
       </h1>
-
-      <section className={css.section}>
-        <header className={css.sectionHeader}>
-          <h2 className={css.sectionTitle}>
-            <FormattedMessage id="EditListingAvailabilityPanel.defaultScheduleTitle" />
-          </h2>
-          <InlineTextButton
-            className={css.editPlanButton}
-            onClick={() => setIsEditPlanModalOpen(true)}
-          >
-            <IconEdit className={css.editPlanIcon} />{' '}
-            <FormattedMessage id="EditListingAvailabilityPanel.edit" />
-          </InlineTextButton>
-        </header>
-        <div className={css.week}>
-          {WEEKDAYS.map(w => (
-            <Weekday
-              dayOfWeek={w}
-              key={w}
-              availabilityPlan={availabilityPlan}
-              openEditModal={setIsEditPlanModalOpen}
-            />
-          ))}
+      <div className={css.formWrapper}>
+        <div className={css.formLeft}>
+          <section className={css.section}>
+            <header className={css.sectionHeader}>
+              <h2 className={css.sectionTitle}>
+                <FormattedMessage id="EditListingAvailabilityPanel.defaultScheduleTitle" />
+              </h2>
+              <InlineTextButton
+                className={css.editPlanButton}
+                onClick={() => setIsEditPlanModalOpen(true)}
+              >
+                <IconEdit className={css.editPlanIcon} />{' '}
+                <FormattedMessage id="EditListingAvailabilityPanel.edit" />
+              </InlineTextButton>
+            </header>
+            <div className={css.week}>
+              {WEEKDAYS.map(w => (
+                <Weekday
+                  dayOfWeek={w}
+                  key={w}
+                  availabilityPlan={availabilityPlan}
+                  openEditModal={setIsEditPlanModalOpen}
+                />
+              ))}
+            </div>
+          </section>
         </div>
-      </section>
+        <div className={css.formLeft}>
+          <EditListingHelperCard title={'The Availability'} content={null} />
+        </div>
+      </div>
       <section className={css.section}>
         <header className={css.sectionHeader}>
           <h2 className={css.sectionTitle}>
@@ -370,6 +379,7 @@ const EditListingAvailabilityPanel = props => {
             initialValues={initialValues}
             inProgress={updateInProgress}
             fetchErrors={errors}
+            capacity={capacity}
           />
         </Modal>
       ) : null}

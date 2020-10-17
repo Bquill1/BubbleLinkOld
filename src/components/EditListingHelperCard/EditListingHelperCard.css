@@ -8,6 +8,8 @@
     text-align: center;
 }
 .content{
+    @apply --marketplaceSmallFontStyles;
+    text-align: center;
   
 }
 

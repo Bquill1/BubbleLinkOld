@@ -1,0 +1,30 @@
+@import '../../marketplace.css';
+
+.input {
+  border: 1px solid;
+  border-color: var(--attentionColor);
+  text-align: center;
+  width: 50%;
+}
+
+.inputSuccess {
+  border: 1px solid;
+
+  border-color: var(--successColor);
+}
+
+.inputError {
+  border: 1px solid;
+
+  border-color: var(--failColor);
+}
+
+.numberWrapper {
+  display: inline-flex;
+  margin-top: 1rem;
+  width: 80%;
+}
+.numberButton {
+  width: 15%;
+  font-size: large;
+}

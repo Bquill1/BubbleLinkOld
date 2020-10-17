@@ -10,12 +10,13 @@ import * as validators from '../../util/validators';
 import css from './EditListingHelperCard.css';
 
 const EditListingHelperCardComponent = props => {
-  const {title, content,rootClassName, className} = props
+  const {intl, title, content,rootClassName, className} = props
+  const defaultContent = intl.formatMessage({ id: 'lorem.ipsum' });
   const classname = classNames(rootClassName, css.editListingHelperCard)
   return (
     <div className={classname}>
       <div class={css.title}>{title}</div>
-      <div class={css.content}>{content}</div>
+      <div class={css.content}>{content || defaultContent}</div>
     </div>
   );
 };

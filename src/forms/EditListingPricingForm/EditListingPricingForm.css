@@ -13,7 +13,17 @@
     padding-top: 2px;
   }
 }
+.priceFormWrapper {
+  @apply --formWrapper;
+}
+.priceFormLeft {
+   @apply --formLeft;
 
+}
+.priceFormRight {
+     @apply --formRight;
+
+}
 .error {
   color: var(--failColor);
 }

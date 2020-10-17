@@ -105,7 +105,6 @@ class CurrencyInputComponent extends Component {
   }
 
   onButtonClick(val) {
-    console.log(val);
     this.onInputChange({
       target: { value: '' + (parseInt(this.state.unformattedValue) + parseInt(val)) },
     });

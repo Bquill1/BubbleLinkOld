@@ -35,7 +35,15 @@
     padding-top: 2px;
   }
 }
-
+.formWrapper {
+  @apply --formWrapper;
+}
+.formLeft {
+  @apply --formLeft;
+}
+.formRight {
+  @apply --formRight;
+}
 .error {
   color: var(--failColor);
 }

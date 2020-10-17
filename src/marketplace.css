@@ -37,9 +37,9 @@
 
   /* ================ Colors ================ */
 
-  --marketplaceColor: #A21F38;
-  --marketplaceColorLight: #D8806B;
-  --marketplaceColorDark: #D8806B;
+  --marketplaceColor: #a21f38;
+  --marketplaceColorLight: #d8806b;
+  --marketplaceColorDark: #d8806b;
 
   /* Used with inline CSS SVGs */
   --marketplaceColorEncoded: %230095b3;
@@ -573,6 +573,23 @@
     @media (--viewportMedium) {
       margin-top: 32px;
     }
+  }
+
+  /* ================ Form Styles ================ */
+
+  --formWrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  --formLeft {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
+  }
+  --formRight {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
   }
 }
 

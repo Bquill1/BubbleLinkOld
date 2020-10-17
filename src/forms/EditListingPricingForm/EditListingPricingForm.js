@@ -54,21 +54,17 @@ export const EditListingPricingFormComponent = props => (
       console.log(initialValues);
       console.log(values);
       const unitType = config.bookingUnitType;
-      const isNightly = unitType === LINE_ITEM_NIGHT;
-      const isDaily = unitType === LINE_ITEM_DAY;
 
-      const translationKey = isNightly
-        ? 'EditListingPricingForm.pricePerNight'
-        : isDaily
-        ? 'EditListingPricingForm.pricePerDay'
-        : 'EditListingPricingForm.pricePerUnit';
-
-      const pricePerUnitMessage = intl.formatMessage({
-        id: translationKey,
-      });
       const bookingTypeMessage = intl.formatMessage({
         id: 'EditListingPricingForm.bookingTypeMessage',
       });
+      const spaceHelper = intl.formatMessage({
+        id: 'EditListingPricingForm.spaceHelper',
+      });
+      const timeHelper = intl.formatMessage({
+        id: 'EditListingPricingForm.timeHelper',
+      });
+
       const pricePerPersonLabelHour = intl.formatMessage({
         id: 'EditListingPricingForm.pricePerPersonLabelHour',
       });
@@ -103,12 +99,6 @@ export const EditListingPricingFormComponent = props => (
           entireSpace: listing.attributes.publicData.bookingType_entireSpace || [],
           individual: listing.attributes.publicData.bookingType_individual || [],
         };
-      };
-      const buttonOptionKey = {
-        individual: 'One space',
-        entireSpace: 'The whole place',
-        hourly: 'A couple of hours',
-        daily: 'The entire day',
       };
       const priceRequired = validators.required(
         intl.formatMessage({
@@ -153,8 +143,8 @@ export const EditListingPricingFormComponent = props => (
             <div className={css.inputHeading}>
               <label htmlFor={'bookingType'}>{bookingTypeMessage}</label>
             </div>
-            <div className={css.spaceRentalAvailabilityWrapper}>
-              <div className={css.buttonWrapper}>
+            <div className={css.priceFormWrapper}>
+              <div className={css.priceFormLeft}>
                 {spaceRentalAvailabilityOptions.map(c => {
                   return (
                     <>
@@ -196,20 +186,6 @@ export const EditListingPricingFormComponent = props => (
                                             min={MIN_PRICE_PER_PERSON}
                                             max={MAX_PRICE_PER_PERSON}
                                           />
-                                          {/* <span className={css.sliderLabel}>
-                                            {(values &&
-                                              values[`price_${c.key}_${b.key}`] &&
-                                              formatMoney(
-                                                intl,
-                                                values[`price_${c.key}_${b.key}`]
-                                              )) ||
-                                              (initialValues &&
-                                                initialValues[`price_${c.key}_${b.key}`] &&
-                                                formatMoney(
-                                                  intl,
-                                                  initialValues[`price_${c.key}_${b.key}`]
-                                                ))}
-                                          </span> */}
                                         </div>
                                       ) : null}
                                     </>
@@ -219,30 +195,34 @@ export const EditListingPricingFormComponent = props => (
                             })}
                           </div>
                         </div>
-                        <div className={css.fieldWrapperRight}>
-                          <EditListingHelperCard title={c.key} />
-                          <>
-                            {values?.[`bookingType_${c.key}`]?.length ? (
-                              <EditListingHelperCard title={values?.[`bookingType_${c.key}`] } />
-                            ) : null}
-                          </>
-                        </div>
                       </div>
                     </>
                   );
                 })}
+                <Button
+                  className={css.submitButton}
+                  type="submit"
+                  inProgress={submitInProgress}
+                  disabled={submitDisabled}
+                  ready={submitReady}
+                >
+                  {saveActionMsg}
+                </Button>
+              </div>
+              <div className={css.priceFormRight}>
+                <div className={css.fieldWrapperRight}>
+                  <EditListingHelperCard
+                    title={'How much space do you have?'}
+                    content={spaceHelper}
+                  />
+                  <EditListingHelperCard
+                    title={'How long are you booking it for?'}
+                    content={timeHelper}
+                  />
+                </div>
               </div>
             </div>
           </div>
-          <Button
-            className={css.submitButton}
-            type="submit"
-            inProgress={submitInProgress}
-            disabled={submitDisabled}
-            ready={submitReady}
-          >
-            {saveActionMsg}
-          </Button>
         </Form>
       );
     }}

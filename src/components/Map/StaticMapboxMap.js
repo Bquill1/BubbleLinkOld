@@ -32,8 +32,8 @@ const markerOverlay = center => {
   return `pin-s(${center.lng},${center.lat})`;
 };
 
-const mapOverlay = (center, mapsConfig) => {
-  if (mapsConfig.fuzzy.enabled) {
+const mapOverlay = (center, mapsConfig, useFuzzyMap) => {
+  if (useFuzzyMap || mapsConfig.fuzzy.enabled) {
     return fuzzyCircleOverlay(center, mapsConfig);
   }
   if (mapsConfig.customMarker.enabled) {
@@ -43,7 +43,7 @@ const mapOverlay = (center, mapsConfig) => {
 };
 
 const StaticMapboxMap = props => {
-  const { address, center, zoom, mapsConfig, dimensions } = props;
+  const { address, center, zoom, mapsConfig, dimensions, useFuzzyMap, mapClassName } = props;
   const { width, height } = dimensions;
 
   const libLoaded = typeof window !== 'undefined' && window.mapboxgl;
@@ -51,7 +51,7 @@ const StaticMapboxMap = props => {
     return null;
   }
 
-  const overlay = mapOverlay(center, mapsConfig);
+  const overlay = mapOverlay(center, mapsConfig, useFuzzyMap);
   const src =
     'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static' +
     (overlay ? `/${overlay}` : '') +
@@ -59,7 +59,7 @@ const StaticMapboxMap = props => {
     `/${width}x${height}` +
     `?access_token=${config.maps.mapboxAccessToken}`;
 
-  return <img src={src} alt={address} />;
+  return <img className={mapClassName} src={src} alt={address} />;
 };
 
 StaticMapboxMap.defaultProps = {

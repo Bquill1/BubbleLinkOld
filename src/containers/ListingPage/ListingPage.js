@@ -478,6 +478,7 @@ console.log(originalAvailabilityPlanForDay);
                     geolocation={geolocation}
                     publicData={publicData}
                     listingId={currentListing.id}
+                    useFuzzyMap
                   />
                   <SectionReviews reviews={reviews} fetchReviewsError={fetchReviewsError} />
                   <SectionHostMaybe

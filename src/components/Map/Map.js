@@ -20,27 +20,37 @@ export class Map extends Component {
       zoom,
       mapsConfig,
       useStaticMap,
+      useFuzzyMap,
+      mapClassName,
     } = this.props;
     const classes = classNames(rootClassName || css.root, className);
     const mapClasses = mapRootClassName || css.mapRoot;
 
-    if (mapsConfig.fuzzy.enabled && !obfuscatedCenter) {
+    if ((useFuzzyMap || mapsConfig.fuzzy.enabled) && !obfuscatedCenter) {
       throw new Error(
         'Map: obfuscatedCenter prop is required when config.maps.fuzzy.enabled === true'
       );
     }
-    if (!mapsConfig.fuzzy.enabled && !center) {
+    if (!useFuzzyMap && !mapsConfig.fuzzy.enabled && !center) {
       throw new Error('Map: center prop is required when config.maps.fuzzy.enabled === false');
     }
 
-    const location = mapsConfig.fuzzy.enabled ? obfuscatedCenter : center;
+    const location = useFuzzyMap || mapsConfig.fuzzy.enabled ? obfuscatedCenter : center;
 
     return !isMapsLibLoaded() ? (
       <div className={classes} />
     ) : useStaticMap ? (
-      <StaticMap center={location} zoom={zoom} address={address} mapsConfig={mapsConfig} />
+      <StaticMap
+        useFuzzyMap={useFuzzyMap}
+        center={location}
+        zoom={zoom}
+        address={address}
+        mapsConfig={mapsConfig}
+        mapClassName={mapClassName}
+      />
     ) : (
       <DynamicMap
+        useFuzzyMap={useFuzzyMap}
         containerElement={<div className={classes} />}
         mapElement={<div className={mapClasses} />}
         containerClassName={classes}
@@ -49,6 +59,7 @@ export class Map extends Component {
         zoom={zoom}
         address={address}
         mapsConfig={mapsConfig}
+        mapClassName={mapClassName}
       />
     );
   }

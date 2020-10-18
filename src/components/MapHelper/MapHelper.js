@@ -7,35 +7,25 @@ import { obfuscatedCoordinates } from '../../util/maps';
 import { Map } from '../../components';
 import config from '../../config';
 
-import css from './ListingPage.css';
+import css from './MapHelper.css';
 
-class SectionMapMaybe extends Component {
+class MapHelper extends Component {
   constructor(props) {
     super(props);
     this.state = { isStatic: true };
   }
 
   render() {
-    const {
-      className,
-      rootClassName,
-      geolocation,
-      publicData,
-      listingId,
-      useFuzzyMap,
-    } = this.props;
-  if (!geolocation) {
+    const { className, rootClassName, mapClassName, address, geolocation } = this.props;
+console.log(this.props)
+    if (!geolocation) {
       return null;
     }
 
-    const address = publicData && publicData.location ? publicData.location.address : '';
     const classes = classNames(rootClassName || css.sectionMap, className);
-    const cacheKey = listingId ? `${listingId.uuid}_${geolocation.lat}_${geolocation.lng}` : null;
 
-    const mapProps = useFuzzyMap || config.maps.fuzzy.enabled
-      ? { obfuscatedCenter: obfuscatedCoordinates(geolocation, cacheKey) }
-      : { address, center: geolocation };
-    const map = <Map useFuzzyMap={useFuzzyMap} {...mapProps} useStaticMap={this.state.isStatic} />;
+    const mapProps = { address, center: geolocation, mapClassName };
+    const map = <Map accurateMap {...mapProps} useStaticMap={this.state.isStatic} />;
 
     return (
       <div className={classes}>
@@ -59,18 +49,18 @@ class SectionMapMaybe extends Component {
   }
 }
 
-SectionMapMaybe.defaultProps = {
+MapHelper.defaultProps = {
   rootClassName: null,
   className: null,
   geolocation: null,
   listingId: null,
 };
 
-SectionMapMaybe.propTypes = {
+MapHelper.propTypes = {
   rootClassName: string,
   className: string,
   geolocation: propTypes.latlng,
   listingId: propTypes.uuid,
 };
 
-export default SectionMapMaybe;
+export default MapHelper;

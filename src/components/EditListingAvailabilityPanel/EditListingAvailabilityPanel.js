@@ -157,6 +157,7 @@ const EditListingAvailabilityPanel = props => {
     errors,
   } = props;
   // Hooks
+  console.log(props)
   const [isEditPlanModalOpen, setIsEditPlanModalOpen] = useState(false);
   const [isEditExceptionsModalOpen, setIsEditExceptionsModalOpen] = useState(false);
   const [valuesFromLastSubmit, setValuesFromLastSubmit] = useState(null);
@@ -165,7 +166,10 @@ const EditListingAvailabilityPanel = props => {
   const currentListing = ensureOwnListing(listing);
   const capacity = currentListing.attributes.publicData.capacity
   console.log(capacity)
-  const isNextButtonDisabled = !currentListing.attributes.availabilityPlan;
+
+  const isNextButtonDisabled = false;
+  // const isNextButtonDisabled = !currentListing.attributes.availabilityPlan;
+  const newListing = !currentListing.attributes.availabilityPlan;
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
   const defaultAvailabilityPlan = {
     type: 'availability-plan/time',
@@ -184,8 +188,8 @@ const EditListingAvailabilityPanel = props => {
   const initialValues = valuesFromLastSubmit
     ? valuesFromLastSubmit
     : createInitialValues(availabilityPlan);
-
   const handleSubmit = values => {
+    console.log(values)
     setValuesFromLastSubmit(values);
 
     // Final Form can wait for Promises to return.
@@ -356,6 +360,7 @@ const EditListingAvailabilityPanel = props => {
         <Button
           className={css.goToNextTabButton}
           onClick={onNextTab}
+
           disabled={isNextButtonDisabled}
         >
           {submitButtonText}
@@ -380,6 +385,7 @@ const EditListingAvailabilityPanel = props => {
             inProgress={updateInProgress}
             fetchErrors={errors}
             capacity={capacity}
+            newListing={newListing}
           />
         </Modal>
       ) : null}

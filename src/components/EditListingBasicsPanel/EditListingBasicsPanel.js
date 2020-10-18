@@ -54,7 +54,7 @@ const EditListingBasicsPanel = props => {
         onSubmit={values => {
           const { category, propertyType, capacity, spaceType } = values;
           const updateValues = {
-            title: title || 'Your Space',
+            title: title || 'John and Jane’s place',
             publicData: { propertyType, category, capacity, spaceType },
           };
           console.log(updateValues);

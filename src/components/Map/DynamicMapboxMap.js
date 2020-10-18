@@ -60,7 +60,7 @@ class DynamicMapboxMap extends Component {
     this.updateFuzzyCirclelayer = this.updateFuzzyCirclelayer.bind(this);
   }
   componentDidMount() {
-    const { center, zoom, mapsConfig } = this.props;
+    const { center, zoom, mapsConfig, useFuzzyMap } = this.props;
     const position = [center.lng, center.lat];
 
     this.map = new window.mapboxgl.Map({
@@ -73,7 +73,7 @@ class DynamicMapboxMap extends Component {
     this.map.addControl(new window.mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
     this.map.addControl(new MultiTouch());
 
-    if (mapsConfig.fuzzy.enabled) {
+    if (useFuzzyMap || mapsConfig.fuzzy.enabled) {
       this.map.on('load', () => {
         this.map.addLayer(circleLayer(center, mapsConfig, this.fuzzyLayerId));
       });
@@ -94,7 +94,7 @@ class DynamicMapboxMap extends Component {
       return;
     }
 
-    const { center, zoom, mapsConfig } = this.props;
+    const { center, zoom, mapsConfig, useFuzzyMap } = this.props;
     const { lat, lng } = center;
     const position = [lng, lat];
 
@@ -112,7 +112,7 @@ class DynamicMapboxMap extends Component {
     }
 
     // fuzzy circle change
-    if (mapsConfig.fuzzy.enabled && centerChanged) {
+    if ((useFuzzyMap || mapsConfig.fuzzy.enabled) && centerChanged) {
       if (this.map.loaded()) {
         this.updateFuzzyCirclelayer();
       } else {

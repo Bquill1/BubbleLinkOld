@@ -103,12 +103,12 @@ console.log(props)
         console.log(values);
         let bookingType_searchOptions = [];
         if (
-          bookingType_entireSpace.includes('hourly') ||
-          bookingType_individual.includes('hourly')
+          bookingType_entireSpace?.includes('hourly') ||
+          bookingType_individual?.includes('hourly')
         ) {
           bookingType_searchOptions.push('hourly');
         }
-        if (bookingType_entireSpace.includes('daily') || bookingType_individual.includes('daily')) {
+        if (bookingType_entireSpace?.includes('daily') || bookingType_individual?.includes('daily')) {
           bookingType_searchOptions.push('daily');
         }
         console.log(bookingType_searchOptions);

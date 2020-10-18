@@ -214,6 +214,7 @@ export class SearchPageComponent extends Component {
                     onManageDisableScrolling('SearchPage.map', false);
                   }}
                   messages={intl.messages}
+                  useFuzzyMap
                 />
               ) : null}
             </div>

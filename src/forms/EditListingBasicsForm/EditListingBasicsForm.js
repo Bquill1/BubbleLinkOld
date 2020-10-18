@@ -1,12 +1,22 @@
 import React from 'react';
 import { arrayOf, bool, func, shape, string } from 'prop-types';
 import { compose } from 'redux';
+import arrayMutators from 'final-form-arrays';
 import { Form as FinalForm } from 'react-final-form';
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
 import { required } from '../../util/validators';
-import { Form, Button, FieldRangeSlider, FieldSelect, FieldNumberInput, EditListingHelperCard } from '../../components';
+import {
+  Form,
+  Button,
+  FieldRangeSlider,
+  FieldSelect,
+  FieldNumberInput,
+  FieldCheckboxGroup,
+  EditListingHelperCard,
+
+} from '../../components';
 import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
 import CustomPropertyTypeSelectFieldMaybe from './CustomPropertyTypeSelectFieldMaybe';
 import * as validators from '../../util/validators';
@@ -19,6 +29,7 @@ const MAX_GUESTS = 100;
 const STEP_GUESTS = 1;
 const EditListingBasicsFormComponent = props => (
   <FinalForm
+    mutators={{ ...arrayMutators }}
     {...props}
     render={formRenderProps => {
       const {
@@ -41,6 +52,9 @@ const EditListingBasicsFormComponent = props => (
       } = formRenderProps;
       console.log(initialValues);
       console.log(values);
+      if(!values.capacity){
+        values.capacity = 1
+      }
       const capacityLabel = intl.formatMessage({ id: 'EditListingBasicsForm.capacityLabel' });
       const spaceTypeLabel = intl.formatMessage({ id: 'EditListingBasicsForm.spaceTypeLabel' });
       const basicsHelper = intl.formatMessage({ id: 'EditListingBasicsForm.basicsMessage' });
@@ -85,19 +99,45 @@ const EditListingBasicsFormComponent = props => (
           {errorMessageShowListing}
           <div className={css.formWrapper}>
             <div className={css.formLeft}>
-              <CustomPropertyTypeSelectFieldMaybe
+              <FieldCheckboxGroup
+                className={css.features}
+                name={'category'}
+                id={'category'}
+                label={'What can your space be used for?'}
+                validate={required('Please select an option')}
+                options={categories}
+                twoColumns
+              />
+
+              <FieldSelect
+                className={css.category}
+                name={'propertyType'}
+                id={'propertyType'}
+                label={'What type of property is it?'}
+                validate={required('Please choose a property type.')}
+              >
+                <option disabled value="">
+                  {'My property is a...'}
+                </option>
+                {propertyType.map(c => (
+                  <option key={c.key} value={c.key}>
+                    {c.label}
+                  </option>
+                ))}
+              </FieldSelect>
+              {/* <CustomPropertyTypeSelectFieldMaybe
                 id="propertyType"
                 name="propertyType"
                 propertyType={propertyType}
                 intl={intl}
-              />
+              /> */}
 
-              <CustomCategorySelectFieldMaybe
+              {/* <CustomCategorySelectFieldMaybe
                 id="category"
                 name="category"
                 categories={categories}
                 intl={intl}
-              />
+              /> */}
               <div className={css.sliderWrapper}>
                 <FieldNumberInput
                   id={'capacity'}
@@ -118,6 +158,9 @@ const EditListingBasicsFormComponent = props => (
                 label={spaceTypeLabel}
                 validate={required('Please select a space type.')}
               >
+                <option disabled value="">
+                  {'My space is...'}
+                </option>
                 {spaceTypeOptions.map(c => (
                   <option key={c.key} value={c.key}>
                     {c.label}
@@ -136,10 +179,7 @@ const EditListingBasicsFormComponent = props => (
               </Button>
             </div>
             <div className={css.formRight}>
-              <EditListingHelperCard
-                title={"The Basics"}
-                content={basicsHelper}
-              />
+              <EditListingHelperCard title={'The Basics'} content={basicsHelper} />
             </div>
           </div>
         </Form>

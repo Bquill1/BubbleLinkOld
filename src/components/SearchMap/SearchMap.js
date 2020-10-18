@@ -126,11 +126,13 @@ export class SearchMapComponent extends Component {
       mapsConfig,
       activeListingId,
       messages,
+      useFuzzyMap,
     } = this.props;
+    console.log(this.props)
     const classes = classNames(rootClassName || css.root, className);
 
     const listingsWithLocation = originalListings.filter(l => !!l.attributes.geolocation);
-    const listings = mapsConfig.fuzzy.enabled
+    const listings = useFuzzyMap || mapsConfig.fuzzy.enabled
       ? withCoordinatesObfuscated(listingsWithLocation)
       : listingsWithLocation;
     const infoCardOpen = this.state.infoCardOpen;

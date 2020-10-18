@@ -10,7 +10,13 @@ import {
   autocompletePlaceSelected,
   composeValidators,
 } from '../../util/validators';
-import { Form, LocationAutocompleteInputField, Button, FieldTextInput } from '../../components';
+import {
+  Form,
+  LocationAutocompleteInputField,
+  Button,
+  FieldTextInput,
+  MapHelper,
+} from '../../components';
 
 import css from './EditListingLocationForm.css';
 
@@ -34,7 +40,7 @@ export const EditListingLocationFormComponent = props => (
         fetchErrors,
         values,
       } = formRenderProps;
-
+      console.log(values);
       const titleRequiredMessage = intl.formatMessage({ id: 'EditListingLocationForm.address' });
       const addressPlaceholderMessage = intl.formatMessage({
         id: 'EditListingLocationForm.addressPlaceholder',
@@ -107,7 +113,6 @@ export const EditListingLocationFormComponent = props => (
             label={buildingMessage}
             placeholder={buildingPlaceholderMessage}
           />
-
           <Button
             className={css.submitButton}
             type="submit"
@@ -117,6 +122,11 @@ export const EditListingLocationFormComponent = props => (
           >
             {saveActionMsg}
           </Button>
+          <MapHelper
+          mapClassName={css.editListingLocationMap}
+          geolocation={values?.location?.selectedPlace?.origin}
+          address={values?.location?.selectedPlace?.address}
+          />
         </Form>
       );
     }}

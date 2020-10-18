@@ -35,6 +35,10 @@ const EditListingDescriptionFormComponent = props => (
         initialValues,
         values,
       } = formRenderProps;
+      console.log(values)
+      if(values.title === "John and Jane’s place"){
+        values.title = ''
+      }
       const titleMessage = intl.formatMessage({ id: 'EditListingDescriptionForm.title' });
       const titlePlaceholderMessage = intl.formatMessage({
         id: 'EditListingDescriptionForm.titlePlaceholder',

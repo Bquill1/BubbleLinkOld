@@ -165,7 +165,6 @@ const getAllTimeValues = (
     : startTimeAsDate
     ? new Date(findNextBoundary(timeZone, startTimeAsDate).getTime() - 1)
     : null;
-    console.log(timeSlots);
   const selectedTimeSlot = timeSlots.find(t =>
     isInRange(startTimeAsDate, t.attributes.start, t.attributes.end)
   );

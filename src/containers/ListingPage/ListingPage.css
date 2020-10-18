@@ -436,6 +436,47 @@
   }
 }
 
+.sectionView {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 1rem 24px;
+  margin-bottom: 32px;
+  border-bottom: 1px var(--matterColorNegative) solid;
+  @media (--viewportMedium) {
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+  }
+}
+.sectionViewPriceBlock {
+  display: flex;
+  flex-wrap: nowrap;
+  border-right: 1px solid var(--matterColorNegative);
+}
+.viewBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  flex-grow: 1;
+  min-height: 60px;
+}
+.viewBlockContent {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+
+  @apply --marketplaceTinyFontStyles;
+
+  margin-top: 1rem;
+  height: 100%;
+}
+.viewBlockFirstContent {
+}
+.viewBlockSecondContent {
+  margin-top: .5rem;
+}
 .description {
   margin-top: 0;
   margin-bottom: 0;

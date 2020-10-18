@@ -197,3 +197,13 @@
     margin-right: 0;
   }
 }
+
+.seatSelect {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-left: 50px;
+}
+.seatsLabel {
+  margin-right: 5px;
+}

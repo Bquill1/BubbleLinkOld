@@ -142,6 +142,7 @@ export class CheckoutPageComponent extends Component {
       fetchStripeCustomer,
       history,
     } = this.props;
+    console.log(this.props);
 
     // Fetch currentUser with stripeCustomer entity
     // Note: since there's need for data loading in "componentWillMount" function,
@@ -179,10 +180,12 @@ export class CheckoutPageComponent extends Component {
       pageData.bookingDates.bookingEnd &&
       pageData.bookingData.quantity &&
       !isBookingCreated;
-
+    console.log(shouldFetchSpeculatedTransaction);
     if (shouldFetchSpeculatedTransaction) {
       const listingId = pageData.listing.id;
       const transactionId = tx ? tx.id : null;
+      console.log(pageData);
+      const { price, bookingType, spaceRentalAvailability,seats } = pageData.bookingData;
       const { bookingStart, bookingEnd } = pageData.bookingDates;
 
       // Fetch speculated transaction for showing price in booking breakdown
@@ -193,6 +196,10 @@ export class CheckoutPageComponent extends Component {
           listingId,
           bookingStart,
           bookingEnd,
+          price,
+          bookingType,
+          spaceRentalAvailability,
+          seats
         },
         transactionId
       );
@@ -219,8 +226,9 @@ export class CheckoutPageComponent extends Component {
       selectedPaymentMethod,
       saveAfterOnetimePayment,
     } = handlePaymentParams;
+    console.log(handlePaymentParams);
     const storedTx = ensureTransaction(pageData.transaction);
-
+    console.log(storedTx);
     const ensuredCurrentUser = ensureCurrentUser(currentUser);
     const ensuredStripeCustomer = ensureStripeCustomer(ensuredCurrentUser.stripeCustomer);
     const ensuredDefaultPaymentMethod = ensurePaymentMethodCard(
@@ -370,13 +378,17 @@ export class CheckoutPageComponent extends Component {
         : selectedPaymentFlow === PAY_AND_SAVE_FOR_LATER_USE
         ? { setupPaymentMethodForSaving: true }
         : {};
-
+    const { price, bookingType, spaceRentalAvailability, seats } = pageData.bookingData;
     const orderParams = {
       listingId: pageData.listing.id,
       bookingStart: tx.booking.attributes.start,
       bookingEnd: tx.booking.attributes.end,
       quantity: pageData.bookingData ? pageData.bookingData.quantity : null,
       ...optionalPaymentParams,
+      price,
+      seats,
+      bookingType,
+      spaceRentalAvailability,
     };
 
     return handlePaymentIntentCreation(orderParams);
@@ -387,7 +399,7 @@ export class CheckoutPageComponent extends Component {
       return;
     }
     this.setState({ submitting: true });
-
+    console.log('submitting');
     const { history, speculatedTransaction, currentUser, paymentIntent, dispatch } = this.props;
     const { card, message, paymentMethod, formValues } = values;
     const {
@@ -435,7 +447,7 @@ export class CheckoutPageComponent extends Component {
       selectedPaymentMethod: paymentMethod,
       saveAfterOnetimePayment: !!saveAfterOnetimePayment,
     };
-
+    console.log(requestPaymentParams);
     this.handlePaymentIntent(requestPaymentParams)
       .then(res => {
         const { orderId, messageSuccess, paymentMethodSaved } = res;
@@ -503,7 +515,7 @@ export class CheckoutPageComponent extends Component {
       retrievePaymentIntentError,
       stripeCustomerFetched,
     } = this.props;
-
+    console.log(this.props);
     // Since the listing data is already given from the ListingPage
     // and stored to handle refreshes, it might not have the possible
     // deleted or closed information in it. If the transaction
@@ -515,8 +527,8 @@ export class CheckoutPageComponent extends Component {
       isTransactionInitiateListingNotFoundError(initiateOrderError);
 
     const isLoading = !this.state.dataLoaded || speculateTransactionInProgress;
-
-    const { listing, bookingDates, transaction } = this.state.pageData;
+    const { listing, bookingDates, bookingData, transaction } = this.state.pageData;
+    console.log(bookingData);
     const existingTransaction = ensureTransaction(transaction);
     const speculatedTransaction = ensureTransaction(speculatedTransactionMaybe, {}, null);
     const currentListing = ensureListing(listing);
@@ -579,6 +591,7 @@ export class CheckoutPageComponent extends Component {
     // Show breakdown only when speculated transaction and booking are loaded
     // (i.e. have an id)
     const tx = existingTransaction.booking ? existingTransaction : speculatedTransaction;
+    console.log(tx);
     const txBooking = ensureBooking(tx.booking);
     const timeZone = currentListing.attributes.availabilityPlan
       ? currentListing.attributes.availabilityPlan.timezone
@@ -715,19 +728,17 @@ export class CheckoutPageComponent extends Component {
       );
     }
 
-    const unitType = config.bookingUnitType;
-    const isNightly = unitType === LINE_ITEM_NIGHT;
-    const isDaily = unitType === LINE_ITEM_DAY;
+    const isDaily = bookingData.bookingType === 'daily';
+    const isEntireSpace = bookingData.spaceRentalAvailability === 'entireSpace';
 
-    const unitTranslationKey = isNightly
-      ? 'CheckoutPage.perNight'
-      : isDaily
-      ? 'CheckoutPage.perDay'
-      : 'CheckoutPage.perUnit';
-
-    const price = currentListing.attributes.price;
+    const unitTranslationKey = isDaily ? 'CheckoutPage.perDay' : 'CheckoutPage.perHour';
+    const spaceTranslationKey = isEntireSpace
+      ? 'CheckoutPage.perEntirePlace'
+      : 'CheckoutPage.perSpace';
+    const price = bookingData.price;
     const formattedPrice = formatMoney(intl, price);
     const detailsSubTitle = `${formattedPrice} ${intl.formatMessage({ id: unitTranslationKey })}`;
+    const detailsSubSubTitle = `for ${intl.formatMessage({ id: spaceTranslationKey })}`;
 
     const showInitialMessageInput = !(
       existingTransaction && existingTransaction.attributes.lastTransition === TRANSITION_ENQUIRE
@@ -834,6 +845,7 @@ export class CheckoutPageComponent extends Component {
             <div className={css.detailsHeadings}>
               <h2 className={css.detailsTitle}>{listingTitle}</h2>
               <p className={css.detailsSubtitle}>{detailsSubTitle}</p>
+              <p className={css.detailsSubtitle}>{detailsSubSubTitle}</p>
             </div>
             {speculateTransactionErrorMessage}
             {breakdown}
@@ -951,10 +963,7 @@ const mapDispatchToProps = dispatch => ({
 
 const CheckoutPage = compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(CheckoutPageComponent);
 

@@ -61,6 +61,8 @@ export { default as ValidationError } from './ValidationError/ValidationError';
 //////////////////////////////////////////////////////////
 
 export { default as Button, PrimaryButton, SecondaryButton, InlineTextButton } from './Button/Button';
+export { default as BookingPanelOptionButton } from './BookingPanelOptionButton/BookingPanelOptionButton';
+
 export { default as CookieConsent } from './CookieConsent/CookieConsent';
 export { default as ImageCarousel } from './ImageCarousel/ImageCarousel';
 export { default as ImageFromFile } from './ImageFromFile/ImageFromFile';
@@ -99,6 +101,7 @@ export { default as FieldRangeSlider } from './FieldRangeSlider/FieldRangeSlider
 export { default as FieldReviewRating } from './FieldReviewRating/FieldReviewRating';
 export { default as FieldSelect } from './FieldSelect/FieldSelect';
 export { default as FieldTextInput } from './FieldTextInput/FieldTextInput';
+export { default as FieldNumberInput } from './FieldNumberInput/FieldNumberInput';
 // Fields that use other Fields
 export { default as FieldTimeZoneSelect } from './FieldTimeZoneSelect/FieldTimeZoneSelect';
 export { default as FieldBoolean } from './FieldBoolean/FieldBoolean';
@@ -168,6 +171,7 @@ export { default as EditListingAvailabilityPanel } from './EditListingAvailabili
 export { default as EditListingBasicsPanel } from './EditListingBasicsPanel/EditListingBasicsPanel';
 export { default as EditListingDescriptionPanel } from './EditListingDescriptionPanel/EditListingDescriptionPanel';
 export { default as EditListingFeaturesPanel } from './EditListingFeaturesPanel/EditListingFeaturesPanel';
+export { default as EditListingHelperCard } from './EditListingHelperCard/EditListingHelperCard';
 export { default as EditListingLocationPanel } from './EditListingLocationPanel/EditListingLocationPanel';
 export { default as EditListingPhotosPanel } from './EditListingPhotosPanel/EditListingPhotosPanel';
 export { default as EditListingPoliciesPanel } from './EditListingPoliciesPanel/EditListingPoliciesPanel';
@@ -175,6 +179,7 @@ export { default as EditListingPricingPanel } from './EditListingPricingPanel/Ed
 export { default as EditListingWizard } from './EditListingWizard/EditListingWizard';
 export { default as Footer } from './Footer/Footer';
 export { default as SectionHero } from './SectionHero/SectionHero';
+export { default as SectionSearchBlock } from './SectionSearchBlock/SectionSearchBlock';
 export { default as SectionHowItWorks } from './SectionHowItWorks/SectionHowItWorks';
 export { default as SectionLocations } from './SectionLocations/SectionLocations';
 export { default as SectionThumbnailLinks } from './SectionThumbnailLinks/SectionThumbnailLinks';

@@ -15,6 +15,7 @@ const loginAs = require('./api/login-as');
 const transactionLineItems = require('./api/transaction-line-items');
 const initiatePrivileged = require('./api/initiate-privileged');
 const transitionPrivileged = require('./api/transition-privileged');
+const getAvailabilityPlan = require('./api/get-availability-plan');
 
 const router = express.Router();
 
@@ -49,5 +50,6 @@ router.get('/login-as', loginAs);
 router.post('/transaction-line-items', transactionLineItems);
 router.post('/initiate-privileged', initiatePrivileged);
 router.post('/transition-privileged', transitionPrivileged);
+router.post('/get-availability-plan', getAvailabilityPlan);
 
 module.exports = router;

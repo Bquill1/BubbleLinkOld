@@ -102,6 +102,27 @@ const getAvailableEndTimes = (
 };
 
 const getTimeSlots = (timeSlots, date, timeZone) => {
+  const ogTimeSlots =
+    timeSlots && timeSlots[0]
+      ? timeSlots.filter(t =>
+          isInRange(date, t.attributes.start, t.attributes.end, 'day', timeZone)
+        )
+      : [];
+  const combinedTimeSlots = ogTimeSlots.reduce((arr, ts) => {
+    if (!arr.length) {
+      return [ts];
+    }
+    const tsStart = ts.attributes.start.getTime();
+    const lastEnd = arr[arr.length - 1].attributes.end.getTime();
+    if (tsStart <= lastEnd) {
+      const tsEnd = ts.attributes.end;
+      arr[arr.length - 1].attributes.end = tsEnd;
+      return [...arr];
+    } else {
+      return [...arr, ts];
+    }
+  }, []);
+
   return timeSlots && timeSlots[0]
     ? timeSlots.filter(t => isInRange(date, t.attributes.start, t.attributes.end, 'day', timeZone))
     : [];
@@ -115,7 +136,8 @@ const getAllTimeValues = (
   timeSlots,
   startDate,
   selectedStartTime,
-  selectedEndDate
+  selectedEndDate,
+  isDaily
 ) => {
   const startTimes = selectedStartTime
     ? []
@@ -143,21 +165,26 @@ const getAllTimeValues = (
     : startTimeAsDate
     ? new Date(findNextBoundary(timeZone, startTimeAsDate).getTime() - 1)
     : null;
-
+    console.log(timeSlots);
   const selectedTimeSlot = timeSlots.find(t =>
     isInRange(startTimeAsDate, t.attributes.start, t.attributes.end)
   );
 
   const endTimes = getAvailableEndTimes(intl, timeZone, startTime, endDate, selectedTimeSlot);
   const endTime =
-    endTimes.length > 0 && endTimes[0] && endTimes[0].timestamp ? endTimes[0].timestamp : null;
-
+    isDaily &&
+    endTimes.length > 0 &&
+    endTimes[endTimes.length - 1] &&
+    endTimes[endTimes.length - 1].timestamp
+      ? endTimes[endTimes.length - 1].timestamp
+      : endTimes.length > 0 && endTimes[0] && endTimes[0].timestamp
+      ? endTimes[0].timestamp
+      : null;
   return { startTime, endDate, endTime, selectedTimeSlot };
 };
 
 const getMonthlyTimeSlots = (monthlyTimeSlots, date, timeZone) => {
   const monthId = monthIdStringInTimeZone(date, timeZone);
-
   return !monthlyTimeSlots || Object.keys(monthlyTimeSlots).length === 0
     ? []
     : monthlyTimeSlots[monthId] && monthlyTimeSlots[monthId].timeSlots
@@ -245,7 +272,7 @@ class FieldDateAndTimeInput extends Component {
   }
 
   onBookingStartDateChange = value => {
-    const { monthlyTimeSlots, timeZone, intl, form } = this.props;
+    const { monthlyTimeSlots, timeZone, intl, form, isDaily } = this.props;
     if (!value || !value.date) {
       form.batch(() => {
         form.change('bookingStartTime', null);
@@ -268,7 +295,10 @@ class FieldDateAndTimeInput extends Component {
       intl,
       timeZone,
       timeSlotsOnSelectedDate,
-      startDate
+      startDate,
+      null,
+      null,
+      isDaily
     );
 
     form.batch(() => {
@@ -279,7 +309,7 @@ class FieldDateAndTimeInput extends Component {
   };
 
   onBookingStartTimeChange = value => {
-    const { monthlyTimeSlots, timeZone, intl, form, values } = this.props;
+    const { monthlyTimeSlots, timeZone, intl, form, values, isDaily } = this.props;
     const timeSlots = getMonthlyTimeSlots(monthlyTimeSlots, this.state.currentMonth, timeZone);
     const startDate = values.bookingStartDate.date;
     const timeSlotsOnSelectedDate = getTimeSlots(timeSlots, startDate, timeZone);
@@ -289,7 +319,9 @@ class FieldDateAndTimeInput extends Component {
       timeZone,
       timeSlotsOnSelectedDate,
       startDate,
-      value
+      value,
+      null,
+      isDaily
     );
 
     form.batch(() => {
@@ -299,7 +331,7 @@ class FieldDateAndTimeInput extends Component {
   };
 
   onBookingEndDateChange = value => {
-    const { monthlyTimeSlots, timeZone, intl, form, values } = this.props;
+    const { monthlyTimeSlots, timeZone, intl, form, values, isDaily } = this.props;
     if (!value || !value.date) {
       form.change('bookingEndTime', null);
       return;
@@ -320,7 +352,8 @@ class FieldDateAndTimeInput extends Component {
       timeSlotsOnSelectedDate,
       startDate,
       bookingStartTime,
-      endDate
+      endDate,
+      isDaily
     );
 
     form.change('bookingEndTime', endTime);
@@ -355,8 +388,10 @@ class FieldDateAndTimeInput extends Component {
       monthlyTimeSlots,
       timeZone,
       intl,
+      bookingType,
+      spaceRentalAvailability,
     } = this.props;
-
+    const isDaily = bookingType === 'daily';
     const classes = classNames(rootClassName || css.root, className);
 
     const bookingStartDate =
@@ -365,9 +400,9 @@ class FieldDateAndTimeInput extends Component {
     const bookingEndDate =
       values.bookingEndDate && values.bookingEndDate.date ? values.bookingEndDate.date : null;
 
-    const startTimeDisabled = !bookingStartDate;
+    const startTimeDisabled = !bookingStartDate || isDaily;
     const endDateDisabled = !bookingStartDate || !bookingStartTime;
-    const endTimeDisabled = !bookingStartDate || !bookingStartTime || !bookingEndDate;
+    const endTimeDisabled = !bookingStartDate || !bookingStartTime || !bookingEndDate || isDaily;
 
     const timeSlotsOnSelectedMonth = getMonthlyTimeSlots(
       monthlyTimeSlots,
@@ -398,7 +433,8 @@ class FieldDateAndTimeInput extends Component {
       timeSlotsOnSelectedDate,
       bookingStartDate,
       bookingStartTime || firstAvailableStartTime,
-      bookingEndDate || bookingStartDate
+      bookingEndDate || bookingStartDate,
+      isDaily
     );
 
     const availableEndTimes = getAvailableEndTimes(
@@ -408,6 +444,11 @@ class FieldDateAndTimeInput extends Component {
       bookingEndDate || endDate,
       selectedTimeSlot
     );
+    // If the customer selects daily, start and end times should be first and last available slots
+    if (isDaily) {
+      values.bookingStartTime = availableStartTimes[0]?.timestamp;
+      values.bookingEndTime = availableEndTimes[availableEndTimes.length - 1]?.timestamp;
+    }
 
     const isDayBlocked = timeSlotsOnSelectedMonth
       ? day =>
@@ -497,50 +538,55 @@ class FieldDateAndTimeInput extends Component {
             />
           </div>
 
-          <div className={css.field}>
-            <FieldSelect
-              name="bookingStartTime"
-              id={formId ? `${formId}.bookingStartTime` : 'bookingStartTime'}
-              className={bookingStartDate ? css.fieldSelect : css.fieldSelectDisabled}
-              selectClassName={bookingStartDate ? css.select : css.selectDisabled}
-              label={startTimeLabel}
-              disabled={startTimeDisabled}
-              onChange={this.onBookingStartTimeChange}
-            >
-              {bookingStartDate ? (
-                availableStartTimes.map(p => (
-                  <option key={p.timeOfDay} value={p.timestamp}>
-                    {p.timeOfDay}
-                  </option>
-                ))
-              ) : (
-                <option>{placeholderTime}</option>
-              )}
-            </FieldSelect>
-          </div>
-
-          <div className={bookingStartDate ? css.lineBetween : css.lineBetweenDisabled}>-</div>
-
-          <div className={css.field}>
-            <FieldSelect
-              name="bookingEndTime"
-              id={formId ? `${formId}.bookingEndTime` : 'bookingEndTime'}
-              className={bookingStartDate ? css.fieldSelect : css.fieldSelectDisabled}
-              selectClassName={bookingStartDate ? css.select : css.selectDisabled}
-              label={endTimeLabel}
-              disabled={endTimeDisabled}
-            >
-              {bookingStartDate && (bookingStartTime || startTime) ? (
-                availableEndTimes.map(p => (
-                  <option key={p.timeOfDay === '00:00' ? '24:00' : p.timeOfDay} value={p.timestamp}>
-                    {p.timeOfDay === '00:00' ? '24:00' : p.timeOfDay}
-                  </option>
-                ))
-              ) : (
-                <option>{placeholderTime}</option>
-              )}
-            </FieldSelect>
-          </div>
+          {bookingType === 'hourly' ? (
+            <>
+              <div className={css.field}>
+                <FieldSelect
+                  name="bookingStartTime"
+                  id={formId ? `${formId}.bookingStartTime` : 'bookingStartTime'}
+                  className={bookingStartDate ? css.fieldSelect : css.fieldSelectDisabled}
+                  selectClassName={bookingStartDate ? css.select : css.selectDisabled}
+                  label={startTimeLabel}
+                  disabled={startTimeDisabled}
+                  onChange={this.onBookingStartTimeChange}
+                >
+                  {bookingStartDate ? (
+                    availableStartTimes.map((p, index) => (
+                      <option key={p.timeOfDay + `${index}`} value={p.timestamp}>
+                        {p.timeOfDay}
+                      </option>
+                    ))
+                  ) : (
+                    <option>{placeholderTime}</option>
+                  )}
+                </FieldSelect>
+              </div>
+              <div className={bookingStartDate ? css.lineBetween : css.lineBetweenDisabled}>-</div>
+              <div className={css.field}>
+                <FieldSelect
+                  name="bookingEndTime"
+                  id={formId ? `${formId}.bookingEndTime` : 'bookingEndTime'}
+                  className={bookingStartDate ? css.fieldSelect : css.fieldSelectDisabled}
+                  selectClassName={bookingStartDate ? css.select : css.selectDisabled}
+                  label={endTimeLabel}
+                  disabled={endTimeDisabled}
+                >
+                  {bookingStartDate && (bookingStartTime || startTime) ? (
+                    availableEndTimes.map((p, index) => (
+                      <option
+                        key={p.timeOfDay === '00:00' ? '24:00' : p.timeOfDay + `${index}`}
+                        value={p.timestamp}
+                      >
+                        {p.timeOfDay === '00:00' ? '24:00' : p.timeOfDay}
+                      </option>
+                    ))
+                  ) : (
+                    <option>{placeholderTime}</option>
+                  )}
+                </FieldSelect>
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
     );

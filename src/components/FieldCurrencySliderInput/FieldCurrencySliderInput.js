@@ -196,6 +196,7 @@ class CurrencySliderInputComponent extends Component {
 
   render() {
     const { className, currencyConfig, defaultValue, placeholder, intl, min, max } = this.props;
+    console.log(this.props)
     const placeholderText = placeholder || intl.formatNumber(defaultValue, currencyConfig);
     const currentValue = parseInt(this.state.unformattedValue)
     return (

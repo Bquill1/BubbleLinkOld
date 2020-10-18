@@ -17,6 +17,15 @@
   }
 }
 
+.formWrapper {
+  @apply --formWrapper;
+}
+.formLeft {
+  @apply --formLeft;
+}
+.formRight {
+  @apply --formRight;
+}
 .features {
   margin-bottom: 24px;
 

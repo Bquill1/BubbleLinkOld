@@ -37,9 +37,9 @@
 
   /* ================ Colors ================ */
 
-  --marketplaceColor: #A21F38;
-  --marketplaceColorLight: #D8806B;
-  --marketplaceColorDark: #D8806B;
+  --marketplaceColor: #a21f38;
+  --marketplaceColorLight: #d8806b;
+  --marketplaceColorDark: #d8806b;
 
   /* Used with inline CSS SVGs */
   --marketplaceColorEncoded: %230095b3;
@@ -71,6 +71,7 @@
 
   /* Shadows */
   --boxShadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --boxShadowBottom: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
   --boxShadowTop: 0 -2px 4px 0 rgba(0, 0, 0, 0.1);
   --boxShadowLight: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   --boxShadowPopup: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
@@ -572,6 +573,23 @@
     @media (--viewportMedium) {
       margin-top: 32px;
     }
+  }
+
+  /* ================ Form Styles ================ */
+
+  --formWrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  --formLeft {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
+  }
+  --formRight {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
   }
 }
 

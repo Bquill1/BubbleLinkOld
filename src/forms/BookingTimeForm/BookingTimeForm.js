@@ -10,36 +10,81 @@ import config from '../../config';
 import { IconSpinner, Form, PrimaryButton } from '../../components';
 import EstimatedBreakdownMaybe from './EstimatedBreakdownMaybe';
 import FieldDateAndTimeInput from './FieldDateAndTimeInput';
+import FieldNumberInput from '../../components';
 
 import css from './BookingTimeForm.css';
 
 export class BookingTimeFormComponent extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      bookingType: null,
+      spaceRentalAvailability: null,
+    };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   handleFormSubmit(e) {
-    this.props.onSubmit(e);
+    console.log(e);
+    const { bookingType, spaceRentalAvailability } = this.state;
+    const { price, seatsSelected } = this.props;
+    this.props.onSubmit({
+      ...e,
+      bookingType,
+      spaceRentalAvailability,
+      price,
+      seats: seatsSelected,
+    });
   }
-
+  componentDidMount() {
+    const { bookingType, spaceRentalAvailability } = this.props;
+    const stateBookingType = this.state.bookingType;
+    const stateSpaceRentalAvailability = this.state.spaceRentalAvailability;
+    if (bookingType !== stateBookingType) {
+      this.setState({ bookingType: bookingType });
+    }
+    if (spaceRentalAvailability !== stateSpaceRentalAvailability) {
+      this.setState({ spaceRentalAvailability: spaceRentalAvailability });
+    }
+  }
   // When the values of the form are updated we need to fetch
   // lineItems from FTW backend for the EstimatedTransactionMaybe
   // In case you add more fields to the form, make sure you add
   // the values here to the bookingData object.
   handleOnChange(formValues) {
+    function isEmpty(obj) {
+      return Object.keys(obj).length === 0;
+    }
+    if (!formValues || isEmpty(formValues)) {
+      return null;
+    }
+    const { bookingType, spaceRentalAvailability, price, seatsSelected } = this.props;
     const { bookingStartTime, bookingEndTime } = formValues.values;
+
     const startDate = bookingStartTime ? timestampToDate(bookingStartTime) : null;
     const endDate = bookingEndTime ? timestampToDate(bookingEndTime) : null;
-
     const listingId = this.props.listingId;
     const isOwnListing = this.props.isOwnListing;
 
     if (bookingStartTime && bookingEndTime && !this.props.fetchLineItemsInProgress) {
       this.props.onFetchTransactionLineItems({
-        bookingData: { startDate, endDate },
+        bookingData: {
+          startDate,
+          endDate,
+          price,
+          bookingType,
+          spaceRentalAvailability,
+          seats: parseInt(seatsSelected) || 1,
+        },
+        // bookingData: {
+        //   startDate,
+        //   endDate,
+        //   price,
+        //   bookingType,
+        //   spaceRentalAvailability,
+        //   seats: seatsSelected || 1,
+        // },
         listingId,
         isOwnListing,
       });
@@ -47,7 +92,11 @@ export class BookingTimeFormComponent extends Component {
   }
 
   render() {
-    const { rootClassName, className, price: unitPrice, ...rest } = this.props;
+    const { rootClassName, className, price: unitPrice, lineItems, ...rest } = this.props;
+
+    const stateBookingType = this.state.bookingType;
+    const stateSpaceRentalAvailability = this.state.spaceRentalAvailability;
+
     const classes = classNames(rootClassName || css.root, className);
 
     if (!unitPrice) {
@@ -83,7 +132,10 @@ export class BookingTimeFormComponent extends Component {
             handleSubmit,
             intl,
             isOwnListing,
+            listing,
             listingId,
+            bookingType,
+            spaceRentalAvailability,
             submitButtonWrapperClassName,
             unitType,
             values,
@@ -93,11 +145,21 @@ export class BookingTimeFormComponent extends Component {
             lineItems,
             fetchLineItemsInProgress,
             fetchLineItemsError,
+            seatsSelected,
           } = fieldRenderProps;
-
           const startTime = values && values.bookingStartTime ? values.bookingStartTime : null;
           const endTime = values && values.bookingEndTime ? values.bookingEndTime : null;
-
+          const isDaily = bookingType === 'daily';
+          if (
+            bookingType !== stateBookingType ||
+            spaceRentalAvailability !== stateSpaceRentalAvailability
+          ) {
+            this.setState({
+              bookingType: bookingType,
+              spaceRentalAvailability: spaceRentalAvailability,
+            });
+            this.handleOnChange({ values });
+          }
           const bookingStartLabel = intl.formatMessage({
             id: 'BookingTimeForm.bookingStartTitle',
           });
@@ -118,18 +180,22 @@ export class BookingTimeFormComponent extends Component {
                   startDate,
                   endDate,
                   timeZone,
+                  seats: seatsSelected,
                 }
               : null;
 
           const showEstimatedBreakdown =
-            bookingData && lineItems && !fetchLineItemsInProgress && !fetchLineItemsError;
-
+            !!bookingData &&
+            !!this.props.lineItems &&
+            !fetchLineItemsInProgress &&
+            !fetchLineItemsError;
+          console.log(showEstimatedBreakdown);
           const bookingInfoMaybe = showEstimatedBreakdown ? (
             <div className={css.priceBreakdownContainer}>
               <h3 className={css.priceBreakdownTitle}>
                 <FormattedMessage id="BookingTimeForm.priceBreakdownTitle" />
               </h3>
-              <EstimatedBreakdownMaybe bookingData={bookingData} lineItems={lineItems} />
+              <EstimatedBreakdownMaybe bookingData={bookingData} lineItems={this.props.lineItems} />
             </div>
           ) : null;
 
@@ -160,7 +226,6 @@ export class BookingTimeFormComponent extends Component {
             startDateInputProps,
             endDateInputProps,
           };
-
           return (
             <Form onSubmit={handleSubmit} className={classes}>
               <FormSpy
@@ -177,6 +242,9 @@ export class BookingTimeFormComponent extends Component {
                   bookingStartLabel={bookingStartLabel}
                   onFetchTimeSlots={onFetchTimeSlots}
                   monthlyTimeSlots={monthlyTimeSlots}
+                  spaceRentalAvailability={this.props.spaceRentalAvailability}
+                  bookingType={this.props.bookingType}
+                  isDaily={isDaily}
                   values={values}
                   intl={intl}
                   form={form}
@@ -184,11 +252,9 @@ export class BookingTimeFormComponent extends Component {
                   timeZone={timeZone}
                 />
               ) : null}
-
               {bookingInfoMaybe}
               {loadingSpinnerMaybe}
               {bookingInfoErrorMaybe}
-
               <p className={css.smallPrint}>
                 <FormattedMessage
                   id={

@@ -3,8 +3,8 @@
 .input {
   border: 1px solid;
   border-color: var(--attentionColor);
-      text-align: center; 
-
+  text-align: center;
+  width: 50%;
 }
 
 .inputSuccess {
@@ -19,10 +19,12 @@
   border-color: var(--failColor);
 }
 
-.currencyWrapper {
+.numberWrapper {
   display: inline-flex;
+  margin-top: 1rem;
+  width: 80%;
 }
-.priceButton {
+.numberButton {
   width: 15%;
   font-size: large;
 }

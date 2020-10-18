@@ -163,7 +163,8 @@ export const stripeCustomerError = e => ({
 
 export const initiateOrder = (orderParams, transactionId) => (dispatch, getState, sdk) => {
   dispatch(initiateOrderRequest());
-
+  const { price, bookingType, spaceRentalAvailability, seats } = orderParams;
+  console.log(orderParams);
   // If we already have a transaction ID, we should transition, not
   // initiate.
   const isTransition = !!transactionId;
@@ -175,18 +176,28 @@ export const initiateOrder = (orderParams, transactionId) => (dispatch, getState
   const bookingData = {
     startDate: orderParams.bookingStart,
     endDate: orderParams.bookingEnd,
+    price,
+    bookingType,
+    seats,
+    spaceRentalAvailability,
   };
 
   const bodyParams = isTransition
     ? {
         id: transactionId,
         transition,
-        params: orderParams,
+        params: {
+          ...orderParams,
+          protectedData: { bookingData: { price: price.amount, bookingType, spaceRentalAvailability } },
+        },
       }
     : {
         processAlias: config.bookingProcessAlias,
         transition,
-        params: orderParams,
+        params: {
+          ...orderParams,
+          protectedData: { bookingData: { price: price.amount, bookingType, spaceRentalAvailability } },
+        },
       };
   const queryParams = {
     include: ['booking', 'provider'],
@@ -214,22 +225,27 @@ export const initiateOrder = (orderParams, transactionId) => (dispatch, getState
   };
 
   if (isTransition && isPrivilegedTransition) {
+    console.log(6666);
     // transition privileged
     return transitionPrivileged({ isSpeculative: false, bookingData, bodyParams, queryParams })
       .then(handleSucces)
       .catch(handleError);
   } else if (isTransition) {
+    console.log(7777);
+
     // transition non-privileged
     return sdk.transactions
       .transition(bodyParams, queryParams)
       .then(handleSucces)
       .catch(handleError);
   } else if (isPrivilegedTransition) {
+    console.log(8888);
     // initiate privileged
     return initiatePrivileged({ isSpeculative: false, bookingData, bodyParams, queryParams })
       .then(handleSucces)
       .catch(handleError);
   } else {
+    console.log(99999);
     // initiate non-privileged
     return sdk.transactions
       .initiate(bodyParams, queryParams)
@@ -301,6 +317,8 @@ export const sendMessage = params => (dispatch, getState, sdk) => {
 export const speculateTransaction = (orderParams, transactionId) => (dispatch, getState, sdk) => {
   dispatch(speculateTransactionRequest());
 
+  console.log(orderParams);
+  const { price, bookingType, spaceRentalAvailability,seats } = orderParams;
   // If we already have a transaction ID, we should transition, not
   // initiate.
   const isTransition = !!transactionId;
@@ -312,6 +330,10 @@ export const speculateTransaction = (orderParams, transactionId) => (dispatch, g
   const bookingData = {
     startDate: orderParams.bookingStart,
     endDate: orderParams.bookingEnd,
+    price,
+    seats,
+    bookingType,
+    spaceRentalAvailability,
   };
 
   const params = {
@@ -337,6 +359,7 @@ export const speculateTransaction = (orderParams, transactionId) => (dispatch, g
   };
 
   const handleSuccess = response => {
+    console.log(5555);
     const entities = denormalisedResponseEntities(response);
     if (entities.length !== 1) {
       throw new Error('Expected a resource in the speculate response');
@@ -356,22 +379,27 @@ export const speculateTransaction = (orderParams, transactionId) => (dispatch, g
   };
 
   if (isTransition && isPrivilegedTransition) {
+    console.log(1111);
     // transition privileged
     return transitionPrivileged({ isSpeculative: true, bookingData, bodyParams, queryParams })
       .then(handleSuccess)
       .catch(handleError);
   } else if (isTransition) {
+    console.log(2222);
     // transition non-privileged
     return sdk.transactions
       .transitionSpeculative(bodyParams, queryParams)
       .then(handleSuccess)
       .catch(handleError);
   } else if (isPrivilegedTransition) {
+    console.log(3333);
     // initiate privileged
     return initiatePrivileged({ isSpeculative: true, bookingData, bodyParams, queryParams })
       .then(handleSuccess)
       .catch(handleError);
   } else {
+    console.log(4444);
+
     // initiate non-privileged
     return sdk.transactions
       .initiateSpeculative(bodyParams, queryParams)

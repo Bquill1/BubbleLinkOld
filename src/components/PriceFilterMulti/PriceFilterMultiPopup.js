@@ -151,6 +151,7 @@ class PriceFilterMultiPopup extends Component {
       id,
       label,
       queryParamNames,
+      urlQueryParams,
       initialValues,
       min,
       max,
@@ -233,6 +234,7 @@ class PriceFilterMultiPopup extends Component {
           step={step}
           showAsPopup
           isOpen={this.state.isOpen}
+          priceFilterParams={urlQueryParams.pub_bookingTypes}
         />
       </div>
     );

@@ -36,11 +36,7 @@ const EditListingFeaturesPanel = props => {
     <FormattedMessage
       id="EditListingFeaturesPanel.title"
       values={{
-        listingTitle: (
-          <ListingLink listing={listing}>
-            <FormattedMessage id="EditListingFeaturesPanel.listingTitle" />
-          </ListingLink>
-        ),
+        listingTitle: <ListingLink listing={listing} />,
       }}
     />
   ) : (

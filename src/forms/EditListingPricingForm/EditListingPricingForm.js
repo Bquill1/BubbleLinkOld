@@ -18,6 +18,7 @@ import {
   FieldRangeSlider,
   FieldCurrencySliderInput,
   FieldCheckbox,
+  EditListingHelperCard,
 } from '../../components';
 import css from './EditListingPricingForm.css';
 
@@ -50,24 +51,20 @@ export const EditListingPricingFormComponent = props => (
         values,
         initialValues,
       } = formRenderProps;
-      console.log(initialValues)
+      console.log(initialValues);
       console.log(values);
       const unitType = config.bookingUnitType;
-      const isNightly = unitType === LINE_ITEM_NIGHT;
-      const isDaily = unitType === LINE_ITEM_DAY;
 
-      const translationKey = isNightly
-        ? 'EditListingPricingForm.pricePerNight'
-        : isDaily
-        ? 'EditListingPricingForm.pricePerDay'
-        : 'EditListingPricingForm.pricePerUnit';
-
-      const pricePerUnitMessage = intl.formatMessage({
-        id: translationKey,
-      });
       const bookingTypeMessage = intl.formatMessage({
         id: 'EditListingPricingForm.bookingTypeMessage',
       });
+      const spaceHelper = intl.formatMessage({
+        id: 'EditListingPricingForm.spaceHelper',
+      });
+      const timeHelper = intl.formatMessage({
+        id: 'EditListingPricingForm.timeHelper',
+      });
+
       const pricePerPersonLabelHour = intl.formatMessage({
         id: 'EditListingPricingForm.pricePerPersonLabelHour',
       });
@@ -86,7 +83,23 @@ export const EditListingPricingFormComponent = props => (
       const pricePlaceholderMessage = intl.formatMessage({
         id: 'EditListingPricingForm.priceInputPlaceholder',
       });
+      const messageKey = {
+        entireSpace: {
+          hourly: priceForEntireLabelHour,
+          daily: priceForEntireLabelDay,
+        },
+        individual: {
+          hourly: pricePerPersonLabelHour,
+          daily: pricePerPersonLabelDay,
+        },
+      };
 
+      const getSpaceOptions = listing => {
+        return {
+          entireSpace: listing.attributes.publicData.bookingType_entireSpace || [],
+          individual: listing.attributes.publicData.bookingType_individual || [],
+        };
+      };
       const priceRequired = validators.required(
         intl.formatMessage({
           id: 'EditListingPricingForm.priceRequired',
@@ -130,13 +143,13 @@ export const EditListingPricingFormComponent = props => (
             <div className={css.inputHeading}>
               <label htmlFor={'bookingType'}>{bookingTypeMessage}</label>
             </div>
-            <div className={css.buttonWrapper}>
-              <div className={css.spaceRentalAvailabilityWrapper}>
-                <div className={css.buttonWrapper}>
-                  {spaceRentalAvailabilityOptions.map(c => {
-                    return (
-                      <>
-                        <div className={css.fieldWrapper}>
+            <div className={css.priceFormWrapper}>
+              <div className={css.priceFormLeft}>
+                {spaceRentalAvailabilityOptions.map(c => {
+                  return (
+                    <>
+                      <div className={css.fieldWrapper}>
+                        <div className={css.fieldWrapperLeft}>
                           <div className={css.spaceRentalAvailabilityWrapper}>
                             <FieldCheckbox
                               id={`spaceRentalAvailability_${c.key}`}
@@ -148,7 +161,6 @@ export const EditListingPricingFormComponent = props => (
                           </div>
                           <div className={css.bookingTypeWrapper}>
                             {bookingTypeOptions.map(b => {
-                              console.log(c)
                               return (
                                 <>
                                   {values.spaceRentalAvailability?.includes(c.key) ? (
@@ -162,31 +174,18 @@ export const EditListingPricingFormComponent = props => (
                                       />
                                       {values?.[`bookingType_${c.key}`]?.includes(b.key) ? (
                                         <div className={css.sliderWrapper}>
-                                          <FieldCurrencySliderInput
+                                          <FieldCurrencyInput
                                             id={`price_${c.key}_${b.key}`}
                                             name={`price_${c.key}_${b.key}`}
                                             className={css.priceInput}
                                             autoFocus
-                                            label={
-                                              values.bookingType === 'hourly'
-                                                ? pricePerPersonLabelHour
-                                                : pricePerPersonLabelDay
-                                            }
+                                            label={messageKey[c.key][b.key]}
                                             placeholder={pricePlaceholderMessage}
                                             currencyConfig={config.currencyConfig}
                                             validate={priceValidators}
                                             min={MIN_PRICE_PER_PERSON}
                                             max={MAX_PRICE_PER_PERSON}
                                           />
-                                          <span className={css.sliderLabel}>
-                                            {(values &&
-                                              values[`price_${c.key}_${b.key}`] &&
-                                              values[`price_${c.key}_${b.key}`].amount / 100) ||
-                                              (initialValues &&
-                                                initialValues[`price_${c.key}_${b.key}`] &&
-                                                initialValues[`price_${c.key}_${b.key}`].amount /
-                                                  100)}
-                                          </span>
                                         </div>
                                       ) : null}
                                     </>
@@ -196,91 +195,34 @@ export const EditListingPricingFormComponent = props => (
                             })}
                           </div>
                         </div>
-                      </>
-                    );
-                  })}
+                      </div>
+                    </>
+                  );
+                })}
+                <Button
+                  className={css.submitButton}
+                  type="submit"
+                  inProgress={submitInProgress}
+                  disabled={submitDisabled}
+                  ready={submitReady}
+                >
+                  {saveActionMsg}
+                </Button>
+              </div>
+              <div className={css.priceFormRight}>
+                <div className={css.fieldWrapperRight}>
+                  <EditListingHelperCard
+                    title={'How much space do you have?'}
+                    content={spaceHelper}
+                  />
+                  <EditListingHelperCard
+                    title={'How long are you booking it for?'}
+                    content={timeHelper}
+                  />
                 </div>
               </div>
             </div>
           </div>
-          {/* <div className={css.spaceRentalAvailabilityWrapper}>
-            <div className={css.inputHeading}>
-              <label htmlFor={'bookingType'}>{spaceRentalAvailabilityMessage}</label>
-            </div>
-            <div className={css.buttonWrapper}>
-              {spaceRentalAvailabilityOptions.map(b => {
-                return (
-                  <FieldRadioButton
-                    id={`spaceRentalAvailability-${b.key}`}
-                    className={css.priceOptionButton}
-                    name="spaceRentalAvailability"
-                    label={b.label}
-                    value={b.key}
-                  />
-                );
-              })}
-            </div>
-          </div>
-          {values.spaceRentalAvailability === 'both' ||
-          values.spaceRentalAvailability === 'individual' ? (
-            <div className={css.sliderWrapper}>
-              <FieldCurrencySliderInput
-                id="pricePerSpace"
-                name="pricePerSpace"
-                className={css.priceInput}
-                autoFocus
-                label={
-                  values.bookingType === 'hourly' ? pricePerPersonLabelHour : pricePerPersonLabelDay
-                }
-                placeholder={pricePlaceholderMessage}
-                currencyConfig={config.currencyConfig}
-                validate={priceValidators}
-                min={MIN_PRICE_PER_PERSON}
-                max={MAX_PRICE_PER_PERSON}
-              />
-              <span className={css.sliderLabel}>
-                {(values && values.pricePerSpace && values.pricePerSpace.amount / 100) ||
-                  (initialValues &&
-                    initialValues.pricePerSpace &&
-                    initialValues.pricePerSpace.amount / 100)}
-              </span>
-            </div>
-          ) : null}
-
-          {values.spaceRentalAvailability === 'both' ||
-          values.spaceRentalAvailability === 'entireSpace' ? (
-            <div className={css.sliderWrapper}>
-              <FieldCurrencySliderInput
-                id="priceForEntire"
-                name="priceForEntire"
-                className={css.priceInput}
-                autoFocus
-                label={
-                  values.bookingType === 'hourly' ? priceForEntireLabelHour : priceForEntireLabelDay
-                }
-                placeholder={pricePlaceholderMessage}
-                currencyConfig={config.currencyConfig}
-                validate={priceValidators}
-                min={MIN_PRICE_FOR_ENTIRE}
-                max={MAX_PRICE_FOR_ENTIRE}
-              />
-              <span className={css.sliderLabel}>
-                {(values && values.priceForEntire && values.priceForEntire.amount / 100) ||
-                  (initialValues &&
-                    initialValues.priceForEntire &&
-                    initialValues.priceForEntire.amount / 100)}
-              </span>
-            </div>
-          ) : null} */}
-          <Button
-            className={css.submitButton}
-            type="submit"
-            inProgress={submitInProgress}
-            disabled={submitDisabled}
-            ready={submitReady}
-          >
-            {saveActionMsg}
-          </Button>
         </Form>
       );
     }}

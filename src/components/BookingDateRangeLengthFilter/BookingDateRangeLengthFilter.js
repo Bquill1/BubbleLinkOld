@@ -9,39 +9,39 @@ import css from './BookingDateRangeLengthFilter.css';
 
 const RADIX = 10;
 
-const formatSelectedLabel = (minDurationOptions, minDuration, startDate, endDate) => {
+const formatSelectedLabel = (bookingTypesOptions, bookingTypes, startDate, endDate) => {
   // Only show the minimum duration label for options whose key
   // matches the given param and that have the short label defined.
-  const minDurationOption =
-    typeof minDuration === 'number'
-      ? minDurationOptions.find(option => {
-          return minDuration.toString() === option.key && option.shortLabel;
+  const bookingTypesOption =
+    typeof bookingTypes === 'number'
+      ? bookingTypesOptions.find(option => {
+          return bookingTypes.toString() === option.key && option.shortLabel;
         })
       : null;
-  return minDurationOption
-    ? `${startDate} - ${endDate}, ${minDurationOption.shortLabel}`
+  return bookingTypesOption
+    ? `${startDate} - ${endDate}, ${bookingTypesOption.shortLabel}`
     : `${startDate} - ${endDate}`;
 };
 
 // Parse query parameter, which should look like "2020-05-28,2020-05-31"
 const parseInitialValues = initialValues => {
-  const { dates, minDuration } = initialValues || {};
+  const { dates, bookingTypes } = initialValues || {};
   const rawDateValuesFromParams = dates ? dates.split(',') : [];
   const [startDate, endDate] = rawDateValuesFromParams.map(v => parseDateFromISO8601(v));
   const initialDates =
     initialValues && startDate && endDate ? { dates: { startDate, endDate } } : { dates: null };
-  const initialMinDuration = minDuration ? parseInt(minDuration, RADIX) : null;
-  return { ...initialDates, minDuration: initialMinDuration };
+  const initialbookingTypes = bookingTypes ? parseInt(bookingTypes, RADIX) : null;
+  return { ...initialDates, bookingTypes: initialbookingTypes };
 };
 // Format dateRange value for the query. It's given by FieldDateRangeInput:
 // { dates: { startDate, endDate } }
-const formatValues = (values, dateQueryParam, minDurationParam) => {
+const formatValues = (values, dateQueryParam, bookingTypesParam) => {
   const { startDate, endDate } = values && values[dateQueryParam] ? values[dateQueryParam] : {};
   const start = startDate ? stringifyDateToISO8601(startDate) : null;
   const end = endDate ? stringifyDateToISO8601(endDate) : null;
   const datesValue = start && end ? `${start},${end}` : null;
-  const minDurationValue = values && values[minDurationParam] ? values[minDurationParam] : null;
-  return { [dateQueryParam]: datesValue, [minDurationParam]: minDurationValue };
+  const bookingTypesValue = values && values[bookingTypesParam] ? values[bookingTypesParam] : null;
+  return { [dateQueryParam]: datesValue, [bookingTypesParam]: bookingTypesValue };
 };
 
 export class BookingDateRangeLengthFilterComponent extends Component {
@@ -73,12 +73,12 @@ export class BookingDateRangeLengthFilterComponent extends Component {
       intl,
       ...rest
     } = this.props;
-
+console.log(this.props)
     const datesQueryParamName = 'dates';
-    const minDurationQueryParamName = 'minDuration';
+    const bookingTypesQueryParamName = 'pub_bookingTypes';
 
     const parsedInitialValues = initialValuesRaw ? parseInitialValues(initialValuesRaw) : {};
-    const { dates: initialDates, minDuration: initialMinDuration } = parsedInitialValues;
+    const { dates: initialDates, bookingTypes: initialbookingTypes } = parsedInitialValues;
     const { startDate, endDate } = initialDates || {};
 
     const isDatesSelected = !!initialDates && !!startDate && !!startDate;
@@ -97,7 +97,7 @@ export class BookingDateRangeLengthFilterComponent extends Component {
           {
             dates: formatSelectedLabel(
               dateRangeLengthFilter.config.options,
-              initialMinDuration,
+              initialbookingTypes,
               formattedStartDate,
               formattedEndDate
             ),
@@ -113,7 +113,7 @@ export class BookingDateRangeLengthFilterComponent extends Component {
           {
             dates: formatSelectedLabel(
               dateRangeLengthFilter.config.options,
-              initialMinDuration,
+              initialbookingTypes,
               formattedStartDate,
               formattedEndDate
             ),
@@ -123,8 +123,8 @@ export class BookingDateRangeLengthFilterComponent extends Component {
       ? label
       : intl.formatMessage({ id: 'BookingDateRangeLengthFilter.labelPopup' });
 
-    const minDurationLabel = intl.formatMessage({
-      id: 'BookingDateRangeLengthFilter.minDurationLabel',
+    const bookingTypesLabel = intl.formatMessage({
+      id: 'BookingDateRangeLengthFilter.bookingTypesLabel',
     });
 
     const onClearPopupMaybe =
@@ -159,7 +159,7 @@ export class BookingDateRangeLengthFilterComponent extends Component {
 
     const handleSubmit = values => {
       this.setState({ selectedDates: null });
-      onSubmit(formatValues(values, datesQueryParamName, minDurationQueryParamName));
+      onSubmit(formatValues(values, datesQueryParamName, bookingTypesQueryParamName));
     };
 
     const handleChange = values => {
@@ -171,7 +171,7 @@ export class BookingDateRangeLengthFilterComponent extends Component {
     const selectedDatesInState = this.state.selectedDates;
     const initialValues = {
       dates: selectedDatesInState ? selectedDatesInState : initialDates,
-      minDuration: initialMinDuration,
+      bookingTypes: initialbookingTypes,
     };
 
     const fields = (
@@ -183,9 +183,9 @@ export class BookingDateRangeLengthFilterComponent extends Component {
           }}
         />
         <FieldSelect
-          id="BookingDateRangeLengthFilter.duration"
-          name={minDurationQueryParamName}
-          label={minDurationLabel}
+          id="BookingDateRangeLengthFilter.bookingTypes"
+          name={bookingTypesQueryParamName}
+          label={bookingTypesLabel}
           className={css.duration}
           disabled={!datesSelected}
         >
@@ -259,7 +259,7 @@ BookingDateRangeLengthFilterComponent.propTypes = {
   onSubmit: func.isRequired,
   initialValues: shape({
     dates: string,
-    minDuration: string,
+    bookingTypes: string,
   }),
   contentPlacementOffset: number,
 

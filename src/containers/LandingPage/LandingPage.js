@@ -32,8 +32,9 @@ export const LandingPageComponent = props => {
     scrollingDisabled,
     currentUserListing,
     currentUserListingFetched,
+    filterConfig,
   } = props;
-
+console.log(props)
   // Schema for search engines (helps them to understand what this page is about)
   // http://schema.org
   // We are using JSON-LD format
@@ -67,7 +68,7 @@ export const LandingPageComponent = props => {
         </LayoutWrapperTopbar>
         <LayoutWrapperMain>
           <div className={css.heroContainer}>
-            <SectionHero className={css.hero} history={history} location={location} />
+            <SectionHero className={css.hero} history={history} location={location} filterConfig={filterConfig}/>
           </div>
           <ul className={css.sections}>
             <li className={css.section}>
@@ -96,6 +97,7 @@ export const LandingPageComponent = props => {
 LandingPageComponent.defaultProps = {
   currentUserListing: null,
   currentUserListingFetched: false,
+  filterConfig: config.custom.filters,
 };
 
 LandingPageComponent.propTypes = {

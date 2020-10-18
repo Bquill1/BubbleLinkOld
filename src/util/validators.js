@@ -44,6 +44,24 @@ export const requiredAndNonEmptyString = message => value => {
   return isNonEmptyString(value) ? VALID : message;
 };
 
+export const requiredInRange = message => (value, min, max) => {
+  console.log(min);
+  console.log(max);
+  if (
+    typeof value === 'undefined' ||
+    value === null ||
+    parseInt(value) < min ||
+    parseInt(value) > max
+  ) {
+    // undefined or null values are invalid
+    return message;
+  }
+  if (typeof value === 'string') {
+    // string must be nonempty when trimmed
+    return isNonEmptyString(value) ? VALID : message;
+  }
+  return VALID;
+};
 export const requiredFieldArrayCheckbox = message => value => {
   if (!value) {
     return message;
@@ -226,7 +244,7 @@ export const validSGID = message => value => {
 export const composeValidators = (...validators) => value =>
   validators.reduce((error, validator) => error || validator(value), VALID);
 
-  //  JUST FOR DESCRIPTION PANEL
+//  JUST FOR DESCRIPTION PANEL
 
 export const notDefault = message => value => {
   if (typeof value === 'undefined' || value === 'Your Place') {

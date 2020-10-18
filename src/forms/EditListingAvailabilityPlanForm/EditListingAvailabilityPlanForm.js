@@ -6,6 +6,7 @@ import arrayMutators from 'final-form-arrays';
 import { FieldArray } from 'react-final-form-arrays';
 import classNames from 'classnames';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+import { required } from '../../util/validators';
 import {
   Form,
   InlineTextButton,
@@ -112,7 +113,7 @@ const getEntryBoundaries = (values, dayOfWeek, intl, findStartHours) => index =>
 };
 
 const DailyPlan = props => {
-  const { dayOfWeek, values, intl } = props;
+  const { dayOfWeek, values, capacity, intl } = props;
   const getEntryStartTimes = getEntryBoundaries(values, dayOfWeek, intl, true);
   const getEntryEndTimes = getEntryBoundaries(values, dayOfWeek, intl, false);
 
@@ -124,6 +125,7 @@ const DailyPlan = props => {
   const endTimePlaceholder = intl.formatMessage({
     id: 'EditListingAvailabilityPlanForm.endTimePlaceholder',
   });
+  const seatsRequiredMessage = ' ';
 
   return (
     <div className={classNames(css.weekDay, hasEntries ? css.hasEntries : null)}>
@@ -182,6 +184,20 @@ const DailyPlan = props => {
                           ))}
                         </FieldSelect>
                       </div>
+                      <div className={css.seatSelect} id="step_seats">
+                        <span className={css.seatsLabel}>Seats - </span>
+                        <FieldSelect
+                          id={`${name}.seats`}
+                          name={`${name}.seats`}
+                          selectClassName={css.fieldSelect}
+                          validate={required(seatsRequiredMessage)}
+                          seats
+                        >
+                          {[...Array(capacity).keys()].map(n => {
+                            return <option value={n + 1}> {n + 1}</option>;
+                          })}
+                        </FieldSelect>
+                      </div>
                     </div>
                     <div
                       className={css.fieldArrayRemove}
@@ -236,7 +252,7 @@ const submit = (onSubmit, weekdays) => values => {
 };
 
 const EditListingAvailabilityPlanFormComponent = props => {
-  const { onSubmit, ...restOfprops } = props;
+  const { onSubmit, capacity, ...restOfprops } = props;
   return (
     <FinalForm
       {...restOfprops}
@@ -290,7 +306,15 @@ const EditListingAvailabilityPlanFormComponent = props => {
             </h3>
             <div className={css.week}>
               {weekdays.map(w => {
-                return <DailyPlan dayOfWeek={w} key={w} values={values} intl={intl} />;
+                return (
+                  <DailyPlan
+                    dayOfWeek={w}
+                    key={w}
+                    capacity={capacity}
+                    values={values}
+                    intl={intl}
+                  />
+                );
               })}
             </div>
 

@@ -7,7 +7,7 @@ import { FormattedMessage } from '../../util/reactIntl';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { propTypes } from '../../util/types';
 import config from '../../config';
-import { Button, FieldCheckboxGroup, Form } from '../../components';
+import { Button, FieldCheckboxGroup, Form, EditListingHelperCard } from '../../components';
 
 import css from './EditListingFeaturesForm.css';
 
@@ -54,18 +54,29 @@ const EditListingFeaturesFormComponent = props => (
         <Form className={classes} onSubmit={handleSubmit}>
           {errorMessage}
           {errorMessageShowListing}
+          <div className={css.formWrapper}>
+            <div className={css.formLeft}>
+              <FieldCheckboxGroup
+                className={css.features}
+                id={name}
+                name={name}
+                options={options}
+              />
 
-          <FieldCheckboxGroup className={css.features} id={name} name={name} options={options} />
-
-          <Button
-            className={css.submitButton}
-            type="submit"
-            inProgress={submitInProgress}
-            disabled={submitDisabled}
-            ready={submitReady}
-          >
-            {saveActionMsg}
-          </Button>
+              <Button
+                className={css.submitButton}
+                type="submit"
+                inProgress={submitInProgress}
+                disabled={submitDisabled}
+                ready={submitReady}
+              >
+                {saveActionMsg}
+              </Button>
+            </div>
+            <div className={css.formRight}>
+              <EditListingHelperCard title={'The Features'} content={null} />
+            </div>
+          </div>
         </Form>
       );
     }}

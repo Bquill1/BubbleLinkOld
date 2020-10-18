@@ -3,7 +3,7 @@ import config from '../../config';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import { storableError } from '../../util/errors';
 import { addMarketplaceEntities } from '../../ducks/marketplaceData.duck';
-import { transactionLineItems } from '../../util/api';
+import { transactionLineItems, getAvailabilityPlan } from '../../util/api';
 import * as log from '../../util/log';
 import { denormalisedResponseEntities } from '../../util/data';
 import { findNextBoundary, nextMonthFn, monthIdStringInTimeZone } from '../../util/dates';
@@ -26,6 +26,8 @@ export const SHOW_LISTING_ERROR = 'app/ListingPage/SHOW_LISTING_ERROR';
 export const FETCH_REVIEWS_REQUEST = 'app/ListingPage/FETCH_REVIEWS_REQUEST';
 export const FETCH_REVIEWS_SUCCESS = 'app/ListingPage/FETCH_REVIEWS_SUCCESS';
 export const FETCH_REVIEWS_ERROR = 'app/ListingPage/FETCH_REVIEWS_ERROR';
+
+export const ADD_ORIGINAL_AVAILABILITY_PLAN = 'app/ListingPage/ADD_ORIGINAL_AVAILABILITY_PLAN';
 
 export const FETCH_TIME_SLOTS_REQUEST = 'app/ListingPage/FETCH_TIME_SLOTS_REQUEST';
 export const FETCH_TIME_SLOTS_SUCCESS = 'app/ListingPage/FETCH_TIME_SLOTS_SUCCESS';
@@ -53,6 +55,7 @@ const initialState = {
     //   fetchTimeSlotsInProgress: null,
     // },
   },
+  originalAvailabilityPlan: null,
   lineItems: null,
   fetchLineItemsInProgress: false,
   fetchLineItemsError: null,
@@ -71,6 +74,9 @@ const listingPageReducer = (state = initialState, action = {}) => {
       return { ...state, id: payload.id, showListingError: null };
     case SHOW_LISTING_ERROR:
       return { ...state, showListingError: payload };
+
+    case ADD_ORIGINAL_AVAILABILITY_PLAN:
+      return { ...state, originalAvailabilityPlan: payload };
 
     case FETCH_REVIEWS_REQUEST:
       return { ...state, fetchReviewsError: null };
@@ -161,6 +167,10 @@ export const fetchReviewsError = error => ({
   error: true,
   payload: error,
 });
+export const addOriginalAvailabilityPlan = plan => ({
+  type: ADD_ORIGINAL_AVAILABILITY_PLAN,
+  payload: plan,
+});
 
 export const fetchTimeSlotsRequest = monthId => ({
   type: FETCH_TIME_SLOTS_REQUEST,
@@ -226,14 +236,17 @@ export const showListing = (listingId, isOwn = false) => (dispatch, getState, sd
 
   return show
     .then(data => {
-      dispatch(addMarketplaceEntities(data));
-      return data;
+      return getAvailabilityPlan(listingId).then(r => {
+        const originalAvailabilityPlan = r.data;
+        dispatch(addOriginalAvailabilityPlan(originalAvailabilityPlan));
+        dispatch(addMarketplaceEntities(data));
+        return data;
+      });
     })
     .catch(e => {
       dispatch(showListingError(storableError(e)));
     });
 };
-
 export const fetchReviews = listingId => (dispatch, getState, sdk) => {
   dispatch(fetchReviewsRequest());
   return sdk.reviews
@@ -253,7 +266,9 @@ export const fetchReviews = listingId => (dispatch, getState, sdk) => {
 };
 
 const timeSlotsRequest = params => (dispatch, getState, sdk) => {
+  console.log(params);
   return sdk.timeslots.query(params).then(response => {
+    console.log(response);
     return denormalisedResponseEntities(response);
   });
 };
@@ -271,6 +286,7 @@ export const fetchTimeSlots = (listingId, start, end, timeZone) => (dispatch, ge
 
   return dispatch(timeSlotsRequest({ listingId, start, end, ...extraParams }))
     .then(timeSlots => {
+      console.log(timeSlots)
       dispatch(fetchTimeSlotsSuccess(monthId, timeSlots));
     })
     .catch(e => {
@@ -330,6 +346,7 @@ const fetchMonthlyTimeSlots = (dispatch, listing) => {
 };
 
 export const fetchTransactionLineItems = ({ bookingData, listingId, isOwnListing }) => dispatch => {
+  console.log(bookingData);
   dispatch(fetchLineItemsRequest());
   transactionLineItems({ bookingData, listingId, isOwnListing })
     .then(response => {
@@ -346,18 +363,22 @@ export const fetchTransactionLineItems = ({ bookingData, listingId, isOwnListing
 };
 
 export const loadData = (params, search) => dispatch => {
+  console.log('loadData')
   const listingId = new UUID(params.id);
-
+console.log(listingId)
   const ownListingVariants = [LISTING_PAGE_DRAFT_VARIANT, LISTING_PAGE_PENDING_APPROVAL_VARIANT];
   if (ownListingVariants.includes(params.variant)) {
+    console.log(11111)
     return dispatch(showListing(listingId, true));
   }
 
   return Promise.all([dispatch(showListing(listingId)), dispatch(fetchReviews(listingId))]).then(
     responses => {
+      console.log(22222)
+      console.log(responses)
       if (responses[0] && responses[0].data && responses[0].data.data) {
         const listing = responses[0].data.data;
-
+console.log(3333)
         // Fetch timeSlots.
         // This can happen parallel to loadData.
         // We are not interested to return them from loadData call.

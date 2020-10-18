@@ -9,6 +9,15 @@
   padding: 12px 24px 0 24px;
 }
 
+.formWrapper {
+  @apply --formWrapper;
+}
+.formLeft {
+  @apply --formLeft;
+}
+.formRight {
+  @apply --formRight;
+}
 .sectionHeader {
   display: flex;
   flex-direction: row;

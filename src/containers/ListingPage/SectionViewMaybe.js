@@ -13,6 +13,8 @@ import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { PriceDisplayGrid } from '../../components';
 import { FormattedMessage } from '../../util/reactIntl';
 
@@ -20,10 +22,15 @@ import { FormattedMessage } from '../../util/reactIntl';
 import css from './ListingPage.css';
 
 const BlockIcon = props => {
-  const { icon, tip } = props;
+  const { icon, tip, size = '2x', className } = props;
   return (
     <>
-      <FontAwesomeIcon icon={icon} data-tip={tip} />
+      <FontAwesomeIcon
+        className={className || css.blockIconClass}
+        size={size}
+        icon={icon}
+        data-tip={tip}
+      />
       <ReactTooltip />
     </>
   );
@@ -44,12 +51,19 @@ const ViewBlock = props => {
 };
 // Create new React component
 const SectionViewMaybe = props => {
-  const { intl, propertyTypeOptions, spaceTypeOptions, publicData, prices } = props;
+  const {
+    intl,
+    propertyTypeOptions,
+    spaceTypeOptions,
+    categoryOptions,
+    publicData,
+    prices,
+  } = props;
   if (!publicData) {
     return null;
   }
   console.log(props);
-  const { capacity, propertyType, spaceType } = publicData;
+  const { capacity, propertyType, spaceType, category } = publicData;
   const propertyTypeKey = {
     house: <BlockIcon icon={faHome} tip="This space is in the hosts house." />,
     apartment: <BlockIcon icon={faBuilding} tip="This space is in the hosts apartment." />,
@@ -67,7 +81,7 @@ const SectionViewMaybe = props => {
       <div className={css.sectionViewPriceBlock}>
         <ViewBlock
           intl={intl}
-          icon={<div></div>}
+          icon={<div className={css.emptyIcon}></div>}
           valueFirst={<BlockIcon icon={faUser} tip="Individual Spot" />}
           valueSecond={<BlockIcon icon={faHome} tip="Entire Place" />}
         />
@@ -84,21 +98,53 @@ const SectionViewMaybe = props => {
           valueSecond={formatMoney(intl, prices['entireSpace']['hourly'])}
         />
       </div>
-      <ViewBlock
-        intl={intl}
-        icon={<BlockIcon icon={faUniversalAccess} tip="Maximum Guests Allowed" />}
-        valueFirst={"Capacity: " + capacity}
-      />
-      <ViewBlock
-        intl={intl}
-        icon={propertyTypeKey[propertyType]}
-        valueFirst={propertyTypeOptions.find(o => o.key === propertyType).label}
-      />
-      <ViewBlock
-        intl={intl}
-        icon={spaceTypeKey[spaceType]}
-        valueFirst={spaceTypeOptions.find(o => o.key === spaceType).label}
-      />
+      <div className={css.sectionViewDetailsBlock}>
+        <div className={css.sectionViewDetailsTop}>
+          <div className={css.gridRow}>
+            {categoryOptions.map(o => {
+              return (
+                <div className={css.gridCol}>
+                  <>
+                    <div className={css.gridBlock}>{o.label}</div>
+                    {category.includes(o.key) ? (
+                      <BlockIcon
+                        className={css.greenCheck}
+                        icon={faCheck}
+                        tip={o.label}
+                        size={'1x'}
+                      />
+                    ) : (
+                      <BlockIcon className={css.redX} icon={faTimes} tip={o.label} size={'1x'} />
+                    )}
+                  </>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className={css.sectionViewDetailsBottom}>
+          <ViewBlock
+            intl={intl}
+            icon={
+              <BlockIcon
+                icon={faUniversalAccess}
+                tip={`This space holds a maximum of ${capacity} guests.`}
+              />
+            }
+            valueFirst={'Capacity: ' + capacity}
+          />
+          <ViewBlock
+            intl={intl}
+            icon={propertyTypeKey[propertyType]}
+            valueFirst={propertyTypeOptions.find(o => o.key === propertyType).label}
+          />
+          <ViewBlock
+            intl={intl}
+            icon={spaceTypeKey[spaceType]}
+            valueFirst={spaceTypeOptions.find(o => o.key === spaceType).label}
+          />
+        </div>
+      </div>
     </div>
   );
 };

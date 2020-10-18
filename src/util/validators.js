@@ -45,8 +45,6 @@ export const requiredAndNonEmptyString = message => value => {
 };
 
 export const requiredInRange = message => (value, min, max) => {
-  console.log(min);
-  console.log(max);
   if (
     typeof value === 'undefined' ||
     value === null ||

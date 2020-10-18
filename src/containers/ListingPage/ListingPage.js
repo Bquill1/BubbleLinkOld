@@ -489,6 +489,7 @@ console.log(prices)
                     intl={intl}
                     propertyTypeOptions={propertyTypeOptions}
                     spaceTypeOptions={spaceTypeOptions}
+                    categoryOptions={categoryOptions}
                     publicData={publicData}
                     prices={prices}
                   />

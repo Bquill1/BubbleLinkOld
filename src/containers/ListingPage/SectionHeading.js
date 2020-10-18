@@ -43,7 +43,6 @@ const categoryFormatted = ''
       <div className={css.heading}>
         <h1 className={css.title}>{richTitle}</h1>
         <div className={css.author}>
-          {category}
           <FormattedMessage id="ListingPage.hostedBy" values={{ name: hostLink }} />
           {showContactUser ? (
             <span className={css.contactWrapper}>

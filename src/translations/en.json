@@ -463,6 +463,7 @@
   "ListingPage.reviewsError": "Loading reviews failed.",
   "ListingPage.reviewsHeading": "Reviews ({count})",
   "ListingPage.rulesTitle": "Space rules",
+  "ListingPage.specialConsiderationsTitle": "Special Considerations",
   "ListingPage.schemaTitle": "{title} - {price} | {siteTitle}",
   "ListingPage.viewImagesButton": "View photos ({count})",
   "ListingPage.yourHostHeading": "Your host",

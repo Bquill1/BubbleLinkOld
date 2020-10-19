@@ -266,9 +266,7 @@ export const fetchReviews = listingId => (dispatch, getState, sdk) => {
 };
 
 const timeSlotsRequest = params => (dispatch, getState, sdk) => {
-  console.log(params);
   return sdk.timeslots.query(params).then(response => {
-    console.log(response);
     return denormalisedResponseEntities(response);
   });
 };
@@ -286,7 +284,6 @@ export const fetchTimeSlots = (listingId, start, end, timeZone) => (dispatch, ge
 
   return dispatch(timeSlotsRequest({ listingId, start, end, ...extraParams }))
     .then(timeSlots => {
-      console.log(timeSlots)
       dispatch(fetchTimeSlotsSuccess(monthId, timeSlots));
     })
     .catch(e => {
@@ -346,7 +343,6 @@ const fetchMonthlyTimeSlots = (dispatch, listing) => {
 };
 
 export const fetchTransactionLineItems = ({ bookingData, listingId, isOwnListing }) => dispatch => {
-  console.log(bookingData);
   dispatch(fetchLineItemsRequest());
   transactionLineItems({ bookingData, listingId, isOwnListing })
     .then(response => {
@@ -363,22 +359,16 @@ export const fetchTransactionLineItems = ({ bookingData, listingId, isOwnListing
 };
 
 export const loadData = (params, search) => dispatch => {
-  console.log('loadData')
   const listingId = new UUID(params.id);
-console.log(listingId)
   const ownListingVariants = [LISTING_PAGE_DRAFT_VARIANT, LISTING_PAGE_PENDING_APPROVAL_VARIANT];
   if (ownListingVariants.includes(params.variant)) {
-    console.log(11111)
     return dispatch(showListing(listingId, true));
   }
 
   return Promise.all([dispatch(showListing(listingId)), dispatch(fetchReviews(listingId))]).then(
     responses => {
-      console.log(22222)
-      console.log(responses)
       if (responses[0] && responses[0].data && responses[0].data.data) {
         const listing = responses[0].data.data;
-console.log(3333)
         // Fetch timeSlots.
         // This can happen parallel to loadData.
         // We are not interested to return them from loadData call.

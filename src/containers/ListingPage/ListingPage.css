@@ -436,6 +436,100 @@
   }
 }
 
+.sectionView {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 1rem 24px;
+  margin-bottom: 32px;
+  border-bottom: 1px var(--matterColorNegative) solid;
+  @media (--viewportMedium) {
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+  }
+}
+.sectionViewPriceBlock {
+  display: flex;
+  flex-wrap: nowrap;
+  border-right: 1px solid var(--matterColorNegative);
+}
+.sectionViewDetailsBlock {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+.sectionViewDetailsTop {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  padding: 0 24px 1rem 24px;
+  margin: 0 1rem;
+  border-bottom: 1px var(--matterColorNegative) solid;
+}
+.sectionViewDetailsBottom {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.gridRow{
+ display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+.gridCol{
+ display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+    align-items: center;
+}
+
+.gridBlock{
+display: flex;
+  flex-direction: column;
+  padding: 0 .5rem; 
+  flex-basis: 100%;
+  flex: 1;
+      align-items: center;
+
+}
+.emptyIcon {
+  width: 100%;
+  height: 50%;
+}
+.blockIconClass {
+  color: var(--marketplaceColor);
+}
+.greenCheck {
+  color: var(--successColorDark);
+}
+.redX{
+  color: var(--marketplaceColor);
+
+}
+.viewBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  flex-grow: 1;
+  min-height: 60px;
+}
+.viewBlockContent {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+
+  @apply --marketplaceSmallFontStyles;
+
+  margin-top: 1rem;
+  height: 100%;
+}
+.viewBlockFirstContent {
+}
+.viewBlockSecondContent {
+  margin-top: 0.5rem;
+}
 .description {
   margin-top: 0;
   margin-bottom: 0;

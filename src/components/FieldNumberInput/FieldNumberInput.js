@@ -27,8 +27,6 @@ class FieldNumberInputComponent extends Component {
     });
   }
   onInputChange(val) {
-    console.log(22222);
-    console.log(val);
     // Update value strings on state
     const count = this.updateValues(val);
     // Notify parent component about current price change
@@ -38,12 +36,8 @@ class FieldNumberInputComponent extends Component {
   updateValues(event) {
     try {
       const {min, max} = this.props
-      console.log(min)
-      console.log(max);
       let targetValue = parseInt(event.target.value.trim());
-      console.log(targetValue);
       const isInRange = targetValue >= min && targetValue <= max;
-      console.log(isInRange)
       const isSafeValue = targetValue > 0 && Number.isInteger(targetValue) && isInRange;
       if (!isSafeValue) {
         throw new Error(`Unsafe value: ${targetValue}`);
@@ -90,7 +84,6 @@ class FieldNumberInputComponent extends Component {
     if (label && !id) {
       throw new Error('id required when a label is given');
     }
-    console.log(this.state.count);
 
     const { valid, invalid, touched, error } = meta;
     const isTextarea = input.type === 'textarea';
@@ -118,9 +111,6 @@ class FieldNumberInputComponent extends Component {
         [css.textarea]: isTextarea,
       });
     const inputProps = { className: inputClasses, id, type, ...refMaybe, ...input, ...rest };
-    console.log(inputProps);
-    console.log(refMaybe);
-    console.log(rest);
     const classes = classNames(rootClassName || css.root, className);
     return (
       <div className={classes}>

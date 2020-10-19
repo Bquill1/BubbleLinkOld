@@ -6,7 +6,7 @@ import { Form as FinalForm } from 'react-final-form';
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
-import { required } from '../../util/validators';
+import { required, requiredFieldArrayCheckbox } from '../../util/validators';
 import {
   Form,
   Button,
@@ -104,7 +104,7 @@ const EditListingBasicsFormComponent = props => (
                 name={'category'}
                 id={'category'}
                 label={'What can your space be used for?'}
-                validate={required('Please select an option')}
+                validate={requiredFieldArrayCheckbox('Please select at least one option')}
                 options={categories}
                 twoColumns
               />

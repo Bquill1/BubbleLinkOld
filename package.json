@@ -5,6 +5,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@formatjs/intl-relativetimeformat": "^4.2.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "@mapbox/polyline": "^1.1.1",
     "@sentry/browser": "5.20.1",
     "@sentry/node": "5.20.1",
@@ -52,6 +55,7 @@
     "react-moment-proptypes": "^1.6.0",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
+    "react-tooltip": "^4.2.10",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "seedrandom": "^3.0.5",

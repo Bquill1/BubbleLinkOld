@@ -60,6 +60,7 @@ import SectionFeaturesMaybe from './SectionFeaturesMaybe';
 import SectionReviews from './SectionReviews';
 import SectionHostMaybe from './SectionHostMaybe';
 import SectionRulesMaybe from './SectionRulesMaybe';
+import SectionSpecialConsiderationsMaybe from './SectionSpecialConsiderationsMaybe';
 import SectionMapMaybe from './SectionMapMaybe';
 import css from './ListingPage.css';
 import SectionViewMaybe from './SectionViewMaybe';
@@ -67,7 +68,7 @@ import SectionViewMaybe from './SectionViewMaybe';
 const MIN_LENGTH_FOR_LONG_WORDS_IN_TITLE = 16;
 const DAYS_OF_WEEK = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
-const { UUID } = sdkTypes;
+const { UUID, Money } = sdkTypes;
 
 const priceData = (price, intl) => {
   if (price && price.currency === config.currency) {
@@ -83,8 +84,8 @@ const priceData = (price, intl) => {
 };
 
 const categoryLabel = (categories, key) => {
-  const cat = categories.find(c => c.key === key);
-  return cat ? cat.label : key;
+  const cat = categories.map(c => c.label).join(', ')
+  return cat 
 };
 
 export class ListingPageComponent extends Component {
@@ -266,7 +267,18 @@ console.log(originalAvailabilityPlanForDay);
     if (shouldShowPublicListingPage) {
       return <NamedRedirect name="ListingPage" params={params} search={location.search} />;
     }
-
+const getMultiPrices = listing => {
+  return {
+    entireSpace: {
+      hourly: new Money(listing.attributes.publicData.price_entireSpace_hourly, config.currency),
+      daily: new Money(listing.attributes.publicData.price_entireSpace_daily, config.currency),
+    },
+    individual: {
+      hourly: new Money(listing.attributes.publicData.price_individual_hourly, config.currency),
+      daily: new Money(listing.attributes.publicData.price_individual_daily, config.currency),
+    },
+  };
+};
     const {
       description = '',
       geolocation = null,
@@ -365,7 +377,8 @@ console.log(originalAvailabilityPlanForDay);
     const authorDisplayName = userDisplayNameAsString(ensuredAuthor, '');
 
     const { formattedPrice, priceTitle } = priceData(price, intl);
-
+const prices = getMultiPrices(currentListing)
+console.log(prices)
     const handleBookingSubmit = values => {
       console.log(values)
       const isCurrentlyClosed = currentListing.attributes.state === LISTING_STATE_CLOSED;
@@ -412,6 +425,7 @@ console.log(originalAvailabilityPlanForDay);
     );
 
     const propertyTypeOptions = findOptionsForSelectFilter('propertyType', filterConfig);
+    const spaceTypeOptions = findOptionsForSelectFilter('spaceType', filterConfig);
     const amenityOptions = findOptionsForSelectFilter('amenities', filterConfig);
     const categoryOptions = findOptionsForSelectFilter('category', filterConfig);
     const category =
@@ -463,6 +477,7 @@ console.log(originalAvailabilityPlanForDay);
                 <div className={css.mainContent}>
                   <SectionHeading
                     priceTitle={priceTitle}
+                    prices={prices}
                     formattedPrice={formattedPrice}
                     richTitle={richTitle}
                     category={category}
@@ -470,10 +485,19 @@ console.log(originalAvailabilityPlanForDay);
                     showContactUser={showContactUser}
                     onContactUser={this.onContactUser}
                   />
-                  <SectionViewMaybe options={propertyTypeOptions} publicData={publicData} />
+                  <SectionViewMaybe
+                    intl={intl}
+                    propertyTypeOptions={propertyTypeOptions}
+                    spaceTypeOptions={spaceTypeOptions}
+                    categoryOptions={categoryOptions}
+                    publicData={publicData}
+                    prices={prices}
+                  />
                   <SectionDescriptionMaybe description={description} />
                   <SectionFeaturesMaybe options={amenityOptions} publicData={publicData} />
                   <SectionRulesMaybe publicData={publicData} />
+                  <SectionSpecialConsiderationsMaybe publicData={publicData} />
+
                   <SectionMapMaybe
                     geolocation={geolocation}
                     publicData={publicData}

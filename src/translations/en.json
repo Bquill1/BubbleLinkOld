@@ -200,7 +200,7 @@
   "EditListingAvailabilityPlanForm.timezonePickerTitle": "Choose a time zone",
   "EditListingAvailabilityPlanForm.title": "Edit default schedule for {listingTitle}",
   "EditListingAvailabilityPlanForm.updateFailed": "Failed to update. Please try again.",
-  "EditListingBasicsForm.basicsMessage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  "EditListingBasicsForm.basicsMessage": "Test Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   "EditListingBasicsForm.categoryLabel": "What type of property is it?",
   "EditListingBasicsForm.propertyTypeLabel": "What can your space be used for?",
   "EditListingBasicsForm.capacityLabel": "How many people can your space accommodate?",
@@ -245,6 +245,8 @@
   "EditListingBasicsPanel.createListingTitle": "Edit the basics",
   "EditListingFeaturesForm.showListingFailed": "Fetching listing data failed",
   "EditListingFeaturesForm.updateFailed": "Failed to update listing. Please try again.",
+  "EditListingFeaturesForm.featuresMessage1": "For spaces aimed at workers a strong stable Wi-Fi connection is a minimum requirement your guests would expect.",
+  "EditListingFeaturesForm.featuresMessage2": "The more amenities you offer your guests the more attractive your space will be and the higher the price you can expect to charge.",
   "EditListingFeaturesPanel.createListingTitle": "Tell us more about space",
   "EditListingFeaturesPanel.title": "Edit the features of {listingTitle}",
   "EditListingFeaturesPanel.listingTitle": "{listingTitle}",
@@ -1137,5 +1139,5 @@
   "UserCard.viewProfileLink": "View profile",
   "UserDisplayName.banned": "Banned user",
   "UserDisplayName.deleted": "Deleted user",
-  "lorem.ipsum": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  "lorem.ipsum": "For spaces aimed at workers a strong stable Wi-Fi connection is a minimum requirement your guests would expect."
 }

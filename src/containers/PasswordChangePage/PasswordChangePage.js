@@ -26,6 +26,7 @@ export const PasswordChangePageComponent = props => {
     changePasswordError,
     changePasswordInProgress,
     currentUser,
+    currentUserIsHost,
     onChange,
     onSubmitChangePassword,
     passwordChanged,
@@ -57,7 +58,7 @@ export const PasswordChangePageComponent = props => {
             desktopClassName={css.desktopTopbar}
             mobileClassName={css.mobileTopbar}
           />
-          <UserNav selectedPageName="PasswordChangePage" />
+          <UserNav selectedPageName="PasswordChangePage" currentUserIsHost={currentUserIsHost} />
         </LayoutWrapperTopbar>
         <LayoutWrapperAccountSettingsSideNav currentTab="PasswordChangePage" />
         <LayoutWrapperMain>
@@ -103,9 +104,10 @@ const mapStateToProps = state => {
     changePasswordInProgress,
     passwordChanged,
   } = state.PasswordChangePage;
-  const { currentUser } = state.user;
+  const { currentUser, currentUserIsHost } = state.user;
   return {
     changePasswordError,
+    currentUserIsHost,
     changePasswordInProgress,
     currentUser,
     passwordChanged,

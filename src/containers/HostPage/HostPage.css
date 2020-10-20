@@ -27,8 +27,8 @@
 .hero {
   flex-grow: 1;
   justify-content: flex-end;
-  padding-bottom: 32px;
-  padding-bottom: 30%;
+      padding-top: 10%;;
+
   @media (--viewportMedium) {
   }
 
@@ -107,8 +107,8 @@
 }
 .multiColumnContentWrapper {
   display: flex;
-  flex-flow: row nowrap;
-    align-items: flex-start;
+  flex-flow: row wrap;
+  align-items: flex-start;
   justify-content: center;
 }
 .multiColumnContentHeader {
@@ -140,26 +140,28 @@
 }
 
 .heroList li {
-    list-style-position: outside !important;
-text-indent: -2em;
-
+  list-style-position: outside !important;
+  text-indent: -2em;
 }
-.heroList li:before { 
-content:''; 
-display:inline-block; 
-height:1em; 
-width:1em; 
-background-image:url('./bubble.svg');
-background-size:contain; 
-background-repeat:no-repeat; 
-padding-left: 2em; 
+.heroList li:before {
+  content: '';
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  background-image: url('./bubble.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding-left: 2em;
 }
 .TextAndImageWrapper {
   display: inline-flex;
-  flex-flow: row;
+  flex-flow: column;
   width: 100%;
   justify-content: center;
   align-items: center;
+  @media (--viewportMedium) {
+    flex-flow: row;
+  }
 }
 .TextAndImageWrapperLeft {
   display: inline-flex;
@@ -182,7 +184,9 @@ padding-left: 2em;
   padding: 1rem;
 }
 .TextAndImageImageLeft {
-  flex-direction: row-reverse !important;
+  @media (--viewportMedium) {
+    flex-direction: row-reverse !important;
+  }
 }
 .TextAndImageImageSmall {
   flex-basis: 35% !important;

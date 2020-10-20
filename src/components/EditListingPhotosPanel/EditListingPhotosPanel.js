@@ -39,11 +39,7 @@ class EditListingPhotosPanel extends Component {
       <FormattedMessage
         id="EditListingPhotosPanel.title"
         values={{
-          listingTitle: (
-            <ListingLink listing={listing}>
-              <FormattedMessage id="EditListingPhotosPanel.listingTitle" />
-            </ListingLink>
-          ),
+          listingTitle: <ListingLink listing={listing} />,
         }}
       />
     ) : (
@@ -62,6 +58,7 @@ class EditListingPhotosPanel extends Component {
           images={images}
           onImageUpload={onImageUpload}
           onSubmit={values => {
+            console.log(values);
             const { addImage, ...updateValues } = values;
             onSubmit(updateValues);
           }}

@@ -59,6 +59,7 @@ const initialState = {
   currentUser: null,
   currentUserShowError: null,
   currentUserHasListings: false,
+  currentUserIsHost: false,
   currentUserHasListingsError: null,
   currentUserNotificationCount: 0,
   currentUserNotificationCountError: null,
@@ -76,7 +77,11 @@ export default function reducer(state = initialState, action = {}) {
     case CURRENT_USER_SHOW_REQUEST:
       return { ...state, currentUserShowError: null };
     case CURRENT_USER_SHOW_SUCCESS:
-      return { ...state, currentUser: mergeCurrentUser(state.currentUser, payload) };
+      return {
+        ...state,
+        currentUser: mergeCurrentUser(state.currentUser, payload),
+        currentUserIsHost: payload && payload.attributes && payload.attributes.profile.publicData.isHost,
+      };
     case CURRENT_USER_SHOW_ERROR:
       // eslint-disable-next-line no-console
       console.error(payload);
@@ -262,7 +267,6 @@ export const fetchCurrentUserHasListings = () => (dispatch, getState, sdk) => {
     .then(response => {
       const hasListings = response.data.data && response.data.data.length > 0;
       const listing = hasListings ? response.data.data[0] : null;
-
       const hasPublishedListings =
         hasListings &&
         ensureOwnListing(response.data.data[0]).attributes.state !== LISTING_STATE_DRAFT;
@@ -362,6 +366,7 @@ export const fetchCurrentUser = (params = null) => (dispatch, getState, sdk) => 
 
       // set current user id to the logger
       log.setUserId(currentUser.id.uuid);
+      console.log(currentUser)
       dispatch(currentUserShowSuccess(currentUser));
       return currentUser;
     })

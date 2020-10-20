@@ -123,12 +123,14 @@ const routeConfiguration = () => {
       path: '/l/new',
       name: 'NewListingPage',
       auth: true,
-      component: () => (
+      component: (props) =>{ 
+        console.log(props)
+        return (
         <NamedRedirect
           name="EditListingPage"
           params={{ slug: draftSlug, id: draftId, type: 'new', tab: 'description' }}
         />
-      ),
+      )},
     },
     {
       path: '/l/:slug/:id/:type/:tab',

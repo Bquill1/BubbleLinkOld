@@ -60,6 +60,7 @@ export class AuthenticationPageComponent extends Component {
       onResendVerificationEmail,
       onManageDisableScrolling,
     } = this.props;
+    console.log(this.props)
     const isLogin = tab === 'login';
     const from = location.state && location.state.from ? location.state.from : null;
 
@@ -132,7 +133,8 @@ export class AuthenticationPageComponent extends Component {
 
     const handleSubmitSignup = values => {
       const { fname, lname, ...rest } = values;
-      const params = { firstName: fname.trim(), lastName: lname.trim(), ...rest };
+      const isHost = location?.state?.from === '/l/new'
+      const params = { firstName: fname.trim(), lastName: lname.trim(), isHost,...rest };
       submitSignup(params);
     };
 

@@ -78,6 +78,7 @@ const handleGetStripeConnectAccountLinkFn = (getLinkFn, commonParams) => type =>
 export const StripePayoutPageComponent = props => {
   const {
     currentUser,
+    currentUserIsHost,
     scrollingDisabled,
     getAccountLinkInProgress,
     getAccountLinkError,
@@ -151,7 +152,7 @@ export const StripePayoutPageComponent = props => {
             desktopClassName={css.desktopTopbar}
             mobileClassName={css.mobileTopbar}
           />
-          <UserNav selectedPageName="StripePayoutPage" />
+          <UserNav selectedPageName="StripePayoutPage" currentUserIsHost={currentUserIsHost} />
         </LayoutWrapperTopbar>
         <LayoutWrapperAccountSettingsSideNav currentTab="StripePayoutPage" />
         <LayoutWrapperMain>
@@ -159,6 +160,7 @@ export const StripePayoutPageComponent = props => {
             <h1 className={css.title}>
               <FormattedMessage id="StripePayoutPage.heading" />
             </h1>
+            <p>This page is only required to be filled out by hosts.</p>
             {!currentUserLoaded ? (
               <FormattedMessage id="StripePayoutPage.loadingData" />
             ) : returnedAbnormallyFromStripe && !getAccountLinkError ? (
@@ -260,10 +262,11 @@ const mapStateToProps = state => {
     stripeAccount,
     stripeAccountFetched,
   } = state.stripeConnectAccount;
-  const { currentUser } = state.user;
+  const { currentUser, currentUserIsHost } = state.user;
   const { payoutDetailsSaveInProgress, payoutDetailsSaved } = state.StripePayoutPage;
   return {
     currentUser,
+    currentUserIsHost,
     getAccountLinkInProgress,
     getAccountLinkError,
     createStripeAccountError,
@@ -285,10 +288,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const StripePayoutPage = compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(StripePayoutPageComponent);
 

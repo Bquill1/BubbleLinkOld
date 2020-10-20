@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { NamedLink, SectionSearchBlock, IconBubbleMarker } from '../../components';
 
 import css from './HostPage.css';
-import { Icon } from '../../components/IconAdd/IconAdd.example';
 
 const MultiColumnSection = props => {
   const { className, title, subtitle, showGraphics, content } = props;

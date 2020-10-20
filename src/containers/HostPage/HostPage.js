@@ -8,6 +8,7 @@ import { isScrollingDisabled } from '../../ducks/UI.duck';
 import config from '../../config';
 import { twitterPageURL } from '../../util/urlHelpers';
 import { StaticPage, TopbarContainer } from '../../containers';
+import { updateProfile } from '../../containers/ProfileSettingsPage/ProfileSettingsPage.duck';
 import {
   LayoutSingleColumn,
   LayoutWrapperTopbar,
@@ -25,11 +26,17 @@ import freedom from './freedom.jpg';
 import hostInfoPic2 from './HostInfoPic2.jpg';
 
 const HostPageComponent = props => {
-  const { history, location } = props;
+  const {
+    history,
+    location,
+    isAuthenticated,
+    currentUser,
+    currentUserIsHost,
+    currentUserHasListings,
+    becomeHost,
+  } = props;
   console.log(props);
-  const { siteTwitterHandle, siteFacebookPage } = config;
-  const siteTwitterPage = twitterPageURL(siteTwitterHandle);
-
+const isHost = isAuthenticated && currentUser?.attribute?.profile?.publicData?.isHost
   // prettier-ignore
   return (
     <StaticPage
@@ -47,7 +54,19 @@ const HostPageComponent = props => {
         </LayoutWrapperTopbar>
 
         <LayoutWrapperMain className={css.s}>
-          <SectionHostHero className={css.hero} history={history} location={location} />
+          <div className={css.heroContainer}>
+
+          <SectionHostHero
+            className={css.hero}
+            history={history}
+            location={location}
+            isAuthenticated={isAuthenticated}
+            currentUser={currentUser}
+            isHost={currentUserIsHost}
+            currentUserHasListings={currentUserHasListings}
+            becomeHost={becomeHost}
+          />
+          </div>
           <div className={css.staticPageWrapper}>
             <MultiColumnSection
               showGraphics={true}
@@ -132,7 +151,7 @@ Why not sign-up and test out the site to see if it's for you?`,
             <MultiColumnSection
               showGraphics={false}
               title={'Who will rent be renting my space?'}
-              subtitle={"Your renters could be anyone!"}
+              subtitle={'Your renters could be anyone!'}
               content={[
                 {
                   content: (
@@ -282,13 +301,19 @@ Why not sign-up and test out the site to see if it's for you?`,
   );
 };
 
+const mapDispatchToProps = dispatch => ({
+  becomeHost: data => dispatch(updateProfile(data)),
+});
 const mapStateToProps = state => {
-  const { currentUserListing, currentUserListingFetched } = state.user;
-
+  const { currentUser, currentUserHasListings, currentUserIsHost } = state.user;
+  console.log(state.user)
+  const {isAuthenticated} = state.Auth
   return {
     scrollingDisabled: isScrollingDisabled(state),
-    currentUserListing,
-    currentUserListingFetched,
+    currentUser,
+    currentUserIsHost,
+    currentUserHasListings,
+    isAuthenticated,
   };
 };
 
@@ -298,6 +323,11 @@ const mapStateToProps = state => {
 // lifecycle hook.
 //
 // See: https://github.com/ReactTraining/react-router/issues/4671
-const HostPage = compose(withRouter, connect(mapStateToProps), injectIntl)(HostPageComponent);
+    
+const HostPage = compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps),
+  injectIntl
+)(HostPageComponent);
 
 export default HostPage;

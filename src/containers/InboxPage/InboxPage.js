@@ -295,8 +295,9 @@ export const InboxPageComponent = props => {
     providerNotificationCount,
     scrollingDisabled,
     transactions,
+    currentUserIsHost,
   } = props;
-  const { tab } = params;
+  const tab  = currentUserIsHost ? params.tab : 'orders';
   const ensuredCurrentUser = ensureCurrentUser(currentUser);
 
   const validTab = tab === 'orders' || tab === 'sales';
@@ -355,8 +356,7 @@ export const InboxPageComponent = props => {
   const providerNotificationBadge =
     providerNotificationCount > 0 ? <NotificationBadge count={providerNotificationCount} /> : null;
 
-  const tabs = [
-    {
+  const guestTab =     {
       text: (
         <span>
           <FormattedMessage id="InboxPage.ordersTabTitle" />
@@ -367,8 +367,8 @@ export const InboxPageComponent = props => {
         name: 'InboxPage',
         params: { tab: 'orders' },
       },
-    },
-    {
+    }
+  const hostTab = {
       text: (
         <span>
           <FormattedMessage id="InboxPage.salesTabTitle" />
@@ -380,9 +380,9 @@ export const InboxPageComponent = props => {
         name: 'InboxPage',
         params: { tab: 'sales' },
       },
-    },
-  ];
-  const nav = <TabNav rootClassName={css.tabs} tabRootClassName={css.tab} tabs={tabs} />;
+    }
+    
+  const nav = <TabNav rootClassName={css.tabs} tabRootClassName={css.tab} tabs={currentUserIsHost ? [guestTab, hostTab] : [guestTab]} />;
 
   return (
     <Page title={title} scrollingDisabled={scrollingDisabled}>
@@ -457,11 +457,13 @@ const mapStateToProps = state => {
   const { fetchInProgress, fetchOrdersOrSalesError, pagination, transactionRefs } = state.InboxPage;
   const {
     currentUser,
+    currentUserIsHost,
     currentUserListing,
     currentUserNotificationCount: providerNotificationCount,
   } = state.user;
   return {
     currentUser,
+    currentUserIsHost,
     currentUserListing,
     fetchInProgress,
     fetchOrdersOrSalesError,

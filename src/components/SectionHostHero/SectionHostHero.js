@@ -2,15 +2,30 @@ import React from 'react';
 import { string } from 'prop-types';
 import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { NamedLink, SectionSearchBlock } from '..';
+import { NamedLink, NamedRedirect } from '..';
+import routeConfiguration from '../../routeConfiguration';
+import { createResourceLocatorString } from '../../util/routes';
 
 import css from './SectionHostHero.css';
 
 const SectionHostHero = props => {
-  const { rootClassName, className, filterConfig } = props;
+  const {
+    rootClassName,
+    className,
+    isAuthenticated,
+    isHost,
+    currentUser,
+    currentUserHasListings,
+    becomeHost,
+    history,
+  } = props;
 
   const classes = classNames(rootClassName || css.root, className);
-
+  const handleBecomeHost = () => {
+    becomeHost({ publicData: { isHost: true } }).then(_ => {
+    history.push(createResourceLocatorString('NewListingPage', routeConfiguration(), {}, {}));
+    });
+  };
   return (
     <div className={classes}>
       <div className={css.heroContent}>
@@ -21,7 +36,7 @@ const SectionHostHero = props => {
           <h2 className={css.heroSubTitle}>
             <FormattedMessage id="SectionHostHero.subTitle" />
           </h2>
-          <NamedLink
+          {/* <NamedLink
             name="SearchPage"
             to={{
               search:
@@ -30,12 +45,39 @@ const SectionHostHero = props => {
             className={css.heroButton}
           >
             <FormattedMessage id="SectionHostHero.browseButton" />
-          </NamedLink>
+          </NamedLink> */}
         </div>
         <div className={css.heroContentRight}>
-
-
-
+          <div className={css.callToActionCard}>
+            <h1 className={css.ctaTitle}>Becoming a host means...</h1>
+            <div className={css.ctaList}>
+              <ul className={css.heroList}>
+                <li> Unlock the earning potential in your space</li>
+                <li>Adjust the availability of your space to suit your schedule</li>
+                <li>Set your own prices</li>
+              </ul>
+            </div>
+            {isAuthenticated && isHost ? (
+              <NamedLink className={css.heroButton} name="NewListingPage">
+                <span className={css.createListing}>
+                  {currentUserHasListings ? (
+                    <FormattedMessage id="SectionHostHero.addListing" />
+                  ) : (
+                    <FormattedMessage id="SectionHostHero.createListing" />
+                  )}
+                </span>
+              </NamedLink>
+            ) : isAuthenticated ? (
+              <div className={css.heroButton} onClick={e => handleBecomeHost()}>
+                {/* <NamedLink name="NewListingPage" className={css.heroButton}> */}
+                <FormattedMessage id="SectionHostHero.becomeAHost" />
+              </div>
+            ) : (
+              <NamedLink name="NewListingPage" className={css.heroButton}>
+                <FormattedMessage id="SectionHostHero.signUp" />
+              </NamedLink>
+            )}
+          </div>
         </div>
       </div>
     </div>

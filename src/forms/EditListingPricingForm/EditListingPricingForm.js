@@ -212,11 +212,11 @@ export const EditListingPricingFormComponent = props => (
               <div className={css.priceFormRight}>
                 <div className={css.fieldWrapperRight}>
                   <EditListingHelperCard
-                    title={'How much space do you have?'}
+                    title={'Managing your space'}
                     content={spaceHelper}
                   />
                   <EditListingHelperCard
-                    title={'How long are you booking it for?'}
+                    title={'Managing your space'}
                     content={timeHelper}
                   />
                 </div>

@@ -20,6 +20,7 @@ import { EditListingAvailabilityPlanForm, EditListingAvailabilityExceptionForm }
 
 import css from './EditListingAvailabilityPanel.css';
 
+const availabilityMessage1 = <FormattedMessage id= "EditListingAvailabilityPanel.availabilityMessage1"/>;
 const WEEKDAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 // We want to sort exceptions on the client-side, maximum pagination page size is 100,
@@ -272,7 +273,7 @@ const EditListingAvailabilityPanel = props => {
           </section>
         </div>
         <div className={css.formLeft}>
-          <EditListingHelperCard title={'The Availability'} content={null} />
+          <EditListingHelperCard title={'Setting your availability'} content={availabilityMessage1} />
         </div>
       </div>
       <section className={css.section}>

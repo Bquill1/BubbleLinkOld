@@ -25,8 +25,7 @@ import routeConfiguration from '../../routeConfiguration';
 import { pathByRouteName } from '../../util/routes';
 
 export const NamedLinkComponent = props => {
-  const { name, params, title } = props;
-
+  const { name, params, additionalProps, title } = props;
   // Link props
   const { to, children } = props;
   const pathname = pathByRouteName(name, routeConfiguration(), params);
@@ -39,10 +38,11 @@ export const NamedLinkComponent = props => {
     className: classNames(className, { [activeClassName]: active }),
     style,
     title,
+    additionalProps,
   };
 
   return (
-    <Link to={{ pathname, ...to }} {...aElemProps}>
+    <Link to={{ pathname, ...to }} {...aElemProps} >
       {children}
     </Link>
   );

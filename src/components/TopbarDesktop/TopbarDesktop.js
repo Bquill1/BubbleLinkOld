@@ -132,7 +132,7 @@ const TopbarDesktop = props => {
       </span>
     </NamedLink>
   );
-console.log(currentPage)
+  console.log(currentPage);
   return (
     <nav className={classes}>
       <NamedLink className={css.logoLink} name="LandingPage">
@@ -143,23 +143,23 @@ console.log(currentPage)
         />
       </NamedLink>
       {currentPage !== 'LandingPage' && search}
-      <NamedLink className={css.createListingLink} name="NewListingPage">
-        <span className={css.createListing}>
-          {currentUserHasListings ? (
-            <FormattedMessage id="TopbarDesktop.addListing" />
-          ) : (
-            <FormattedMessage id="TopbarDesktop.createListing" />
-          )}
-        </span>
-      </NamedLink>
-      {!currentUserIsHost ? (
-
-        <NamedLink className={css.createHostInfoLink} name="HostPage">
-        <span className={css.hostInfo}>
-          <FormattedMessage id="TopbarDesktop.hostInfo" />
-        </span>
-      </NamedLink>
-        ) : null}
+      {isAuthenticated && currentUserIsHost ? (
+        <NamedLink className={css.createListingLink} name="NewListingPage">
+          <span className={css.createListing}>
+            {currentUserHasListings ? (
+              <FormattedMessage id="TopbarDesktop.addListing" />
+            ) : (
+              <FormattedMessage id="TopbarDesktop.createListing" />
+            )}
+          </span>
+        </NamedLink>
+      ) : (
+        <NamedLink className={css.createListingLink} name="HostPage">
+          <span className={css.createListing}>
+            <FormattedMessage id="TopbarDesktop.hostInfo" />
+          </span>
+        </NamedLink>
+      )}
       {inboxLink}
       {profileMenu}
       {signupLink}

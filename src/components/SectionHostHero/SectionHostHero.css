@@ -52,7 +52,12 @@
 .heroContent {
   margin: 0 24px 0 24px;
   display: flex;
+  flex-flow: column;
+  @media (--viewportSmall) {
+  flex-flow: row;
+  }
   @media (--viewportMedium) {
+  flex-flow: row;
     margin: 0 7.5vw 0 7.5vw;
   }
 
@@ -72,6 +77,8 @@
 
 .heroContentLeft {
   display: flex;
+  flex-basis: 50%;
+
   margin: 5rem 7.5vw 0 1vw;
 
   /* Special viewport for adjusting the heroContent's placement */
@@ -87,33 +94,32 @@
   }
 }
 .heroContentRight {
-  margin: 0 24px 0 0px;
+  display: flex;
+  flex-basis: 50%;
 
-  @media (--viewportMedium) {
-    margin: 0 7.5vw 0 0vw;
-  }
+  margin: 0 7.5vw 0 1vw;
 
   /* Special viewport for adjusting the heroContent's placement */
 
   @media only screen and (min-width: 1025px) and (max-width: 1366px) {
-    padding: 0 36px 0 36px;
   }
 
   @media only screen and (min-width: 1367px) {
     margin: 0 auto;
     max-width: calc(1052px + 36px + 36px);
-    width: 100%;
+    width: 75%;
     padding: 0 36px 0 36px;
   }
 }
 .heroMainTitle {
-  @apply --marketplaceHeroTitleFontStyles;
+  @apply --marketplaceHeroH1FontStyles;
   color: var(--matterColorLight);
 
   @apply --SectionHero_animation;
   animation-delay: 0.5s;
 
   @media (--viewportMedium) {
+    @apply --marketplaceHeroH1FontStyles;
     max-width: var(--SectionHero_desktopTitleMaxWidth);
   }
 }
@@ -138,9 +144,34 @@
   @apply --SectionHero_animation;
 
   animation-delay: 0.8s;
+}
+.callToActionCard {
+    display: inline-flex;
+  flex-flow: column;
+  width: 100%;
+  background-color: white;
+  border-radius: 3rem;
+  box-shadow: var(--boxShadowPopup);
+  padding: 2rem;
+}
+.ctaTitle {
+  @apply --marketplaceH2FontStyles;
+}
+.ctaList {
+  padding-left: 2rem;
+}
 
-  @media (--viewportMedium) {
-    display: none;
-    width: 120px;
-  }
+.heroList li {
+  list-style-position: outside !important;
+  text-indent: -2em;
+}
+.heroList li:before {
+  content: '';
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  background-image: url('../../assets/bubble-list.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding-left: 2em;
 }

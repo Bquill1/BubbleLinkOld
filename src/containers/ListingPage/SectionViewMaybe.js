@@ -98,6 +98,7 @@ const SectionViewMaybe = props => {
           valueSecond={formatMoney(intl, prices['entireSpace']['hourly'])}
         />
       </div>
+      
       <div className={css.sectionViewDetailsBlock}>
         <div className={css.sectionViewDetailsTop}>
           <div className={css.gridRow}>

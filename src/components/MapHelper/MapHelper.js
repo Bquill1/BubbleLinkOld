@@ -17,11 +17,11 @@ class MapHelper extends Component {
 
   render() {
     const { className, rootClassName, mapClassName, address, geolocation } = this.props;
-console.log(this.props)
+    console.log(this.props);
     if (!geolocation) {
       return null;
     }
-
+    const showTitle = false;
     const classes = classNames(rootClassName || css.sectionMap, className);
 
     const mapProps = { address, center: geolocation, mapClassName };
@@ -29,21 +29,23 @@ console.log(this.props)
 
     return (
       <div className={classes}>
-        <h2 className={css.locationTitle}>
-          <FormattedMessage id="ListingPage.locationTitle" />
-        </h2>
-        {this.state.isStatic ? (
-          <button
-            className={css.map}
-            onClick={() => {
-              this.setState({ isStatic: false });
-            }}
-          >
-            {map}
-          </button>
-        ) : (
-          <div className={css.map}>{map}</div>
+        {showTitle && (
+          <h2 className={css.locationTitle}>
+            <FormattedMessage id="ListingPage.locationTitle" />
+          </h2>
         )}
+          {this.state.isStatic ? (
+            <button
+              className={css.map}
+              onClick={() => {
+                this.setState({ isStatic: false });
+              }}
+            >
+              {map}
+            </button>
+          ) : (
+            <div className={css.map}>{map}</div>
+          )}
       </div>
     );
   }

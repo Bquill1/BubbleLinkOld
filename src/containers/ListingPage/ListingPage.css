@@ -438,7 +438,9 @@
 
 .sectionView {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  justify-content: center;
+
   padding: 1rem 24px;
   margin-bottom: 32px;
   border-bottom: 1px var(--matterColorNegative) solid;
@@ -446,11 +448,24 @@
     padding: 1rem 0;
     margin-bottom: 1rem;
   }
+  @media (--viewportLargeWithPaddings) {
+    flex-wrap: nowrap;
+  }
 }
 .sectionViewPriceBlock {
   display: flex;
   flex-wrap: nowrap;
-  border-right: 1px solid var(--matterColorNegative);
+  flex-grow: 1;
+  @media (--viewportSmall) {
+    border-right: 1px solid var(--matterColorNegative);
+  }
+  @media (--viewportLarge) {
+    flex-grow: 0;
+    border-right: none;
+  }
+  @media (--viewportLargeWithPaddings) {
+    border-right: 1px solid var(--matterColorNegative);
+  }
 }
 .sectionViewDetailsBlock {
   display: flex;
@@ -461,36 +476,39 @@
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
-  padding: 0 24px 1rem 24px;
+  padding: 1rem 24px 1rem 24px;
   margin: 0 1rem;
+  border-top: 1px solid var(--matterColorNegative);
   border-bottom: 1px var(--matterColorNegative) solid;
+  @media (--viewportSmall) {
+    border-top: none;
+  }
 }
 .sectionViewDetailsBottom {
   display: flex;
   flex-wrap: nowrap;
 }
-.gridRow{
- display: flex;
+.gridRow {
+  display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   width: 100%;
 }
-.gridCol{
- display: flex;
+.gridCol {
+  display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: center;
-    align-items: center;
+  align-items: center;
 }
 
-.gridBlock{
-display: flex;
+.gridBlock {
+  display: flex;
   flex-direction: column;
-  padding: 0 .5rem; 
+  padding: 0 0.5rem;
   flex-basis: 100%;
   flex: 1;
-      align-items: center;
-
+  align-items: center;
 }
 .emptyIcon {
   width: 100%;
@@ -502,9 +520,8 @@ display: flex;
 .greenCheck {
   color: var(--successColorDark);
 }
-.redX{
+.redX {
   color: var(--marketplaceColor);
-
 }
 .viewBlock {
   display: flex;

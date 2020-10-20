@@ -113,6 +113,11 @@ export const EditListingLocationFormComponent = props => (
             label={buildingMessage}
             placeholder={buildingPlaceholderMessage}
           />
+          <MapHelper
+            mapClassName={css.editListingLocationMap}
+            geolocation={values?.location?.selectedPlace?.origin}
+            address={values?.location?.selectedPlace?.address}
+          />
           <Button
             className={css.submitButton}
             type="submit"
@@ -122,11 +127,6 @@ export const EditListingLocationFormComponent = props => (
           >
             {saveActionMsg}
           </Button>
-          <MapHelper
-          mapClassName={css.editListingLocationMap}
-          geolocation={values?.location?.selectedPlace?.origin}
-          address={values?.location?.selectedPlace?.address}
-          />
         </Form>
       );
     }}

@@ -3,7 +3,7 @@ import { bool, func, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import { Form as FinalForm } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
-import { FormattedMessage } from '../../util/reactIntl';
+import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { propTypes } from '../../util/types';
 import config from '../../config';
@@ -33,10 +33,12 @@ const EditListingFeaturesFormComponent = props => (
 
       const classes = classNames(rootClassName || css.root, className);
       const submitReady = (updated && pristine) || ready;
-      const submitInProgress = updateInProgress;
-      const submitDisabled = disabled || submitInProgress;
+      const featuresMessage1 = <FormattedMessage id= "EditListingFeaturesForm.featuresMessage1"/>;
+      const featuresMessage2 = <FormattedMessage id= "EditListingFeaturesForm.featuresMessage2"/>;
 
       const { updateListingError, showListingsError } = fetchErrors || {};
+      const submitInProgress = updateInProgress;
+      const submitDisabled = disabled || submitInProgress;
       const errorMessage = updateListingError ? (
         <p className={css.error}>
           <FormattedMessage id="EditListingFeaturesForm.updateFailed" />
@@ -48,6 +50,8 @@ const EditListingFeaturesFormComponent = props => (
           <FormattedMessage id="EditListingFeaturesForm.showListingFailed" />
         </p>
       ) : null;
+
+
 
       const options = findOptionsForSelectFilter('amenities', filterConfig);
       return (
@@ -74,7 +78,8 @@ const EditListingFeaturesFormComponent = props => (
               </Button>
             </div>
             <div className={css.formRight}>
-              <EditListingHelperCard title={'The Features'} content={null} />
+              <EditListingHelperCard title={'Tip'} content={featuresMessage1} />
+              <EditListingHelperCard title={'Tip'} content={featuresMessage2} />
             </div>
           </div>
         </Form>

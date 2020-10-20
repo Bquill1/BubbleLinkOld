@@ -200,11 +200,7 @@ export const filters = [
       options: [
         {
           key: 'wifi',
-          label: 'Wifi',
-        },
-        {
-          key: 'microwave',
-          label: 'Microwave',
+          label: 'Wi-Fi',
         },
         {
           key: 'keyboard',
@@ -215,22 +211,125 @@ export const filters = [
           label: 'Office Chair',
         },
         {
+          key: 'pen_paper',
+          label: 'Pens and Paper',
+        },
+        {
+          key: 'mouse',
+          label: 'Mouse',
+        },
+        {
+          key: 'power_outlets',
+          label: 'Power Outlets',
+        },
+        {
+          key: 'monitor',
+          label: 'Monitor',
+        },
+        {
+          key: 'projector',
+          label: 'Projector',
+        },
+        {
+          key: 'whiteboard',
+          label: 'Whiteboard',
+        },
+        {
+          key: 'printer',
+          label: 'Printer',
+        },
+        {
+          key: 'scanner',
+          label: 'Scanner',
+        },
+        {
+          key: 'photocopier',
+          label: 'Photocopier',
+        },
+        {
+          key: 'microwave',
+          label: 'Microwave',
+        },
+        {
           key: 'fridge',
           label: 'Fridge',
         },
         {
-          key: 'tea_coffee',
-          label: 'Tea/Coffee Facilities',
+          key: 'kettle',
+          label: 'Kettle',
         },
         {
-          key: 'pen_paper',
-          label: 'Pens and Paper',
+          key: 'tea_coffee',
+          label: 'Tea/Coffee',
         },
         {
           key: 'oven',
           label: 'Oven',
         },
-        
+        {
+          key: 'cutlery',
+          label: 'Cutlery',
+        },
+        {
+          key: 'dishes',
+          label: 'Dishes',
+        },
+        {
+          key: 'coffee_machine',
+          label: 'Coffee Machine',
+        },
+        {
+          key: 'cleaning_supplies',
+          label: 'Cleaning Supplies',
+        },
+        {
+          key: 'central_heating',
+          label: 'Central Heating',
+        },
+        {
+          key: 'air_conditioning',
+          label: 'Air Conditioning',
+        },
+        {
+          key: 'fan',
+          label: 'Fan',
+        },
+        {
+          key: 'tv',
+          label: 'TV',
+        },
+         {
+          key: 'sound_system',
+          label: 'Sound System',
+        },
+        {
+          key: 'chromecast',
+          label: 'Chromecast',
+        },
+        {
+          key: 'hdmi_cable',
+          label: 'HDMI Cable',
+        },
+        {
+          key: 'vga_cable',
+          label: 'VGA cable',
+        },
+        {
+          key: 'ethernet_cable',
+          label: 'Ethernet Cable',
+        },
+        {
+          key: 'first_aid',
+          label: 'First Aid Kit',
+        },
+        {
+          key: 'smoke_alarm',
+          label: 'Smoke Alarm',
+        },
+        {
+          key: 'carbon_monoxide',
+          label: 'Carbon Monoxide Alarm',
+        },
       ],
     },
   },

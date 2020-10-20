@@ -113,11 +113,11 @@ const EditListingBasicsFormComponent = props => (
                 className={css.category}
                 name={'propertyType'}
                 id={'propertyType'}
-                label={'What type of property is it?'}
+                label={'What type of property is your space located in?'}
                 validate={required('Please choose a property type.')}
               >
                 <option disabled value="">
-                  {'My property is a...'}
+                  {'Select an option...'}
                 </option>
                 {propertyType.map(c => (
                   <option key={c.key} value={c.key}>
@@ -156,10 +156,10 @@ const EditListingBasicsFormComponent = props => (
                 name={'spaceType'}
                 id={'spaceType'}
                 label={spaceTypeLabel}
-                validate={required('Please select a space type.')}
+                validate={required('Please select a place type.')}
               >
                 <option disabled value="">
-                  {'My space is...'}
+                  {'Select an option...'}
                 </option>
                 {spaceTypeOptions.map(c => (
                   <option key={c.key} value={c.key}>
@@ -179,7 +179,7 @@ const EditListingBasicsFormComponent = props => (
               </Button>
             </div>
             <div className={css.formRight}>
-              <EditListingHelperCard title={'The Basics'} content={basicsHelper} />
+              <EditListingHelperCard title={'Tip'} content={basicsHelper} />
             </div>
           </div>
         </Form>

@@ -579,7 +579,10 @@
 
   --formWrapper {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    @media (--viewportSmall) {
+      flex-direction: row;
+    }
   }
   --formLeft {
     display: flex;

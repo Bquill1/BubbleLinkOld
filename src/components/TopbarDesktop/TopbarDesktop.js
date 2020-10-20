@@ -25,6 +25,7 @@ const TopbarDesktop = props => {
     currentPage,
     rootClassName,
     currentUserHasListings,
+    currentUserListing,
     currentUserIsHost,
     notificationCount,
     intl,
@@ -60,7 +61,7 @@ const TopbarDesktop = props => {
     <NamedLink
       className={css.inboxLink}
       name="InboxPage"
-      params={{ tab: currentUserHasListings ? 'sales' : 'orders' }}
+      params={{ tab: currentUserIsHost ? 'sales' : 'orders' }}
     >
       <span className={css.inbox}>
         <FormattedMessage id="TopbarDesktop.inbox" />
@@ -149,7 +150,7 @@ const TopbarDesktop = props => {
       {isAuthenticated && currentUserIsHost ? (
         <NamedLink className={css.createListingLink} name="NewListingPage">
           <span className={css.createListing}>
-            {currentUserHasListings ? (
+            {!!currentUserListing ? (
               <FormattedMessage id="TopbarDesktop.addListing" />
             ) : (
               <FormattedMessage id="TopbarDesktop.createListing" />

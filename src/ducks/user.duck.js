@@ -267,7 +267,6 @@ export const fetchCurrentUserHasListings = () => (dispatch, getState, sdk) => {
     .then(response => {
       const hasListings = response.data.data && response.data.data.length > 0;
       const listing = hasListings ? response.data.data[0] : null;
-
       const hasPublishedListings =
         hasListings &&
         ensureOwnListing(response.data.data[0]).attributes.state !== LISTING_STATE_DRAFT;

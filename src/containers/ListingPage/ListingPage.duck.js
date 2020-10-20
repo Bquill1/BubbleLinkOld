@@ -204,6 +204,7 @@ export const sendEnquiryError = e => ({ type: SEND_ENQUIRY_ERROR, error: true, p
 // ================ Thunks ================ //
 
 export const showListing = (listingId, isOwn = false) => (dispatch, getState, sdk) => {
+  console.log(listingId)
   dispatch(showListingRequest(listingId));
   dispatch(fetchCurrentUser());
   const params = {
@@ -238,6 +239,7 @@ export const showListing = (listingId, isOwn = false) => (dispatch, getState, sd
     .then(data => {
       return getAvailabilityPlan(listingId).then(r => {
         const originalAvailabilityPlan = r.data;
+        console.log(originalAvailabilityPlan)
         dispatch(addOriginalAvailabilityPlan(originalAvailabilityPlan));
         dispatch(addMarketplaceEntities(data));
         return data;

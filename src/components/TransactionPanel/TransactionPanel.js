@@ -168,6 +168,7 @@ export class TransactionPanelComponent extends Component {
       className,
       currentUser,
       transaction,
+      unitType,
       totalMessagePages,
       oldestMessagePageFetched,
       messages,
@@ -197,8 +198,8 @@ export class TransactionPanelComponent extends Component {
       lineItems,
       fetchLineItemsInProgress,
       fetchLineItemsError,
+      originalAvailabilityPlan,
     } = this.props;
-    console.log(this.props);
     const currentTransaction = ensureTransaction(transaction);
     const currentListing = ensureListing(currentTransaction.listing);
     const currentProvider = ensureUser(currentTransaction.provider);
@@ -226,7 +227,8 @@ export class TransactionPanelComponent extends Component {
           transitions.length > 0 && transitions.includes(TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY);
         return {
           headingState: HEADING_ENQUIRED,
-          showBookingPanel: isCustomer && !isProviderBanned && hasCorrectNextTransition,
+          showBookingPanel:
+            originalAvailabilityPlan && isCustomer && !isProviderBanned && hasCorrectNextTransition,
         };
       } else if (txIsPaymentPending(tx)) {
         return {
@@ -289,17 +291,16 @@ export class TransactionPanelComponent extends Component {
       ? deletedListingTitle
       : currentListing.attributes.title;
 
-    const isDaily = bookingData.bookingType === 'daily';
-    const isEntireSpace = bookingData.spaceRentalAvailability === 'entireSpace';
+    const isDaily = bookingData?.bookingType === 'daily';
+    const isEntireSpace = bookingData?.spaceRentalAvailability === 'entireSpace';
 
     const unitTranslationKey = isDaily ? 'CheckoutPage.perDay' : 'CheckoutPage.perHour';
     const spaceTranslationKey = isEntireSpace
       ? 'CheckoutPage.perEntirePlace'
       : 'CheckoutPage.perSpace';
-
-    const price = new Money(bookingData.price, currentListing.attributes.price.currency);
-    const formattedPrice = formatMoney(intl, price);
-    console.log(formattedPrice);
+    const price =
+      bookingData && new Money(bookingData?.price, currentListing.attributes.price.currency);
+    const formattedPrice = price && formatMoney(intl, price);
     const bookingSubTitle = `${formattedPrice} ${intl.formatMessage({ id: unitTranslationKey })}`;
     const bookingSubSubTitle = `for ${intl.formatMessage({ id: spaceTranslationKey })}`;
 
@@ -444,13 +445,14 @@ export class TransactionPanelComponent extends Component {
               {stateData.showBookingPanel ? (
                 <BookingPanel
                   className={css.bookingPanel}
-                  titleClassName={css.bookingTitle}
-                  isOwnListing={false}
                   listing={currentListing}
+                  isOwnListing={false}
+                  titleClassName={css.bookingTitle}
                   title={listingTitle}
                   subTitle={bookingSubTitle}
-                  authorDisplayName={authorDisplayName}
+                  unitType={unitType}
                   onSubmit={onSubmitBookingRequest}
+                  authorDisplayName={authorDisplayName}
                   onManageDisableScrolling={onManageDisableScrolling}
                   monthlyTimeSlots={monthlyTimeSlots}
                   onFetchTimeSlots={onFetchTimeSlots}
@@ -458,6 +460,7 @@ export class TransactionPanelComponent extends Component {
                   lineItems={lineItems}
                   fetchLineItemsInProgress={fetchLineItemsInProgress}
                   fetchLineItemsError={fetchLineItemsError}
+                  originalAvailabilityPlan={originalAvailabilityPlan}
                 />
               ) : null}
               <BreakdownMaybe
@@ -491,6 +494,7 @@ export class TransactionPanelComponent extends Component {
 TransactionPanelComponent.defaultProps = {
   rootClassName: null,
   className: null,
+  unitType: config.bookingUnitType,
   currentUser: null,
   acceptSaleError: null,
   declineSaleError: null,

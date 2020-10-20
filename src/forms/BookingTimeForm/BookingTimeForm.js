@@ -10,7 +10,6 @@ import config from '../../config';
 import { IconSpinner, Form, PrimaryButton } from '../../components';
 import EstimatedBreakdownMaybe from './EstimatedBreakdownMaybe';
 import FieldDateAndTimeInput from './FieldDateAndTimeInput';
-import FieldNumberInput from '../../components';
 
 import css from './BookingTimeForm.css';
 

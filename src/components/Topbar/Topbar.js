@@ -137,6 +137,7 @@ class TopbarComponent extends Component {
       authInProgress,
       currentUser,
       currentUserHasListings,
+      currentUserIsHost,
       currentUserListing,
       currentUserListingFetched,
       currentUserHasOrders,
@@ -166,6 +167,7 @@ class TopbarComponent extends Component {
     const mobileMenu = (
       <TopbarMobileMenu
         isAuthenticated={isAuthenticated}
+        currentUserIsHost={currentUserIsHost}
         currentUserHasListings={currentUserHasListings}
         currentUserListing={currentUserListing}
         currentUserListingFetched={currentUserListingFetched}
@@ -228,6 +230,7 @@ class TopbarComponent extends Component {
           <TopbarDesktop
             className={desktopClassName}
             currentUserHasListings={currentUserHasListings}
+            currentUserIsHost={currentUserIsHost}
             currentUserListing={currentUserListing}
             currentUserListingFetched={currentUserListingFetched}
             currentUser={currentUser}

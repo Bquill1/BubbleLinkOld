@@ -35,6 +35,23 @@
     background-position: center center;
   }
 
+  /* Full screen Background image located in root-folder/src/assets */
+  --headerBackgroundImage: {
+    /* Gradient direction and overlaying the black color on top of the image for better readability */
+    background: linear-gradient(-45deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),
+      url('../../assets/headerBackground-1440.jpg');
+
+    /* Add loading color for the div */
+    background-color: var(--matterColor);
+
+    /* Cover the whole screen with the background image */
+    background-size: cover;
+
+    /* Align the image within the container */
+    background-position: center center;
+  }
+
+
   /* ================ Colors ================ */
 
   --marketplaceColor: #a21f38;

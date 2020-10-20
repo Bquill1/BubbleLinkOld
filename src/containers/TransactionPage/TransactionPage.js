@@ -84,8 +84,8 @@ export const TransactionPageComponent = props => {
     lineItems,
     fetchLineItemsInProgress,
     fetchLineItemsError,
+    originalAvailabilityPlan,
   } = props;
-
   const currentTransaction = ensureTransaction(transaction);
   const currentListing = ensureListing(currentTransaction.listing);
   const isProviderRole = transactionRole === PROVIDER;
@@ -260,6 +260,7 @@ export const TransactionPageComponent = props => {
       lineItems={lineItems}
       fetchLineItemsInProgress={fetchLineItemsInProgress}
       fetchLineItemsError={fetchLineItemsError}
+      originalAvailabilityPlan={originalAvailabilityPlan}
     />
   ) : (
     loadingOrFailedFetching
@@ -379,6 +380,7 @@ const mapStateToProps = state => {
     fetchLineItemsInProgress,
     fetchLineItemsError,
   } = state.TransactionPage;
+  const{ originalAvailabilityPlan,} = state.ListingPage
   const { currentUser } = state.user;
 
   const transactions = getMarketplaceEntities(state, transactionRef ? [transactionRef] : []);
@@ -406,6 +408,7 @@ const mapStateToProps = state => {
     sendReviewError,
     monthlyTimeSlots,
     processTransitions,
+    originalAvailabilityPlan,
     lineItems,
     fetchLineItemsInProgress,
     fetchLineItemsError,

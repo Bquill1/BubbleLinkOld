@@ -15,10 +15,6 @@ const SectionSearchBlockComponent = props => {
   const {
     rootClassName,
     className,
-    children,
-    listingsAreLoaded,
-    resultsCount,
-    selectedFiltersCount,
     filters,
     history,
     intl,
@@ -30,8 +26,14 @@ const SectionSearchBlockComponent = props => {
     const { search, selectedPlace } = values?.location || {};
     const { origin, bounds } = selectedPlace || {};
     const pub_category = activeCategoryFilter;
-    const searchParams = { address: search, origin, bounds, pub_category };
-    console.log(searchParams);
+    const pub_spaceRentalAvailability = activeSpaceRentalAvailabilityFilter;
+    const searchParams = {
+      address: search,
+      origin,
+      bounds,
+      pub_category,
+      pub_spaceRentalAvailability,
+    };
     history.push(createResourceLocatorString('SearchPage', routeConfiguration(), {}, searchParams));
   };
 
@@ -55,7 +57,6 @@ const SectionSearchBlockComponent = props => {
   };
   const categoryFilter = filters.find(f => f.id === 'category');
   const spaceRentalAvailabilityFilter = filters.find(f => f.id === 'spaceRentalAvailability');
-  console.log(spaceRentalAvailabilityFilter);
   return (
     <div className={classes}>
       <div className={css.searchResultSummary}>{searchBlockHeader}</div>
@@ -66,7 +67,7 @@ const SectionSearchBlockComponent = props => {
             const { rootClassName, className, values, intl, isMobile } = formRenderProps;
             console.log(formRenderProps);
             console.log(values);
-            const classes = classNames(css.searchLink);
+            const classes = classNames(className, css.searchLink);
 
             return (
               <Form className={classes} onSubmit={handleSearchSubmit}>

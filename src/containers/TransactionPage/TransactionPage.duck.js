@@ -22,6 +22,7 @@ import {
 import { findNextBoundary, nextMonthFn, monthIdStringInTimeZone } from '../../util/dates';
 import { addMarketplaceEntities } from '../../ducks/marketplaceData.duck';
 import { fetchCurrentUserNotifications } from '../../ducks/user.duck';
+import { showListing } from '../ListingPage/ListingPage.duck';
 
 const { UUID } = sdkTypes;
 
@@ -396,6 +397,7 @@ export const fetchTransaction = (id, txRole) => (dispatch, getState, sdk) => {
     .then(response => {
       txResponse = response;
       const listingId = listingRelationship(response).id;
+      dispatch(showListing(listingId))
       const entities = updatedEntities({}, response.data);
       const listingRef = { id: listingId, type: 'listing' };
       const transactionRef = { id, type: 'transaction' };
@@ -682,7 +684,7 @@ export const loadData = params => (dispatch, getState) => {
   const state = getState().TransactionPage;
   const txRef = state.transactionRef;
   const txRole = params.transactionRole;
-
+console.log(params)
   // In case a transaction reference is found from a previous
   // data load -> clear the state. Otherwise keep the non-null
   // and non-empty values which may have been set from a previous page.

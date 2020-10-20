@@ -25,6 +25,7 @@ const TopbarDesktop = props => {
     currentPage,
     rootClassName,
     currentUserHasListings,
+    currentUserIsHost,
     notificationCount,
     intl,
     isAuthenticated,
@@ -131,7 +132,7 @@ const TopbarDesktop = props => {
       </span>
     </NamedLink>
   );
-
+console.log(currentPage)
   return (
     <nav className={classes}>
       <NamedLink className={css.logoLink} name="LandingPage">
@@ -151,11 +152,14 @@ const TopbarDesktop = props => {
           )}
         </span>
       </NamedLink>
-      <NamedLink className={css.createHostInfoLink} name="HostPage">
+      {!currentUserIsHost ? (
+
+        <NamedLink className={css.createHostInfoLink} name="HostPage">
         <span className={css.hostInfo}>
           <FormattedMessage id="TopbarDesktop.hostInfo" />
         </span>
       </NamedLink>
+        ) : null}
       {inboxLink}
       {profileMenu}
       {signupLink}

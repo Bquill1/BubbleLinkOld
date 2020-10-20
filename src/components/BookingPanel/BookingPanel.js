@@ -99,6 +99,7 @@ const BookingPanel = props => {
     fetchLineItemsInProgress,
     fetchLineItemsError,
   } = props;
+  console.log(props)
   const publicData = listing.attributes.publicData;
   const spaceRentalAvailabilityOptions = publicData.spaceRentalAvailability;
   const bookingType_entireSpace_Options = publicData.bookingType_entireSpace;
@@ -131,7 +132,7 @@ const BookingPanel = props => {
       const endHours = end.getHours();
 
       // get the original availability plan from the array and gather info
-      const originalAvailabilityPlanForDay = originalAvailabilityPlan.entries.find(
+      const originalAvailabilityPlanForDay = originalAvailabilityPlan?.entries.find(
         p => p.dayOfWeek === timeSlotDayString
       );
       const originalStartHours = parseInt(originalAvailabilityPlanForDay.startTime.split(':')[0]);
@@ -227,7 +228,7 @@ const BookingPanel = props => {
     <div className={css.seatSelectorWrapper}>
       <label className={css.seatSelectorLabel} htmlFor={'seatSelector'}>Spots: </label>
 
-      <select id={'seatSelector'} className={css.seatSelector}onChange={e => setSeatsSelected(e.target.value)}>
+      <select id={'seatSelector'} className={css.seatSelector}onChange={e => setSeatsSelected(parseInt(e.target.value))}>
         {[...Array(capacity).keys()].map(n => {
           return <option value={n + 1}> {n + 1}</option>;
         })}

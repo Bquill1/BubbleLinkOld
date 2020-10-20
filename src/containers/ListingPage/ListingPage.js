@@ -523,10 +523,10 @@ console.log(prices)
                   className={css.bookingPanel}
                   listing={currentListing}
                   isOwnListing={isOwnListing}
-                  unitType={unitType}
-                  onSubmit={handleBookingSubmit}
                   title={bookingTitle}
                   subTitle={bookingSubTitle}
+                  unitType={unitType}
+                  onSubmit={handleBookingSubmit}
                   authorDisplayName={authorDisplayName}
                   onManageDisableScrolling={onManageDisableScrolling}
                   monthlyTimeSlots={monthlyTimeSlots}

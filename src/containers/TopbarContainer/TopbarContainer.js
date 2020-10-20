@@ -32,7 +32,8 @@ export const TopbarContainerComponent = props => {
     onResendVerificationEmail,
     ...rest
   } = props;
-
+  console.log(props)
+const currentUserIsHost = isAuthenticated && currentUser?.attibutes?.profile?.publicData?.isHost;
   return (
     <Topbar
       authInProgress={authInProgress}
@@ -40,6 +41,7 @@ export const TopbarContainerComponent = props => {
       currentSearchParams={currentSearchParams}
       currentUser={currentUser}
       currentUserHasListings={currentUserHasListings}
+      currentUserIsHost={currentUserIsHost}
       currentUserListing={currentUserListing}
       currentUserListingFetched={currentUserListingFetched}
       currentUserHasOrders={currentUserHasOrders}

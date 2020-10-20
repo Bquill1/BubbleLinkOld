@@ -4,7 +4,6 @@ const { getSdk, getTrustedSdk, handleError, serialize } = require('../api-util/s
 module.exports = (req, res) => {
   const { isSpeculative, bookingData, bodyParams, queryParams } = req.body;
   const listingId = bodyParams && bodyParams.params ? bodyParams.params.listingId : null;
-  console.log(req.body);
   const sdk = getSdk(req, res);
   let lineItems = null;
 
@@ -13,8 +12,6 @@ module.exports = (req, res) => {
     .then(listingResponse => {
       const listing = listingResponse.data.data;
       lineItems = transactionLineItems(listing, bookingData);
-      console.log(11111)
-      console.log(lineItems);
       return getTrustedSdk(req);
     })
     .then(trustedSdk => {

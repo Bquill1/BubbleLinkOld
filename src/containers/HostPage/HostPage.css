@@ -1,5 +1,42 @@
 @import '../../marketplace.css';
 
+/* heroContainer gives the height for SectionHero */
+/* Safari has a bug with vw padding inside flexbox. Therefore we need an extra div (container) */
+/* If you've lot of content for the hero, multiple lines of text, make sure to adjust min-heights for each media breakpoint accordingly */
+.heroContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  height: 67.5vh;
+  max-height: 600px;
+  padding: 0;
+
+  @media (--viewportMedium) {
+    min-height: 500px;
+    height: 70vh;
+    max-height: none;
+  }
+
+  @media (--viewportLarge) {
+    max-height: 800px;
+    min-height: 600px;
+    height: calc(70vh - var(--topbarHeightDesktop));
+  }
+}
+
+.hero {
+  flex-grow: 1;
+  justify-content: flex-end;
+  padding-bottom: 32px;
+  padding-bottom: 30%;
+  @media (--viewportMedium) {
+  }
+
+  @media (--viewportLarge) {
+    justify-content: center;
+  }
+}
+
 .pageTitle {
   text-align: center;
   color: var(--marketplaceColor);
@@ -37,17 +74,15 @@
   font-style: italic;
   color: var(--marketplaceColor);
 
-
   @media (--viewportMedium) {
     width: 193px;
     margin-right: 103px;
-
   }
 }
 
 .contentMain {
   width: 100%;
- background-color: #ffe6e6;
+  background-color: #ffe6e6;
   width: 700px;
   border: 3px solid #ffffff;
   border-radius: 25px;
@@ -57,5 +92,142 @@
     max-width: 650px;
   }
 }
+.multiColumnWrapper {
+  display: inline-flex;
+  flex-flow: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.multiColumnMainTitle {
+  @apply --marketplaceH1FontStyles;
+}
+.multiColumnSubTitle {
+  @apply --marketplaceH2FontStyles;
+}
+.multiColumnContentWrapper {
+  display: flex;
+  flex-flow: row nowrap;
+    align-items: flex-start;
+  justify-content: center;
+}
+.multiColumnContentHeader {
+  display: flex;
+  flex-flow: row;
+}
+.multiColumnContentBlock {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  flex-basis: 50%;
+  flex-grow: 1;
+  max-width: 80%;
+  padding: 0 2rem 2rem 2rem;
+  margin: 0 1rem 1rem 1rem;
+}
+.multiColumnGraphic {
+  display: flex;
+  justify-content: center;
+  margin-right: 1rem;
+}
+.multiColumnContentTitle {
+  display: flex;
+  @apply --marketplaceH3FontStyles;
+  justify-content: center;
+}
+.multiColumnContent {
+  display: flex;
+}
 
+.heroList li {
+    list-style-position: outside !important;
+text-indent: -2em;
 
+}
+.heroList li:before { 
+content:''; 
+display:inline-block; 
+height:1em; 
+width:1em; 
+background-image:url('./bubble.svg');
+background-size:contain; 
+background-repeat:no-repeat; 
+padding-left: 2em; 
+}
+.TextAndImageWrapper {
+  display: inline-flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.TextAndImageWrapperLeft {
+  display: inline-flex;
+  flex-flow: column;
+  width: 100%;
+  flex-basis: 50%;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 1rem;
+  padding: 1rem;
+}
+.TextAndImageWrapperRight {
+  display: inline-flex;
+  flex-flow: column;
+  width: 100%;
+  flex-basis: 50%;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+  padding: 1rem;
+}
+.TextAndImageImageLeft {
+  flex-direction: row-reverse !important;
+}
+.TextAndImageImageSmall {
+  flex-basis: 35% !important;
+}
+.TextAndImageImage {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 20%;
+  box-shadow: var(--boxShadowPopupLight);
+}
+.TextAndImageMainTitle {
+  @apply --marketplaceH1FontStyles;
+}
+.TextAndImageSubTitle {
+  @apply --marketplaceH2FontStyles;
+}
+.TextAndImageContentWrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.TextAndImageContentHeader {
+  display: flex;
+  flex-flow: row;
+}
+.TextAndImageContentBlock {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  flex-basis: 50%;
+  padding: 2rem;
+  margin: 1rem;
+}
+.TextAndImageGraphic {
+  display: flex;
+  justify-content: center;
+  margin-right: 1rem;
+}
+.TextAndImageContentTitle {
+  display: flex;
+  @apply --marketplaceH3FontStyles;
+  justify-content: center;
+}
+.TextAndImageContent {
+  display: flex;
+  flex-direction: column;
+}

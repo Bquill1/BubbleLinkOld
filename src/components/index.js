@@ -12,8 +12,9 @@
 
 // Icons
 export { default as IconAdd } from './IconAdd/IconAdd';
-export { default as IconArrowHead } from './IconArrowHead/IconArrowHead';
+export { default as IconArrowHead } from './IconBubbleMarker/IconBubbleMarker';
 export { default as IconBannedUser } from './IconBannedUser/IconBannedUser';
+export { default as IconBubbleMarker } from './IconBubbleMarker/IconBubbleMarker';
 export { default as IconCard } from './IconCard/IconCard';
 export { default as IconCheckmark } from './IconCheckmark/IconCheckmark';
 export { default as IconClose } from './IconClose/IconClose';
@@ -181,6 +182,7 @@ export { default as EditListingPricingPanel } from './EditListingPricingPanel/Ed
 export { default as EditListingWizard } from './EditListingWizard/EditListingWizard';
 export { default as Footer } from './Footer/Footer';
 export { default as SectionHero } from './SectionHero/SectionHero';
+export { default as SectionHostHero } from './SectionHostHero/SectionHostHero';
 export { default as SectionSearchBlock } from './SectionSearchBlock/SectionSearchBlock';
 export { default as SectionHowItWorks } from './SectionHowItWorks/SectionHowItWorks';
 export { default as SectionLocations } from './SectionLocations/SectionLocations';

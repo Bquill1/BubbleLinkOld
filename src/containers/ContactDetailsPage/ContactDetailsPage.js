@@ -29,6 +29,7 @@ export const ContactDetailsPageComponent = props => {
     savePhoneNumberError,
     saveContactDetailsInProgress,
     currentUser,
+    currentUserIsHost,
     currentUserListing,
     contactDetailsChanged,
     onChange,
@@ -72,7 +73,11 @@ export const ContactDetailsPageComponent = props => {
             desktopClassName={css.desktopTopbar}
             mobileClassName={css.mobileTopbar}
           />
-          <UserNav selectedPageName="ContactDetailsPage" listing={currentUserListing} />
+          <UserNav
+            selectedPageName="ContactDetailsPage"
+            listing={currentUserListing}
+            currentUserIsHost={currentUserIsHost}
+          />
         </LayoutWrapperTopbar>
         <LayoutWrapperAccountSettingsSideNav currentTab="ContactDetailsPage" />
         <LayoutWrapperMain>
@@ -120,6 +125,7 @@ const mapStateToProps = state => {
   // Topbar needs user info.
   const {
     currentUser,
+    currentUserIsHost,
     currentUserListing,
     sendVerificationEmailInProgress,
     sendVerificationEmailError,
@@ -132,6 +138,7 @@ const mapStateToProps = state => {
   } = state.ContactDetailsPage;
   return {
     saveEmailError,
+          currentUserIsHost,
     savePhoneNumberError,
     saveContactDetailsInProgress,
     currentUser,
@@ -150,10 +157,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const ContactDetailsPage = compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(ContactDetailsPageComponent);
 

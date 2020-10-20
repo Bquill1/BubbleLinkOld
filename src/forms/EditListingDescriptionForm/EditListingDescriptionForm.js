@@ -35,9 +35,9 @@ const EditListingDescriptionFormComponent = props => (
         initialValues,
         values,
       } = formRenderProps;
-      console.log(values)
-      if(values.title === "John and Jane’s place"){
-        values.title = ''
+      console.log(values);
+      if (values.title === 'John and Jane’s place') {
+        values.title = '';
       }
       const titleMessage = intl.formatMessage({ id: 'EditListingDescriptionForm.title' });
       const titlePlaceholderMessage = intl.formatMessage({
@@ -111,6 +111,11 @@ const EditListingDescriptionFormComponent = props => (
       const submitInProgress = updateInProgress;
       const submitDisabled = invalid || disabled || submitInProgress;
 
+      const handleOnBlur = () => {
+        if (!pristine && !submitDisabled) {
+          handleSubmit();
+        }
+      };
       return (
         <Form className={classes} onSubmit={handleSubmit}>
           {errorMessageCreateListingDraft}
@@ -131,6 +136,7 @@ const EditListingDescriptionFormComponent = props => (
               notDefaultError
             )}
             autoFocus
+            onBlur={handleOnBlur}
           />
 
           <FieldTextInput
@@ -141,6 +147,7 @@ const EditListingDescriptionFormComponent = props => (
             label={descriptionMessage}
             placeholder={descriptionPlaceholderMessage}
             validate={composeValidators(required(descriptionRequiredMessage))}
+            onBlur={handleOnBlur}
           />
           <FieldTextInput
             id="rules"
@@ -149,6 +156,7 @@ const EditListingDescriptionFormComponent = props => (
             type="textarea"
             label={rulesLabelMessage}
             placeholder={rulesPlaceholderMessage}
+            onBlur={handleOnBlur}
           />
           <FieldTextInput
             id="specialConsiderations"
@@ -157,6 +165,7 @@ const EditListingDescriptionFormComponent = props => (
             type="textarea"
             label={specialConsiderationsLabelMessage}
             placeholder={specialConsiderationsPlaceholderMessage}
+            onBlur={handleOnBlur}
           />
 
           <Button

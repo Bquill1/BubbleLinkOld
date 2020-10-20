@@ -31,6 +31,7 @@ const PaymentMethodsPageComponent = props => {
 
   const {
     currentUser,
+    currentUserIsHost,
     addPaymentMethodError,
     deletePaymentMethodError,
     createStripeCustomerError,
@@ -153,7 +154,7 @@ const PaymentMethodsPageComponent = props => {
             desktopClassName={css.desktopTopbar}
             mobileClassName={css.mobileTopbar}
           />
-          <UserNav selectedPageName="PaymentMethodsPage" />
+          <UserNav selectedPageName="PaymentMethodsPage" currentUserIsHost={currentUserIsHost} />
         </LayoutWrapperTopbar>
         <LayoutWrapperAccountSettingsSideNav currentTab="PaymentMethodsPage" />
         <LayoutWrapperMain>
@@ -225,7 +226,7 @@ PaymentMethodsPageComponent.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const { currentUser } = state.user;
+  const { currentUser, currentUserIsHost } = state.user;
 
   const {
     deletePaymentMethodInProgress,
@@ -239,6 +240,7 @@ const mapStateToProps = state => {
   const { handleCardSetupError } = state.stripe;
   return {
     currentUser,
+    currentUserIsHost,
     scrollingDisabled: isScrollingDisabled(state),
     deletePaymentMethodInProgress,
     addPaymentMethodError,

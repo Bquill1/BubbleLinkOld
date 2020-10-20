@@ -22,6 +22,7 @@ import css from './TopbarMobileMenu.css';
 const TopbarMobileMenu = props => {
   const {
     isAuthenticated,
+    currentUserIsHost,
     currentPage,
     currentUserHasListings,
     currentUserListing,
@@ -62,7 +63,7 @@ const TopbarMobileMenu = props => {
           </div>
         </div>
         <div className={css.footer}>
-          <NamedLink className={css.createNewListingLink} name="NewListingPage">
+          <NamedLink className={css.createNewListingLink} name="HostInfo">
             <FormattedMessage id="TopbarMobileMenu.newListingLink" />
           </NamedLink>
         </div>
@@ -95,16 +96,17 @@ const TopbarMobileMenu = props => {
         <NamedLink
           className={classNames(css.inbox, currentPageClass('InboxPage'))}
           name="InboxPage"
-          params={{ tab: currentUserHasListings ? 'sales' : 'orders' }}
+          params={{ tab: currentUserIsHost ? 'sales' : 'orders' }}
         >
           <FormattedMessage id="TopbarMobileMenu.inboxLink" />
           {notificationCountBadge}
         </NamedLink>
-        <OwnListingLink
-          listing={currentUserListing}
-          listingFetched={currentUserListingFetched}
-          className={css.navigationLink}
-        />
+        <NamedLink
+          className={classNames(css.navigationLink, currentPageClass('ManageListingsPage'))}
+          name="ManageListingsPage"
+        >
+          <FormattedMessage id="TopbarDesktop.yourListingsLink" />
+        </NamedLink>
         <NamedLink
           className={classNames(css.navigationLink, currentPageClass('ProfileSettingsPage'))}
           name="ProfileSettingsPage"
@@ -119,9 +121,19 @@ const TopbarMobileMenu = props => {
         </NamedLink>
       </div>
       <div className={css.footer}>
-        <NamedLink className={css.createNewListingLink} name="NewListingPage">
-          <FormattedMessage id="TopbarMobileMenu.newListingLink" />
-        </NamedLink>
+        {isAuthenticated && currentUserIsHost ? (
+          <NamedLink className={css.createNewListingLink} name="NewListingPage">
+            {currentUserHasListings ? (
+              <FormattedMessage id="TopbarDesktop.addListing" />
+            ) : (
+              <FormattedMessage id="TopbarDesktop.createListing" />
+            )}
+          </NamedLink>
+        ) : (
+          <NamedLink className={css.createNewListingLink} name="HostPage">
+            <FormattedMessage id="TopbarDesktop.hostInfo" />
+          </NamedLink>
+        )}
       </div>
     </div>
   );

@@ -54,6 +54,9 @@ const EditListingFeaturesFormComponent = props => (
 
 
       const options = findOptionsForSelectFilter('amenities', filterConfig);
+      if (!pristine && !submitDisabled) {
+        handleSubmit();
+      }
       return (
         <Form className={classes} onSubmit={handleSubmit}>
           {errorMessage}

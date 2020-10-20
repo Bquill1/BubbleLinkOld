@@ -137,7 +137,7 @@ const EditListingWizardTab = props => {
             handleCreateFlowTabScrolling(false);
 
             // After successful saving of draft data, user should be redirected to next tab
-            redirectAfterDraftUpdate(r.data.data.id.uuid, params, tab, marketplaceTabs, history);
+            // redirectAfterDraftUpdate(r.data.data.id.uuid, params, tab, marketplaceTabs, history);
           } else if (tab === marketplaceTabs[marketplaceTabs.length - 1]) {
             handlePublishListing(currentListing.id);
           }

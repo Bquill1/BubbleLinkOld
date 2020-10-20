@@ -60,8 +60,9 @@ export class EditListingPhotosFormComponent extends Component {
             saveActionMsg,
             updated,
             updateInProgress,
+            values
           } = formRenderProps;
-
+console.log(this.props)
           const chooseImageText = (
             <span className={css.chooseImageText}>
               <span className={css.chooseImage}>
@@ -124,9 +125,12 @@ export class EditListingPhotosFormComponent extends Component {
           const submitInProgress = updateInProgress;
           const submitDisabled =
             invalid || disabled || submitInProgress || imageUploadRequested || ready;
-
+            const fileInImageArray = values.images.find(i => i.file)
           const classes = classNames(css.root, className);
-
+          if (!imageArrayHasSameImages && !submitDisabled && fileInImageArray) {
+            handleSubmit(values);
+          }
+          console.log(values)
           return (
             <Form
               className={classes}

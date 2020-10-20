@@ -47,10 +47,9 @@ const EditListingBasicsFormComponent = props => (
         updated,
         updateInProgress,
         fetchErrors,
-        initialValues,
         values,
       } = formRenderProps;
-      console.log(initialValues);
+      console.log(formRenderProps);
       console.log(values);
       if(!values.capacity){
         values.capacity = 1
@@ -91,99 +90,101 @@ const EditListingBasicsFormComponent = props => (
         MAX_GUESTS
       );
       const numberValidators = numberRequired;
+      if (!pristine && !submitDisabled){
+        handleSubmit()
+      }
+        return (
+          <Form className={classes} onSubmit={handleSubmit} onChange={e => console.log(e)}>
+            {errorMessageCreateListingDraft}
+            {errorMessageUpdateListing}
+            {errorMessageShowListing}
+            <div className={css.formWrapper}>
+              <div className={css.formLeft}>
+                <FieldCheckboxGroup
+                  className={css.features}
+                  name={'category'}
+                  id={'category'}
+                  label={'What can your space be used for?'}
+                  validate={requiredFieldArrayCheckbox('Please select at least one option')}
+                  options={categories}
+                  twoColumns
+                />
 
-      return (
-        <Form className={classes} onSubmit={handleSubmit}>
-          {errorMessageCreateListingDraft}
-          {errorMessageUpdateListing}
-          {errorMessageShowListing}
-          <div className={css.formWrapper}>
-            <div className={css.formLeft}>
-              <FieldCheckboxGroup
-                className={css.features}
-                name={'category'}
-                id={'category'}
-                label={'What can your space be used for?'}
-                validate={requiredFieldArrayCheckbox('Please select at least one option')}
-                options={categories}
-                twoColumns
-              />
-
-              <FieldSelect
-                className={css.category}
-                name={'propertyType'}
-                id={'propertyType'}
-                label={'What type of property is your space located in?'}
-                validate={required('Please choose a property type.')}
-              >
-                <option disabled value="">
-                  {'Select an option...'}
-                </option>
-                {propertyType.map(c => (
-                  <option key={c.key} value={c.key}>
-                    {c.label}
+                <FieldSelect
+                  className={css.category}
+                  name={'propertyType'}
+                  id={'propertyType'}
+                  label={'What type of property is your space located in?'}
+                  validate={required('Please choose a property type.')}
+                >
+                  <option disabled value="">
+                    {'Select an option...'}
                   </option>
-                ))}
-              </FieldSelect>
-              {/* <CustomPropertyTypeSelectFieldMaybe
+                  {propertyType.map(c => (
+                    <option key={c.key} value={c.key}>
+                      {c.label}
+                    </option>
+                  ))}
+                </FieldSelect>
+                {/* <CustomPropertyTypeSelectFieldMaybe
                 id="propertyType"
                 name="propertyType"
                 propertyType={propertyType}
                 intl={intl}
               /> */}
 
-              {/* <CustomCategorySelectFieldMaybe
+                {/* <CustomCategorySelectFieldMaybe
                 id="category"
                 name="category"
                 categories={categories}
                 intl={intl}
               /> */}
-              <div className={css.sliderWrapper}>
-                <FieldNumberInput
-                  id={'capacity'}
-                  name="capacity"
-                  className={''}
-                  type={'text'}
-                  label={capacityLabel}
-                  min={MIN_GUESTS}
-                  max={MAX_GUESTS}
-                  initialCap={"" + values.capacity || "1"}
-                  validate={numberValidators}
-                />
-              </div>
-              <FieldSelect
-                className={css.category}
-                name={'spaceType'}
-                id={'spaceType'}
-                label={spaceTypeLabel}
-                validate={required('Please select a place type.')}
-              >
-                <option disabled value="">
-                  {'Select an option...'}
-                </option>
-                {spaceTypeOptions.map(c => (
-                  <option key={c.key} value={c.key}>
-                    {c.label}
+                <div className={css.sliderWrapper}>
+                  <FieldNumberInput
+                    id={'capacity'}
+                    name="capacity"
+                    className={''}
+                    type={'text'}
+                    label={capacityLabel}
+                    min={MIN_GUESTS}
+                    max={MAX_GUESTS}
+                    initialCap={'' + values.capacity || '1'}
+                    validate={numberValidators}
+                  />
+                </div>
+                <FieldSelect
+                  className={css.category}
+                  name={'spaceType'}
+                  id={'spaceType'}
+                  label={spaceTypeLabel}
+                  validate={required('Please select a place type.')}
+                >
+                  <option disabled value="">
+                    {'Select an option...'}
                   </option>
-                ))}
-              </FieldSelect>
+                  {spaceTypeOptions.map(c => (
+                    <option key={c.key} value={c.key}>
+                      {c.label}
+                    </option>
+                  ))}
+                </FieldSelect>
 
-              <Button
-                className={css.submitButton}
-                type="submit"
-                inProgress={submitInProgress}
-                disabled={submitDisabled}
-                ready={submitReady}
-              >
-                {saveActionMsg}
-              </Button>
+                <Button
+                  className={css.submitButton}
+                  type="submit"
+                  inProgress={submitInProgress}
+                  disabled={submitDisabled}
+                  ready={submitReady}
+                >
+                  {saveActionMsg}
+                </Button>
+              </div>
+              <div className={css.formRight}>
+                <EditListingHelperCard title={'Tip'} content={basicsHelper} />
+              </div>
             </div>
-            <div className={css.formRight}>
-              <EditListingHelperCard title={'Tip'} content={basicsHelper} />
-            </div>
-          </div>
-        </Form>
-      );
+          </Form>
+        );
     }}
   />
 );

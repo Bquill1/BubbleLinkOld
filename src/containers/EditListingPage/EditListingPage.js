@@ -53,6 +53,7 @@ const { UUID } = sdkTypes;
 export const EditListingPageComponent = props => {
   const {
     currentUser,
+    currentUserIsHost,
     currentUserListing,
     currentUserListingFetched,
     createStripeAccountError,
@@ -84,7 +85,7 @@ export const EditListingPageComponent = props => {
     stripeAccount,
     updateStripeAccountError,
   } = props;
-
+console.log(props)
   const { id, type, returnURLType } = params;
   const isNewURI = type === LISTING_PAGE_PARAM_TYPE_NEW;
   const isDraftURI = type === LISTING_PAGE_PARAM_TYPE_DRAFT;
@@ -198,6 +199,7 @@ export const EditListingPageComponent = props => {
         <UserNav
           selectedPageName={listing ? 'EditListingPage' : 'NewListingPage'}
           listing={listing}
+          currentUserIsHost={currentUserIsHost}
         />
         <EditListingWizard
           id="EditListingWizard"
@@ -259,6 +261,7 @@ export const EditListingPageComponent = props => {
         <UserNav
           selectedPageName={listing ? 'EditListingPage' : 'NewListingPage'}
           listing={listing}
+          currentUserIsHost={currentUserIsHost}
         />
         <div className={css.placeholderWhileLoading} />
         <Footer />
@@ -342,7 +345,12 @@ const mapStateToProps = state => {
     stripeAccountFetched,
   } = state.stripeConnectAccount;
 
-  const { currentUser, currentUserListing, currentUserListingFetched } = state.user;
+  const {
+    currentUser,
+    currentUserListing,
+    currentUserListingFetched,
+    currentUserIsHost,
+  } = state.user;
 
   const fetchInProgress = createStripeAccountInProgress;
 
@@ -360,6 +368,7 @@ const mapStateToProps = state => {
     stripeAccount,
     stripeAccountFetched,
     currentUser,
+    currentUserIsHost,
     currentUserListing,
     currentUserListingFetched,
     fetchInProgress,

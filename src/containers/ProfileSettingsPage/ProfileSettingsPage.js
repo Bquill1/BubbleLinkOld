@@ -33,6 +33,7 @@ export class ProfileSettingsPageComponent extends Component {
   render() {
     const {
       currentUser,
+      currentUserIsHost,
       currentUserListing,
       image,
       onImageUpload,
@@ -94,7 +95,11 @@ export class ProfileSettingsPageComponent extends Component {
         <LayoutSingleColumn>
           <LayoutWrapperTopbar>
             <TopbarContainer currentPage="ProfileSettingsPage" />
-            <UserNav selectedPageName="ProfileSettingsPage" listing={currentUserListing} />
+            <UserNav
+              selectedPageName="ProfileSettingsPage"
+              listing={currentUserListing}
+              currentUserIsHost={currentUserIsHost}
+            />
           </LayoutWrapperTopbar>
           <LayoutWrapperMain>
             <div className={css.content}>
@@ -154,7 +159,7 @@ ProfileSettingsPageComponent.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const { currentUser, currentUserListing } = state.user;
+  const { currentUser, currentUserListing, currentUserIsHost } = state.user;
   const {
     image,
     uploadImageError,
@@ -164,6 +169,7 @@ const mapStateToProps = state => {
   } = state.ProfileSettingsPage;
   return {
     currentUser,
+    currentUserIsHost,
     currentUserListing,
     image,
     scrollingDisabled: isScrollingDisabled(state),
@@ -180,10 +186,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const ProfileSettingsPage = compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(ProfileSettingsPageComponent);
 

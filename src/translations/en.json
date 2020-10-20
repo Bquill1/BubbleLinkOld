@@ -1082,7 +1082,7 @@
 
   "TopbarDesktop.becomeHost": "+ Become a Host",
   "TopbarDesktop.createListing": "+ Create First Listing",
-  "TopbarDesktop.addListing": "+ Add a New Listing",
+  "TopbarDesktop.addListing": "+ Add Another Listing",
   "TopbarDesktop.inbox": "Inbox",
   "TopbarDesktop.login": "Log in",
   "TopbarDesktop.logo": "YourDaySpace",
@@ -1095,7 +1095,7 @@
   "TopbarMobileMenu.inboxLink": "Inbox",
   "TopbarMobileMenu.loginLink": "Log in",
   "TopbarMobileMenu.logoutLink": "Log out",
-  "TopbarMobileMenu.newListingLink": "+ Add your sauna",
+  "TopbarMobileMenu.newListingLink": "+ Become a Host",
   "TopbarMobileMenu.profileSettingsLink": "Profile settings",
   "TopbarMobileMenu.signupLink": "Sign up",
   "TopbarMobileMenu.signupOrLogin": "{signup} or {login}",

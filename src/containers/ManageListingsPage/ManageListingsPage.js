@@ -47,6 +47,7 @@ export class ManageListingsPageComponent extends Component {
   render() {
     const {
       closingListing,
+      currentUserIsHost,
       closingListingError,
       listings,
       onCloseListing,
@@ -125,7 +126,7 @@ export class ManageListingsPageComponent extends Component {
         <LayoutSingleColumn>
           <LayoutWrapperTopbar>
             <TopbarContainer currentPage="ManageListingsPage" />
-            <UserNav selectedPageName="ManageListingsPage" />
+            <UserNav selectedPageName="ManageListingsPage" currentUserIsHost={currentUserIsHost} />
           </LayoutWrapperTopbar>
           <LayoutWrapperMain>
             {queryInProgress ? loadingResults : null}
@@ -199,6 +200,7 @@ ManageListingsPageComponent.propTypes = {
 };
 
 const mapStateToProps = state => {
+  const {currentUserIsHost} = state.user
   const {
     currentPageResultIds,
     pagination,
@@ -213,7 +215,7 @@ const mapStateToProps = state => {
   const listings = getOwnListingsById(state, currentPageResultIds);
   return {
     currentPageResultIds,
-    listings,
+    listings,currentUserIsHost,
     pagination,
     queryInProgress,
     queryListingsError,

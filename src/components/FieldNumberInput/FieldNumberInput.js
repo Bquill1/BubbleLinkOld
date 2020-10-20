@@ -87,7 +87,6 @@ class FieldNumberInputComponent extends Component {
 
     const { valid, invalid, touched, error } = meta;
     const isTextarea = input.type === 'textarea';
-
     const errorText = customErrorText || error;
 
     // Error message and input error styles are only shown if the

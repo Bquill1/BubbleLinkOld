@@ -33,7 +33,7 @@ export const TopbarContainerComponent = props => {
     ...rest
   } = props;
   console.log(props)
-const currentUserIsHost = isAuthenticated && currentUser?.attibutes?.profile?.publicData?.isHost;
+const currentUserIsHost = isAuthenticated && currentUser?.attributes?.profile?.publicData?.isHost;
   return (
     <Topbar
       authInProgress={authInProgress}

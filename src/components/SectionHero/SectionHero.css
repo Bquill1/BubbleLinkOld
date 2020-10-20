@@ -141,11 +141,11 @@ display: inherit;
 .heroButton {
   @apply --marketplaceButtonStyles;
   @apply --SectionHero_animation;
-
+  
   animation-delay: 0.8s;
 
   @media (--viewportMedium) {
-    display: block;
+    display: none;
     width: 120px;
   }
 }

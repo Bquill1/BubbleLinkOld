@@ -113,10 +113,22 @@
   }
 }
 
+.createListing {
+  @apply --TopbarDesktop_label;
+  padding: 1rem;
+  border-radius: 50%;
+  @apply --marketplaceH4FontStyles;
+  background-color: var(--marketplaceColor);
+  color: var(--matterColorLight);
+  box-shadow: var(--boxShadowPopupLight);
+}
 /* Create listing (CTA for providers) */
 .createListingLink {
+  display: flex;
+  align-items: center;
   @apply --TopbarDesktop_linkHover;
   @apply --marketplaceH5FontStyles;
+  font-weight: var(--fontWeightSemiBold);
   margin-left: auto;
 
   flex-shrink: 0;
@@ -135,7 +147,6 @@
     margin-bottom: 0;
   }
 }
-
 .createHostInfoLink {
   @apply --TopbarDesktop_linkHover;
   @apply --marketplaceH5FontStyles;
@@ -156,7 +167,7 @@
     margin-bottom: 0;
   }
 }
-.createListing {
+.hostInfo {
   @apply --TopbarDesktop_label;
 }
 

@@ -141,14 +141,18 @@ const TopbarDesktop = props => {
           alt={intl.formatMessage({ id: 'TopbarDesktop.logo' })}
         />
       </NamedLink>
-      { currentPage === 'SearchPage' && search}
+      {currentPage !== 'LandingPage' && search}
       <NamedLink className={css.createListingLink} name="NewListingPage">
         <span className={css.createListing}>
-          <FormattedMessage id="TopbarDesktop.createListing" />
+          {currentUserHasListings ? (
+            <FormattedMessage id="TopbarDesktop.addListing" />
+          ) : (
+            <FormattedMessage id="TopbarDesktop.createListing" />
+          )}
         </span>
       </NamedLink>
       <NamedLink className={css.createHostInfoLink} name="HostPage">
-        <span className={css.createListing}>
+        <span className={css.hostInfo}>
           <FormattedMessage id="TopbarDesktop.hostInfo" />
         </span>
       </NamedLink>

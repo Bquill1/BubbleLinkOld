@@ -43,6 +43,7 @@ class FieldDateInputComponent extends Component {
       useMobileMargins,
       showErrorMessage,
       onChange,
+      renderDayHtml,
       ...rest
     } = this.props;
 
@@ -91,7 +92,7 @@ class FieldDateInputComponent extends Component {
             {label}
           </label>
         ) : null}
-        <DateInput className={inputClasses} {...inputProps} />
+        <DateInput className={inputClasses} {...inputProps} renderDayContents={renderDayHtml} />
         {showErrorMessage ? <ValidationError className={errorClasses} fieldMeta={meta} /> : null}
       </div>
     );

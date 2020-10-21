@@ -93,8 +93,12 @@ const EditListingBasicsFormComponent = props => (
         MAX_GUESTS
       );
       const numberValidators = numberRequired;
-      if (!pristine && !submitDisabled && !isNew){
-        handleSubmit()
+      console.log(!pristine)
+      console.log(!submitDisabled);
+      console.log(!isNew);
+      if (!pristine && !submitDisabled && !isNew) {
+        console.log(22222);
+        handleSubmit();
       }
         return (
           <Form className={classes} onSubmit={handleSubmit} onChange={e => console.log(e)}>

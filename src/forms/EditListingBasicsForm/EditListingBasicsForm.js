@@ -15,7 +15,6 @@ import {
   FieldNumberInput,
   FieldCheckboxGroup,
   EditListingHelperCard,
-
 } from '../../components';
 import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
 import CustomPropertyTypeSelectFieldMaybe from './CustomPropertyTypeSelectFieldMaybe';
@@ -48,13 +47,15 @@ const EditListingBasicsFormComponent = props => (
         updateInProgress,
         fetchErrors,
         initialValues,
+        isNewListingFlow,
+
         values,
       } = formRenderProps;
       console.log(formRenderProps);
       console.log(props);
       console.log(values);
-      if(!values.capacity){
-        values.capacity = 1
+      if (!values.capacity) {
+        values.capacity = 1;
       }
       const isNew = Object.values(initialValues).every(el => el === undefined);
 
@@ -93,105 +94,101 @@ const EditListingBasicsFormComponent = props => (
         MAX_GUESTS
       );
       const numberValidators = numberRequired;
-      console.log(!pristine)
-      console.log(!submitDisabled);
-      console.log(!isNew);
-      if (!pristine && !submitDisabled && !isNew) {
-        console.log(22222);
+      if (!pristine && !submitDisabled && !isNewListingFlow) {
         handleSubmit();
       }
-        return (
-          <Form className={classes} onSubmit={handleSubmit} onChange={e => console.log(e)}>
-            {errorMessageCreateListingDraft}
-            {errorMessageUpdateListing}
-            {errorMessageShowListing}
-            <div className={css.formWrapper}>
-              <div className={css.formLeft}>
-                <FieldCheckboxGroup
-                  className={css.features}
-                  name={'category'}
-                  id={'category'}
-                  label={'What can your space be used for?'}
-                  validate={requiredFieldArrayCheckbox('Please select at least one option')}
-                  options={categories}
-                  twoColumns
-                />
+      return (
+        <Form className={classes} onSubmit={handleSubmit} onChange={e => console.log(e)}>
+          {errorMessageCreateListingDraft}
+          {errorMessageUpdateListing}
+          {errorMessageShowListing}
+          <div className={css.formWrapper}>
+            <div className={css.formLeft}>
+              <FieldCheckboxGroup
+                className={css.features}
+                name={'category'}
+                id={'category'}
+                label={'What can your space be used for?'}
+                validate={requiredFieldArrayCheckbox('Please select at least one option')}
+                options={categories}
+                twoColumns
+              />
 
-                <FieldSelect
-                  className={css.category}
-                  name={'propertyType'}
-                  id={'propertyType'}
-                  label={'What type of property is your space located in?'}
-                  validate={required('Please choose a property type.')}
-                >
-                  <option disabled value="">
-                    {'Select an option...'}
+              <FieldSelect
+                className={css.category}
+                name={'propertyType'}
+                id={'propertyType'}
+                label={'What type of property is your space located in?'}
+                validate={required('Please choose a property type.')}
+              >
+                <option disabled value="">
+                  {'Select an option...'}
+                </option>
+                {propertyType.map(c => (
+                  <option key={c.key} value={c.key}>
+                    {c.label}
                   </option>
-                  {propertyType.map(c => (
-                    <option key={c.key} value={c.key}>
-                      {c.label}
-                    </option>
-                  ))}
-                </FieldSelect>
-                {/* <CustomPropertyTypeSelectFieldMaybe
+                ))}
+              </FieldSelect>
+              {/* <CustomPropertyTypeSelectFieldMaybe
                 id="propertyType"
                 name="propertyType"
                 propertyType={propertyType}
                 intl={intl}
               /> */}
 
-                {/* <CustomCategorySelectFieldMaybe
+              {/* <CustomCategorySelectFieldMaybe
                 id="category"
                 name="category"
                 categories={categories}
                 intl={intl}
               /> */}
-                <div className={css.sliderWrapper}>
-                  <FieldNumberInput
-                    id={'capacity'}
-                    name="capacity"
-                    className={''}
-                    type={'text'}
-                    label={capacityLabel}
-                    min={MIN_GUESTS}
-                    max={MAX_GUESTS}
-                    initialCap={'' + values.capacity || '1'}
-                    validate={numberValidators}
-                  />
-                </div>
-                <FieldSelect
-                  className={css.category}
-                  name={'spaceType'}
-                  id={'spaceType'}
-                  label={spaceTypeLabel}
-                  validate={required('Please select a place type.')}
-                >
-                  <option disabled value="">
-                    {'Select an option...'}
+              <div className={css.sliderWrapper}>
+                <FieldNumberInput
+                  id={'capacity'}
+                  name="capacity"
+                  className={''}
+                  type={'text'}
+                  label={capacityLabel}
+                  min={MIN_GUESTS}
+                  max={MAX_GUESTS}
+                  initialCap={'' + values.capacity || '1'}
+                  validate={numberValidators}
+                />
+              </div>
+              <FieldSelect
+                className={css.category}
+                name={'spaceType'}
+                id={'spaceType'}
+                label={spaceTypeLabel}
+                validate={required('Please select a place type.')}
+              >
+                <option disabled value="">
+                  {'Select an option...'}
+                </option>
+                {spaceTypeOptions.map(c => (
+                  <option key={c.key} value={c.key}>
+                    {c.label}
                   </option>
-                  {spaceTypeOptions.map(c => (
-                    <option key={c.key} value={c.key}>
-                      {c.label}
-                    </option>
-                  ))}
-                </FieldSelect>
+                ))}
+              </FieldSelect>
 
-                <Button
-                  className={css.submitButton}
-                  type="submit"
-                  inProgress={submitInProgress}
-                  disabled={submitDisabled}
-                  ready={submitReady}
-                >
-                  {saveActionMsg}
-                </Button>
-              </div>
-              <div className={css.formRight}>
-                <EditListingHelperCard title={'Tip'} content={basicsHelper} />
-              </div>
+              <Button
+                className={css.submitButton}
+                type="submit"
+                inProgress={submitInProgress}
+                disabled={submitDisabled}
+                ready={submitReady}
+              >
+                {saveActionMsg}
+              </Button>
             </div>
-          </Form>
-        );
+            <div className={css.formRight}>
+              <EditListingHelperCard title={'Tip'} content={basicsHelper} />
+            </div>
+          </div>
+        </Form>
+      );
     }}
   />
 );

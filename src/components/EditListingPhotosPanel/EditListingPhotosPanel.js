@@ -27,6 +27,7 @@ class EditListingPhotosPanel extends Component {
       onChange,
       onSubmit,
       onRemoveImage,
+      isNewListingFlow,
     } = this.props;
 
     const rootClass = rootClassName || css.root;
@@ -52,6 +53,7 @@ class EditListingPhotosPanel extends Component {
         <EditListingPhotosForm
           className={css.form}
           disabled={disabled}
+          isNewListingFlow={isNewListingFlow}
           ready={ready}
           fetchErrors={errors}
           initialValues={{ images }}

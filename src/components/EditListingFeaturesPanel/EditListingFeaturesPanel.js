@@ -24,6 +24,7 @@ const EditListingFeaturesPanel = props => {
     submitButtonText,
     panelUpdated,
     updateInProgress,
+    isNewListingFlow,
     errors,
   } = props;
 
@@ -53,6 +54,7 @@ const EditListingFeaturesPanel = props => {
         className={css.form}
         name={FEATURES_NAME}
         initialValues={initialValues}
+        isNewListingFlow={isNewListingFlow}
         onSubmit={values => {
           const { amenities = [] } = values;
 

@@ -17,7 +17,7 @@ const ACCEPT_IMAGES = 'image/*';
 export class EditListingPhotosFormComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { imageUploadRequested: false };
+    this.state = { imageUploadRequested: false, liveUpdate: true };
     this.onImageUploadHandler = this.onImageUploadHandler.bind(this);
     this.submittedImages = [];
   }
@@ -60,9 +60,10 @@ export class EditListingPhotosFormComponent extends Component {
             saveActionMsg,
             updated,
             updateInProgress,
-            values
+            isNewListingFlow,
+            dirtyFieldsSinceLastSubmit,
+            values,
           } = formRenderProps;
-console.log(this.props)
           const chooseImageText = (
             <span className={css.chooseImageText}>
               <span className={css.chooseImage}>
@@ -125,12 +126,35 @@ console.log(this.props)
           const submitInProgress = updateInProgress;
           const submitDisabled =
             invalid || disabled || submitInProgress || imageUploadRequested || ready;
-            const fileInImageArray = values.images.find(i => i.file)
+          const fileInImageArray = values.images.find(i => i.file);
           const classes = classNames(css.root, className);
-          if (!imageArrayHasSameImages && !submitDisabled && fileInImageArray) {
+          console.log(submitReady);
+          console.log('*************************');
+          console.log(this.props);
+          console.log(formRenderProps);
+          console.log(dirtyFieldsSinceLastSubmit);
+          console.log(!imageArrayHasSameImages);
+          console.log(!submitDisabled);
+          console.log(fileInImageArray);
+          console.log(!isNewListingFlow);
+          console.log('*************************');
+          if (
+            !imageArrayHasSameImages &&
+            !submitDisabled &&
+            fileInImageArray &&
+            !isNewListingFlow &&
+            this.state.liveUpdate
+          ) {
+            console.log('submittingggggggg');
             handleSubmit(values);
+            this.setState({ liveUpdate: false });
           }
-          console.log(values)
+           if (
+             imageArrayHasSameImages &&
+             !this.state.liveUpdate
+           ) {
+             this.setState({ liveUpdate: true });
+           }
           return (
             <Form
               className={classes}

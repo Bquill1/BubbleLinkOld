@@ -23,6 +23,7 @@ const EditListingBasicsPanel = props => {
     submitButtonText,
     panelUpdated,
     updateInProgress,
+    isNewListingFlow,
     errors,
   } = props;
 
@@ -50,15 +51,14 @@ const EditListingBasicsPanel = props => {
       <EditListingBasicsForm
         className={css.form}
         initialValues={{ category, propertyType, capacity, spaceType }}
+        isNewListingFlow={isNewListingFlow}
         saveActionMsg={submitButtonText}
         onSubmit={values => {
-          console.log(values)
           const { category, propertyType, capacity, spaceType } = values;
           const updateValues = {
             title: title || 'John and Jane’s place',
             publicData: { propertyType, category, capacity, spaceType },
           };
-          console.log(updateValues);
           onSubmit(updateValues);
         }}
         onChange={onChange}

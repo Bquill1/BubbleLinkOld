@@ -125,13 +125,14 @@ const EditListingWizardTab = props => {
       const onUpsertListingDraft = isNewURI
         ? (tab, updateValues) => onCreateListingDraft(updateValues)
         : onUpdateListing;
-
       const upsertValues = isNewURI
         ? updateValuesWithImages
         : { ...updateValuesWithImages, id: currentListing.id };
-
       return onUpsertListingDraft(tab, upsertValues)
         .then(r => {
+          console.log(r)
+          console.log(tab)
+            console.log(updateValues)
           if (tab !== AVAILABILITY && tab !== marketplaceTabs[marketplaceTabs.length - 1]) {
             // Create listing flow: smooth scrolling polyfill to scroll to correct tab
             handleCreateFlowTabScrolling(false);
@@ -143,6 +144,7 @@ const EditListingWizardTab = props => {
           }
         })
         .catch(e => {
+          console.log(e)
           if (passThrownErrors) {
             throw e;
           }
@@ -166,9 +168,10 @@ const EditListingWizardTab = props => {
       // newListingPublished and fetchInProgress are flags for the last wizard tab
       ready: newListingPublished,
       disabled: fetchInProgress,
+      isNewListingFlow,
     };
   };
-
+console.log(panelProps())
   switch (tab) {
     case BASICS: {
       const submitButtonTranslationKey = isNewListingFlow

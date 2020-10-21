@@ -33,6 +33,7 @@ const EditListingDescriptionFormComponent = props => (
         updateInProgress,
         fetchErrors,
         initialValues,
+        isNewListingFlow,
         values,
       } = formRenderProps;
       console.log(initialValues)
@@ -112,11 +113,8 @@ const EditListingDescriptionFormComponent = props => (
       const submitInProgress = updateInProgress;
       const submitDisabled = invalid || disabled || submitInProgress;
 
-      const isNew = Object.values(initialValues).every(
-        el => el === undefined || el === 'John and Jane’s place' || el === null
-      );
       const handleOnBlur = () => {
-        if (!pristine && !submitDisabled && !isNew) {
+        if (!pristine && !submitDisabled && !isNewListingFlow) {
           handleSubmit();
         }
       };

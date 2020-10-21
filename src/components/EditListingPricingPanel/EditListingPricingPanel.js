@@ -27,6 +27,7 @@ const EditListingPricingPanel = props => {
     submitButtonText,
     panelUpdated,
     updateInProgress,
+    isNewListingFlow,
     errors,
   } = props;
 console.log(props)
@@ -81,6 +82,7 @@ console.log(props)
         price_individual_hourly: new Money(price_individual_hourly, config.currency),
         spaceRentalAvailability,
       }}
+      isNewListingFlow={isNewListingFlow}
       onSubmit={values => {
         console.log(values);
         const {
@@ -108,7 +110,10 @@ console.log(props)
         ) {
           bookingType_searchOptions.push('hourly');
         }
-        if (bookingType_entireSpace?.includes('daily') || bookingType_individual?.includes('daily')) {
+        if (
+          bookingType_entireSpace?.includes('daily') ||
+          bookingType_individual?.includes('daily')
+        ) {
           bookingType_searchOptions.push('daily');
         }
         console.log(bookingType_searchOptions);

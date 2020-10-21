@@ -23,6 +23,7 @@ const EditListingDescriptionPanel = props => {
     submitButtonText,
     panelUpdated,
     updateInProgress,
+    isNewListingFlow,
     errors,
   } = props;
 
@@ -55,6 +56,7 @@ const EditListingDescriptionPanel = props => {
       <EditListingDescriptionForm
         className={css.form}
         initialValues={{ title, description, rules, specialConsiderations }}
+        isNewListingFlow={isNewListingFlow}
         saveActionMsg={submitButtonText}
         onSubmit={values => {
           const { title, description, rules, specialConsiderations } = values;

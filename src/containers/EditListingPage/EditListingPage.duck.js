@@ -448,12 +448,21 @@ export function requestImageUpload(actionPayload) {
 // display the state.
 export function requestUpdateListing(tab, data) {
   return (dispatch, getState, sdk) => {
+    const updateInProgress = getState().EditListingPage.updateInProgress;
+    console.log(getState());
+    console.log(updateInProgress);
+    if (updateInProgress) {
+      return new Promise((resolve, reject) => {
+        resolve();
+      });
+    }
     dispatch(updateListing(data));
     const { id } = data;
     let updateResponse;
     return sdk.ownListings
       .update(data)
       .then(response => {
+        console.log(response);
         updateResponse = response;
         const payload = {
           id,
@@ -468,6 +477,7 @@ export function requestUpdateListing(tab, data) {
         return updateResponse;
       })
       .catch(e => {
+        console.log(e);
         log.error(e, 'update-listing-failed', { listingData: data });
         dispatch(updateListingError(storableError(e)));
         throw e;

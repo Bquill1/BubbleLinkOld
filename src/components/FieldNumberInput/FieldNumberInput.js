@@ -115,30 +115,34 @@ class FieldNumberInputComponent extends Component {
       <div className={classes}>
         {label ? <label htmlFor={id}>{label}</label> : null}
         <div className={css.numberWrapper}>
-          <Button
-            className={css.numberButton}
-            onClick={e => {
-              e.preventDefault();
-              this.onButtonClick(-1);
-            }}
-          >
-            -
-          </Button>
+          <div className={css.buttonWrapper}>
+            <Button
+              className={css.numberButton}
+              onClick={e => {
+                e.preventDefault();
+                this.onButtonClick(-1);
+              }}
+            >
+              -
+            </Button>
+          </div>
           <input
             className={inputProps.className}
             value={this.state.count}
             onChange={this.onInputChange}
             type="slider"
           />
-          <Button
-            className={css.numberButton}
-            onClick={e => {
-              e.preventDefault();
-              this.onButtonClick(1);
-            }}
-          >
-            +
-          </Button>
+          <div className={css.buttonWrapper}>
+            <Button
+              className={css.numberButton}
+              onClick={e => {
+                e.preventDefault();
+                this.onButtonClick(1);
+              }}
+            >
+              +
+            </Button>
+          </div>
         </div>
         <ValidationError fieldMeta={fieldMeta} />
       </div>

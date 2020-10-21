@@ -29,12 +29,14 @@ const EditListingFeaturesFormComponent = props => (
         updateInProgress,
         fetchErrors,
         filterConfig,
+        isNewListingFlow,
+        initialValues,
       } = formRenderProps;
 
       const classes = classNames(rootClassName || css.root, className);
       const submitReady = (updated && pristine) || ready;
-      const featuresMessage1 = <FormattedMessage id= "EditListingFeaturesForm.featuresMessage1"/>;
-      const featuresMessage2 = <FormattedMessage id= "EditListingFeaturesForm.featuresMessage2"/>;
+      const featuresMessage1 = <FormattedMessage id="EditListingFeaturesForm.featuresMessage1" />;
+      const featuresMessage2 = <FormattedMessage id="EditListingFeaturesForm.featuresMessage2" />;
 
       const { updateListingError, showListingsError } = fetchErrors || {};
       const submitInProgress = updateInProgress;
@@ -51,10 +53,8 @@ const EditListingFeaturesFormComponent = props => (
         </p>
       ) : null;
 
-
-
       const options = findOptionsForSelectFilter('amenities', filterConfig);
-      if (!pristine && !submitDisabled) {
+      if (!pristine && !submitDisabled && !isNewListingFlow) {
         handleSubmit();
       }
       return (

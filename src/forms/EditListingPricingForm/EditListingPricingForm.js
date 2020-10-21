@@ -50,7 +50,10 @@ export const EditListingPricingFormComponent = props => (
         spaceRentalAvailabilityOptions,
         values,
         initialValues,
+        isNewListingFlow,
       } = formRenderProps;
+      console.log(props)
+      console.log(formRenderProps);
       console.log(initialValues);
       console.log(values);
       const unitType = config.bookingUnitType;
@@ -127,7 +130,9 @@ export const EditListingPricingFormComponent = props => (
       const submitDisabled = invalid || disabled || submitInProgress;
       const { updateListingError, showListingsError } = fetchErrors || {};
 
-      if (!pristine && !submitDisabled) {
+      const isNew = Object.values(initialValues).every(el => el === undefined || el.amount === 0);
+      console.log(isNew);
+      if (!pristine && !submitDisabled && !isNewListingFlow) {
         handleSubmit();
       }
       return (
@@ -214,14 +219,8 @@ export const EditListingPricingFormComponent = props => (
               </div>
               <div className={css.priceFormRight}>
                 <div className={css.fieldWrapperRight}>
-                  <EditListingHelperCard
-                    title={'Managing your space'}
-                    content={spaceHelper}
-                  />
-                  <EditListingHelperCard
-                    title={'Managing your space'}
-                    content={timeHelper}
-                  />
+                  <EditListingHelperCard title={'Managing your space'} content={spaceHelper} />
+                  <EditListingHelperCard title={'Managing your space'} content={timeHelper} />
                 </div>
               </div>
             </div>

@@ -274,23 +274,19 @@ const EditListingAvailabilityPlanFormComponent = props => {
           values,
           newListing,
         } = fieldRenderProps;
-        console.log(values);
         if (values && newListing && !inProgress) {
           handleSubmit(values);
         }
         const classes = classNames(rootClassName || css.root, className);
         const submitInProgress = inProgress;
-        console.log(inProgress);
         const concatDayEntriesReducer = (entries, day) =>
           values[day] ? entries.concat(values[day]) : entries;
         const hasUnfinishedEntries = !!weekdays
           .reduce(concatDayEntriesReducer, [])
           .find(e => !e.startTime || !e.endTime);
-        console.log(hasUnfinishedEntries);
         const { updateListingError } = fetchErrors || {};
 
         const submitDisabled = submitInProgress || hasUnfinishedEntries;
-        console.log(submitDisabled);
         return (
           <Form id={formId} className={classes} onSubmit={handleSubmit}>
             <h2 className={css.heading}>

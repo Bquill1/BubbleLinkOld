@@ -146,6 +146,7 @@ export class BookingTimeFormComponent extends Component {
             fetchLineItemsError,
             seatsSelected,
           } = fieldRenderProps;
+          console.log(this.props)
           const startTime = values && values.bookingStartTime ? values.bookingStartTime : null;
           const endTime = values && values.bookingEndTime ? values.bookingEndTime : null;
           const isDaily = bookingType === 'daily';

@@ -158,7 +158,6 @@ const EditListingAvailabilityPanel = props => {
     errors,
   } = props;
   // Hooks
-  console.log(props)
   const [isEditPlanModalOpen, setIsEditPlanModalOpen] = useState(false);
   const [isEditExceptionsModalOpen, setIsEditExceptionsModalOpen] = useState(false);
   const [valuesFromLastSubmit, setValuesFromLastSubmit] = useState(null);
@@ -166,7 +165,6 @@ const EditListingAvailabilityPanel = props => {
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
   const capacity = currentListing.attributes.publicData.capacity
-  console.log(capacity)
 
   const isNextButtonDisabled = false;
   // const isNextButtonDisabled = !currentListing.attributes.availabilityPlan;

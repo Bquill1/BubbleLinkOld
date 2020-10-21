@@ -74,6 +74,8 @@ const defaultProps = {
 
   // day presentation and interaction related props
   renderCalendarDay: undefined, // If undefined, renders react-dates/lib/components/CalendarDay
+
+
   // day presentation and interaction related props
   renderDayContents: day => {
     return <span className="renderedDay">{day.format('D')}</span>;
@@ -152,7 +154,7 @@ class DateInputComponent extends Component {
       ...datePickerProps
     } = this.props;
     /* eslint-enable no-unused-vars */
-
+console.log(this.props)
     const initialMoment = initialDate ? moment(initialDate) : null;
 
     const date =

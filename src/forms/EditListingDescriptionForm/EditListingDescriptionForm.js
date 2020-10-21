@@ -33,8 +33,10 @@ const EditListingDescriptionFormComponent = props => (
         updateInProgress,
         fetchErrors,
         initialValues,
+        isNewListingFlow,
         values,
       } = formRenderProps;
+      console.log(initialValues)
       console.log(values);
       if (values.title === 'John and Jane’s place') {
         values.title = '';
@@ -112,7 +114,7 @@ const EditListingDescriptionFormComponent = props => (
       const submitDisabled = invalid || disabled || submitInProgress;
 
       const handleOnBlur = () => {
-        if (!pristine && !submitDisabled) {
+        if (!pristine && !submitDisabled && !isNewListingFlow) {
           handleSubmit();
         }
       };

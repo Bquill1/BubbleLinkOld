@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { func, object, string } from 'prop-types';
 import classNames from 'classnames';
 import { intlShape } from '../../util/reactIntl';
+import ReactTooltip from 'react-tooltip';
 import {
   getStartHours,
   getEndHours,
@@ -390,6 +391,7 @@ class FieldDateAndTimeInput extends Component {
       bookingType,
       spaceRentalAvailability,
     } = this.props;
+    console.log(this.props);
     const isDaily = bookingType === 'daily';
     const classes = classNames(rootClassName || css.root, className);
 
@@ -460,7 +462,19 @@ class FieldDateAndTimeInput extends Component {
             )
           )
       : () => false;
-
+    const renderDayHtml = day => {
+      const a = timeSlotsOnSelectedMonth
+        .reverse()
+        .find(timeSlot =>
+          isDayMomentInsideRange(day, timeSlot.attributes.start, timeSlot.attributes.end, timeZone)
+        );
+      return (
+        <span className="renderedDay" data-tip={a && `Available Spots: ${a.attributes.seats}`}>
+          {day.format('D')}
+          {a && <ReactTooltip />}
+        </span>
+      );
+    };
     const placeholderTime = localizeAndFormatTime(
       intl,
       timeZone,
@@ -502,6 +516,7 @@ class FieldDateAndTimeInput extends Component {
               useMobileMargins
               showErrorMessage={false}
               validate={bookingDateRequired('Required')}
+              renderDayHtml={renderDayHtml}
             />
           </div>
         </div>

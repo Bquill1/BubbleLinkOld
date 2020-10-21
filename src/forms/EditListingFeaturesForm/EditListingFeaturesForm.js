@@ -29,6 +29,7 @@ const EditListingFeaturesFormComponent = props => (
         updateInProgress,
         fetchErrors,
         filterConfig,
+        initialValues,
       } = formRenderProps;
 
       const classes = classNames(rootClassName || css.root, className);
@@ -54,7 +55,9 @@ const EditListingFeaturesFormComponent = props => (
 
 
       const options = findOptionsForSelectFilter('amenities', filterConfig);
-      if (!pristine && !submitDisabled) {
+      const isNew = Object.values(initialValues).every(el => el === undefined);
+
+      if (!pristine && !submitDisabled && !isNew) {
         handleSubmit();
       }
       return (

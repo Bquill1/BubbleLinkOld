@@ -127,8 +127,10 @@ export const EditListingPricingFormComponent = props => (
       const submitDisabled = invalid || disabled || submitInProgress;
       const { updateListingError, showListingsError } = fetchErrors || {};
 
-      if (!pristine && !submitDisabled) {
-        handleSubmit();
+      const isNew = Object.values(initialValues).every(el => el === undefined || el.amount === 0);
+console.log(isNew)
+      if (!pristine && !submitDisabled && !isNew) {
+      handleSubmit();
       }
       return (
         <Form onSubmit={handleSubmit} className={classes}>

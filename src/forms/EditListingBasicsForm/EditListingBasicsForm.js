@@ -47,17 +47,20 @@ const EditListingBasicsFormComponent = props => (
         updated,
         updateInProgress,
         fetchErrors,
+        initialValues,
         values,
       } = formRenderProps;
       console.log(formRenderProps);
+      console.log(props);
       console.log(values);
       if(!values.capacity){
         values.capacity = 1
       }
+      const isNew = Object.values(initialValues).every(el => el === undefined);
+
       const capacityLabel = intl.formatMessage({ id: 'EditListingBasicsForm.capacityLabel' });
       const spaceTypeLabel = intl.formatMessage({ id: 'EditListingBasicsForm.spaceTypeLabel' });
       const basicsHelper = intl.formatMessage({ id: 'EditListingBasicsForm.basicsMessage' });
-
       const { updateListingError, createListingDraftError, showListingsError } = fetchErrors || {};
       const errorMessageUpdateListing = updateListingError ? (
         <p className={css.error}>
@@ -90,7 +93,7 @@ const EditListingBasicsFormComponent = props => (
         MAX_GUESTS
       );
       const numberValidators = numberRequired;
-      if (!pristine && !submitDisabled){
+      if (!pristine && !submitDisabled && !isNew){
         handleSubmit()
       }
         return (

@@ -35,6 +35,7 @@ const EditListingDescriptionFormComponent = props => (
         initialValues,
         values,
       } = formRenderProps;
+      console.log(initialValues)
       console.log(values);
       if (values.title === 'John and Jane’s place') {
         values.title = '';
@@ -111,8 +112,11 @@ const EditListingDescriptionFormComponent = props => (
       const submitInProgress = updateInProgress;
       const submitDisabled = invalid || disabled || submitInProgress;
 
+      const isNew = Object.values(initialValues).every(
+        el => el === undefined || el === 'John and Jane’s place' || el === null
+      );
       const handleOnBlur = () => {
-        if (!pristine && !submitDisabled) {
+        if (!pristine && !submitDisabled && !isNew) {
           handleSubmit();
         }
       };

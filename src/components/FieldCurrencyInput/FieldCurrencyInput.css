@@ -1,28 +1,54 @@
 @import '../../marketplace.css';
 
 .input {
-  border: 1px solid;
-  border-color: var(--attentionColor);
-      text-align: center; 
-
+  border: none;
+  /* border: 1px solid;
+  border-color: var(--attentionColor); */
+  background-color: var(--attentionColorLight);
+  text-align: center;
+  min-width: 120px;
+  max-width: 180px;
 }
 
 .inputSuccess {
-  border: 1px solid;
-
-  border-color: var(--successColor);
+  /* border: 1px solid;
+  border-color: var(--successColor); */
+  background-color: var(--successColorLight);
 }
 
 .inputError {
-  border: 1px solid;
-
-  border-color: var(--failColor);
+  /* border: 1px solid;
+  border-color: var(--failColor); */
+  background-color: var(--failColorLight);
 }
 
 .currencyWrapper {
   display: inline-flex;
 }
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  margin-right: -20px;
+  z-index:1;
+}
+.buttonWrapper:last-child {
+  margin-right: initial;
+  margin-left: -20px;
+}
 .priceButton {
-  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: auto;
+  height: auto;
+  min-height: 20px;
+  border-radius: 50%;
   font-size: large;
+}
+
+.priceButton:before {
+  content: '';
+  padding-top: 100%;
 }

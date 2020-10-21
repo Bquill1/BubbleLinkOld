@@ -221,7 +221,7 @@
 }
 .submitButton {
   margin: 24px;
-  border-radius: 8px;
+  border-radius: 3rem;
   width: 100%;
   box-shadow: var(--boxShadowPopup);
 

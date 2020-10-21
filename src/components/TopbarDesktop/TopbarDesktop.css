@@ -115,12 +115,14 @@
 
 .createListing {
   @apply --TopbarDesktop_label;
-  padding: 1rem;
-  border-radius: 50%;
+  @apply --marketplaceButtonStyles;
   @apply --marketplaceH4FontStyles;
-  background-color: var(--marketplaceColor);
-  color: var(--matterColorLight);
-  box-shadow: var(--boxShadowPopupLight);
+  padding-left:  1rem;
+  padding-right:  1rem;
+  /* border-radius: 50%; */
+  /* background-color: var(--marketplaceColor); */
+  /* color: var(--matterColorLight); */
+  /* box-shadow: var(--boxShadowPopupLight); */
 }
 /* Create listing (CTA for providers) */
 .createListingLink {

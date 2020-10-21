@@ -211,17 +211,19 @@ class CurrencyInputComponent extends Component {
     const placeholderText = placeholder || intl.formatNumber(defaultValue, currencyConfig);
     return (
       <div className={css.currencyWrapper}>
-        <Button
-          className={css.priceButton}
-          onClick={e => {
-            e.preventDefault();
-            this.onButtonClick(-1);
-          }}
-          onBlur={this.onInputBlur}
-          onFocus={this.onInputFocus}
-        >
-          -
-        </Button>
+        <div className={css.buttonWrapper}>
+          <Button
+            className={css.priceButton}
+            onClick={e => {
+              e.preventDefault();
+              this.onButtonClick(-1);
+            }}
+            onBlur={this.onInputBlur}
+            onFocus={this.onInputFocus}
+          >
+            -
+          </Button>
+        </div>
         <input
           className={className}
           {...allowedInputProps(this.props)}
@@ -232,17 +234,19 @@ class CurrencyInputComponent extends Component {
           type="slider"
           placeholder={placeholderText}
         />
-        <Button
-          className={css.priceButton}
-          onClick={e => {
-            e.preventDefault();
-            this.onButtonClick(1);
-          }}
-          onBlur={this.onInputBlur}
-          onFocus={this.onInputFocus}
-        >
-          +
-        </Button>
+        <div className={css.buttonWrapper}>
+          <Button
+            className={css.priceButton}
+            onClick={e => {
+              e.preventDefault();
+              this.onButtonClick(1);
+            }}
+            onBlur={this.onInputBlur}
+            onFocus={this.onInputFocus}
+          >
+            +
+          </Button>
+        </div>
       </div>
     );
   }

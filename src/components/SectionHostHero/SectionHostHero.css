@@ -55,10 +55,10 @@
   display: flex;
   flex-flow: column;
   @media (--viewportSmall) {
-  flex-flow: row;
+    flex-flow: row;
   }
   @media (--viewportMedium) {
-  flex-flow: row;
+    flex-flow: row;
     margin: 0 7.5vw 0 7.5vw;
   }
 
@@ -147,7 +147,7 @@
   animation-delay: 0.8s;
 }
 .callToActionCard {
-    display: inline-flex;
+  display: inline-flex;
   flex-flow: column;
   width: 100%;
   background-color: white;

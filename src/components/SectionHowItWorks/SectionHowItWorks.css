@@ -3,6 +3,16 @@
 .title {
   @apply --marketplaceH1FontStyles;
   margin-top: 0;
+  margin-bottom: 2rem;
+}
+.title > span:first-child {
+  padding-bottom: 0.5rem;
+}
+.title > span:last-child {
+  font-size: 2rem;
+
+  padding-bottom: 0.5rem;
+  border-bottom: 8px solid var(--marketplaceColor);
 }
 
 .steps {
@@ -43,4 +53,13 @@
   @media (--viewportMedium) {
     margin-top: 24px;
   }
+}
+.iconWrapper {
+  display: inline-flex;
+  padding: 1rem;
+  border-radius: 50%;
+  border: 4px solid var(--marketplaceColor);
+}
+.iconClassName {
+  color: var(--marketplaceColor);
 }

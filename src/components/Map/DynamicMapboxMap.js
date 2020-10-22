@@ -60,6 +60,7 @@ class DynamicMapboxMap extends Component {
     this.updateFuzzyCirclelayer = this.updateFuzzyCirclelayer.bind(this);
   }
   componentDidMount() {
+    console.log('duyamamds')
     const { center, zoom, mapsConfig, useFuzzyMap } = this.props;
     const position = [center.lng, center.lat];
 

@@ -67,7 +67,7 @@ export const ListingCardComponent = props => {
     bookingType_entireSpace?.includes('hourly') && publicData.price_entireSpace_hourly,
     bookingType_entireSpace?.includes('daily') && publicData.price_entireSpace_daily,
     bookingType_individual?.includes('hourly') && publicData.price_individual_hourly,
-    bookingType_individual?.includes('hourly') && publicData.price_individual_daily,
+    bookingType_individual?.includes('daily') && publicData.price_individual_daily,
   ].filter(f => f && f > 0);
   console.log(pricesFiltered);
 
@@ -75,6 +75,15 @@ export const ListingCardComponent = props => {
     ? new Money(Math.min(...pricesFiltered), config.currency)
     : currentListing.attributes.price;
   console.log(lowestPrice);
+  const lowestPriceOption = [
+    publicData.price_entireSpace_hourly,
+    publicData.price_entireSpace_daily,
+    publicData.price_individual_hourly,
+    publicData.price_individual_daily,
+  ].findIndex(p => p === lowestPrice.amount);
+  const unitTranslation = { 0: 'hr', 2: 'hr', 1: 'day', 3: 'day' };
+  console.log(lowestPriceOption);
+
   const price = lowestPrice || currentListing.attributes.price;
   const slug = createSlug(title);
   const firstImage =
@@ -85,17 +94,6 @@ export const ListingCardComponent = props => {
     ? getCertificateInfo(certificateOptions, publicData.certificate)
     : null;
   const { formattedPrice, priceTitle } = priceData(price, intl);
-
-  const unitType = config.bookingUnitType;
-  const isNightly = unitType === LINE_ITEM_NIGHT;
-  const isDaily = unitType === LINE_ITEM_DAY;
-
-  const unitTranslationKey = isNightly
-    ? 'ListingCard.perNight'
-    : isDaily
-    ? 'ListingCard.perDay'
-    : 'ListingCard.perUnit';
-
   return (
     <NamedLink className={classes} name="ListingPage" params={{ id, slug }}>
       <div
@@ -115,11 +113,10 @@ export const ListingCardComponent = props => {
       </div>
       <div className={css.info}>
         <div className={css.price}>
+          <div className={css.perUnit}>From:</div>
           <div className={css.priceValue} title={priceTitle}>
             {formattedPrice}
-          </div>
-          <div className={css.perUnit}>
-            <FormattedMessage id={unitTranslationKey} />
+            <div className={css.perUnit}>/{unitTranslation[lowestPriceOption]}</div>
           </div>
         </div>
         <div className={css.mainInfo}>

@@ -4,19 +4,14 @@ import classNames from 'classnames';
 
 import css from './IconBubbleMarker.css';
 
-const DIRECTION_RIGHT = 'right';
-const DIRECTION_LEFT = 'left';
-const DIRECTION_DOWN = 'down';
-const DIRECTION_UP = 'up';
-const SIZE_BIG = 'big';
-const SIZE_SMALL = 'small';
 
 const IconBubbleMarker = props => {
-  const { className, rootClassName, direction, size } = props;
+  const { className, rootClassName, } = props;
   const classes = classNames(rootClassName || css.root, className);
 
   return (
     <svg
+    className={classes}
       class="iconLeft"
       width="30"
       height="40"

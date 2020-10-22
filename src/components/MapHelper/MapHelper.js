@@ -38,7 +38,7 @@ class MapHelper extends Component {
             <button
               className={css.map}
               onClick={() => {
-                this.setState({ isStatic: false });
+                // this.setState({ isStatic: true });
               }}
             >
               {map}

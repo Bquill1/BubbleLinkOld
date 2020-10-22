@@ -57,6 +57,7 @@
 
 .list {
   margin: 0;
+  columns: 2;
 }
 
 .item {

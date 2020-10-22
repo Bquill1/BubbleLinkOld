@@ -36,10 +36,12 @@ export class Map extends Component {
     }
 
     const location = useFuzzyMap || mapsConfig.fuzzy.enabled ? obfuscatedCenter : center;
-
+    console.log(isMapsLibLoaded());
+    console.log(useStaticMap);
     return !isMapsLibLoaded() ? (
       <div className={classes} />
-    ) : useStaticMap ? (
+    ) : (
+      // : useStaticMap ? (
       <StaticMap
         useFuzzyMap={useFuzzyMap}
         center={location}
@@ -48,20 +50,21 @@ export class Map extends Component {
         mapsConfig={mapsConfig}
         mapClassName={mapClassName}
       />
-    ) : (
-      <DynamicMap
-        useFuzzyMap={useFuzzyMap}
-        containerElement={<div className={classes} />}
-        mapElement={<div className={mapClasses} />}
-        containerClassName={classes}
-        mapClassName={mapClasses}
-        center={location}
-        zoom={zoom}
-        address={address}
-        mapsConfig={mapsConfig}
-        mapClassName={mapClassName}
-      />
     );
+    //  : (
+
+    // <DynamicMap
+    //   useFuzzyMap={useFuzzyMap}
+    //   containerElement={<div className={classes} />}
+    //   mapElement={<div className={mapClasses} />}
+    //   containerClassName={classes}
+    //   mapClassName={mapClasses}
+    //   center={location}
+    //   zoom={zoom}
+    //   address={address}
+    //   mapsConfig={mapsConfig}
+    //   mapClassName={mapClassName}
+    // />
   }
 }
 

@@ -93,6 +93,8 @@ const EditListingBasicsFormComponent = props => (
         MIN_GUESTS,
         MAX_GUESTS
       );
+
+      
       const numberValidators = numberRequired;
       if (!pristine && !submitDisabled && !isNewListingFlow) {
         handleSubmit();

@@ -11,8 +11,10 @@ import { findOptionsForSelectFilter } from '../../util/search';
 import { createSlug } from '../../util/urlHelpers';
 import config from '../../config';
 import { NamedLink, ResponsiveImage } from '../../components';
+import { types as sdkTypes } from '../../util/sdkLoader';
 
 import css from './ListingCard.css';
+const { Money } = sdkTypes;
 
 const MIN_LENGTH_FOR_LONG_WORDS = 10;
 
@@ -59,7 +61,21 @@ export const ListingCardComponent = props => {
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureListing(listing);
   const id = currentListing.id.uuid;
-  const { title = '', price, publicData } = currentListing.attributes;
+  const { title = '', publicData } = currentListing.attributes;
+  const { bookingType_entireSpace, bookingType_individual } = publicData && publicData;
+  const pricesFiltered = [
+    bookingType_entireSpace?.includes('hourly') && publicData.price_entireSpace_hourly,
+    bookingType_entireSpace?.includes('daily') && publicData.price_entireSpace_daily,
+    bookingType_individual?.includes('hourly') && publicData.price_individual_hourly,
+    bookingType_individual?.includes('hourly') && publicData.price_individual_daily,
+  ].filter(f => f && f > 0);
+  console.log(pricesFiltered);
+
+  const lowestPrice = pricesFiltered.length
+    ? new Money(Math.min(...pricesFiltered), config.currency)
+    : currentListing.attributes.price;
+  console.log(lowestPrice);
+  const price = lowestPrice || currentListing.attributes.price;
   const slug = createSlug(title);
   const firstImage =
     currentListing.images && currentListing.images.length > 0 ? currentListing.images[0] : null;

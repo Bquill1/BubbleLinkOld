@@ -84,8 +84,8 @@ const priceData = (price, intl) => {
 };
 
 const categoryLabel = (categories, key) => {
-  const cat = categories.map(c => c.label).join(', ')
-  return cat 
+  const cat = categories.map(c => c.label).join(', ');
+  return cat;
 };
 
 export class ListingPageComponent extends Component {
@@ -112,33 +112,31 @@ export class ListingPageComponent extends Component {
       onInitializeCardPaymentData,
       originalAvailabilityPlan,
     } = this.props;
-    console.log(11111111111111)
+    console.log(11111111111111);
 
-    
     const listingId = new UUID(params.id);
     const listing = getListing(listingId);
     const isDaily = values.bookingType === 'daily';
     const isEntireSpace = values.spaceRentalAvailability === 'entireSpace';
-    console.log(isEntireSpace)
+    console.log(isEntireSpace);
     const { bookingStartTime, bookingEndTime, seats, ...restOfValues } = values;
-console.log(values)
+    console.log(values);
     const timeSlotDayString = DAYS_OF_WEEK[values.bookingStartDate.date.getDay()];
     const originalAvailabilityPlanForDay = originalAvailabilityPlan.entries.find(
       p => p.dayOfWeek === timeSlotDayString
     );
-console.log(originalAvailabilityPlanForDay);
+    console.log(originalAvailabilityPlanForDay);
     const bookingStart = timestampToDate(bookingStartTime);
     const bookingEnd = timestampToDate(bookingEndTime);
-    
 
-    console.log(values)
-    console.log(restOfValues)
+    console.log(values);
+    console.log(restOfValues);
     const bookingData = {
       quantity: isDaily ? 1 : calculateQuantityFromHours(bookingStart, bookingEnd),
       seats: isEntireSpace ? originalAvailabilityPlanForDay.seats : parseInt(seats),
       ...restOfValues,
     };
-    console.log(bookingData)
+    console.log(bookingData);
     const initialValues = {
       listing,
       bookingData,
@@ -231,7 +229,7 @@ console.log(originalAvailabilityPlanForDay);
       fetchLineItemsInProgress,
       fetchLineItemsError,
     } = this.props;
-
+    console.log(this.props);
     const listingId = new UUID(rawParams.id);
     const isPendingApprovalVariant = rawParams.variant === LISTING_PAGE_PENDING_APPROVAL_VARIANT;
     const isDraftVariant = rawParams.variant === LISTING_PAGE_DRAFT_VARIANT;
@@ -267,18 +265,6 @@ console.log(originalAvailabilityPlanForDay);
     if (shouldShowPublicListingPage) {
       return <NamedRedirect name="ListingPage" params={params} search={location.search} />;
     }
-const getMultiPrices = listing => {
-  return {
-    entireSpace: {
-      hourly: new Money(listing.attributes.publicData.price_entireSpace_hourly, config.currency),
-      daily: new Money(listing.attributes.publicData.price_entireSpace_daily, config.currency),
-    },
-    individual: {
-      hourly: new Money(listing.attributes.publicData.price_individual_hourly, config.currency),
-      daily: new Money(listing.attributes.publicData.price_individual_daily, config.currency),
-    },
-  };
-};
     const {
       description = '',
       geolocation = null,
@@ -287,6 +273,29 @@ const getMultiPrices = listing => {
       publicData,
     } = currentListing.attributes;
 
+    const getMultiPrices = listing => {
+      const publicData = listing?.attributes?.publicData;
+      console.log(publicData);
+      const { bookingType_entireSpace, bookingType_individual } = publicData && publicData;
+      return {
+        entireSpace: {
+          hourly:
+            bookingType_entireSpace.includes('hourly') &&
+            new Money(publicData.price_entireSpace_hourly, config.currency),
+          daily:
+            bookingType_entireSpace.includes('daily') &&
+            new Money(publicData.price_entireSpace_daily, config.currency),
+        },
+        individual: {
+          hourly:
+            bookingType_individual.includes('hourly') &&
+            new Money(publicData.price_individual_hourly, config.currency),
+          daily:
+            bookingType_individual.includes('hourly') &&
+            new Money(publicData.price_individual_daily, config.currency),
+        },
+      };
+    };
     const richTitle = (
       <span>
         {richText(title, {
@@ -299,8 +308,7 @@ const getMultiPrices = listing => {
     const bookingTitle = (
       <FormattedMessage id="ListingPage.bookingTitle" values={{ title: richTitle }} />
     );
-        const bookingSubTitle = intl.formatMessage({ id: 'ListingPage.bookingSubTitle' });
-
+    const bookingSubTitle = intl.formatMessage({ id: 'ListingPage.bookingSubTitle' });
 
     const topbar = <TopbarContainer />;
 
@@ -377,10 +385,10 @@ const getMultiPrices = listing => {
     const authorDisplayName = userDisplayNameAsString(ensuredAuthor, '');
 
     const { formattedPrice, priceTitle } = priceData(price, intl);
-const prices = getMultiPrices(currentListing)
-console.log(prices)
+    const prices = getMultiPrices(currentListing);
+    console.log(prices);
     const handleBookingSubmit = values => {
-      console.log(values)
+      console.log(values);
       const isCurrentlyClosed = currentListing.attributes.state === LISTING_STATE_CLOSED;
       if (isOwnListing || isCurrentlyClosed) {
         window.scrollTo(0, 0);
@@ -645,7 +653,7 @@ const mapStateToProps = state => {
     fetchLineItemsError,
     enquiryModalOpenForListingId,
   } = state.ListingPage;
-  console.log(state.ListingPage)
+  console.log(state.ListingPage);
   const { currentUser } = state.user;
 
   const getListing = id => {
@@ -700,10 +708,7 @@ const mapDispatchToProps = dispatch => ({
 // See: https://github.com/ReactTraining/react-router/issues/4671
 const ListingPage = compose(
   withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   injectIntl
 )(ListingPageComponent);
 

@@ -641,7 +641,7 @@ const EditListingAvailabilityExceptionForm = props => {
                   </FieldSelect>
                 </div>
               </div>
-            <div className={css.field}>
+            {/* <div className={css.field}>
               <div className={css.seatSelect}>
                 <span className={css.seatsLabel}>Seats -</span>
                 <FieldSelect
@@ -666,7 +666,7 @@ const EditListingAvailabilityExceptionForm = props => {
                   <option value="15">15</option>
                 </FieldSelect>
               </div>
-            </div>
+            </div> */}
             </div>
             <div className={css.submitButton}>
               {updateListingError ? (

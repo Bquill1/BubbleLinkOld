@@ -64,7 +64,8 @@
   /* Remove default margins from font */
   margin-top: 0;
   margin-bottom: 0;
-
+  display: flex;
+  align-items: center;
   @media (--viewportMedium) {
     margin-top: 0;
     margin-bottom: 0;

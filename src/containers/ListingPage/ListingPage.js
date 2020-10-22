@@ -280,18 +280,18 @@ export class ListingPageComponent extends Component {
       return {
         entireSpace: {
           hourly:
-            bookingType_entireSpace.includes('hourly') &&
+            bookingType_entireSpace?.includes('hourly') &&
             new Money(publicData.price_entireSpace_hourly, config.currency),
           daily:
-            bookingType_entireSpace.includes('daily') &&
+            bookingType_entireSpace?.includes('daily') &&
             new Money(publicData.price_entireSpace_daily, config.currency),
         },
         individual: {
           hourly:
-            bookingType_individual.includes('hourly') &&
+            bookingType_individual?.includes('hourly') &&
             new Money(publicData.price_individual_hourly, config.currency),
           daily:
-            bookingType_individual.includes('hourly') &&
+            bookingType_individual?.includes('hourly') &&
             new Money(publicData.price_individual_daily, config.currency),
         },
       };

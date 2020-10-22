@@ -375,7 +375,7 @@ class SearchMapWithMapbox extends Component {
       createURLToListing,
       mapComponentRefreshToken,
     } = this.props;
-
+console.log(this.props)
     if (this.map) {
       // Create markers out of price labels and grouped labels
       const labels = priceLabelsInLocations(

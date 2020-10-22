@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { withRouter } from 'react-router-dom';
 import { Form as FinalForm, Field } from 'react-final-form';
+import { types as sdkTypes } from '../../util/sdkLoader'
 
 import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
@@ -11,6 +12,7 @@ import { BookingPanelOptionButton, Form, LocationAutocompleteInput, Button } fro
 import css from './SectionSearchBlock.css';
 const identity = v => v;
 
+const { LatLng, LatLngBounds } = sdkTypes;
 const SectionSearchBlockComponent = props => {
   const {
     rootClassName,
@@ -23,14 +25,21 @@ const SectionSearchBlockComponent = props => {
 
   const handleSearchSubmit = values => {
     console.log(values)
+
     const { search, selectedPlace } = values?.location || {};
     const { origin, bounds } = selectedPlace || {};
+
     const pub_category = activeCategoryFilter;
     const pub_spaceRentalAvailability = activeSpaceRentalAvailabilityFilter;
     const searchParams = {
-      address: search,
-      origin,
-      bounds,
+      address: search || 'Europe',
+      origin: origin || new LatLng(51.937444, -2.36966957036279),
+      bounds:
+        bounds ||
+        new LatLngBounds(
+          new LatLng(72.38791777, 19.51756912),
+          new LatLng(26.99431866, -26.40454597)
+        ),
       pub_category,
       pub_spaceRentalAvailability,
     };

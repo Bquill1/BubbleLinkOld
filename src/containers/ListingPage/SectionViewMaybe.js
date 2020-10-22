@@ -88,17 +88,30 @@ const SectionViewMaybe = props => {
         <ViewBlock
           intl={intl}
           icon={<BlockIcon icon={faCalendarTimes} tip="Daily" />}
-          valueFirst={formatMoney(intl, prices['individual']['daily'])}
-          valueSecond={formatMoney(intl, prices['entireSpace']['daily'])}
+          valueFirst={
+            (prices['individual']['daily'] && formatMoney(intl, prices['individual']['daily'])) ||
+            '--'
+          }
+          valueSecond={
+            (prices['entireSpace']['daily'] && formatMoney(intl, prices['entireSpace']['daily'])) ||
+            '--'
+          }
         />
         <ViewBlock
           intl={intl}
           icon={<BlockIcon icon={faClock} tip="Hourly" />}
-          valueFirst={formatMoney(intl, prices['individual']['hourly'])}
-          valueSecond={formatMoney(intl, prices['entireSpace']['hourly'])}
+          valueFirst={
+            (prices['individual']['hourly'] && formatMoney(intl, prices['individual']['hourly'])) ||
+            '--'
+          }
+          valueSecond={
+            (prices['entireSpace']['hourly'] &&
+              formatMoney(intl, prices['entireSpace']['hourly'])) ||
+            '--'
+          }
         />
       </div>
-      
+
       <div className={css.sectionViewDetailsBlock}>
         <div className={css.sectionViewDetailsTop}>
           <div className={css.gridRow}>

@@ -187,7 +187,7 @@ console.log(this.props)
           name={bookingTypesQueryParamName}
           label={bookingTypesLabel}
           className={css.duration}
-          disabled={!datesSelected}
+          // disabled={!datesSelected}
         >
           {dateRangeLengthFilter.config.options.map(({ key, label }) => {
             return (

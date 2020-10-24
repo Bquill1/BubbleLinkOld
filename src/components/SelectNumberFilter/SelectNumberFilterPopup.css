@@ -1,0 +1,261 @@
+@import '../../marketplace.css';
+
+.root {
+  display: inline-block;
+
+  &:last-of-type {
+    padding-right: 0;
+  }
+}
+
+.menuLabel {
+  @apply --marketplaceButtonStylesSecondary;
+  @apply --marketplaceSearchFilterLabelFontStyles;
+
+  padding: var(--marketplaceButtonSmallDesktopPadding);
+  width: auto;
+  height: auto;
+  min-height: 0;
+  border-radius: 4px;
+
+  &:focus {
+    outline: none;
+    background-color: var(--matterColorLight);
+    border-color: transparent;
+    text-decoration: none;
+    box-shadow: var(--boxShadowFilterButton);
+  }
+}
+
+.menuLabelSelected {
+  @apply --marketplaceButtonStyles;
+  @apply --marketplaceSearchFilterLabelFontStyles;
+  font-weight: var(--fontWeightSemiBold);
+
+  padding: var(--marketplaceButtonSmallDesktopPadding);
+  width: auto;
+  height: auto;
+  min-height: 0;
+  border-radius: 4px;
+  border: 1px solid var(--marketplaceColor);
+
+  &:hover,
+  &:focus {
+    border: 1px solid var(--marketplaceColorDark);
+  }
+}
+
+.menuContent {
+  margin-top: 7px;
+  padding-top: 13px;
+  min-width: 300px;
+  border-radius: 4px;
+}
+
+/* left animated "border" like hover element */
+.menuItemBorder {
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  height: calc(100% - 4px);
+  width: 0;
+  background-color: var(--marketplaceColor);
+  transition: width var(--transitionStyleButton);
+}
+
+/* left static border for selected element */
+.menuItemBorderSelected {
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  height: calc(100% - 7px);
+  width: 6px;
+  background-color: var(--matterColorDark);
+}
+
+.menuItem {
+  @apply --marketplaceListingAttributeFontStyles;
+  color: var(--matterColor);
+
+  /* Layout */
+  position: relative;
+  min-width: 300px;
+  margin: 0;
+  padding: 4px 30px;
+
+  /* Override button styles */
+  outline: none;
+  text-align: left;
+  border: none;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    color: var(--matterColorDark);
+  }
+
+  &:hover .menuItemBorder {
+    width: 6px;
+  }
+}
+
+.clearMenuItem {
+  @apply --marketplaceH4FontStyles;
+  font-weight: var(--fontWeightMedium);
+  color: var(--matterColorAnti);
+
+  /* Layout */
+  position: relative;
+  min-width: 300px;
+  margin: 0;
+  padding: 32px 30px 18px 30px;
+
+  /* Override button styles */
+  outline: none;
+  text-align: left;
+  border: none;
+
+  cursor: pointer;
+  transition: width var(--transitionStyleButton);
+
+  &:focus,
+  &:hover {
+    color: var(--matterColor);
+    transition: width var(--transitionStyleButton);
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  padding: 0 30px 16px 30px;
+}
+
+.clearButton {
+  @apply --marketplaceH4FontStyles;
+  font-weight: var(--fontWeightMedium);
+  color: var(--matterColorAnti);
+
+  /* Layout */
+  margin: 0 auto 0 0;
+  padding: 0;
+
+  /* Override button styles */
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    color: var(--matterColor);
+    transition: width var(--transitionStyleButton);
+  }
+}
+
+.cancelButton {
+  @apply --marketplaceH4FontStyles;
+  font-weight: var(--fontWeightMedium);
+  color: var(--matterColorAnti);
+
+  /* Layout */
+  margin: 0;
+  padding: 0;
+
+  /* Override button styles */
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  /* clearButton will add all available space between cancelButton,
+   * but some hard coded margin is still needed
+   */
+  margin-left: 48px;
+
+  &:focus,
+  &:hover {
+    color: var(--matterColor);
+    transition: width var(--transitionStyleButton);
+  }
+}
+
+.submitButton {
+  @apply --marketplaceH4FontStyles;
+  font-weight: var(--fontWeightMedium);
+  color: var(--marketplaceColor);
+
+  /* Layout */
+  margin: 0 0 0 19px;
+  padding: 0;
+
+  /* Override button styles */
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    color: var(--marketplaceColorDark);
+    transition: width var(--transitionStyleButton);
+  }
+}
+
+.input {
+  border: none;
+  /* border: 1px solid;
+  border-color: var(--attentionColor); */
+  background-color: var(--attentionColorLight);
+  text-align: center;
+  min-width: 120px;
+  max-width: 180px;
+}
+
+.inputSuccess {
+  /* border: 1px solid;
+  border-color: var(--successColor); */
+  background-color: var(--successColorLight);
+}
+
+.inputError {
+  /* border: 1px solid;
+  border-color: var(--failColor); */
+  background-color: var(--failColorLight);
+}
+
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  margin-right: -20px;
+  z-index:1;
+}
+.buttonWrapper:last-child {
+  margin-right: initial;
+  margin-left: -20px;
+}
+.numberWrapper {
+  display: inline-flex;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 80%;
+}
+.numberButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: auto;
+  height: auto;
+  min-height: 20px;
+  border-radius: 50%;
+  font-size: large;
+}
+
+.numberButton:before {
+  content: '';
+  padding-top: 100%;
+}
+.inputItem{
+  display: flex;
+  justify-content: center;
+}

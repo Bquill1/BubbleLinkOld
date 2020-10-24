@@ -38,7 +38,7 @@ class MenuLabel extends Component {
   }
 
   render() {
-    const { children, className, rootClassName, isOpen, isOpenClassName } = this.props;
+    const { children, className, rootClassName, isOpen, isOpenClassName, disabled } = this.props;
 
     const rootClass = rootClassName || css.root;
     const isOpenClass = isOpenClassName || css.isOpen;
@@ -48,7 +48,7 @@ class MenuLabel extends Component {
     });
 
     return (
-      <button className={classes} onClick={this.onClick} onBlur={this.onBlur}>
+      <button className={classes} onClick={this.onClick} onBlur={this.onBlur} disabled={disabled}>
         {children}
       </button>
     );

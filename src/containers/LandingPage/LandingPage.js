@@ -33,8 +33,10 @@ export const LandingPageComponent = props => {
     currentUserListing,
     currentUserListingFetched,
     filterConfig,
+    isAuthenticated,
+    currentUserIsHost,
   } = props;
-console.log(props)
+  console.log(props);
   // Schema for search engines (helps them to understand what this page is about)
   // http://schema.org
   // We are using JSON-LD format
@@ -86,6 +88,8 @@ console.log(props)
                 <SectionHowItWorks
                   currentUserListing={currentUserListing}
                   currentUserListingFetched={currentUserListingFetched}
+                  isAuthenticated={isAuthenticated}
+                  currentUserIsHost={currentUserIsHost}
                 />
               </div>
             </li>
@@ -119,12 +123,16 @@ LandingPageComponent.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const { currentUserListing, currentUserListingFetched } = state.user;
+  console.log(state);
+  const { isAuthenticated } = state.Auth;
+  const { currentUserListing, currentUserListingFetched, currentUserIsHost } = state.user;
 
   return {
     scrollingDisabled: isScrollingDisabled(state),
     currentUserListing,
+    currentUserIsHost,
     currentUserListingFetched,
+    isAuthenticated,
   };
 };
 
@@ -134,10 +142,6 @@ const mapStateToProps = state => {
 // lifecycle hook.
 //
 // See: https://github.com/ReactTraining/react-router/issues/4671
-const LandingPage = compose(
-  withRouter,
-  connect(mapStateToProps),
-  injectIntl
-)(LandingPageComponent);
+const LandingPage = compose(withRouter, connect(mapStateToProps), injectIntl)(LandingPageComponent);
 
 export default LandingPage;

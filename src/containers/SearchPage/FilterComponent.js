@@ -7,6 +7,7 @@ import {
   KeywordFilter,
   SelectSingleFilter,
   SelectMultipleFilter,
+  SelectNumberFilter,
 } from '../../components';
 import { createListingDraft } from '../EditListingPage/EditListingPage.duck';
 
@@ -24,9 +25,11 @@ const FilterComponent = props => {
     ...rest
   } = props;
   console.log(props)
+  const hasDates = !!urlQueryParams['dates']
+  console.log(hasDates)
   const { id, type, queryParamNames, label, config } = filterConfig;
   const { liveEdit, showAsPopup } = rest;
-
+console.log(queryParamNames)
   const useHistoryPush = liveEdit || showAsPopup;
   const prefix = idPrefix || 'SearchPage';
   const componentId = `${prefix}.${id.toLowerCase()}`;
@@ -41,6 +44,20 @@ const FilterComponent = props => {
           queryParamNames={queryParamNames}
           initialValues={initialValues(queryParamNames)}
           onSelect={getHandleChangedValueFn(useHistoryPush)}
+          {...config}
+          {...rest}
+        />
+      );
+    }
+    case 'SelectNumberFilter': {
+      return (
+        <SelectNumberFilter
+          id={componentId}
+          label={label}
+          queryParamNames={queryParamNames}
+          initialValues={initialValues(queryParamNames)}
+          onSelect={getHandleChangedValueFn(useHistoryPush)}
+          disabled={!hasDates}
           {...config}
           {...rest}
         />

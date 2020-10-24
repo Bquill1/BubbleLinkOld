@@ -59,13 +59,14 @@ const SectionSearchBlockComponent = props => {
     event: 'Event',
     meeting: 'Meeting',
     study: 'Study',
-    other: "Other"
+    other: 'Other',
   };
   const spaceRentalAvailabilityKey = {
-    entireSpace: 'All of it',
-    individual: 'Happy to share',
+    entireSpace: 'The whole place',
+    individual: 'Just one space',
   };
   const categoryFilter = filters.find(f => f.id === 'category');
+  console.log(categoryFilter);
   const spaceRentalAvailabilityFilter = filters.find(f => f.id === 'spaceRentalAvailability');
   return (
     <div className={classes}>
@@ -82,7 +83,8 @@ const SectionSearchBlockComponent = props => {
             return (
               <Form className={classes} onSubmit={handleSearchSubmit}>
                 <BookingPanelOptionButton
-                  options={categoryFilter.config.options.slice(0, 4).map(o => {
+                  options={categoryFilter.config.options.map(o => {
+                    console.log(o)
                     return o.key;
                   })}
                   activeOption={activeCategoryFilter}
@@ -124,7 +126,7 @@ const SectionSearchBlockComponent = props => {
                 />
                 <div className={css.searchResultSummary}>{searchBlockWhatKindOfPlace}</div>
                 <BookingPanelOptionButton
-                  options={spaceRentalAvailabilityFilter.config.options.slice(0, 4).map(o => {
+                  options={spaceRentalAvailabilityFilter.config.options.map(o => {
                     return o.key;
                   })}
                   activeOption={activeSpaceRentalAvailabilityFilter}

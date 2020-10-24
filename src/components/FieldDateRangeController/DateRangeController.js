@@ -143,7 +143,7 @@ class DateRangeController extends Component {
       render,
       ...controllerProps
     } = this.props;
-
+console.log(this.props)
     const classes = classNames(rootClassName || css.inputRoot, className);
 
     const startDateFromState = this.state.startDate;

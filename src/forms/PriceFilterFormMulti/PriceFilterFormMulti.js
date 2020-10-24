@@ -101,7 +101,6 @@ const PriceFilterFormComponent = props => {
           max,
           step,
         } = formRenderProps;
-        console.log(priceFilterParams)
         const {
           minPricePerDay: minPricePerDayRaw,
           maxPricePerDay: maxPricePerDayRaw,

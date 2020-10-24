@@ -291,7 +291,7 @@ export class ListingPageComponent extends Component {
             bookingType_individual?.includes('hourly') &&
             new Money(publicData.price_individual_hourly, config.currency),
           daily:
-            bookingType_individual?.includes('hourly') &&
+            bookingType_individual?.includes('daily') &&
             new Money(publicData.price_individual_daily, config.currency),
         },
       };

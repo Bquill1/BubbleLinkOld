@@ -4,16 +4,19 @@ import { arrayOf, func, node, number, shape, string } from 'prop-types';
 import differenceBy from 'lodash/differenceBy';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
-import { types as sdkTypes } from '../../util/sdkLoader';
 import { parse } from '../../util/urlHelpers';
 import { propTypes } from '../../util/types';
 import { ensureListing } from '../../util/data';
 import { sdkBoundsToFixedCoordinates, hasSameSDKBounds } from '../../util/maps';
 import { SearchMapInfoCard, SearchMapPriceLabel, SearchMapGroupLabel } from '../../components';
+import config from '../../config';
 
 import { groupedByCoordinates, reducedToArray } from './SearchMap.helpers.js';
+import { types as sdkTypes } from '../../util/sdkLoader';
+
 import css from './SearchMapWithMapbox.css';
 
+const { Money } = sdkTypes;
 export const LABEL_HANDLE = 'SearchMapLabel';
 export const INFO_CARD_HANDLE = 'SearchMapInfoCard';
 export const SOURCE_AUTOCOMPLETE = 'autocomplete';
@@ -98,7 +101,10 @@ const sdkBoundsToMapboxBounds = bounds => {
   // is less than -180
   const swLng = sw.lng > ne.lng ? -360 + sw.lng : sw.lng;
 
-  return [[swLng, sw.lat], [ne.lng, ne.lat]];
+  return [
+    [swLng, sw.lat],
+    [ne.lng, ne.lat],
+  ];
 };
 
 /**
@@ -125,6 +131,20 @@ export const getMapCenter = map => mapboxLngLatToSDKLatLng(map.getCenter());
 export const isMapsLibLoaded = () =>
   typeof window !== 'undefined' && window.mapboxgl && window.mapboxgl.accessToken;
 
+const getLowestPrice = listing => {
+  const { publicData } = listing.attributes;
+  const { bookingType_entireSpace, bookingType_individual } = publicData && publicData;
+  const pricesFiltered = [
+    bookingType_entireSpace?.includes('hourly') && publicData.price_entireSpace_hourly,
+    bookingType_entireSpace?.includes('daily') && publicData.price_entireSpace_daily,
+    bookingType_individual?.includes('hourly') && publicData.price_individual_hourly,
+    bookingType_individual?.includes('daily') && publicData.price_individual_daily,
+  ].filter(f => f && f > 0);
+  const lowestPrice = pricesFiltered.length
+    ? new Money(Math.min(...pricesFiltered), config.currency)
+    : listing.attributes.price;
+  return lowestPrice;
+};
 /**
  * Return price labels grouped by listing locations.
  * This is a helper function for SearchMapWithMapbox component.
@@ -168,7 +188,11 @@ const priceLabelsInLocations = (
           key,
           isActive,
           className: LABEL_HANDLE,
-          listing,
+          // listing,
+          listing: {
+            ...listing,
+            attributes: { ...listing.attributes, price: { ...getLowestPrice(listing) } },
+          },
           onListingClicked,
           mapComponentRefreshToken,
         },
@@ -375,7 +399,6 @@ class SearchMapWithMapbox extends Component {
       createURLToListing,
       mapComponentRefreshToken,
     } = this.props;
-console.log(this.props)
     if (this.map) {
       // Create markers out of price labels and grouped labels
       const labels = priceLabelsInLocations(

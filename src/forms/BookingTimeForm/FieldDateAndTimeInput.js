@@ -391,7 +391,6 @@ class FieldDateAndTimeInput extends Component {
       bookingType,
       spaceRentalAvailability,
     } = this.props;
-    console.log(this.props);
     const isDaily = bookingType === 'daily';
     const classes = classNames(rootClassName || css.root, className);
 

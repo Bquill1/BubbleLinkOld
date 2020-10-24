@@ -34,327 +34,339 @@
  */
 
 export const filters = [
-  {
-    id: 'category',
-    label: 'Category',
-    type: 'SelectMultipleFilter',
-    group: 'primary',
-    queryParamNames: ['pub_category'],
-    config: {
-      // "key" is the option you see in Flex Console.
-      // "label" is set here for the UI only.
-      // Note: label is not added through the translation files
-      // to make filter customizations a bit easier.
-      options: [
-        { key: 'work', label: 'Work' },
-        { key: 'event', label: 'Event' },
-        { key: 'meeting', label: 'Meeting' },
-        { key: 'study', label: 'Study' },
-        { key: 'other', label: 'Other' },
-      ],
-    },
-  },
-  {
-    id: 'dates-length',
-    label: 'Dates',
-    type: 'BookingDateRangeLengthFilter',
-    group: 'primary',
-    // Note: BookingDateRangeFilter is fixed filter,
-    // you can't change "queryParamNames: ['dates'],"
-    queryParamNames: ['dates', 'pub_bookingTypes'],
-    config: {
-      // A global time zone to use in availability searches. As listings
-      // can be in various time zones, we must decide what time zone we
-      // use in search when looking for available listings within a
-      // certain time interval.
-      //
-      // If you have all/most listings in a certain time zone, change this
-      // config value to that.
-      //
-      // See: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-      searchTimeZone: 'Etc/UTC',
-
-      // Options for the minimum duration of the booking
-      options: [
-        { key: null, label: 'Any length' },
-        { key: 'hourly', label: 'A couple of hours', shortLabel: 'Hourly' },
-        { key: 'daily', label: 'A full day', shortLabel: 'Daily' },
-      ],
-    },
-  },
-
-  {
-    id: 'spaceRentalAvailability',
-    label: 'I would like to rent...',
-    type: 'SelectMultipleFilter',
-    group: 'primary',
-    queryParamNames: ['pub_spaceRentalAvailability'],
-    config: {
-      // "key" is the option you see in Flex Console.
-      // "label" is set here for the UI only.
-      // Note: label is not added through the translation files
-      // to make filter customizations a bit easier.
-      options: [
-        { key: 'entireSpace', label: 'The entire place' },
-        { key: 'individual', label: 'An individual space' },
-      ],
-    },
-  },
-  //  {
-  //    id: 'dates',
-  //    label: 'Dates',
-  //    type: 'BookingDateRangeFilter',
-  //    group: 'primary',
-  //    // Note: BookingDateRangeFilter is fixed filter,
-  //    // you can't change "queryParamNames: ['dates'],"
-  //    queryParamNames: ['dates'],
-  //    config: {},
-  //  },
-  //   // {
-  //   //   id: 'price',
-  //   //   label: 'Price',
-  //   //   type: 'PriceFilter',
-  //   //   group: 'primary',
-  //   //   // Note: PriceFilter is fixed filter,
-  //   //   // you can't change "queryParamNames: ['price'],"
-  //   //   queryParamNames: ['price'],
-  //   //   // Price filter configuration
-  //   //   // Note: unlike most prices this is not handled in subunits
-  //   //   config: {
-  //   //     min: 0,
-  //   //     max: 1000,
-  //   //     step: 5,
-  //   //   },
-  //   // },
-  {
-    id: 'priceMulti',
-    label: 'Price',
-    type: 'PriceFilterMulti',
-    group: 'primary',
-    // Note: PriceFilter is fixed filter,
-    // you can't change "queryParamNames: ['price'],"
-    queryParamNames: [
-      'pub_price_entireSpace_daily',
-      'pub_price_entireSpace_hourly',
-      'pub_price_individual_daily',
-      'pub_price_individual_hourly',
-    ],
-
-    // Price filter configuration
-    // Note: unlike most prices this is not handled in subunits
-    config: {
-      searchMode: 'has_any',
-      min: 0,
-      max: 1000,
-      step: 5,
-    },
-  },
-
-  {
-    id: 'keyword',
-    label: 'Keyword',
-    type: 'KeywordFilter',
-    group: 'secondary',
-    // Note: KeywordFilter is fixed filter,
-    // you can't change "queryParamNames: ['keywords'],"
-    queryParamNames: ['keywords'],
-    // NOTE: If you are ordering search results by distance
-    // the keyword search can't be used at the same time.
-    // You can turn on/off ordering by distance from config.js file.
-    config: {},
-  },
-
-  {
-    id: 'spaceType',
-    label: 'Type Of Space',
-    type: 'SelectSingleFilter',
-    group: 'secondary',
-    queryParamNames: ['pub_spaceType'],
-    config: {
-      // "key" is the option you see in Flex Console.
-      // "label" is set here for the UI only.
-      // Note: label is not added through the translation files
-      // to make filter customizations a bit easier.
-      options: [
-        { key: 'private', label: 'Private' },
-        { key: 'sharedHost', label: 'Shared with the host' },
-        { key: 'sharedGuest', label: 'Shared with other guests' },
-      ],
-    },
-  },
-  {
-    id: 'amenities',
-    label: 'Amenities',
-    type: 'SelectMultipleFilter',
-    group: 'secondary',
-    queryParamNames: ['pub_amenities'],
-    config: {
-      // Optional modes: 'has_all', 'has_any'
-      // https://www.sharetribe.com/api-reference/marketplace.html#extended-data-filtering
-      searchMode: 'has_any',
-
-      // "key" is the option you see in Flex Console.
-      // "label" is set here for this web app's UI only.
-      // Note: label is not added through the translation files
-      // to make filter customizations a bit easier.
-      options: [
-        {
-          key: 'wifi',
-          label: 'Wi-Fi',
-        },
-        {
-          key: 'keyboard',
-          label: 'Keyboard',
-        },
-        {
-          key: 'office_chair',
-          label: 'Office Chair',
-        },
-        {
-          key: 'pen_paper',
-          label: 'Pens and Paper',
-        },
-        {
-          key: 'mouse',
-          label: 'Mouse',
-        },
-        {
-          key: 'power_outlets',
-          label: 'Power Outlets',
-        },
-        {
-          key: 'monitor',
-          label: 'Monitor',
-        },
-        {
-          key: 'projector',
-          label: 'Projector',
-        },
-        {
-          key: 'whiteboard',
-          label: 'Whiteboard',
-        },
-        {
-          key: 'printer',
-          label: 'Printer',
-        },
-        {
-          key: 'scanner',
-          label: 'Scanner',
-        },
-        {
-          key: 'photocopier',
-          label: 'Photocopier',
-        },
-        {
-          key: 'microwave',
-          label: 'Microwave',
-        },
-        {
-          key: 'fridge',
-          label: 'Fridge',
-        },
-        {
-          key: 'kettle',
-          label: 'Kettle',
-        },
-        {
-          key: 'tea_coffee',
-          label: 'Tea/Coffee',
-        },
-        {
-          key: 'oven',
-          label: 'Oven',
-        },
-        {
-          key: 'cutlery',
-          label: 'Cutlery',
-        },
-        {
-          key: 'dishes',
-          label: 'Dishes',
-        },
-        {
-          key: 'coffee_machine',
-          label: 'Coffee Machine',
-        },
-        {
-          key: 'cleaning_supplies',
-          label: 'Cleaning Supplies',
-        },
-        {
-          key: 'central_heating',
-          label: 'Central Heating',
-        },
-        {
-          key: 'air_conditioning',
-          label: 'Air Conditioning',
-        },
-        {
-          key: 'fan',
-          label: 'Fan',
-        },
-        {
-          key: 'tv',
-          label: 'TV',
-        },
          {
-          key: 'sound_system',
-          label: 'Sound System',
-        },
-        {
-          key: 'chromecast',
-          label: 'Chromecast',
-        },
-        {
-          key: 'hdmi_cable',
-          label: 'HDMI Cable',
-        },
-        {
-          key: 'vga_cable',
-          label: 'VGA cable',
-        },
-        {
-          key: 'ethernet_cable',
-          label: 'Ethernet Cable',
-        },
-        {
-          key: 'first_aid',
-          label: 'First Aid Kit',
-        },
-        {
-          key: 'smoke_alarm',
-          label: 'Smoke Alarm',
-        },
-        {
-          key: 'carbon_monoxide',
-          label: 'Carbon Monoxide Alarm',
-        },
-      ],
-    },
-  },
-  {
-    id: 'propertyType',
-    label: 'PropertyType',
-    type: 'SelectMultipleFilter',
-    group: 'secondary',
-    queryParamNames: ['pub_propertyType'],
-    config: {
-      searchMode: 'has_any',
-      // "key" is the option you see in Flex Console.
-      // "label" is set here for the UI only.
-      // Note: label is not added through the translation files
-      // to make filter customizations a bit easier.
-      options: [
-        { key: 'house', label: 'House' },
-        { key: 'apartment', label: 'Apartment' },
-        { key: 'business', label: 'Business' },
-        { key: 'unique', label: 'Unique' },
-        { key: 'other', label: 'Other' },
-      ],
-    },
-  },
-];
+           id: 'category',
+           label: 'Category',
+           type: 'SelectMultipleFilter',
+           group: 'primary',
+           queryParamNames: ['pub_category'],
+           config: {
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for the UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [
+               { key: 'work', label: 'Work' },
+               { key: 'event', label: 'Event' },
+               { key: 'meeting', label: 'Meeting' },
+               { key: 'study', label: 'Study' },
+               { key: 'other', label: 'Other' },
+             ],
+           },
+         },
+         {
+           id: 'dates-length',
+           label: 'Dates',
+           type: 'BookingDateRangeLengthFilter',
+           group: 'primary',
+           // Note: BookingDateRangeFilter is fixed filter,
+           // you can't change "queryParamNames: ['dates'],"
+           queryParamNames: ['dates', 'pub_bookingTypes'],
+           config: {
+             // A global time zone to use in availability searches. As listings
+             // can be in various time zones, we must decide what time zone we
+             // use in search when looking for available listings within a
+             // certain time interval.
+             //
+             // If you have all/most listings in a certain time zone, change this
+             // config value to that.
+             //
+             // See: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+             searchTimeZone: 'Etc/UTC',
+
+             // Options for the minimum duration of the booking
+             options: [
+               { key: null, label: 'Any length' },
+               { key: 'hourly', label: 'A couple of hours', shortLabel: 'Hourly' },
+               { key: 'daily', label: 'A full day', shortLabel: 'Daily' },
+             ],
+           },
+         },
+         {
+           id: 'capacity',
+           label: 'Capacity',
+           type: 'SelectNumberFilter',
+           group: 'primary',
+           // Note: PriceFilter is fixed filter,
+           // you can't change "queryParamNames: ['price'],"
+           queryParamNames: ['seats'],
+
+           // Price filter configuration
+           // Note: unlike most prices this is not handled in subunits
+           config: {},
+         },
+         {
+           id: 'spaceRentalAvailability',
+           label: 'I would like to rent...',
+           type: 'SelectMultipleFilter',
+           group: 'primary',
+           queryParamNames: ['pub_spaceRentalAvailability'],
+           config: {
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for the UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [
+               { key: 'entireSpace', label: 'The entire place' },
+               { key: 'individual', label: 'An individual space' },
+             ],
+           },
+         },
+         //  {
+         //    id: 'dates',
+         //    label: 'Dates',
+         //    type: 'BookingDateRangeFilter',
+         //    group: 'primary',
+         //    // Note: BookingDateRangeFilter is fixed filter,
+         //    // you can't change "queryParamNames: ['dates'],"
+         //    queryParamNames: ['dates'],
+         //    config: {},
+         //  },
+         //   // {
+         //   //   id: 'price',
+         //   //   label: 'Price',
+         //   //   type: 'PriceFilter',
+         //   //   group: 'primary',
+         //   //   // Note: PriceFilter is fixed filter,
+         //   //   // you can't change "queryParamNames: ['price'],"
+         //   //   queryParamNames: ['price'],
+         //   //   // Price filter configuration
+         //   //   // Note: unlike most prices this is not handled in subunits
+         //   //   config: {
+         //   //     min: 0,
+         //   //     max: 1000,
+         //   //     step: 5,
+         //   //   },
+         //   // },
+         {
+           id: 'priceMulti',
+           label: 'Price',
+           type: 'PriceFilterMulti',
+           group: 'primary',
+           // Note: PriceFilter is fixed filter,
+           // you can't change "queryParamNames: ['price'],"
+           queryParamNames: [
+             'pub_price_entireSpace_daily',
+             'pub_price_entireSpace_hourly',
+             'pub_price_individual_daily',
+             'pub_price_individual_hourly',
+           ],
+
+           // Price filter configuration
+           // Note: unlike most prices this is not handled in subunits
+           config: {
+             searchMode: 'has_any',
+             min: 0,
+             max: 1000,
+             step: 5,
+           },
+         },
+
+         {
+           id: 'keyword',
+           label: 'Keyword',
+           type: 'KeywordFilter',
+           group: 'secondary',
+           // Note: KeywordFilter is fixed filter,
+           // you can't change "queryParamNames: ['keywords'],"
+           queryParamNames: ['keywords'],
+           // NOTE: If you are ordering search results by distance
+           // the keyword search can't be used at the same time.
+           // You can turn on/off ordering by distance from config.js file.
+           config: {},
+         },
+
+         {
+           id: 'spaceType',
+           label: 'Type Of Space',
+           type: 'SelectSingleFilter',
+           group: 'secondary',
+           queryParamNames: ['pub_spaceType'],
+           config: {
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for the UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [
+               { key: 'private', label: 'Private' },
+               { key: 'sharedHost', label: 'Shared with the host' },
+               { key: 'sharedGuest', label: 'Shared with other guests' },
+             ],
+           },
+         },
+         {
+           id: 'amenities',
+           label: 'Amenities',
+           type: 'SelectMultipleFilter',
+           group: 'secondary',
+           queryParamNames: ['pub_amenities'],
+           config: {
+             // Optional modes: 'has_all', 'has_any'
+             // https://www.sharetribe.com/api-reference/marketplace.html#extended-data-filtering
+             searchMode: 'has_any',
+
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for this web app's UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [
+               {
+                 key: 'wifi',
+                 label: 'Wi-Fi',
+               },
+               {
+                 key: 'keyboard',
+                 label: 'Keyboard',
+               },
+               {
+                 key: 'office_chair',
+                 label: 'Office Chair',
+               },
+               {
+                 key: 'pen_paper',
+                 label: 'Pens and Paper',
+               },
+               {
+                 key: 'mouse',
+                 label: 'Mouse',
+               },
+               {
+                 key: 'power_outlets',
+                 label: 'Power Outlets',
+               },
+               {
+                 key: 'monitor',
+                 label: 'Monitor',
+               },
+               {
+                 key: 'projector',
+                 label: 'Projector',
+               },
+               {
+                 key: 'whiteboard',
+                 label: 'Whiteboard',
+               },
+               {
+                 key: 'printer',
+                 label: 'Printer',
+               },
+               {
+                 key: 'scanner',
+                 label: 'Scanner',
+               },
+               {
+                 key: 'photocopier',
+                 label: 'Photocopier',
+               },
+               {
+                 key: 'microwave',
+                 label: 'Microwave',
+               },
+               {
+                 key: 'fridge',
+                 label: 'Fridge',
+               },
+               {
+                 key: 'kettle',
+                 label: 'Kettle',
+               },
+               {
+                 key: 'tea_coffee',
+                 label: 'Tea/Coffee',
+               },
+               {
+                 key: 'oven',
+                 label: 'Oven',
+               },
+               {
+                 key: 'cutlery',
+                 label: 'Cutlery',
+               },
+               {
+                 key: 'dishes',
+                 label: 'Dishes',
+               },
+               {
+                 key: 'coffee_machine',
+                 label: 'Coffee Machine',
+               },
+               {
+                 key: 'cleaning_supplies',
+                 label: 'Cleaning Supplies',
+               },
+               {
+                 key: 'central_heating',
+                 label: 'Central Heating',
+               },
+               {
+                 key: 'air_conditioning',
+                 label: 'Air Conditioning',
+               },
+               {
+                 key: 'fan',
+                 label: 'Fan',
+               },
+               {
+                 key: 'tv',
+                 label: 'TV',
+               },
+               {
+                 key: 'sound_system',
+                 label: 'Sound System',
+               },
+               {
+                 key: 'chromecast',
+                 label: 'Chromecast',
+               },
+               {
+                 key: 'hdmi_cable',
+                 label: 'HDMI Cable',
+               },
+               {
+                 key: 'vga_cable',
+                 label: 'VGA cable',
+               },
+               {
+                 key: 'ethernet_cable',
+                 label: 'Ethernet Cable',
+               },
+               {
+                 key: 'first_aid',
+                 label: 'First Aid Kit',
+               },
+               {
+                 key: 'smoke_alarm',
+                 label: 'Smoke Alarm',
+               },
+               {
+                 key: 'carbon_monoxide',
+                 label: 'Carbon Monoxide Alarm',
+               },
+             ],
+           },
+         },
+         {
+           id: 'propertyType',
+           label: 'PropertyType',
+           type: 'SelectMultipleFilter',
+           group: 'secondary',
+           queryParamNames: ['pub_propertyType'],
+           config: {
+             searchMode: 'has_any',
+             // "key" is the option you see in Flex Console.
+             // "label" is set here for the UI only.
+             // Note: label is not added through the translation files
+             // to make filter customizations a bit easier.
+             options: [
+               { key: 'house', label: 'House' },
+               { key: 'apartment', label: 'Apartment' },
+               { key: 'business', label: 'Business' },
+               { key: 'unique', label: 'Unique' },
+               { key: 'other', label: 'Other' },
+             ],
+           },
+         },
+       ];
 
 export const sortConfig = {
   // Enable/disable the sorting control in the SearchPage

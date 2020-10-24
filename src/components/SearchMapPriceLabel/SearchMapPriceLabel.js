@@ -6,8 +6,10 @@ import { propTypes } from '../../util/types';
 import { formatMoney } from '../../util/currency';
 import { ensureListing } from '../../util/data';
 import config from '../../config';
+import { types as sdkTypes } from '../../util/sdkLoader';
 
 import css from './SearchMapPriceLabel.css';
+const { Money } = sdkTypes;
 
 class SearchMapPriceLabel extends Component {
   shouldComponentUpdate(nextProps) {
@@ -25,8 +27,7 @@ class SearchMapPriceLabel extends Component {
   render() {
     const { className, rootClassName, intl, listing, onListingClicked, isActive } = this.props;
     const currentListing = ensureListing(listing);
-    const { price } = currentListing.attributes;
-
+    const  price = new Money(currentListing.attributes.price.amount, currentListing.attributes.price.currency);
     // Create formatted price if currency is known or alternatively show just the unknown currency.
     const formattedPrice =
       price && price.currency === config.currency ? formatMoney(intl, price) : price.currency;

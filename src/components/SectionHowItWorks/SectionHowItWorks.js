@@ -3,7 +3,7 @@ import { bool, string } from 'prop-types';
 import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
-import { OwnListingLink, IconBubbleMarker, IconSearch } from '../../components';
+import { OwnListingLink, NamedLink, IconSearch } from '../../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchLocation } from '@fortawesome/free-solid-svg-icons';
 import { faHandshake } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +12,14 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import css from './SectionHowItWorks.css';
 
 const SectionHowItWorks = props => {
-  const { rootClassName, className, currentUserListing, currentUserListingFetched } = props;
+  const {
+    rootClassName,
+    className,
+    currentUserListing,
+    currentUserListingFetched,
+    isAuthenticated,
+    currentUserIsHost,
+  } = props;
 
   const classes = classNames(rootClassName || css.root, className);
   return (
@@ -61,9 +68,15 @@ const SectionHowItWorks = props => {
         </div>
       </div>
       <div className={css.createListingLink}>
-        <OwnListingLink listing={currentUserListing} listingFetched={currentUserListingFetched}>
-          <FormattedMessage id="SectionHowItWorks.createListingLink" />
-        </OwnListingLink>
+        {!isAuthenticated || !currentUserIsHost ? (
+          <NamedLink name="HostPage">
+            <FormattedMessage id="SectionHowItWorks.createListingLink" />
+          </NamedLink>
+        ) : null
+        // <OwnListingLink listing={currentUserListing} listingFetched={currentUserListingFetched}>
+        //   <FormattedMessage id="SectionHowItWorks.createListingLink" />
+        // </OwnListingLink>
+        }
       </div>
     </div>
   );

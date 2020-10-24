@@ -34,6 +34,7 @@ const cleanSearchFromConflictingParams = (searchParams, sortConfig, filterConfig
     searchParams,
     filterConfig
   );
+  
   return sortingFiltersActive
     ? { ...searchParams, [sortConfig.queryParamName]: null }
     : searchParams;
@@ -114,7 +115,7 @@ class MainPanel extends Component {
 
   getHandleChangedValueFn(useHistoryPush) {
     const { urlQueryParams, history, sortConfig, filterConfig } = this.props;
-
+console.log(useHistoryPush);
     return updatedURLParams => {
       const updater = prevState => {
         const { address, bounds } = urlQueryParams;
@@ -131,7 +132,12 @@ class MainPanel extends Component {
       const callback = () => {
         if (useHistoryPush) {
           const searchParams = this.state.currentQueryParams;
-          const search = cleanSearchFromConflictingParams(searchParams, sortConfig, filterConfig);
+          console.log(searchParams)
+          let search = cleanSearchFromConflictingParams(searchParams, sortConfig, filterConfig);
+          console.log(search)
+          if(!search.date){
+            search = {...search, seats: null}
+          }
           history.push(createResourceLocatorString('SearchPage', routeConfiguration(), {}, search));
         }
       };

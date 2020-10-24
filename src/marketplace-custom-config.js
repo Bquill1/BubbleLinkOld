@@ -176,8 +176,8 @@ export const filters = [
       // Note: label is not added through the translation files
       // to make filter customizations a bit easier.
       options: [
-        { key: 'private', label: 'Private' },
-        { key: 'sharedHost', label: 'Shared with the host' },
+        { key: 'private', label: 'Private Space' },
+        { key: 'sharedHost', label: 'Shared with host' },
         { key: 'sharedGuest', label: 'Shared with other guests' },
       ],
     },

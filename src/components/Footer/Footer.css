@@ -172,6 +172,7 @@
 .listItem {
   min-height: 24px;
   margin-bottom: 6px;
+  width: 150px;
 
   @media (--viewportMedium) {
     margin-bottom: 0;

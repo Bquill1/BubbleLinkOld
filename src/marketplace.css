@@ -55,7 +55,7 @@
   /* ================ Colors ================ */
 
   --marketplaceColor:  #a21f38;
-  --marketplaceColorLight: #d8806b;
+  --marketplaceColorLight: #ffe0b3;
   --marketplaceColorDark: #d8806b;
 
   /* Used with inline CSS SVGs */
@@ -605,12 +605,12 @@
   --formLeft {
     display: flex;
     flex-direction: column;
-    flex-basis: 50%;
+    flex-basis: 60%;
   }
   --formRight {
     display: flex;
     flex-direction: column;
-    flex-basis: 50%;
+    flex-basis: 40%;
   }
 }
 

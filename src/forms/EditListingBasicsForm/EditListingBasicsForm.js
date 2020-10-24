@@ -19,6 +19,9 @@ import {
 import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
 import CustomPropertyTypeSelectFieldMaybe from './CustomPropertyTypeSelectFieldMaybe';
 import * as validators from '../../util/validators';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLightbulb} from '@fortawesome/free-solid-svg-icons';
+
 
 import css from './EditListingBasicsForm.css';
 
@@ -94,7 +97,7 @@ const EditListingBasicsFormComponent = props => (
         MAX_GUESTS
       );
 
-      
+
       const numberValidators = numberRequired;
       if (!pristine && !submitDisabled && !isNewListingFlow) {
         handleSubmit();
@@ -163,7 +166,7 @@ const EditListingBasicsFormComponent = props => (
                 name={'spaceType'}
                 id={'spaceType'}
                 label={spaceTypeLabel}
-                validate={required('Please select a place type.')}
+                validate={required('Please select a privacy type.')}
               >
                 <option disabled value="">
                   {'Select an option...'}
@@ -186,7 +189,7 @@ const EditListingBasicsFormComponent = props => (
               </Button>
             </div>
             <div className={css.formRight}>
-              <EditListingHelperCard title={'Tip'} content={basicsHelper} />
+            <EditListingHelperCard title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />} content={basicsHelper} />
             </div>
           </div>
         </Form>

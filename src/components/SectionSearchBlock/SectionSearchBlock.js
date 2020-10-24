@@ -59,10 +59,11 @@ const SectionSearchBlockComponent = props => {
     event: 'Event',
     meeting: 'Meeting',
     study: 'Study',
+    other: "Other"
   };
   const spaceRentalAvailabilityKey = {
-    entireSpace: 'The whole place',
-    individual: 'Just one space',
+    entireSpace: 'All of it',
+    individual: 'Happy to share',
   };
   const categoryFilter = filters.find(f => f.id === 'category');
   const spaceRentalAvailabilityFilter = filters.find(f => f.id === 'spaceRentalAvailability');

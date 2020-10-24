@@ -85,7 +85,7 @@ const Footer = props => {
               <div className={css.infoLinks}>
                 <ul className={css.list}>
                   <li className={css.listItem}>
-                    <FormattedMessage id="Footer.aboutHeading" />
+                    <b> <FormattedMessage id="Footer.aboutHeading" /> </b>
                   </li>
                   <li className={css.listItem}>
                     <NamedLink name="AboutPage" className={css.link}>
@@ -122,7 +122,7 @@ const Footer = props => {
               <div className={css.infoLinks}>
                 <ul className={css.list}>
                   <li className={css.listItem}>
-                    <FormattedMessage id="Footer.communityHeading" />
+                    <b> <FormattedMessage id="Footer.communityHeading" /> </b>
                   </li>
                   <li className={css.listItem}>
                     <NamedLink name="HostPage" className={css.link}>
@@ -144,7 +144,7 @@ const Footer = props => {
               <div className={css.infoLinks}>
                 <ul className={css.list}>
                   <li className={css.listItem}>
-                    <FormattedMessage id="Footer.legalHeading" />
+                    <b> <FormattedMessage id="Footer.legalHeading" /> </b>
                   </li>
                   <li className={css.listItem}>
                     <NamedLink name="TermsOfServicePage" className={css.link}>

@@ -7,6 +7,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { faStore } from '@fortawesome/free-solid-svg-icons';
 import { faUniversity } from '@fortawesome/free-solid-svg-icons';
+import { faDungeon } from '@fortawesome/free-solid-svg-icons';
 import { faUniversalAccess } from '@fortawesome/free-solid-svg-icons';
 import { faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
@@ -69,11 +70,11 @@ const SectionViewMaybe = props => {
     apartment: <BlockIcon icon={faBuilding} tip="This space is in the hosts apartment." />,
     business: <BlockIcon icon={faStore} tip="This space is in the hosts business." />,
     unique: <BlockIcon icon={faUniversity} tip="This is a unique space." />,
-    other: <BlockIcon icon={faUniversity} data-tip="This space is hard to classify." />,
+    other: <BlockIcon icon={faDungeon} tip="This space is hard to classify." />,
   };
   const spaceTypeKey = {
     private: <BlockIcon icon={faUserShield} tip="This is your own private space." />,
-    sharedHost: <BlockIcon icon={faUserFriends} tip="This space is shared only with the host." />,
+    sharedHost: <BlockIcon icon={faUserFriends} tip="This space is shared with the host." />,
     sharedGuest: <BlockIcon icon={faUsers} tip="This space is shared with other guests." />,
   };
   return (
@@ -82,12 +83,12 @@ const SectionViewMaybe = props => {
         <ViewBlock
           intl={intl}
           icon={<div className={css.emptyIcon}></div>}
-          valueFirst={<BlockIcon icon={faUser} tip="Individual Spot" />}
-          valueSecond={<BlockIcon icon={faHome} tip="Entire Place" />}
+          valueFirst={<BlockIcon icon={faUser} tip="Individual Space" />}
+          valueSecond={<BlockIcon icon={faHome} tip="Entire Space" />}
         />
         <ViewBlock
           intl={intl}
-          icon={<BlockIcon icon={faCalendarTimes} tip="Daily" />}
+          icon={<BlockIcon icon={faCalendarTimes} tip="Per day" />}
           valueFirst={
             (prices['individual']['daily'] && formatMoney(intl, prices['individual']['daily'])) ||
             '--'
@@ -99,7 +100,7 @@ const SectionViewMaybe = props => {
         />
         <ViewBlock
           intl={intl}
-          icon={<BlockIcon icon={faClock} tip="Hourly" />}
+          icon={<BlockIcon icon={faClock} tip="Per hour" />}
           valueFirst={
             (prices['individual']['hourly'] && formatMoney(intl, prices['individual']['hourly'])) ||
             '--'

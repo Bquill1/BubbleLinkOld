@@ -8,6 +8,8 @@ import { findOptionsForSelectFilter } from '../../util/search';
 import { propTypes } from '../../util/types';
 import config from '../../config';
 import { Button, FieldCheckboxGroup, Form, EditListingHelperCard } from '../../components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLightbulb} from '@fortawesome/free-solid-svg-icons';
 
 import css from './EditListingFeaturesForm.css';
 
@@ -81,8 +83,8 @@ const EditListingFeaturesFormComponent = props => (
               </Button>
             </div>
             <div className={css.formRight}>
-              <EditListingHelperCard title={'Tip'} content={featuresMessage1} />
-              <EditListingHelperCard title={'Tip'} content={featuresMessage2} />
+              <EditListingHelperCard title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />} content={featuresMessage1} />
+              <EditListingHelperCard title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />} content={featuresMessage2} />
             </div>
           </div>
         </Form>

@@ -196,10 +196,10 @@ const BookingPanel = props => {
     ? 'CheckoutPage.perEntirePlace'
     : 'CheckoutPage.perSpace';
   const buttonOptionKey = {
-    individual: 'One space',
-    entireSpace: 'The whole place',
-    hourly: 'A couple of hours',
-    daily: 'The entire day',
+    individual: 'Individual space(s)',
+    entireSpace: 'The entire space',
+    hourly: 'By the hour',
+    daily: 'Full day',
   };
   const classes = classNames(rootClassName || css.root, className);
   const titleClasses = classNames(titleClassName || css.bookingTitle);
@@ -226,7 +226,7 @@ const BookingPanel = props => {
 
   const seatsSelector = !isEntireSpace ? (
     <div className={css.seatSelectorWrapper}>
-      <label className={css.seatSelectorLabel} htmlFor={'seatSelector'}>Spots: </label>
+      <label className={css.seatSelectorLabel} htmlFor={'seatSelector'}>No. of people: </label>
 
       <select id={'seatSelector'} className={css.seatSelector}onChange={e => setSeatsSelected(parseInt(e.target.value))}>
         {[...Array(capacity).keys()].map(n => {

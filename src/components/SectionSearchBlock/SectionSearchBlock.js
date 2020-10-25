@@ -62,8 +62,8 @@ const SectionSearchBlockComponent = props => {
     other: 'Other',
   };
   const spaceRentalAvailabilityKey = {
-    entireSpace: 'The whole place',
-    individual: 'Just one space',
+    entireSpace: 'I want it all to myself',
+    individual: 'I\'m happy to share',
   };
   const categoryFilter = filters.find(f => f.id === 'category');
   console.log(categoryFilter);

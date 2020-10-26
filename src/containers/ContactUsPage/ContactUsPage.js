@@ -43,9 +43,7 @@ const ContactUsPage = (rootClassName,
                         <FormattedMessage id="ContactUsPage.hostTitle" />
                       </h2>
                       <p>
-                      <NamedLink name="HostPage">
-                        <FormattedMessage id="ContactUsPage.hostEmail" />
-                     </NamedLink>
+                     <a href="mailto:hosting@mybubblelink.com">Click here to get in touch</a>
                       </p>
                     </div>
 
@@ -57,9 +55,7 @@ const ContactUsPage = (rootClassName,
                          <FormattedMessage id="ContactUsPage.supportTitle" />
                          </h2>
                          <p>
-                         <NamedLink name="HostPage">
-                         <FormattedMessage id="ContactUsPage.supportEmail" />
-                         </NamedLink>
+                         <a href="mailto:support@mybubblelink.com">Click here to get in touch</a>
                          </p>
                          </div>
 

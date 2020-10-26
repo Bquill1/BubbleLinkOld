@@ -23,6 +23,13 @@ const PrivacyPolicyPageComponent = props => {
   const { scrollingDisabled, intl } = props;
 
   const tabs = [
+     {
+      text: intl.formatMessage({ id: 'PrivacyPolicyPage.tosTabTitle' }),
+      selected: false,
+      linkProps: {
+      name: 'TermsOfServicePage',
+      },
+    },
     {
       text: intl.formatMessage({ id: 'PrivacyPolicyPage.privacyTabTitle' }),
       selected: true,
@@ -30,8 +37,9 @@ const PrivacyPolicyPageComponent = props => {
         name: 'PrivacyPolicyPage',
       },
     },
+
     {
-      text: intl.formatMessage({ id: 'PrivacyPolicyPage.tosTabTitle' }),
+      text: intl.formatMessage({ id: 'PrivacyPolicyPage.cookieTabTitle' }),
       selected: false,
       linkProps: {
         name: 'TermsOfServicePage',

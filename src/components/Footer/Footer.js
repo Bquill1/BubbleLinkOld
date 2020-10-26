@@ -160,14 +160,16 @@ const Footer = props => {
                       <FormattedMessage id="Footer.privacyPolicy" />
                     </NamedLink>
                   </li>
-                  <li className={css.listItem}>
+                {/*  <li className={css.listItem}>
                     <NamedLink name="PrivacyPolicyPage" className={css.link}>
                       <FormattedMessage id="Footer.bookingTerms" />
                     </NamedLink>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
-              <div className={css.extraLinks}>{socialMediaLinks}</div>
+              <div className={css.extraLinks}>
+              {socialMediaLinks}
+              </div>
             </div>
             <div className={css.copyrightAndTermsMobile}>
               <NamedLink name="LandingPage" className={css.organizationCopyrightMobile}>

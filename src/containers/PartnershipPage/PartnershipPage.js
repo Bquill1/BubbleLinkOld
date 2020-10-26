@@ -51,9 +51,7 @@ const PartnershipPage = (rootClassName,
              <FormattedMessage id="PartnershipPage.partnershipTitle" />
              </h2>
              <p>
-             <NamedLink name="HostPage">
-             <FormattedMessage id="PartnershipPage.partnershipEmail" />
-             </NamedLink>
+              <a href="mailto:partner@mybubblelink.com">Click here to get in touch</a>
              </p>
              </div>
              </div>

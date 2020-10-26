@@ -10,19 +10,12 @@ import {
 } from '../../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
-import { faHandshake } from '@fortawesome/free-solid-svg-icons';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 import { NamedLink } from '../../components';
 
 import css from './ContactUsPage.css';
 
-{/*
-  const {
-    rootClassName,
-    className
-  }
-*/}
 
 const ContactUsPage = (rootClassName,
                            className) => {
@@ -69,19 +62,7 @@ const ContactUsPage = (rootClassName,
                          </NamedLink>
                          </p>
                          </div>
-          <div className={css.step}>
-                      <div className={css.iconWrapper}>
-                     <FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faHandshake} />
-                     </div>
-                     <h2 className={css.stepTitle}>
-                     <FormattedMessage id="ContactUsPage.partnershipTitle" />
-                     </h2>
-                     <p>
-                     <NamedLink name="HostPage">
-                     <FormattedMessage id="ContactUsPage.partnershipEmail" />
-                     </NamedLink>
-                     </p>
-                     </div>
+
                     </div>
 
 

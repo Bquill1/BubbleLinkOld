@@ -17,6 +17,7 @@ import {
   PasswordRecoveryPage,
   PasswordResetPage,
   StripePayoutPage,
+  PartnershipPage,
   PaymentMethodsPage,
   PrivacyPolicyPage,
   ProfilePage,
@@ -80,6 +81,11 @@ const routeConfiguration = () => {
       path: '/blog',
       name: 'BlogPage',
       component: BlogPage,
+    },
+    {
+      path: '/partnership',
+      name: 'PartnershipPage',
+      component: PartnershipPage,
     },
     {
       path: '/s',

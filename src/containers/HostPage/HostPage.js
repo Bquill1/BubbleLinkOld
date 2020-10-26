@@ -24,6 +24,7 @@ import TextAndImageSection from './TextAndImageSection';
 import css from './HostPage.css';
 import hostInfoPic1 from './HostInfoPic1.jpg';
 import hostInfoPic2 from './HostInfoPic2.jpg';
+import hostInfoPic3 from './HostInfoPic3.jpg';
 
 const HostPageComponent = props => {
   const {
@@ -91,18 +92,19 @@ const isHost = isAuthenticated && currentUser?.attribute?.profile?.publicData?.i
               subtitle={null}
               content={
                 <ul className={css.heroList}>
-                  <li> Unlock the earning potential in your space</li>
-                  <li>Easily manage your profile and listings from your personal account</li>
+                  <li>Unlock the earning potential in your space</li>
+                  <li>Manage your profile and listings with ease from your personal account</li>
+                  <li>Add multiple listings</li>
                   <li>Adjust the availability of your space to suit your schedule</li>
                   <li>Set your own prices</li>
+                  <li>Choose whether to offer your space for daily and/or hourly bookings</li>
                   <li>Choose whether to offer your space for daily or hourly bookings</li>
-                  <li>
-                    Use the built in chat function to arrange handover of the space with your guest
-                  </li>
+                  <li>Use the built in chat function to arrange handover of the space with your guest</li>
+                  <li>Set your own ground rules</li>
                 </ul>
               }
-              image={hostInfoPic1}
-              smallImage
+              image={hostInfoPic3}
+              largeImage
             />
             <MultiColumnSection
               showGraphics={false}
@@ -110,20 +112,23 @@ const isHost = isAuthenticated && currentUser?.attribute?.profile?.publicData?.i
               content={[
                 {
                   title: 'Answer: No!',
-                  content: `There is no subscription cost when you sign-up to BubbleLink. You only pay a fee once your space has been booked.
-Why not sign-up and test out the site to see if it's for you?`,
+                  content: `There is no subscription fee when you sign-up to BubbleLink.
+                  Why not sign-up and test out the site to see if it's for you?`,
                 },
               ]}
             />
             <MultiColumnSection
               showGraphics={false}
-              title={'Well then, what fees do BubbleLink take on each booking?'}
+              title={'So how does BubbleLink make money?'}
               content={[
                 {
-                  content: `We strive to be as transparent as possible, so we let you know, right up front about our 10% fee. It's used to help BubbleLink grow so that we can continue helping connect people with unique spaces.`,
+                  content: `We strive to be as transparent as possible, so we let you know up front about our 10% fee on booking transactions.
+                  This is necessary to cover the costs of providing the platform, including Stripe processing fees, and to help BubbleLink grow. We reinvest
+                  in the platform so that our community can enjoy the best possible user experience.`,
                 },
                 {
-                  content: `Once a guest has successfully completed their experience we will deduct the commision from the booking cost to cover our expenses and pass the remainder on to you.`,
+                  content: `Once a guest has successfully completed their experience with you we will deduct our fee
+                  from the booking cost and pass the remainder on to you.`,
                 },
               ]}
             />
@@ -138,9 +143,8 @@ Why not sign-up and test out the site to see if it's for you?`,
                     garden space, home gym or home cinema, to a plain ol' empty room, the choices
                     are endless.
                   </p>
-                  <br />
+                  
                   <p>
-                    {' '}
                     If it's a space you love why not list it and find out if others love it too.
                   </p>
                 </>
@@ -151,7 +155,7 @@ Why not sign-up and test out the site to see if it's for you?`,
             <MultiColumnSection
               showGraphics={false}
               title={'Who will rent be renting my space?'}
-              subtitle={'Your renters could be anyone!'}
+              subtitle={'Your guests could be anyone!'}
               content={[
                 {
                   content: (
@@ -182,6 +186,22 @@ Why not sign-up and test out the site to see if it's for you?`,
                   ),
                 },
               ]}
+            />
+            <TextAndImageSection
+              title={'Why choose BubbleLink?'}
+              subtitle={null}
+              content={
+                <ul className={css.heroList}>
+                  <li>Our platform is easy to use with no hidden costs</li>
+                  <li>We are committed to consistently improving our platform</li>
+                  <li>We do not advertise on the site</li>
+                  <li>You will have access to a growing network of users</li>
+                  <li>We are on hand to support you with any queries</li>
+                  <li>We are working hard on bringing new features and offerings to our hosts and guests</li>
+                </ul>
+              }
+              image={hostInfoPic1}
+              smallImage
             />
             {/* <div className={css.contentWrapper}>
               <div className={css.contentSide}>

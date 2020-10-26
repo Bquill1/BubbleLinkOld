@@ -33,9 +33,9 @@ const SectionHostHero = props => {
           <h1 className={css.heroMainTitle}>
             <FormattedMessage id="SectionHostHero.title" />
           </h1>
-          <h2 className={css.heroSubTitle}>
+          {/*<h2 className={css.heroSubTitle}>
             <FormattedMessage id="SectionHostHero.subTitle" />
-          </h2>
+          </h2>*/}
           {/* <NamedLink
             name="SearchPage"
             to={{
@@ -49,12 +49,14 @@ const SectionHostHero = props => {
         </div>
         <div className={css.heroContentRight}>
           <div className={css.callToActionCard}>
-            <h1 className={css.ctaTitle}>Becoming a host means...</h1>
+            <h1 className={css.ctaTitle}>
+            Hosting at a glance...</h1>
             <div className={css.ctaList}>
               <ul className={css.heroList}>
-                <li> Unlock the earning potential in your space</li>
-                <li>Adjust the availability of your space to suit your schedule</li>
                 <li>Set your own prices</li>
+                <li>Manage your own availability</li>
+                <li>Offer both daily and hourly bookings</li>
+                <li>No subscription fees</li>
               </ul>
             </div>
             {isAuthenticated && isHost ? (

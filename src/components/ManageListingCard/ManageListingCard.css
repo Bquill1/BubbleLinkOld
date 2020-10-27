@@ -207,31 +207,21 @@
 .price {
   /* Layout */
   display: flex;
-  flex-direction: row;
-  align-items: baseline;
+  flex-direction: column;
+  justify-content: flex-start;
   flex-shrink: 0;
-
-  padding-top: 4px;
-  padding-bottom: 2px;
-
-  @media (--viewportMedium) {
-    padding-top: 5px;
-    padding-bottom: 3px;
-  }
+  margin-right: 18px;
 }
 
 .priceValue {
   /* Font */
-  @apply --marketplaceH4FontStyles;
-  color: var(--marketplaceColor);
-  font-weight: var(--fontWeightSemiBold);
-
-  margin-right: 4px;
-
+  @apply --marketplaceH3FontStyles;
+color: var(--marketplaceColor);
   /* Remove default margins from font */
   margin-top: 0;
   margin-bottom: 0;
-
+  display: flex;
+  align-items: center;
   @media (--viewportMedium) {
     margin-top: 0;
     margin-bottom: 0;

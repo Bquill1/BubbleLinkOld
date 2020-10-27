@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { withRouter } from 'react-router-dom';
 import { Form as FinalForm, Field } from 'react-final-form';
-import { types as sdkTypes } from '../../util/sdkLoader'
+import { types as sdkTypes } from '../../util/sdkLoader';
 
 import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
@@ -14,23 +14,18 @@ const identity = v => v;
 
 const { LatLng, LatLngBounds } = sdkTypes;
 const SectionSearchBlockComponent = props => {
-  const {
-    rootClassName,
-    className,
-    filters,
-    history,
-    intl,
-  } = props;
+  const { rootClassName, className, filters, history, intl } = props;
   console.log(props);
 
   const handleSearchSubmit = values => {
-    console.log(values)
+    console.log(values);
 
     const { search, selectedPlace } = values?.location || {};
     const { origin, bounds } = selectedPlace || {};
 
     const pub_category = activeCategoryFilter;
     const pub_spaceRentalAvailability = activeSpaceRentalAvailabilityFilter;
+    const pub_capacity = capacityFilter && [capacityFilter - 1, capacityFilter + 1];
     const searchParams = {
       address: search || 'Europe',
       origin: origin || new LatLng(51.937444, -2.36966957036279),
@@ -42,6 +37,7 @@ const SectionSearchBlockComponent = props => {
         ),
       pub_category,
       pub_spaceRentalAvailability,
+      pub_capacity,
     };
     history.push(createResourceLocatorString('SearchPage', routeConfiguration(), {}, searchParams));
   };
@@ -51,6 +47,7 @@ const SectionSearchBlockComponent = props => {
   const [activeSpaceRentalAvailabilityFilter, setActiveSpaceRentalAvailabilityFilter] = useState(
     'entireSpace'
   );
+  const [capacityFilter, setCapacityFilter] = useState(1);
   const searchBlockHeader = <FormattedMessage id="SectionSearchBlock.header" />;
   const searchBlockWhatKindOfPlace = <FormattedMessage id="SectionSearchBlock.whatKindOfPlace" />;
 
@@ -63,7 +60,7 @@ const SectionSearchBlockComponent = props => {
   };
   const spaceRentalAvailabilityKey = {
     entireSpace: 'I want it all to myself',
-    individual: 'I\'m happy to share',
+    individual: "I'm happy to share",
   };
   const categoryFilter = filters.find(f => f.id === 'category');
   console.log(categoryFilter);
@@ -84,7 +81,7 @@ const SectionSearchBlockComponent = props => {
               <Form className={classes} onSubmit={handleSearchSubmit}>
                 <BookingPanelOptionButton
                   options={categoryFilter.config.options.map(o => {
-                    console.log(o)
+                    console.log(o);
                     return o.key;
                   })}
                   activeOption={activeCategoryFilter}
@@ -133,6 +130,43 @@ const SectionSearchBlockComponent = props => {
                   setOption={setActiveSpaceRentalAvailabilityFilter}
                   labelKey={spaceRentalAvailabilityKey}
                 />
+                <div className={css.capacityWrapper}>
+                  <div className={css.searchResultSummary}>
+                  Seats:
+                  </div>
+                  <div className={css.numberWrapper}>
+                    <div className={css.buttonWrapper}>
+                      <Button
+                        className={css.numberButton}
+                        onClick={e => {
+                          e.preventDefault();
+                          setCapacityFilter(capacityFilter - 1);
+                        }}
+                      >
+                        -
+                      </Button>
+                    </div>
+                    <input
+                      className={css.capacityInput}
+                      value={capacityFilter}
+                      onChange={e => {
+                        setCapacityFilter(e.target.value);
+                      }}
+                      type="slider"
+                    />
+                    <div className={css.buttonWrapper}>
+                      <Button
+                        className={css.numberButton}
+                        onClick={e => {
+                          e.preventDefault();
+                          setCapacityFilter(capacityFilter + 1);
+                        }}
+                      >
+                        +
+                      </Button>
+                    </div>
+                  </div>
+                </div>
                 <div className={css.submitButtonWrapper}>
                   <Button
                     className={css.submitButton}

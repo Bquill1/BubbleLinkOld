@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   BookingDateRangeFilter,
+  BookingDatePickerFilter,
   BookingDateRangeLengthFilter,
   PriceFilter,
   PriceFilterMulti,

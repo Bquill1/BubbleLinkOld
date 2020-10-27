@@ -135,8 +135,8 @@ const BookingPanel = props => {
       const originalAvailabilityPlanForDay = originalAvailabilityPlan?.entries.find(
         p => p.dayOfWeek === timeSlotDayString
       );
-      const originalStartHours = parseInt(originalAvailabilityPlanForDay.startTime.split(':')[0]);
-      const originalEndHours = parseInt(originalAvailabilityPlanForDay.endTime.split(':')[0]);
+      const originalStartHours = parseInt(originalAvailabilityPlanForDay?.startTime.split(':')[0]);
+      const originalEndHours = parseInt(originalAvailabilityPlanForDay?.endTime.split(':')[0]);
       // check if entire space is selected, and if it is not available
       // checked by comparing seats in slot to original availability
       if (

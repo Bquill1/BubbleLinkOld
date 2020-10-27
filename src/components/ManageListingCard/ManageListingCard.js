@@ -38,10 +38,12 @@ import {
 import MenuIcon from './MenuIcon';
 import Overlay from './Overlay';
 import css from './ManageListingCard.css';
+import { types as sdkTypes } from '../../util/sdkLoader';
 
 // Menu content needs the same padding
 const MENU_CONTENT_OFFSET = -12;
 const MAX_LENGTH_FOR_WORDS_IN_TITLE = 7;
+const { Money } = sdkTypes;
 
 const priceData = (price, intl) => {
   if (price && price.currency === config.currency) {
@@ -128,14 +130,36 @@ export const ManageListingCardComponent = props => {
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
   const id = currentListing.id.uuid;
-  const { title = '', price, state } = currentListing.attributes;
+  const { title = '', state, publicData } = currentListing.attributes;
   const slug = createSlug(title);
   const isPendingApproval = state === LISTING_STATE_PENDING_APPROVAL;
   const isClosed = state === LISTING_STATE_CLOSED;
   const isDraft = state === LISTING_STATE_DRAFT;
   const firstImage =
     currentListing.images && currentListing.images.length > 0 ? currentListing.images[0] : null;
+  const { bookingType_entireSpace, bookingType_individual } = publicData && publicData;
+  const pricesFiltered = [
+    bookingType_entireSpace?.includes('hourly') && publicData.price_entireSpace_hourly,
+    bookingType_entireSpace?.includes('daily') && publicData.price_entireSpace_daily,
+    bookingType_individual?.includes('hourly') && publicData.price_individual_hourly,
+    bookingType_individual?.includes('daily') && publicData.price_individual_daily,
+  ].filter(f => f && f > 0);
+  console.log(pricesFiltered);
 
+  const lowestPrice = pricesFiltered.length
+    ? new Money(Math.min(...pricesFiltered), config.currency)
+    : currentListing.attributes.price;
+  console.log(lowestPrice);
+  const lowestPriceOption = [
+    publicData.price_entireSpace_hourly,
+    publicData.price_entireSpace_daily,
+    publicData.price_individual_hourly,
+    publicData.price_individual_daily,
+  ].findIndex(p => p === lowestPrice.amount);
+  const unitTranslation = { 0: 'hr', 2: 'hr', 1: 'day', 3: 'day' };
+  console.log(lowestPriceOption);
+
+  const price = lowestPrice || currentListing.attributes.price;
   const menuItemClasses = classNames(css.menuItem, {
     [css.menuItemDisabled]: !!actionsInProgressListingId,
   });
@@ -296,13 +320,12 @@ export const ManageListingCardComponent = props => {
 
       <div className={css.info}>
         <div className={css.price}>
-          {formattedPrice ? (
+          {price ? (
             <React.Fragment>
+              <div className={css.perUnit}>From:</div>
               <div className={css.priceValue} title={priceTitle}>
                 {formattedPrice}
-              </div>
-              <div className={css.perUnit}>
-                <FormattedMessage id={unitTranslationKey} />
+                <div className={css.perUnit}>/{unitTranslation[lowestPriceOption]}</div>
               </div>
             </React.Fragment>
           ) : (
@@ -388,7 +411,4 @@ ManageListingCardComponent.propTypes = {
   }).isRequired,
 };
 
-export default compose(
-  withRouter,
-  injectIntl
-)(ManageListingCardComponent);
+export default compose(withRouter, injectIntl)(ManageListingCardComponent);

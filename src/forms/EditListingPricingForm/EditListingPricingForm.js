@@ -22,7 +22,7 @@ import {
 } from '../../components';
 import css from './EditListingPricingForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLightbulb} from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 
 const { Money } = sdkTypes;
 const MIN_PRICE_PER_PERSON = 5;
@@ -54,7 +54,7 @@ export const EditListingPricingFormComponent = props => (
         initialValues,
         isNewListingFlow,
       } = formRenderProps;
-      console.log(props)
+      console.log(props);
       console.log(formRenderProps);
       console.log(initialValues);
       console.log(values);
@@ -127,18 +127,30 @@ export const EditListingPricingFormComponent = props => (
         : priceRequired;
 
       const classes = classNames(css.root, className);
+      const missingEntireSpacePrices = !!(
+        values.spaceRentalAvailability.includes('entireSpace') &&
+        !values.bookingType_entireSpace.length
+      );
+      const missingIndividualPrices = !!(
+        values.spaceRentalAvailability.includes('individual') &&
+        !values.bookingType_individual.length
+      );
+      const missingPrices = missingEntireSpacePrices || missingIndividualPrices;
       const submitReady = (updated && pristine) || ready;
       const submitInProgress = updateInProgress;
-      const submitDisabled = invalid || disabled || submitInProgress;
+      const submitDisabled = invalid || disabled || submitInProgress || missingPrices;
       const { updateListingError, showListingsError } = fetchErrors || {};
-
-      const isNew = Object.values(initialValues).every(el => el === undefined || el.amount === 0);
-      console.log(isNew);
-      if (!pristine && !submitDisabled && !isNewListingFlow) {
-        handleSubmit();
-      }
       return (
-        <Form onSubmit={handleSubmit} className={classes}>
+        <Form
+          onSubmit={handleSubmit}
+          onMouseLeave={_ => {
+            handleSubmit();
+          }}
+          onBlur={_ => {
+            handleSubmit();
+          }}
+          className={classes}
+        >
           {updateListingError ? (
             <p className={css.error}>
               <FormattedMessage id="EditListingPricingForm.updateFailed" />
@@ -156,6 +168,7 @@ export const EditListingPricingFormComponent = props => (
             <div className={css.priceFormWrapper}>
               <div className={css.priceFormLeft}>
                 {spaceRentalAvailabilityOptions.map(c => {
+                  console.log(c);
                   return (
                     <>
                       <div className={css.fieldWrapper}>
@@ -167,6 +180,11 @@ export const EditListingPricingFormComponent = props => (
                               name="spaceRentalAvailability"
                               label={c.label}
                               value={c.key}
+                              validationError={
+                                c.key === 'individual'
+                                  ? missingIndividualPrices
+                                  : missingEntireSpacePrices
+                              }
                             />
                           </div>
                           <div className={css.bookingTypeWrapper}>
@@ -221,8 +239,26 @@ export const EditListingPricingFormComponent = props => (
               </div>
               <div className={css.priceFormRight}>
                 <div className={css.fieldWrapperRight}>
-                  <EditListingHelperCard title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />} content={spaceHelper} />
-                  <EditListingHelperCard title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />} content={timeHelper} />
+                  <EditListingHelperCard
+                    title={
+                      <FontAwesomeIcon
+                        className={css.iconClassName}
+                        size={'2x'}
+                        icon={faLightbulb}
+                      />
+                    }
+                    content={spaceHelper}
+                  />
+                  <EditListingHelperCard
+                    title={
+                      <FontAwesomeIcon
+                        className={css.iconClassName}
+                        size={'2x'}
+                        icon={faLightbulb}
+                      />
+                    }
+                    content={timeHelper}
+                  />
                 </div>
               </div>
             </div>

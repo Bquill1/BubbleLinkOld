@@ -20,8 +20,7 @@ import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
 import CustomPropertyTypeSelectFieldMaybe from './CustomPropertyTypeSelectFieldMaybe';
 import * as validators from '../../util/validators';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLightbulb} from '@fortawesome/free-solid-svg-icons';
-
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 
 import css from './EditListingBasicsForm.css';
 
@@ -51,15 +50,11 @@ const EditListingBasicsFormComponent = props => (
         fetchErrors,
         initialValues,
         isNewListingFlow,
-
         values,
       } = formRenderProps;
       console.log(formRenderProps);
       console.log(props);
       console.log(values);
-      if (!values.capacity) {
-        values.capacity = 1;
-      }
       const isNew = Object.values(initialValues).every(el => el === undefined);
 
       const capacityLabel = intl.formatMessage({ id: 'EditListingBasicsForm.capacityLabel' });
@@ -97,13 +92,22 @@ const EditListingBasicsFormComponent = props => (
         MAX_GUESTS
       );
 
-
       const numberValidators = numberRequired;
-      if (!pristine && !submitDisabled && !isNewListingFlow) {
+      if (false && !pristine && !submitDisabled && !isNewListingFlow) {
         handleSubmit();
       }
       return (
-        <Form className={classes} onSubmit={handleSubmit} onChange={e => console.log(e)}>
+        <Form
+          className={classes}
+          onSubmit={handleSubmit}
+          onMouseLeave={_ => {
+            handleSubmit();
+          }}
+          onBlur={_ => {
+            handleSubmit();
+          }}
+          onChange={e => console.log(2222)}
+        >
           {errorMessageCreateListingDraft}
           {errorMessageUpdateListing}
           {errorMessageShowListing}
@@ -157,7 +161,7 @@ const EditListingBasicsFormComponent = props => (
                   label={capacityLabel}
                   min={MIN_GUESTS}
                   max={MAX_GUESTS}
-                  initialCap={'' + values.capacity || '1'}
+                  values={values.capacity}
                   validate={numberValidators}
                 />
               </div>
@@ -189,7 +193,12 @@ const EditListingBasicsFormComponent = props => (
               </Button>
             </div>
             <div className={css.formRight}>
-            <EditListingHelperCard title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />} content={basicsHelper} />
+              <EditListingHelperCard
+                title={
+                  <FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />
+                }
+                content={basicsHelper}
+              />
             </div>
           </div>
         </Form>

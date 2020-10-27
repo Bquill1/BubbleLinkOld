@@ -106,7 +106,6 @@ const EditListingBasicsFormComponent = props => (
           onBlur={_ => {
             handleSubmit();
           }}
-          onChange={e => console.log(2222)}
         >
           {errorMessageCreateListingDraft}
           {errorMessageUpdateListing}

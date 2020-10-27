@@ -11,10 +11,7 @@ import css from './SelectNumberFilterPopup.css';
 const optionLabel = (options, key) => {
   const option = options?.find(o => o.key === key);
   return (
-    <div data-tip={'Please select a date first'}>
-      {option ? option.label : key}
-      <ReactTooltip />
-    </div>
+      option ? option.label : key
   );
 };
 
@@ -34,11 +31,12 @@ class SelectNumberFilterPopup extends Component {
   }
   onButtonClick(val) {
     const newCount = parseInt(this.state.count) + parseInt(val);
-    this.setState({ count: newCount < 1 ? 1 : newCount });
+    this.setState({ count: newCount < 1 ? 1 : newCount > 100 ? 100 : newCount });
   }
 
   onInputChange(queryParamName, val) {
-    this.setState({ count: val });
+
+    this.setState({ count: val < 1 ? 1 : val > 100 ? 100 : val });
   }
   onToggleActive(isOpen) {
     this.setState({ isOpen: isOpen });
@@ -47,7 +45,7 @@ class SelectNumberFilterPopup extends Component {
   selectOption(queryParamName, otherQueryParamName, option) {
     const isCap = queryParamName === 'pub_capacity';
     this.setState({ isOpen: false });
-    const param = !option ? option : isCap ? [option, 1000].join(',') : option
+    const param = !option ? option : isCap ? [option, 1000].join(',') : option;
     this.props.onSelect({ [queryParamName]: param, [otherQueryParamName]: null });
   }
   componentDidMount() {
@@ -83,15 +81,16 @@ class SelectNumberFilterPopup extends Component {
     const initialValue =
       initialValues && initialValues[queryParamName]
         ? isCap
-          ? initialValues[queryParamName][0]
+          ? initialValues[queryParamName].split(",")[0]
           : initialValues[queryParamName]
         : null;
     const menuLabel = initialValue ? optionLabel(options, initialValue) : label;
-    console.log(menuLabel)
+    console.log(menuLabel);
     const menuLabelClass = initialValue ? css.menuLabelSelected : css.menuLabel;
     const inputClasses = classNames(css.input);
     const classes = classNames(rootClassName || css.root, className);
     console.log(this.state);
+    console.log(initialValues);
     console.log(initialValue);
     return (
       <Menu
@@ -141,13 +140,15 @@ class SelectNumberFilterPopup extends Component {
             <div className={css.buttonsWrapper}>
               <button
                 className={css.clearButton}
-                onClick={() => this.selectOption(queryParamName,otherQueryParamName, null)}
+                onClick={() => this.selectOption(queryParamName, otherQueryParamName, null)}
               >
                 <FormattedMessage id={'SelectNumberFilter.popupClear'} />
               </button>
               <button
                 className={css.submitButton}
-                onClick={() => this.selectOption(queryParamName,otherQueryParamName, this.state.count)}
+                onClick={() =>
+                  this.selectOption(queryParamName, otherQueryParamName, this.state.count)
+                }
               >
                 <FormattedMessage id={'SelectNumberFilter.popupSubmit'} />
               </button>

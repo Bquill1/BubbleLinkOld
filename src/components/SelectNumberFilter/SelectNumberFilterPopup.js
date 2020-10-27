@@ -14,7 +14,10 @@ const optionLabel = (options, key) => {
       option ? option.label : key
   );
 };
-
+const handleFocus = event => {
+  console.log(1111);
+  event.target.select();
+};
 const getQueryParamName = queryParamNames => {
   return Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;
 };
@@ -121,6 +124,8 @@ class SelectNumberFilterPopup extends Component {
                 onChange={e => {
                   this.onInputChange(queryParamName, e.target.value);
                 }}
+                                      onFocus={handleFocus}
+
                 type="slider"
               />
               <div className={css.buttonWrapper}>

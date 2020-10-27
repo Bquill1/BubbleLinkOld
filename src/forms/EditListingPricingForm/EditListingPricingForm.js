@@ -128,12 +128,12 @@ export const EditListingPricingFormComponent = props => (
 
       const classes = classNames(css.root, className);
       const missingEntireSpacePrices = !!(
-        values.spaceRentalAvailability.includes('entireSpace') &&
-        !values.bookingType_entireSpace.length
+        values.spaceRentalAvailability?.includes('entireSpace') &&
+        !values.bookingType_entireSpace?.length
       );
       const missingIndividualPrices = !!(
-        values.spaceRentalAvailability.includes('individual') &&
-        !values.bookingType_individual.length
+        values.spaceRentalAvailability?.includes('individual') &&
+        !values.bookingType_individual?.length
       );
       const missingPrices = missingEntireSpacePrices || missingIndividualPrices;
       const submitReady = (updated && pristine) || ready;
@@ -144,11 +144,13 @@ export const EditListingPricingFormComponent = props => (
         <Form
           onSubmit={handleSubmit}
           onMouseLeave={_ => {
-            handleSubmit();
+            if (!isNewListingFlow) {
+              handleSubmit();
+            }
           }}
-          onBlur={_ => {
-            handleSubmit();
-          }}
+          // onBlur={_ => {
+          // handleSubmit();
+          // }}
           className={classes}
         >
           {updateListingError ? (

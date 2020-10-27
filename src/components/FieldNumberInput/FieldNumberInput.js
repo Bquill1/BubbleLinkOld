@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 import { bool, func, object, shape, string } from 'prop-types';
 import { Field } from 'react-final-form';
 import classNames from 'classnames';
-import { ValidationError,  Button } from '..';
+import { ValidationError, Button } from '..';
 import { isSafeNumber, isPositive } from '../../util/currency';
 
 import css from './FieldNumberInput.css';
@@ -35,7 +35,7 @@ class FieldNumberInputComponent extends Component {
 
   updateValues(event) {
     try {
-      const {min, max} = this.props
+      const { min, max } = this.props;
       let targetValue = parseInt(event.target.value.trim());
       const isInRange = targetValue >= min && targetValue <= max;
       const isSafeValue = targetValue > 0 && Number.isInteger(targetValue) && isInRange;
@@ -77,10 +77,10 @@ class FieldNumberInputComponent extends Component {
       values,
       ...rest
     } = this.props;
-    console.log(this.props)
+    console.log(this.props);
     /* eslint-enable no-unused-vars */
-    if (this.state.count === null ) {
-      this.setState({ count: input.value  });
+    if (this.state.count === null) {
+      this.setState({ count: input.value });
     }
     if (label && !id) {
       throw new Error('id required when a label is given');
@@ -110,6 +110,7 @@ class FieldNumberInputComponent extends Component {
         [css.inputError]: hasError,
         [css.textarea]: isTextarea,
       });
+    const handleFocus = event => {console.log(1111); event.target.select();}
     const inputProps = { className: inputClasses, id, type, ...refMaybe, ...input, ...rest };
     const classes = classNames(rootClassName || css.root, className);
     return (
@@ -131,7 +132,8 @@ class FieldNumberInputComponent extends Component {
             className={inputProps.className}
             value={input.value}
             onChange={this.onInputChange}
-            type="slider"
+            type="text"
+            onFocus={handleFocus}
           />
           <div className={css.buttonWrapper}>
             <Button

@@ -25,7 +25,7 @@ const SectionSearchBlockComponent = props => {
 
     const pub_category = activeCategoryFilter;
     const pub_spaceRentalAvailability = activeSpaceRentalAvailabilityFilter;
-    const pub_capacity = capacityFilter && [capacityFilter, 1000 ].join(',');
+    const pub_capacity = capacityFilter && [capacityFilter, 1000].join(',');
     const searchParams = {
       address: search || 'Europe',
       origin: origin || new LatLng(51.937444, -2.36966957036279),
@@ -39,7 +39,7 @@ const SectionSearchBlockComponent = props => {
       pub_spaceRentalAvailability,
       pub_capacity,
     };
-    console.log(searchParams)
+    console.log(searchParams);
     history.push(createResourceLocatorString('SearchPage', routeConfiguration(), {}, searchParams));
   };
 
@@ -66,6 +66,10 @@ const SectionSearchBlockComponent = props => {
   const categoryFilter = filters.find(f => f.id === 'category');
   console.log(categoryFilter);
   const spaceRentalAvailabilityFilter = filters.find(f => f.id === 'spaceRentalAvailability');
+  const handleFocus = event => {
+    console.log(1111);
+    event.target.select();
+  };
   return (
     <div className={classes}>
       <div className={css.searchResultSummary}>{searchBlockHeader}</div>
@@ -132,9 +136,7 @@ const SectionSearchBlockComponent = props => {
                   labelKey={spaceRentalAvailabilityKey}
                 />
                 <div className={css.capacityWrapper}>
-                  <div className={css.searchResultSummary}>
-                  Seats:
-                  </div>
+                  <div className={css.searchResultSummary}>Seats:</div>
                   <div className={css.numberWrapper}>
                     <div className={css.buttonWrapper}>
                       <Button
@@ -153,6 +155,7 @@ const SectionSearchBlockComponent = props => {
                       onChange={e => {
                         setCapacityFilter(e.target.value);
                       }}
+                      onFocus={handleFocus}
                       type="slider"
                     />
                     <div className={css.buttonWrapper}>

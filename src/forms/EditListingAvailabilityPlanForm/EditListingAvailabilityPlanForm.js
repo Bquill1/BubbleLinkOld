@@ -20,6 +20,12 @@ import css from './EditListingAvailabilityPlanForm.css';
 
 const printHourStrings = h => (h > 9 ? `${h}:00` : `0${h}:00`);
 
+const DAYPLAN_TEMPLATE = {
+  dayOfWeek: '',
+  startTime: '09:00',
+  endTime: '17:00',
+  seats: null,
+};
 const HOURS = Array(24).fill();
 const ALL_START_HOURS = [...HOURS].map((v, i) => printHourStrings(i));
 const ALL_END_HOURS = [...HOURS].map((v, i) => printHourStrings(i + 1));
@@ -185,12 +191,13 @@ const DailyPlan = props => {
                         </FieldSelect>
                       </div>
                       <div className={css.seatSelect} id="step_seats">
-                        <span className={css.seatsLabel}>Capacity - </span>
+                        <span className={css.seatsLabel}>Seats - </span>
                         <FieldSelect
                           id={`${name}.seats`}
                           name={`${name}.seats`}
                           selectClassName={css.fieldSelect}
                           validate={required(seatsRequiredMessage)}
+                          value={capacity}
                           seats
                         >
                           {[...Array(capacity).keys()].map(n => {
@@ -214,7 +221,7 @@ const DailyPlan = props => {
                 <InlineTextButton
                   type="button"
                   className={css.buttonSetHours}
-                  onClick={() => fields.push({ startTime: null, endTime: null })}
+                  onClick={() => fields.push({ startTime: DAYPLAN_TEMPLATE.startTime, endTime: DAYPLAN_TEMPLATE.endTime,seats: capacity })}
                 >
                   <FormattedMessage id="EditListingAvailabilityPlanForm.setHours" />
                 </InlineTextButton>
@@ -274,6 +281,7 @@ const EditListingAvailabilityPlanFormComponent = props => {
           values,
           newListing,
         } = fieldRenderProps;
+        console.log(values);
         if (values && newListing && !inProgress) {
           handleSubmit(values);
         }

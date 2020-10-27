@@ -101,12 +101,15 @@ const EditListingBasicsFormComponent = props => (
           className={classes}
           onSubmit={handleSubmit}
           onMouseLeave={_ => {
-            handleSubmit();
+            if (!isNewListingFlow) {
+              handleSubmit();
+            }
           }}
           onBlur={_ => {
-            handleSubmit();
+            if (!isNewListingFlow) {
+              handleSubmit();
+            }
           }}
-          onChange={e => console.log(2222)}
         >
           {errorMessageCreateListingDraft}
           {errorMessageUpdateListing}

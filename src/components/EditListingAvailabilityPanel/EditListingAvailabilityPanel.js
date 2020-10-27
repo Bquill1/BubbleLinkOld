@@ -65,6 +65,17 @@ const Weekday = props => {
             })
           : null}
       </div>
+      <div className={css.seats}>
+        {availabilityPlan && hasEntry
+          ? getEntries(availabilityPlan, dayOfWeek).map(e => {
+              return (
+                <span className={css.entry} key={`${e.dayOfWeek}-${e.seats}`}>
+                  Spots:  {e.seats}
+                </span>
+              );
+            })
+          : null}
+      </div>
     </div>
   );
 };
@@ -189,6 +200,7 @@ const EditListingAvailabilityPanel = props => {
   const initialValues = valuesFromLastSubmit
     ? valuesFromLastSubmit
     : createInitialValues(availabilityPlan);
+
   const handleSubmit = values => {
     console.log(values)
     setValuesFromLastSubmit(values);

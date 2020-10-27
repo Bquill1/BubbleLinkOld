@@ -10,6 +10,7 @@ import { EditListingBasicsForm } from '../../forms';
 import config from '../../config';
 
 import css from './EditListingBasicsPanel.css';
+const WEEKDAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 const EditListingBasicsPanel = props => {
   const {
@@ -27,15 +28,37 @@ const EditListingBasicsPanel = props => {
     errors,
   } = props;
 
+  // Create entries from submit values
+  const createEntriesFromSubmitValues = values =>
+    WEEKDAYS.reduce((allEntries, dayOfWeek) => {
+      const dayValues = values[dayOfWeek] || [];
+      const dayEntries = dayValues.map(dayValue => {
+        const { startTime, endTime, seats } = dayValue;
+        // Note: This template doesn't support seats yet.
+        return startTime && endTime
+          ? {
+              dayOfWeek,
+              seats: seats || 1,
+              startTime,
+              endTime: endTime === '24:00' ? '00:00' : endTime,
+            }
+          : null;
+      });
+
+      return allEntries.concat(dayEntries.filter(e => !!e));
+    }, []);
+
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
   const { description, title, publicData } = currentListing.attributes;
-
+  console.log(currentListing);
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
   const panelTitle = isPublished ? (
     <FormattedMessage
       id="EditListingBasicsPanel.title"
-      values={{ listingTitle: <ListingLink listing={listing} /> }}
+      values={{
+        listingTitle: <ListingLink listing={listing} />,
+      }}
     />
   ) : (
     <FormattedMessage id="EditListingBasicsPanel.createListingTitle" />
@@ -50,15 +73,40 @@ const EditListingBasicsPanel = props => {
       <h1 className={css.title}>{panelTitle}</h1>
       <EditListingBasicsForm
         className={css.form}
-        initialValues={{ category, propertyType, capacity, spaceType }}
+        initialValues={{
+          category,
+          propertyType,
+          capacity,
+          spaceType,
+        }}
         isNewListingFlow={isNewListingFlow}
         saveActionMsg={submitButtonText}
         onSubmit={values => {
           const { category, propertyType, capacity, spaceType } = values;
-          const updateValues = {
+          const currentAvailabilityPlan = currentListing?.attributes.availabilityPlan;
+          const entries = currentAvailabilityPlan?.entries || [];
+          const newAvailabilityPlan = {availabilityPlan: {
+              ...currentAvailabilityPlan,
+              entries: entries.map(e => {
+                return { ...e, seats: capacity };
+              }),
+            },}
+          let updateValues = {
             title: title || 'John and Jane’s place',
-            publicData: { propertyType, category, capacity, spaceType },
+            publicData: {
+              propertyType,
+              category,
+              capacity,
+              spaceType,
+            },
           };
+          if(!!currentAvailabilityPlan){
+            updateValues = {
+              ...updateValues,
+              ...newAvailabilityPlan,
+            };
+          }
+          console.log(updateValues)
           onSubmit(updateValues);
         }}
         onChange={onChange}

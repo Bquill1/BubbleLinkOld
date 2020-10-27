@@ -473,7 +473,7 @@ export class ListingPageComponent extends Component {
                   id: listingId.uuid,
                   slug: listingSlug,
                   type: listingType,
-                  tab: listingTab,
+                  tab: "basics",
                 }}
                 imageCarouselOpen={this.state.imageCarouselOpen}
                 onImageCarouselClose={() => this.setState({ imageCarouselOpen: false })}

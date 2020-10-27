@@ -29,12 +29,12 @@ const locationLink = (name, image, searchQuery) => {
         <div className={css.aspectWrapper}>
           <LazyImage src={image} alt={name} className={css.locationImage} />
         </div>
-      </div>
       <div className={css.linkText}>
         <FormattedMessage
           id="SectionLocations.listingsInLocation"
           values={{ location: nameText }}
         />
+      </div>
       </div>
     </NamedLink>
   );
@@ -66,11 +66,11 @@ const SectionLocations = props => {
           parisImage,
           '?address=Paris%2C%20France&bounds=48.9020129995121%2C2.46976999462145%2C48.8156060108013%2C2.22422400085346&origin=48.8737952%2C2.2928388'
         )}
-	{locationLink(
+	{/* {locationLink(
           'Berlin',
           berlinImage,
           '?address=Berlin%2C%20Germany&bounds=52.6755029827484%2C13.761131997363%2C52.3382670008426%2C13.0883590415111&origin=52.5162778%2C13.3755154'
-        )}
+        )} */}
       </div>
     </div>
   );

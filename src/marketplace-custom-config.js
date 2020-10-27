@@ -89,7 +89,7 @@ export const filters = [
            group: 'primary',
            // Note: PriceFilter is fixed filter,
            // you can't change "queryParamNames: ['price'],"
-           queryParamNames: ['seats'],
+           queryParamNames: ['seats', 'pub_capacity'],
 
            // Price filter configuration
            // Note: unlike most prices this is not handled in subunits

@@ -44,11 +44,28 @@ class SelectNumberFilterPopup extends Component {
     this.setState({ isOpen: isOpen });
   }
 
-  selectOption(queryParamName, option) {
+  selectOption(queryParamName, otherQueryParamName, option) {
+    const isCap = queryParamName === 'pub_capacity';
     this.setState({ isOpen: false });
-    this.props.onSelect({ [queryParamName]: option });
+    const param = !option ? option : isCap ? [option, 100].join(',') : option
+    this.props.onSelect({ [queryParamName]: param, [otherQueryParamName]: null });
   }
-
+  componentDidMount() {
+    const { queryParamNames, initialValues, hasDates } = this.props;
+    const queryParamName = hasDates ? queryParamNames[0] : queryParamNames[1];
+    console.log(queryParamName);
+    const isCap = queryParamName === 'pub_capacity';
+    const initialValue =
+      initialValues && initialValues[queryParamName]
+        ? isCap
+          ? initialValues[queryParamName][0]
+          : initialValues[queryParamName]
+        : 0;
+    if (this.state.count !== initialValue) {
+      this.setState({ count: initialValue });
+    }
+    // resolve menu label text and class
+  }
   render() {
     const {
       rootClassName,
@@ -58,29 +75,24 @@ class SelectNumberFilterPopup extends Component {
       queryParamNames,
       initialValues,
       contentPlacementOffset,
-      disabled,
+      hasDates,
     } = this.props;
-    const queryParamName = getQueryParamName(queryParamNames);
+    const queryParamName = hasDates ? queryParamNames[0] : queryParamNames[1];
+    const otherQueryParamName = hasDates ? queryParamNames[1] : queryParamNames[0];
+    const isCap = queryParamName === 'pub_capacity';
     const initialValue =
-      initialValues && initialValues[queryParamNames] ? initialValues[queryParamNames] : null;
-    // clear seat search if no dates
-    if (disabled && initialValue) {
-      console.log(111111);
-      this.props.onSelect({ [queryParamName]: null });
-    }
-    // resolve menu label text and class
-    const menuLabel = initialValue ? (
-      optionLabel(options, initialValue)
-    ) : (
-      <div data-tip={'Please select a date first'}>
-        {label}
-        {disabled && <ReactTooltip />}
-      </div>
-    );
+      initialValues && initialValues[queryParamName]
+        ? isCap
+          ? initialValues[queryParamName][0]
+          : initialValues[queryParamName]
+        : null;
+    const menuLabel = initialValue ? optionLabel(options, initialValue) : label;
+    console.log(menuLabel)
     const menuLabelClass = initialValue ? css.menuLabelSelected : css.menuLabel;
     const inputClasses = classNames(css.input);
     const classes = classNames(rootClassName || css.root, className);
     console.log(this.state);
+    console.log(initialValue);
     return (
       <Menu
         className={classes}
@@ -89,7 +101,7 @@ class SelectNumberFilterPopup extends Component {
         onToggleActive={this.onToggleActive}
         isOpen={this.state.isOpen}
       >
-        <MenuLabel className={menuLabelClass} disabled={disabled}>{menuLabel}</MenuLabel>
+        <MenuLabel className={menuLabelClass}>{menuLabel}</MenuLabel>
         <MenuContent className={css.menuContent}>
           <MenuItem className={css.inputItem} key={'key'}>
             <div className={css.numberWrapper}>
@@ -100,7 +112,6 @@ class SelectNumberFilterPopup extends Component {
                     e.preventDefault();
                     this.onButtonClick(-1);
                   }}
-                  disabled={disabled}
                 >
                   -
                 </Button>
@@ -112,7 +123,6 @@ class SelectNumberFilterPopup extends Component {
                   this.onInputChange(queryParamName, e.target.value);
                 }}
                 type="slider"
-                disabled={disabled}
               />
               <div className={css.buttonWrapper}>
                 <Button
@@ -121,7 +131,6 @@ class SelectNumberFilterPopup extends Component {
                     e.preventDefault();
                     this.onButtonClick(1);
                   }}
-                  disabled={disabled}
                 >
                   +
                 </Button>
@@ -132,15 +141,13 @@ class SelectNumberFilterPopup extends Component {
             <div className={css.buttonsWrapper}>
               <button
                 className={css.clearButton}
-                onClick={() => this.selectOption(queryParamName, null)}
-                disabled={disabled}
+                onClick={() => this.selectOption(queryParamName,otherQueryParamName, null)}
               >
                 <FormattedMessage id={'SelectNumberFilter.popupClear'} />
               </button>
               <button
                 className={css.submitButton}
-                onClick={() => this.selectOption(queryParamName, this.state.count)}
-                disabled={disabled}
+                onClick={() => this.selectOption(queryParamName,otherQueryParamName, this.state.count)}
               >
                 <FormattedMessage id={'SelectNumberFilter.popupSubmit'} />
               </button>

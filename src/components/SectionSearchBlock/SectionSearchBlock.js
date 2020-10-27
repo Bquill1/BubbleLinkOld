@@ -28,7 +28,7 @@ const SectionSearchBlockComponent = props => {
 
     const pub_category = activeCategoryFilter;
     const pub_spaceRentalAvailability = activeSpaceRentalAvailabilityFilter;
-    const pub_capacity = capacityFilter && [capacityFilter - 1, capacityFilter + 1];
+    const pub_capacity = capacityFilter && [capacityFilter, 100 ].join(',');
     const searchParams = {
       address: search || 'Europe',
       origin: origin || new LatLng(51.937444, -2.36966957036279),
@@ -42,6 +42,7 @@ const SectionSearchBlockComponent = props => {
       pub_spaceRentalAvailability,
       pub_capacity,
     };
+    console.log(searchParams)
     history.push(createResourceLocatorString('SearchPage', routeConfiguration(), {}, searchParams));
   };
 

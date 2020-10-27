@@ -58,7 +58,7 @@ console.log(queryParamNames)
           queryParamNames={queryParamNames}
           initialValues={initialValues(queryParamNames)}
           onSelect={getHandleChangedValueFn(useHistoryPush)}
-          disabled={!hasDates}
+          hasDates={hasDates}
           {...config}
           {...rest}
         />

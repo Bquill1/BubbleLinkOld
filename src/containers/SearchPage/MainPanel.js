@@ -140,7 +140,9 @@ console.log(useHistoryPush);
           }
           if(search.seats){
             search = { ...search, pub_capacity: null };
-
+          }
+          if(search.pub_capacity && search.dates){
+            search = {...search, seats: parseInt(search.pub_capacity[0]) + 1, pub_capacity: null}
           }
           console.log(search)
           history.push(createResourceLocatorString('SearchPage', routeConfiguration(), {}, search));

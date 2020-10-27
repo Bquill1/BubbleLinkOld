@@ -248,7 +248,7 @@ export const ManageListingCardComponent = props => {
               <NamedLink
                 className={css.finishListingDraftLink}
                 name="EditListingPage"
-                params={{ id, slug, type: LISTING_PAGE_PARAM_TYPE_DRAFT, tab: 'photos' }}
+                params={{ id, slug, type: LISTING_PAGE_PARAM_TYPE_DRAFT, tab: 'basics' }}
               >
                 <FormattedMessage id="ManageListingCard.finishListingDraft" />
               </NamedLink>
@@ -331,7 +331,7 @@ export const ManageListingCardComponent = props => {
           <NamedLink
             className={css.manageLink}
             name="EditListingPage"
-            params={{ id, slug, type: editListingLinkType, tab: 'description' }}
+            params={{ id, slug, type: editListingLinkType, tab: 'basics' }}
           >
             <FormattedMessage id="ManageListingCard.editListing" />
           </NamedLink>

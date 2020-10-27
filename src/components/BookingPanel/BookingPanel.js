@@ -141,7 +141,7 @@ const BookingPanel = props => {
       // checked by comparing seats in slot to original availability
       if (
         spaceRentalAvailability === 'entireSpace' &&
-        seats !== originalAvailabilityPlanForDay.seats
+        seats !== originalAvailabilityPlanForDay?.seats
       ) {
         // if not available, return empty array
         return [];

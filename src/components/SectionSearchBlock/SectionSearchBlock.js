@@ -78,9 +78,9 @@ const SectionSearchBlockComponent = props => {
          size={'1x'}
          icon={faQuestionCircle}
          data-tip={"This is the tooltip that will show up"}
-         data-for='test'
+         data-for='category'
          />
-         <ReactTooltip id='test' />
+         <ReactTooltip id='category' />
       </div>
       <div className={css.filtersWrapper}>
         <FinalForm
@@ -179,10 +179,13 @@ const SectionSearchBlockComponent = props => {
                          className={className || css.blockIconClass}
                          size={'1x'}
                          icon={faQuestionCircle}
-                         data-tip={"This is the tooltip that will show up"}
-                         data-for='test'
+                         data-tip={"some spaces are available for rental as entire spaces only and some are rented as individual spaces in larger some spaces are available for rental as entire spaces only and some are rented as individual spaces in larger"}
+                         data-for='size'
+                         data-multiline = 'true'
                          />
-                         <ReactTooltip id='test' />
+                         <ReactTooltip id='size' />
+
+
                 </div>
                 <BookingPanelOptionButton
                   options={spaceRentalAvailabilityFilter.config.options.map(o => {

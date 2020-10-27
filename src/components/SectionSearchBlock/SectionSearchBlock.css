@@ -6,7 +6,7 @@
   justify-content: space-between;
   background-color: var(--matterColorBright);
   border-radius: 24px;
-      margin-top: .5rem;
+  margin-top: 0.5rem;
 
   /* sticky result summary in mobile */
   position: sticky;
@@ -14,19 +14,14 @@
   z-index: 1;
   box-shadow: var(--boxShadowPopup);
 }
-
 .searchResultSummary {
   @apply --marketplaceH3FontStyles;
-  margin: 24px 24px 0px 24px;
+  margin: 0.5rem 0.5rem 0 0.5rem;
 
   display: flex;
   justify-content: space-between;
 
   background-color: var(--matterColorBright);
-
-  @media (--viewportMedium) {
-    margin: 24px 24px 0px 24px;
-  }
 }
 
 .buttons {
@@ -224,11 +219,51 @@
   border-radius: 3rem;
   width: 100%;
   box-shadow: var(--boxShadowPopup);
-
 }
 
 /* Search*/
 .submitButtonWrapper {
   display: inline-flex;
   width: 100%;
+}
+
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  margin-right: -20px;
+  z-index: 1;
+}
+.buttonWrapper:last-child {
+  margin-right: initial;
+  margin-left: -20px;
+}
+
+.capacityWrapper {
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+}
+.numberWrapper {
+  display: inline-flex;
+  width: 50%;
+}
+.numberButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: auto;
+  height: auto;
+  min-height: 20px;
+  border-radius: 50%;
+  font-size: large;
+}
+
+.numberButton:before {
+  content: '';
+  padding-top: 100%;
+}
+.capacityInput{
+  text-align: center;
 }

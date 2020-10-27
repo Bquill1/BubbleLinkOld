@@ -52,6 +52,9 @@
   padding: 0;
 }
 
+.errorCheckbox{
+  border-bottom: 2px solid var(--marketplaceColor)
+}
 .checkboxWrapper {
   /* This should follow line-height */
   height: 32px;

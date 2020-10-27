@@ -137,7 +137,7 @@ console.log(props)
           id: currentUserListing.id.uuid,
           slug: createSlug(currentUserListing.attributes.title),
           type: LISTING_PAGE_PARAM_TYPE_EDIT,
-          tab: 'description',
+          tab: 'basics',
         }}
       />
     );

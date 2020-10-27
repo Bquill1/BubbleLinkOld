@@ -77,9 +77,10 @@ class FieldNumberInputComponent extends Component {
       values,
       ...rest
     } = this.props;
+    console.log(this.props)
     /* eslint-enable no-unused-vars */
-    if (this.state.count === null && initialCap) {
-      this.setState({ count: initialCap?.[0] || 1 });
+    if (this.state.count === null ) {
+      this.setState({ count: input.value  });
     }
     if (label && !id) {
       throw new Error('id required when a label is given');
@@ -128,7 +129,7 @@ class FieldNumberInputComponent extends Component {
           </div>
           <input
             className={inputProps.className}
-            value={this.state.count}
+            value={input.value}
             onChange={this.onInputChange}
             type="slider"
           />

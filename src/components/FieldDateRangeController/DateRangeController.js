@@ -98,11 +98,19 @@ class DateRangeController extends Component {
 
     const start = startDate ? startDate.toDate() : null;
     const end = endDate ? endDate.toDate() : null;
-
+    if(startDate && !endDate){
+      this.setState({ startDate, endDate: startDate });
+    }else{
     this.setState({ startDate, endDate });
 
+    }
     if (startDate && endDate) {
       this.props.onChange({ startDate: start, endDate: end });
+    }
+    if(startDate && !endDate){
+      console.log(values)
+      this.props.onChange({ startDate: start, endDate: start });
+
     }
   }
 

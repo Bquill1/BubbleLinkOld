@@ -43,6 +43,7 @@ const FieldCheckboxComponent = props => {
     id,
     label,
     useSuccessColor,
+    validationError,
     ...rest
   } = props;
 
@@ -69,7 +70,7 @@ const FieldCheckboxComponent = props => {
         <span className={css.checkboxWrapper}>
           <IconCheckbox className={svgClassName} {...successColorVariantMaybe} />
         </span>
-        <span className={classNames(css.text, textClassName || css.textRoot)}>{label}</span>
+        <span className={classNames(css.text, textClassName || css.textRoot, {[css.errorCheckbox] : validationError})}>{label}</span>
       </label>
     </span>
   );

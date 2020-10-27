@@ -135,9 +135,14 @@ console.log(useHistoryPush);
           console.log(searchParams)
           let search = cleanSearchFromConflictingParams(searchParams, sortConfig, filterConfig);
           console.log(search)
-          if(!search.date){
+          if(!search.dates){
             search = {...search, seats: null}
           }
+          if(search.seats){
+            search = { ...search, pub_capacity: null };
+
+          }
+          console.log(search)
           history.push(createResourceLocatorString('SearchPage', routeConfiguration(), {}, search));
         }
       };

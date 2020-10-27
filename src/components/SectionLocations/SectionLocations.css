@@ -47,10 +47,15 @@
 
 /* A wrapper for a responsive image that holds it's aspect ratio */
 .imageWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   position: relative;
   width: 100%;
   border-radius: 4px;
   transition: var(--transitionStyleButton);
+  box-shadow: var(--boxShadowLight);
 
   &:hover {
     transform: scale(1.02);
@@ -60,10 +65,10 @@
 
 /* An image wrapper that defines the images aspect ratio */
 .aspectWrapper {
-  padding-bottom: calc(6 / 13 * 100%); /* 13:6 Aspect Ratio */
+  padding-bottom: calc(1 * 100%); /* 13:6 Aspect Ratio */
 
   @media (--viewportMedium) {
-    padding-bottom: calc(2 / 3 * 100%); /* 3:2 Aspect Ratio */
+    padding-bottom: calc(1 * 100%); /* 3:2 Aspect Ratio */
   }
 }
 
@@ -82,15 +87,19 @@
 
 .linkText {
   @apply --marketplaceH2FontStyles;
-  color: var(--matterColor);
-  margin-top: 15px;
+  color: var(--matterColorBright);
+  margin: 0;
+  z-index: 1;
+  /* margin-top: 15px; */
+
   margin-bottom: 0;
 
   @media (--viewportMedium) {
-    margin-top: 21px;
+    /* margin-top: 21px; */
   }
 }
 
 .locationName {
-  color: var(--marketplaceColor);
+  color: var(--matterColorBright);
+  text-shadow: 5px 5px 9px rgba(0, 0, 0, 1);
 }

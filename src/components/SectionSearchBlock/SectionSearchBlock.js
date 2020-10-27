@@ -25,7 +25,7 @@ const SectionSearchBlockComponent = props => {
 
     const pub_category = activeCategoryFilter;
     const pub_spaceRentalAvailability = activeSpaceRentalAvailabilityFilter;
-    const pub_capacity = capacityFilter && [capacityFilter, 100 ].join(',');
+    const pub_capacity = capacityFilter && [capacityFilter, 1000 ].join(',');
     const searchParams = {
       address: search || 'Europe',
       origin: origin || new LatLng(51.937444, -2.36966957036279),

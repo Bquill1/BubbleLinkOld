@@ -47,7 +47,7 @@ class SelectNumberFilterPopup extends Component {
   selectOption(queryParamName, otherQueryParamName, option) {
     const isCap = queryParamName === 'pub_capacity';
     this.setState({ isOpen: false });
-    const param = !option ? option : isCap ? [option, 100].join(',') : option
+    const param = !option ? option : isCap ? [option, 1000].join(',') : option
     this.props.onSelect({ [queryParamName]: param, [otherQueryParamName]: null });
   }
   componentDidMount() {

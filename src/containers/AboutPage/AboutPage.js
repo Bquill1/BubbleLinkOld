@@ -1,7 +1,14 @@
 import React from 'react';
+
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { injectIntl, intlShape } from '../../util/reactIntl';
+import { isScrollingDisabled } from '../../ducks/UI.duck';
 import config from '../../config';
 import { twitterPageURL } from '../../util/urlHelpers';
 import { StaticPage, TopbarContainer } from '../../containers';
+import { updateProfile } from '../../containers/ProfileSettingsPage/ProfileSettingsPage.duck';
 import {
   LayoutSingleColumn,
   LayoutWrapperTopbar,
@@ -9,81 +16,187 @@ import {
   LayoutWrapperFooter,
   Footer,
   ExternalLink,
+  SectionHostHero,
 } from '../../components';
+import MultiColumnSection from './MultiColumnSectionAbout';
+import TextAndImageSection from './TextAndImageSectionAbout';
 
 import css from './AboutPage.css';
-import image from './about-us-1056.jpg';
+import aboutUsPic1 from './AboutUsPic1.jpg';
+import aboutUsPic2 from './AboutUsPic2.jpg';
 
-const AboutPage = () => {
-  const { siteTwitterHandle, siteFacebookPage } = config;
-  const siteTwitterPage = twitterPageURL(siteTwitterHandle);
-
+const HostPageComponent = props => {
+  const {
+    history,
+    location,
+    isAuthenticated,
+    currentUser,
+    currentUserIsHost,
+    currentUserHasListings,
+    becomeHost,
+  } = props;
+  console.log(props);
+const isHost = isAuthenticated && currentUser?.attribute?.profile?.publicData?.isHost
   // prettier-ignore
   return (
     <StaticPage
-      title="About Us"
+      title="About BubbleLink"
       schema={{
         '@context': 'http://schema.org',
         '@type': 'AboutPage',
-        description: 'About Yogatime',
-        name: 'About page',
+        description: 'About BubbleLink',
+        name: 'About BubbleLink',
       }}
     >
       <LayoutSingleColumn>
-        <LayoutWrapperTopbar>
+      <LayoutWrapperTopbar>
           <TopbarContainer />
         </LayoutWrapperTopbar>
 
-        <LayoutWrapperMain className={css.staticPageWrapper}>
-          <h1 className={css.pageTitle}>Find new depths in your yoga practice</h1>
-          <img className={css.coverImage} src={image} alt="My first ice cream." />
 
-          <div className={css.contentWrapper}>
-            <div className={css.contentSide}>
-              <p>Yoga was listed by UNESCO as an intangible cultural heritage.</p>
-            </div>
+        <LayoutWrapperMain className={css.s}>
+{/*          <div className={css.heroContainer}>
 
-            <div className={css.contentMain}>
-              <h2>
-                Each yoga practitioner is an individual, and each one of us needs different care.
-                Working together with an experienced yoga teacher offers the possibility to rise
-                our practise to a whole new level.
-              </h2>
+          <SectionHostHero
+            className={css.hero}
+            history={history}
+            location={location}
+            isAuthenticated={isAuthenticated}
+            currentUser={currentUser}
+            isHost={currentUserIsHost}
+            currentUserHasListings={currentUserHasListings}
+            becomeHost={becomeHost}
+          />
 
-              <p>
-                Whether it is the alignment of asanas or being able to set the focus of the class,
-                we all have our own struggles and goals. Some of these cannot be addressed in a
-                regular class of twenty yogis. Working together with the experienced yoga teachers
-                from Yogatime, you can together create just the right class for you.
-              </p>
-
-              <h3 className={css.subtitle}>Are you a yoga teacher?</h3>
-
-              <p>
-                Yogatime offers you a platform through which you can reach thousands of yoga
-                practitioners. Offering private yoga classes through Yogatime offers you a
-                possibility to grow your customer base and earn some extra income on top of your
-                regular classes.
-              </p>
-
-              <h3 id="contact" className={css.subtitle}>
-                Create your own marketplace like Yogatime
-              </h3>
-              <p>
-                Yogatime is brought to you by{' '}
-                <ExternalLink href="http://sharetribe.com">Sharetribe</ExternalLink>. Sharetribe
-                offers anyone a possibility to create a marketplace without restricting your own
-                creativity. Do not hesitate to reach out and learn how to best turn your
-                marketplace idea to reality.
-              </p>
-              <p>
-                You can also checkout our{' '}
-                <ExternalLink href={siteFacebookPage}>Facebook</ExternalLink> and{' '}
-                <ExternalLink href={siteTwitterPage}>Twitter</ExternalLink>.
-              </p>
-            </div>
           </div>
-        </LayoutWrapperMain>
+*/}
+          <div className={css.staticPageWrapper}>
+      {/*      <MultiColumnSection
+              showGraphics={true}
+              title={'How Do I Become a Host?'}
+              content={[
+                {
+                  title: '1. Sign Up For Free',
+                  content: `Click the "+Become a Host" button above to create your free account.`,
+                },
+                {
+                  title: '2. Create Your Listing',
+                  content: `Our easy to use listing form will then guide you through the process of adding your first space.`,
+                },
+                {
+                  title: '3. Start Renting!',
+                  content: `The BubbleLink users can then search for properties like yours, book them, and the money goes straight to you!`,
+                },
+              ]}
+            />
+            */}
+            <TextAndImageSection
+              title={'About Bubblelink'}
+              subtitle={null}
+              content={
+
+                <p className={css.heroList}>
+                  We strive to build a community where our hosts can connect their guests with that perfect space. <br/>
+                  Whether it's somewhere to work remotely, to hold a meeting with your team or with clients, to collaborate
+                  on college projects, a quiet place to prepare for exams or somewhere to hold a unique event, we want BubbleLink
+                  to be your go to place for all your space needs.
+                  </p>
+
+
+
+              }
+              image={aboutUsPic1}
+              largeImage
+            />
+ {/*           <MultiColumnSection
+              showGraphics={false}
+              title={'The BubbleLink concept'}
+              content={[
+                {
+                  title: 'Answer: No!',
+                  content: `There is no subscription cost when you sign-up to BubbleLink. You only pay a fee once your space has been booked.
+Why not sign-up and test out the site to see if it's for you?`,
+                },
+              ]}
+            />
+  */}
+            <MultiColumnSection
+              showGraphics={false}
+              title={'The BubbleLink concept'}
+              content={[
+                {
+                  content: `With the impact of Covid-19 bringing the travel industry to its knees, and the explosion in remote working as a result, we at BubbleLink
+                            saw an urgent need to reimagine how we host and work. We wanted to help hosts who may have traditionally used their spaces for short-term
+                            rentals to unlock new revenue streams and to take remote workers out of cramped bedrooms and kitchen tables into ideal working spaces.`,
+                },
+                {
+                  content: `But then we thought, why stop there?`,
+                },
+                {
+                 content: `We discovered that there were so many amazing spaces that had never been used for short-term rentals which were ideal for daily letting.
+                 Beautiful homes, grand old buildings, wonderful gardens...all of which we wanted to help our hosts share with the world  `,
+                 },
+              ]}
+            />
+            <TextAndImageSection
+              title={'A message from our Founder'}
+              subtitle={''}
+              content={
+                <>
+                  <p>
+                   <i> "When Covid-19 hit I found myself working at home for the first time at a cramped kitchen table
+                   with a wobbly chair. The building in which I lived was full of empty apartments that had been used for short-term rentals,
+                   a market that had suddenly disappeared. I thought, wouldn't it be so much better for both parties if the space could be used
+                   for day time letting and remote working"
+                   </i>
+                  </p>
+                  <br />
+                  <p>
+                    <b> Brendan | Founder of BubbleLink </b>
+                  </p>
+                </>
+              }
+              image={aboutUsPic2}
+              imageLeft
+            />
+   {/*         <MultiColumnSection
+              showGraphics={false}
+              title={'Who will rent be renting my space?'}
+              subtitle={'Your renters could be anyone!'}
+              content={[
+                {
+                  content: (
+                    <ul className={css.heroList}>
+                      <li>
+                        Remote workers stuck in unsuitable conditions are looking for inspiring
+                        places to work and network
+                      </li>
+                      <li>
+                        Professionals like physios and therapists are looking for spaces close to
+                        their clients so that they can increase the numbers they see in a day
+                      </li>
+                      <li>Students are looking for quiet spaces to prepare for exams</li>
+                      <li>
+                        Teams are looking for spaces where they can meet outside of the normal
+                        stuffy boardroom
+                      </li>
+                      <li>
+                        Those planning events are looking for that unique space to make it a day,
+                        evening or night to remember
+                      </li>
+                      <li>
+                        Fitness instructors such as yoga teachers and personal trainers are looking
+                        for spaces where they can hold classes in locations that suit their clients
+                      </li>
+                      <li>Interviews, photoshoots, and anything else you can think of!</li>
+                    </ul>
+                  ),
+                },
+              ]}
+            />
+*/}
+          </div>
+       </LayoutWrapperMain>
 
         <LayoutWrapperFooter>
           <Footer />
@@ -93,4 +206,33 @@ const AboutPage = () => {
   );
 };
 
-export default AboutPage;
+const mapDispatchToProps = dispatch => ({
+  becomeHost: data => dispatch(updateProfile(data)),
+});
+const mapStateToProps = state => {
+  const { currentUser, currentUserHasListings, currentUserIsHost } = state.user;
+  console.log(state.user)
+  const {isAuthenticated} = state.Auth
+  return {
+    scrollingDisabled: isScrollingDisabled(state),
+    currentUser,
+    currentUserIsHost,
+    currentUserHasListings,
+    isAuthenticated,
+  };
+};
+
+// Note: it is important that the withRouter HOC is **outside** the
+// connect HOC, otherwise React Router won't rerender any Route
+// components since connect implements a shouldComponentUpdate
+// lifecycle hook.
+//
+// See: https://github.com/ReactTraining/react-router/issues/4671
+
+const HostPage = compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps),
+  injectIntl
+)(HostPageComponent);
+
+export default HostPage;

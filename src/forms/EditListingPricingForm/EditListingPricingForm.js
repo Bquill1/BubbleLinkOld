@@ -21,6 +21,8 @@ import {
   EditListingHelperCard,
 } from '../../components';
 import css from './EditListingPricingForm.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLightbulb} from '@fortawesome/free-solid-svg-icons';
 
 const { Money } = sdkTypes;
 const MIN_PRICE_PER_PERSON = 5;
@@ -219,8 +221,8 @@ export const EditListingPricingFormComponent = props => (
               </div>
               <div className={css.priceFormRight}>
                 <div className={css.fieldWrapperRight}>
-                  <EditListingHelperCard title={'Managing your space'} content={spaceHelper} />
-                  <EditListingHelperCard title={'Managing your space'} content={timeHelper} />
+                  <EditListingHelperCard title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />} content={spaceHelper} />
+                  <EditListingHelperCard title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />} content={timeHelper} />
                 </div>
               </div>
             </div>

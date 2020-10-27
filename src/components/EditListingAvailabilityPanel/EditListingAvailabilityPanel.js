@@ -17,6 +17,8 @@ import {
   EditListingHelperCard
 } from '../../components';
 import { EditListingAvailabilityPlanForm, EditListingAvailabilityExceptionForm } from '../../forms';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLightbulb} from '@fortawesome/free-solid-svg-icons';
 
 import css from './EditListingAvailabilityPanel.css';
 
@@ -270,8 +272,8 @@ const EditListingAvailabilityPanel = props => {
             </div>
           </section>
         </div>
-        <div className={css.formLeft}>
-          <EditListingHelperCard title={'Setting your availability'} content={availabilityMessage1} />
+        <div className={css.formRight}>
+          <EditListingHelperCard title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />} content={availabilityMessage1} />
         </div>
       </div>
       <section className={css.section}>

@@ -24,7 +24,11 @@ const renderSocialMediaLinks = intl => {
   const goToTwitter = intl.formatMessage({ id: 'Footer.goToTwitter' });
 
   const fbLink = siteFacebookPage ? (
-    <ExternalLink key="linkToFacebook" href={siteFacebookPage} className={css.icon} title={goToFb}>
+    <ExternalLink
+    key="linkToFacebook"
+    href={siteFacebookPage}
+    className={css.icon}
+    title={goToFb}>
       <IconSocialMediaFacebook />
     </ExternalLink>
   ) : null;
@@ -85,7 +89,7 @@ const Footer = props => {
               <div className={css.infoLinks}>
                 <ul className={css.list}>
                   <li className={css.listItem}>
-                    <FormattedMessage id="Footer.aboutHeading" />
+                    <b> <FormattedMessage id="Footer.aboutHeading" /> </b>
                   </li>
                   <li className={css.listItem}>
                     <NamedLink name="AboutPage" className={css.link}>
@@ -93,12 +97,12 @@ const Footer = props => {
                     </NamedLink>
                   </li>
                   <li className={css.listItem}>
-                    <NamedLink name="AboutPage" to={{ hash: '#contact' }} className={css.link}>
+                    <NamedLink name="ContactUsPage" className={css.link}>
                       <FormattedMessage id="Footer.toContactPage" />
                     </NamedLink>
                   </li>
                   <li className={css.listItem}>
-                    <NamedLink name="AboutPage" to={{ hash: '#contact' }} className={css.link}>
+                    <NamedLink name="BlogPage" className={css.link}>
                       <FormattedMessage id="Footer.toBlogPage" />
                     </NamedLink>
                   </li>
@@ -122,7 +126,7 @@ const Footer = props => {
               <div className={css.infoLinks}>
                 <ul className={css.list}>
                   <li className={css.listItem}>
-                    <FormattedMessage id="Footer.communityHeading" />
+                    <b> <FormattedMessage id="Footer.communityHeading" /> </b>
                   </li>
                   <li className={css.listItem}>
                     <NamedLink name="HostPage" className={css.link}>
@@ -135,7 +139,7 @@ const Footer = props => {
                     </NamedLink>
                   </li>
                   <li className={css.listItem}>
-                    <NamedLink name="AboutPage" to={{ hash: '#contact' }} className={css.link}>
+                    <NamedLink name="PartnershipPage"  className={css.link}>
                       <FormattedMessage id="Footer.toPartnerPage" />
                     </NamedLink>
                   </li>
@@ -144,7 +148,7 @@ const Footer = props => {
               <div className={css.infoLinks}>
                 <ul className={css.list}>
                   <li className={css.listItem}>
-                    <FormattedMessage id="Footer.legalHeading" />
+                    <b> <FormattedMessage id="Footer.legalHeading" /> </b>
                   </li>
                   <li className={css.listItem}>
                     <NamedLink name="TermsOfServicePage" className={css.link}>
@@ -156,14 +160,16 @@ const Footer = props => {
                       <FormattedMessage id="Footer.privacyPolicy" />
                     </NamedLink>
                   </li>
-                  <li className={css.listItem}>
+                {/*  <li className={css.listItem}>
                     <NamedLink name="PrivacyPolicyPage" className={css.link}>
                       <FormattedMessage id="Footer.bookingTerms" />
                     </NamedLink>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
-              <div className={css.extraLinks}>{socialMediaLinks}</div>
+              <div className={css.extraLinks}>
+              {socialMediaLinks}
+              </div>
             </div>
             <div className={css.copyrightAndTermsMobile}>
               <NamedLink name="LandingPage" className={css.organizationCopyrightMobile}>

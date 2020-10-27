@@ -22,7 +22,8 @@ import MultiColumnSection from './MultiColumnSection';
 import TextAndImageSection from './TextAndImageSection';
 
 import css from './HostPage.css';
-import freedom from './freedom.jpg';
+import hostInfoPic1 from './HostInfoPic1.jpg';
+import hostInfoPic2 from './HostInfoPic2.jpg';
 
 const HostPageComponent = props => {
   const {
@@ -100,7 +101,7 @@ const isHost = isAuthenticated && currentUser?.attribute?.profile?.publicData?.i
                   </li>
                 </ul>
               }
-              image={freedom}
+              image={hostInfoPic1}
               smallImage
             />
             <MultiColumnSection
@@ -144,7 +145,7 @@ Why not sign-up and test out the site to see if it's for you?`,
                   </p>
                 </>
               }
-              image={freedom}
+              image={hostInfoPic2}
               imageLeft
             />
             <MultiColumnSection
@@ -322,7 +323,7 @@ const mapStateToProps = state => {
 // lifecycle hook.
 //
 // See: https://github.com/ReactTraining/react-router/issues/4671
-    
+
 const HostPage = compose(
   withRouter,
   connect(mapStateToProps, mapDispatchToProps),

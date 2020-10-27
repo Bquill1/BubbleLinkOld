@@ -43,6 +43,7 @@
 }
 .formRight {
   @apply --formRight;
+
 }
 .error {
   color: var(--failColor);

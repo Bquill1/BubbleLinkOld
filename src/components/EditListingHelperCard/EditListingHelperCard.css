@@ -1,5 +1,6 @@
 @import '../../marketplace.css';
 
+
 .root {
 }
 
@@ -10,7 +11,7 @@
 .content{
     @apply --marketplaceSmallFontStyles;
     text-align: center;
-  
+
 }
 
 .editListingHelperCard{
@@ -18,4 +19,5 @@
   padding: 1rem;
   margin: 1rem;
   border-radius: 2rem;
+  background-color: var(--marketplaceColorLight);
 }

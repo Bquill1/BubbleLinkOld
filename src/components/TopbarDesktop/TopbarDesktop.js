@@ -159,7 +159,7 @@ const TopbarDesktop = props => {
       ) : (
         <NamedLink className={css.createListingLink} name="HostPage">
           <span className={css.createListing}>
-            <FormattedMessage id="TopbarDesktop.hostInfo" />
+            <FormattedMessage id="TopbarDesktop.becomeHost" />
           </span>
         </NamedLink>
       )}

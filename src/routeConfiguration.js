@@ -2,8 +2,10 @@ import React from 'react';
 import {
   AboutPage,
   AuthenticationPage,
+  BlogPage,
   CheckoutPage,
   ContactDetailsPage,
+  ContactUsPage,
   EditListingPage,
   EmailVerificationPage,
   InboxPage,
@@ -15,6 +17,7 @@ import {
   PasswordRecoveryPage,
   PasswordResetPage,
   StripePayoutPage,
+  PartnershipPage,
   PaymentMethodsPage,
   PrivacyPolicyPage,
   ProfilePage,
@@ -70,6 +73,21 @@ const routeConfiguration = () => {
       component: HostPage,
     },
     {
+      path: '/contactus',
+      name: 'ContactUsPage',
+      component: ContactUsPage,
+    },
+    {
+      path: '/blog',
+      name: 'BlogPage',
+      component: BlogPage,
+    },
+    {
+      path: '/partnership',
+      name: 'PartnershipPage',
+      component: PartnershipPage,
+    },
+    {
       path: '/s',
       name: 'SearchPage',
       component: props => <SearchPage {...props} />,
@@ -123,7 +141,7 @@ const routeConfiguration = () => {
       path: '/l/new',
       name: 'NewListingPage',
       auth: true,
-      component: (props) =>{ 
+      component: (props) =>{
         console.log(props)
         return (
         <NamedRedirect

@@ -25,3 +25,7 @@ export { default as TopbarContainer } from './TopbarContainer/TopbarContainer';
 export { default as TransactionPage } from './TransactionPage/TransactionPage';
 // Custom Pages
 export { default as HostPage } from './HostPage/HostPage';
+export { default as ContactUsPage } from './ContactUsPage/ContactUsPage';
+export { default as BlogPage } from './BlogPage/BlogPage';
+export { default as PartnershipPage } from './PartnershipPage/PartnershipPage';
+

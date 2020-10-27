@@ -108,7 +108,7 @@ export const filters = [
              // to make filter customizations a bit easier.
              options: [
                { key: 'entireSpace', label: 'The entire place' },
-               { key: 'individual', label: 'An individual space' },
+               { key: 'individual', label: 'Individual spaces' },
              ],
            },
          },
@@ -178,7 +178,7 @@ export const filters = [
 
          {
            id: 'spaceType',
-           label: 'Type Of Space',
+           label: 'Privacy',
            type: 'SelectSingleFilter',
            group: 'secondary',
            queryParamNames: ['pub_spaceType'],
@@ -188,7 +188,7 @@ export const filters = [
              // Note: label is not added through the translation files
              // to make filter customizations a bit easier.
              options: [
-               { key: 'private', label: 'Private' },
+               { key: 'private', label: 'Private space' },
                { key: 'sharedHost', label: 'Shared with the host' },
                { key: 'sharedGuest', label: 'Shared with other guests' },
              ],
@@ -347,7 +347,7 @@ export const filters = [
          },
          {
            id: 'propertyType',
-           label: 'PropertyType',
+           label: 'Property Type',
            type: 'SelectMultipleFilter',
            group: 'secondary',
            queryParamNames: ['pub_propertyType'],

@@ -185,7 +185,7 @@ const DailyPlan = props => {
                         </FieldSelect>
                       </div>
                       <div className={css.seatSelect} id="step_seats">
-                        <span className={css.seatsLabel}>Seats - </span>
+                        <span className={css.seatsLabel}>Capacity - </span>
                         <FieldSelect
                           id={`${name}.seats`}
                           name={`${name}.seats`}

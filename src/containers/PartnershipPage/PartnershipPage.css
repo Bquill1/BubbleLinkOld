@@ -1,0 +1,34 @@
+@import '../../marketplace.css';
+
+.mainWrapper {
+  width: calc(100% - 48px);
+  max-width: 720px;
+  margin: 24px auto;
+
+  @media (--viewportMedium) {
+    max-width: 650px;
+    width: calc(100% - 72px);
+    margin: 72px auto 36px auto;
+  }
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+
+  @media (--viewportMedium) {
+    flex-direction: row;
+  }
+}
+
+.step {
+  @media (--viewportMedium) {
+    width: 324px;
+    margin-right: 40px;
+  border: 1px solid grey;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 2rem;
+  background-color: var(--marketplaceColorLight);
+  }
+}

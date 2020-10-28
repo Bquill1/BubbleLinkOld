@@ -99,7 +99,7 @@ const BookingPanel = props => {
     fetchLineItemsInProgress,
     fetchLineItemsError,
   } = props;
-  console.log(props)
+  console.log(props);
   const publicData = listing.attributes.publicData;
   const spaceRentalAvailabilityOptions = publicData.spaceRentalAvailability;
   const bookingType_entireSpace_Options = publicData.bookingType_entireSpace;
@@ -107,7 +107,7 @@ const BookingPanel = props => {
   const capacity = publicData.capacity;
   const bookingTypeSpaceOptions = getSpaceOptions(listing);
   const [spaceRentalAvailability, setSpaceRentalAvailability] = useState(
-    spaceRentalAvailabilityOptions[0]
+    spaceRentalAvailabilityOptions && spaceRentalAvailabilityOptions[0]
   );
   const [seatsSelected, setSeatsSelected] = useState(1);
   const [bookingType, setBookingType] = useState(
@@ -226,9 +226,15 @@ const BookingPanel = props => {
 
   const seatsSelector = !isEntireSpace ? (
     <div className={css.seatSelectorWrapper}>
-      <label className={css.seatSelectorLabel} htmlFor={'seatSelector'}>No. of people: </label>
+      <label className={css.seatSelectorLabel} htmlFor={'seatSelector'}>
+        No. of people:{' '}
+      </label>
 
-      <select id={'seatSelector'} className={css.seatSelector}onChange={e => setSeatsSelected(parseInt(e.target.value))}>
+      <select
+        id={'seatSelector'}
+        className={css.seatSelector}
+        onChange={e => setSeatsSelected(parseInt(e.target.value))}
+      >
         {[...Array(capacity).keys()].map(n => {
           return <option value={n + 1}> {n + 1}</option>;
         })}

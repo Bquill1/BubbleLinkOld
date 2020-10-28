@@ -10,9 +10,7 @@ import css from './SelectNumberFilterPopup.css';
 
 const optionLabel = (options, key) => {
   const option = options?.find(o => o.key === key);
-  return (
-      option ? option.label : key
-  );
+  return option ? option.label : key;
 };
 const handleFocus = event => {
   console.log(1111);
@@ -38,7 +36,6 @@ class SelectNumberFilterPopup extends Component {
   }
 
   onInputChange(queryParamName, val) {
-
     this.setState({ count: val < 1 ? 1 : val > 100 ? 100 : val });
   }
   onToggleActive(isOpen) {
@@ -84,7 +81,7 @@ class SelectNumberFilterPopup extends Component {
     const initialValue =
       initialValues && initialValues[queryParamName]
         ? isCap
-          ? initialValues[queryParamName].split(",")[0]
+          ? initialValues[queryParamName].split(',')[0]
           : initialValues[queryParamName]
         : null;
     const menuLabel = initialValue ? optionLabel(options, initialValue) : label;
@@ -124,8 +121,7 @@ class SelectNumberFilterPopup extends Component {
                 onChange={e => {
                   this.onInputChange(queryParamName, e.target.value);
                 }}
-                                      onFocus={handleFocus}
-
+                onFocus={handleFocus}
                 type="slider"
               />
               <div className={css.buttonWrapper}>

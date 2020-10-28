@@ -5,6 +5,9 @@ import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { withRouter } from 'react-router-dom';
 import { Form as FinalForm, Field } from 'react-final-form';
 import { types as sdkTypes } from '../../util/sdkLoader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import ReactTooltip from 'react-tooltip';
 
 import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
@@ -53,15 +56,15 @@ const SectionSearchBlockComponent = props => {
   const searchBlockWhatKindOfPlace = <FormattedMessage id="SectionSearchBlock.whatKindOfPlace" />;
 
   const categoryOptionKey = {
-    work: 'Work',
-    event: 'Event',
-    meeting: 'Meeting',
-    study: 'Study',
-    other: 'Other',
+    work: 'WORK',
+    event: 'EVENT',
+    meeting: 'MEETING',
+    study: 'STUDY',
+    other: 'OTHER',
   };
   const spaceRentalAvailabilityKey = {
-    entireSpace: 'I want it all to myself',
-    individual: "I'm happy to share",
+    entireSpace: 'ALL',
+    individual: "PARTIAL",
   };
   const categoryFilter = filters.find(f => f.id === 'category');
   console.log(categoryFilter);
@@ -126,7 +129,17 @@ const SectionSearchBlockComponent = props => {
                     );
                   }}
                 />
-                <div className={css.searchResultSummary}>{searchBlockWhatKindOfPlace}</div>
+                <div className={css.searchResultSummary}>{searchBlockWhatKindOfPlace}
+                <FontAwesomeIcon
+                                className={css.iconClassName}
+                                size={'1x'}
+                                icon={faQuestionCircle}
+                                data-tip = {'This is the content'}
+                                data-for = 'test'
+                                />
+                                <ReactTooltip id = 'test' />
+                </div>
+
                 <BookingPanelOptionButton
                   options={spaceRentalAvailabilityFilter.config.options.map(o => {
                     return o.key;

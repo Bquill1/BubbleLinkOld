@@ -8,14 +8,38 @@ import { propTypes } from '../../util/types';
 import { formatMoney } from '../../util/currency';
 import { ensureListing } from '../../util/data';
 import { ResponsiveImage } from '../../components';
+import { types as sdkTypes } from '../../util/sdkLoader';
 
 import css from './SearchMapInfoCard.css';
 
+const { Money } = sdkTypes;
 // ListingCard is the listing info without overlayview or carousel controls
 const ListingCard = props => {
   const { className, clickHandler, intl, isInCarousel, listing, urlToListing } = props;
+const currentListing = listing
+  const { title, publicData } = listing.attributes;
+  const { bookingType_entireSpace, bookingType_individual } = publicData && publicData;
+  const pricesFiltered = [
+    bookingType_entireSpace?.includes('hourly') && publicData?.price_entireSpace_hourly,
+    bookingType_entireSpace?.includes('daily') && publicData?.price_entireSpace_daily,
+    bookingType_individual?.includes('hourly') && publicData?.price_individual_hourly,
+    bookingType_individual?.includes('daily') && publicData?.price_individual_daily,
+  ].filter(f => f && f > 0);
 
-  const { title, price } = listing.attributes;
+const lowestPrice = pricesFiltered.length
+  ? new Money(Math.min(...pricesFiltered), config.currency)
+  : currentListing.attributes.price;
+const lowestPriceOption = [
+  publicData.price_entireSpace_hourly,
+  publicData.price_entireSpace_daily,
+  publicData.price_individual_hourly,
+  publicData.price_individual_daily,
+].findIndex(p => p === lowestPrice.amount);
+const unitTranslation = { 0: 'hr', 2: 'hr', 1: 'day', 3: 'day' };
+
+const price = lowestPrice || currentListing.attributes.price;
+
+
   const formattedPrice =
     price && price.currency === config.currency ? formatMoney(intl, price) : price.currency;
   const firstImage = listing.images && listing.images.length > 0 ? listing.images[0] : null;

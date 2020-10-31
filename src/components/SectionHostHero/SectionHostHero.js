@@ -55,7 +55,8 @@ const SectionHostHero = props => {
               <ul className={css.heroList}>
                 <li>Set your own prices</li>
                 <li>Manage your own availability</li>
-                <li>Offer both daily and hourly bookings</li>
+                <li>Offer daily and/or hourly bookings</li>
+                <li>Offer entire space and/or individual seats options</li>
                 <li>No subscription fees</li>
               </ul>
             </div>

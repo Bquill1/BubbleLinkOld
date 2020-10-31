@@ -70,7 +70,7 @@ const Weekday = props => {
           ? getEntries(availabilityPlan, dayOfWeek).map(e => {
               return (
                 <span className={css.entry} key={`${e.dayOfWeek}-${e.seats}`}>
-                  Spots:  {e.seats}
+                  Capacity:  {e.seats}
                 </span>
               );
             })

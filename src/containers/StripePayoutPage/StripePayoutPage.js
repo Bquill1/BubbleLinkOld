@@ -160,7 +160,7 @@ export const StripePayoutPageComponent = props => {
             <h1 className={css.title}>
               <FormattedMessage id="StripePayoutPage.heading" />
             </h1>
-            <p>This page is only required to be filled out by hosts.</p>
+            <p>This page is only required to be filled out by hosts in order to receive payments. Powered by Stripe Connect.</p>
             {!currentUserLoaded ? (
               <FormattedMessage id="StripePayoutPage.loadingData" />
             ) : returnedAbnormallyFromStripe && !getAccountLinkError ? (

@@ -73,9 +73,9 @@ const SectionViewMaybe = props => {
     other: <BlockIcon icon={faDungeon} tip="This space is hard to classify." />,
   };
   const spaceTypeKey = {
-    private: <BlockIcon icon={faUserShield} tip="This is your own private space." />,
-    sharedHost: <BlockIcon icon={faUserFriends} tip="This space is shared with the host." />,
-    sharedGuest: <BlockIcon icon={faUsers} tip="This space is shared with other guests." />,
+    private: <BlockIcon icon={faUserShield} tip="You'll have your own private space." />,
+    sharedHost: <BlockIcon icon={faUserFriends} tip="You may be sharing with the host." />,
+    sharedGuest: <BlockIcon icon={faUsers} tip="You may be sharing with other guests." />,
   };
   return (
     <div className={css.sectionView}>

@@ -17,13 +17,15 @@
 }
 .searchResultSummary {
   @apply --marketplaceH3FontStyles;
-  margin: 0.75rem 0.75rem 0 0.75rem;
-  font-size: 13px;
+  margin: 0.5rem 0.5rem 0 0.5rem;
+  font-size: 14px;
+  font-weight: bold;
 
   display: flex;
   justify-content: space-between;
 
   background-color: var(--matterColorBright);
+
 }
 
 .buttons {
@@ -142,26 +144,32 @@
 }
 
 .desktopIcon {
-  height: var(--topbarHeightDesktop);
+  height: 50px;
   border: none;
   padding-top: 3px;
+  padding-left: 3px;
 
   display: flex;
   width: 24px;
   align-self: stretch;
   background-color: var(--matterColorLight);
+  border-bottom: 2px solid;
+  border-bottom-color: var(--marketplaceColorGrey);
+
 }
 
 .desktopInput {
   flex-grow: 1;
   /* Font */
   @apply --marketplaceH4FontStyles;
-  height: var(--topbarHeightDesktop);
+  height: 50px;
   line-height: unset;
   border: none;
+  border-bottom: 2px solid;
+  border-bottom-color: var(--marketplaceColorGrey);
   padding-top: 0;
   padding-bottom: 0;
-  padding-left: 10px;
+  padding-left: 20px;
 
   /* Search text gets ellipsis if it's too wide */
   text-overflow: ellipsis;
@@ -196,8 +204,8 @@
 }
 
 .desktopInputRoot {
-  height: var(--topbarHeightDesktop);
-  margin: 0px 12px;
+  height: 54px;
+  margin: 0px 0px;
 }
 .desktopPredictions {
   position: absolute;
@@ -218,7 +226,7 @@
   max-width: 434px;
 }
 .submitButton {
-  margin: 24px;
+  margin: 12px;
   border-radius: 3rem;
   width: 100%;
   box-shadow: var(--boxShadowPopup);
@@ -246,7 +254,14 @@
 .capacityWrapper {
   display: inline-flex;
   width: 100%;
-  justify-content: center;
+  justify-content: left;
+  border-bottom: 2px solid;
+  border-bottom-color: var(--marketplaceColorGrey);
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+
+
 }
 .numberWrapper {
   display: inline-flex;
@@ -270,4 +285,5 @@
 }
 .capacityInput{
   text-align: center;
+  border: none;
 }

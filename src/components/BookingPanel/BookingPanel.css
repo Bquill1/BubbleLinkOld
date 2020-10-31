@@ -245,12 +245,18 @@
 .seatSelectorWrapper{
   display: flex;
       align-items: center;
+  border-bottom: 2px solid;
+  border-bottom-color: var(--marketplaceColorGrey);
 
 }
 .seatSelector{
   margin-left: 1rem;
   margin-bottom: 1rem;
+  align-items: center;
   width: 15%;
+      border-bottom-width: 3px;
+      border-bottom-style: solid;
+      border-bottom-color: var(--marketplaceColor);
 }
 .seatSelectorLabel{
   margin-bottom: 1rem;

@@ -54,6 +54,7 @@ const SectionSearchBlockComponent = props => {
   const [capacityFilter, setCapacityFilter] = useState(1);
   const searchBlockHeader = <FormattedMessage id="SectionSearchBlock.header" />;
   const searchBlockWhatKindOfPlace = <FormattedMessage id="SectionSearchBlock.whatKindOfPlace" />;
+  const searchBlockCapacity = <FormattedMessage id="SectionSearchBlock.capacity" />;
 
   const categoryOptionKey = {
     work: 'WORK',
@@ -63,8 +64,8 @@ const SectionSearchBlockComponent = props => {
     other: 'OTHER',
   };
   const spaceRentalAvailabilityKey = {
-    entireSpace: 'ALL',
-    individual: "PARTIAL",
+    entireSpace: 'I want it all',
+    individual: "I'm happy to share",
   };
   const categoryFilter = filters.find(f => f.id === 'category');
   console.log(categoryFilter);
@@ -129,27 +130,9 @@ const SectionSearchBlockComponent = props => {
                     );
                   }}
                 />
-                <div className={css.searchResultSummary}>{searchBlockWhatKindOfPlace}
-                <FontAwesomeIcon
-                                className={css.iconClassName}
-                                size={'1x'}
-                                icon={faQuestionCircle}
-                                data-tip = {'This is the content'}
-                                data-for = 'test'
-                                />
-                                <ReactTooltip id = 'test' />
-                </div>
-
-                <BookingPanelOptionButton
-                  options={spaceRentalAvailabilityFilter.config.options.map(o => {
-                    return o.key;
-                  })}
-                  activeOption={activeSpaceRentalAvailabilityFilter}
-                  setOption={setActiveSpaceRentalAvailabilityFilter}
-                  labelKey={spaceRentalAvailabilityKey}
-                />
+                <div className={css.searchResultSummary}>{searchBlockCapacity}</div>
                 <div className={css.capacityWrapper}>
-                  <div className={css.searchResultSummary}>Seats:</div>
+                  <div className={css.searchResultSummary}></div>
                   <div className={css.numberWrapper}>
                     <div className={css.buttonWrapper}>
                       <Button
@@ -184,6 +167,26 @@ const SectionSearchBlockComponent = props => {
                     </div>
                   </div>
                 </div>
+                <div className={css.searchResultSummary}>{searchBlockWhatKindOfPlace}
+                <FontAwesomeIcon
+                                className={css.iconClassName}
+                                size={'1x'}
+                                icon={faQuestionCircle}
+                                data-tip = {'This is the content'}
+                                data-for = 'test'
+                                />
+                                <ReactTooltip id = 'test' />
+                </div>
+
+                <BookingPanelOptionButton
+                  options={spaceRentalAvailabilityFilter.config.options.map(o => {
+                    return o.key;
+                  })}
+                  activeOption={activeSpaceRentalAvailabilityFilter}
+                  setOption={setActiveSpaceRentalAvailabilityFilter}
+                  labelKey={spaceRentalAvailabilityKey}
+                />
+
                 <div className={css.submitButtonWrapper}>
                   <Button
                     className={css.submitButton}

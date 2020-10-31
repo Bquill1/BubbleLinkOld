@@ -91,3 +91,13 @@
 .editListingLocationMap{
   border-radius: 50%;
 }
+.formWrapper {
+  @apply --formWrapper;
+}
+.formLeft {
+  @apply --formLeft;
+}
+.formRight {
+  @apply --formRight;
+
+}

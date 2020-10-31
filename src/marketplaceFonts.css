@@ -37,7 +37,7 @@
   --marketplaceSmallFontStyles: {
     font-family: var(--fontFamily);
     font-weight: var(--fontWeightMedium);
-    font-size: 14px;
+    font-size: 12px;
     line-height: 24px;
   }
 

@@ -196,8 +196,8 @@ const BookingPanel = props => {
     ? 'CheckoutPage.perEntirePlace'
     : 'CheckoutPage.perSpace';
   const buttonOptionKey = {
-    individual: 'Individual space(s)',
-    entireSpace: 'The entire space',
+    individual: 'Book single space(s)',
+    entireSpace: 'Book entire space',
     hourly: 'By the hour',
     daily: 'Full day',
   };
@@ -227,7 +227,7 @@ const BookingPanel = props => {
   const seatsSelector = !isEntireSpace ? (
     <div className={css.seatSelectorWrapper}>
       <label className={css.seatSelectorLabel} htmlFor={'seatSelector'}>
-        No. of people:{' '}
+        No. of guests:{' '}
       </label>
 
       <select
@@ -252,6 +252,7 @@ const BookingPanel = props => {
         onManageDisableScrolling={onManageDisableScrolling}
       >
         {spaceRentalAvailabilityButtons}
+        {seatsSelector}
         {hourDayButtons}
         <div className={css.modalHeading}>
           <h1 className={css.title}>{title}</h1>
@@ -260,7 +261,7 @@ const BookingPanel = props => {
           <div className={css.bookingHeadingContainer}>
             {/* <h2 className={titleClasses}>{title}</h2>
             {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null} */}
-            {seatsSelector}
+
           </div>
         </div>
         {/* <div className={css.desktopPriceContainer}>

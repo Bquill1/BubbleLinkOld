@@ -5,6 +5,8 @@ import { Form as FinalForm } from 'react-final-form';
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import {
   autocompleteSearchRequired,
   autocompletePlaceSelected,
@@ -16,6 +18,7 @@ import {
   Button,
   FieldTextInput,
   MapHelper,
+  EditListingHelperCard,
 } from '../../components';
 
 import css from './EditListingLocationForm.css';
@@ -81,11 +84,16 @@ export const EditListingLocationFormComponent = props => (
       const submitReady = (updated && pristine) || ready;
       const submitInProgress = updateInProgress;
       const submitDisabled = invalid || disabled || submitInProgress;
+      const locationHelper = intl.formatMessage({ id: 'EditListingBasicsForm.locationHelper' });
 
       return (
-        <Form className={classes} onSubmit={handleSubmit}>
+        <Form
+        className={classes} onSubmit={handleSubmit}>
           {errorMessage}
           {errorMessageShowListing}
+          <div className={css.formWrapper}>
+            <div className={css.formLeft}>
+
           <LocationAutocompleteInputField
             className={css.locationAddress}
             inputClassName={css.locationAutocompleteInput}
@@ -113,6 +121,7 @@ export const EditListingLocationFormComponent = props => (
             label={buildingMessage}
             placeholder={buildingPlaceholderMessage}
           />
+
           <MapHelper
             mapClassName={css.editListingLocationMap}
             geolocation={values?.location?.selectedPlace?.origin}
@@ -127,6 +136,16 @@ export const EditListingLocationFormComponent = props => (
           >
             {saveActionMsg}
           </Button>
+          </div>
+          <div className={css.formRight}>
+             <EditListingHelperCard
+             title={
+             <FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />
+             }
+             content={locationHelper}
+             />
+          </div>
+          </div>
         </Form>
       );
     }}

@@ -103,7 +103,8 @@ const estimatedTransaction = (bookingStart, bookingEnd, lineItems, userRole) => 
 const EstimatedBreakdownMaybe = props => {
   const { unitType, startDate, endDate, timeZone } = props.bookingData;
   const lineItems = props.lineItems;
-
+  const { isEntireSpace, isDaily, seatsSelected } = props;
+  console.log(props);
   // Currently the estimated breakdown is used only on ListingPage where we want to
   // show the breakdown for customer so we can use hard-coded value here
   const userRole = 'customer';
@@ -121,6 +122,9 @@ const EstimatedBreakdownMaybe = props => {
       transaction={tx}
       booking={tx.booking}
       timeZone={timeZone}
+      isEntireSpace={isEntireSpace}
+      isDaily={isDaily}
+      seatsSelected={seatsSelected}
     />
   ) : null;
 };

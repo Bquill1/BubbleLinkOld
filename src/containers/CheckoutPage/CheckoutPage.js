@@ -185,7 +185,7 @@ export class CheckoutPageComponent extends Component {
       const listingId = pageData.listing.id;
       const transactionId = tx ? tx.id : null;
       console.log(pageData);
-      const { price, bookingType, spaceRentalAvailability,seats } = pageData.bookingData;
+      const { price, bookingType, spaceRentalAvailability, seats } = pageData.bookingData;
       const { bookingStart, bookingEnd } = pageData.bookingDates;
 
       // Fetch speculated transaction for showing price in booking breakdown
@@ -199,7 +199,7 @@ export class CheckoutPageComponent extends Component {
           price,
           bookingType,
           spaceRentalAvailability,
-          seats
+          seats,
         },
         transactionId
       );
@@ -588,6 +588,9 @@ export class CheckoutPageComponent extends Component {
       return <NamedRedirect name="ListingPage" params={params} />;
     }
 
+    const isDaily = bookingData.bookingType === 'daily';
+    const isEntireSpace = bookingData.spaceRentalAvailability === 'entireSpace';
+const seatsSelected = bookingData.seats;
     // Show breakdown only when speculated transaction and booking are loaded
     // (i.e. have an id)
     const tx = existingTransaction.booking ? existingTransaction : speculatedTransaction;
@@ -606,6 +609,9 @@ export class CheckoutPageComponent extends Component {
           booking={txBooking}
           dateType={DATE_TYPE_DATETIME}
           timeZone={timeZone}
+          isEntireSpace={isEntireSpace}
+          isDaily={isDaily}
+          seatsSelected={seatsSelected}
         />
       ) : null;
 
@@ -727,9 +733,6 @@ export class CheckoutPageComponent extends Component {
         </p>
       );
     }
-
-    const isDaily = bookingData.bookingType === 'daily';
-    const isEntireSpace = bookingData.spaceRentalAvailability === 'entireSpace';
 
     const unitTranslationKey = isDaily ? 'CheckoutPage.perDay' : 'CheckoutPage.perHour';
     const spaceTranslationKey = isEntireSpace

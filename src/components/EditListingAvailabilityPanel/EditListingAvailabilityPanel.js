@@ -14,15 +14,17 @@ import {
   ListingLink,
   Modal,
   TimeRange,
-  EditListingHelperCard
+  EditListingHelperCard,
 } from '../../components';
 import { EditListingAvailabilityPlanForm, EditListingAvailabilityExceptionForm } from '../../forms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLightbulb} from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 
 import css from './EditListingAvailabilityPanel.css';
 
-const availabilityMessage1 = <FormattedMessage id= "EditListingAvailabilityPanel.availabilityMessage1"/>;
+const availabilityMessage1 = (
+  <FormattedMessage id="EditListingAvailabilityPanel.availabilityMessage1" />
+);
 const WEEKDAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 // We want to sort exceptions on the client-side, maximum pagination page size is 100,
@@ -70,7 +72,7 @@ const Weekday = props => {
           ? getEntries(availabilityPlan, dayOfWeek).map(e => {
               return (
                 <span className={css.entry} key={`${e.dayOfWeek}-${e.seats}`}>
-                  Capacity:  {e.seats}
+                  Capacity: {e.seats}
                 </span>
               );
             })
@@ -113,8 +115,9 @@ const createInitialValues = availabilityPlan => {
 };
 
 // Create entries from submit values
-const createEntriesFromSubmitValues = values =>
-  WEEKDAYS.reduce((allEntries, dayOfWeek) => {
+const createEntriesFromSubmitValues = values => {
+  console.log(values);
+  return WEEKDAYS.reduce((allEntries, dayOfWeek) => {
     const dayValues = values[dayOfWeek] || [];
     const dayEntries = dayValues.map(dayValue => {
       const { startTime, endTime, seats } = dayValue;
@@ -131,7 +134,7 @@ const createEntriesFromSubmitValues = values =>
 
     return allEntries.concat(dayEntries.filter(e => !!e));
   }, []);
-
+};
 // Create availabilityPlan from submit values
 const createAvailabilityPlan = values => ({
   availabilityPlan: {
@@ -177,7 +180,7 @@ const EditListingAvailabilityPanel = props => {
 
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
-  const capacity = currentListing.attributes.publicData.capacity
+  const capacity = currentListing.attributes.publicData.capacity;
 
   const isNextButtonDisabled = false;
   // const isNextButtonDisabled = !currentListing.attributes.availabilityPlan;
@@ -202,7 +205,7 @@ const EditListingAvailabilityPanel = props => {
     : createInitialValues(availabilityPlan);
 
   const handleSubmit = values => {
-    console.log(values)
+    console.log(values);
     setValuesFromLastSubmit(values);
 
     // Final Form can wait for Promises to return.
@@ -285,7 +288,10 @@ const EditListingAvailabilityPanel = props => {
           </section>
         </div>
         <div className={css.formRight}>
-          <EditListingHelperCard title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />} content={availabilityMessage1} />
+          <EditListingHelperCard
+            title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />}
+            content={availabilityMessage1}
+          />
         </div>
       </div>
       <section className={css.section}>
@@ -373,7 +379,6 @@ const EditListingAvailabilityPanel = props => {
         <Button
           className={css.goToNextTabButton}
           onClick={onNextTab}
-
           disabled={isNextButtonDisabled}
         >
           {submitButtonText}

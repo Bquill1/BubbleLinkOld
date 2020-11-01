@@ -6,7 +6,7 @@ import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
 import { parse } from '../../util/urlHelpers';
 import { propTypes } from '../../util/types';
-import { ensureListing } from '../../util/data';
+import { ensureListing, getLowestPrice } from '../../util/data';
 import { sdkBoundsToFixedCoordinates, hasSameSDKBounds } from '../../util/maps';
 import { SearchMapInfoCard, SearchMapPriceLabel, SearchMapGroupLabel } from '../../components';
 import config from '../../config';
@@ -131,7 +131,7 @@ export const getMapCenter = map => mapboxLngLatToSDKLatLng(map.getCenter());
 export const isMapsLibLoaded = () =>
   typeof window !== 'undefined' && window.mapboxgl && window.mapboxgl.accessToken;
 
-const getLowestPrice = listing => {
+const getLowestPrices = listing => {
   const { publicData } = listing.attributes;
   const { bookingType_entireSpace, bookingType_individual } = publicData && publicData;
   const pricesFiltered = [

@@ -21,6 +21,19 @@ export const isDate = d =>
   d && Object.prototype.toString.call(d) === '[object Date]' && !Number.isNaN(d.getTime());
 
 /**
+ * CConvert date to moment
+ *
+ * @param {Date} object that should be a Date.
+ *
+ * @returns {boolean} true if given parameter is a Date object.
+ */
+export const convertToMoment = d => {
+  if (isDate(d)) {
+    return moment(d);
+  }
+};
+
+/**
  * Check if the given parameters represent the same Date value (timestamps are compared)
  *
  * @param {Date} first param that should be a Date and it should have same timestamp as second param.
@@ -509,6 +522,16 @@ export const resetToStartOfDay = (date, timeZone, offset = 0) => {
  * @returns {String} formatted month string
  */
 export const monthIdString = date => moment(date).format('YYYY-MM');
+
+
+/**
+ * Format the given date to day id/string
+ *
+ * @param {Date} date to be formatted
+ *
+ * @returns {String} formatted month string
+ */
+export const dayIdString = date => moment(date).format('YYYYMMDD');
 
 /**
  * Not used with time-based process...

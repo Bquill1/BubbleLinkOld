@@ -6,14 +6,15 @@ import { LINE_ITEM_NIGHT, LINE_ITEM_DAY, propTypes } from '../../util/types';
 import css from './BookingBreakdown.css';
 
 const LineItemBasePriceMaybe = props => {
-  const { transaction, unitType, intl } = props;
-  const isNightly = unitType === LINE_ITEM_NIGHT;
-  const isDaily = unitType === LINE_ITEM_DAY;
-  const translationKey = isNightly
-    ? 'BookingBreakdown.baseUnitNight'
-    : isDaily
-    ? 'BookingBreakdown.baseUnitDay'
-    : 'BookingBreakdown.baseUnitQuantity';
+  const { transaction, unitType, intl, isEntireSpace, isDaily, seatsSelected } = props;
+  const translationKey =
+    isDaily && isEntireSpace
+      ? 'BookingBreakdown.dailyEntireSpace'
+      : !isDaily && isEntireSpace
+      ? 'BookingBreakdown.hourlyEntireSpace'
+      : isDaily && !isEntireSpace
+      ? 'BookingBreakdown.dailyIndividual'
+      : 'BookingBreakdown.hourlyIndividual';
 
   // Find correct line-item for given unitType prop.
   // It should be one of the following: 'line-item/night, 'line-item/day', 'line-item/units', or 'line-item/time'
@@ -21,15 +22,27 @@ const LineItemBasePriceMaybe = props => {
   const unitPurchase = transaction.attributes.lineItems.find(
     item => item.code === unitType && !item.reversal
   );
-
-  const quantity = unitPurchase ? unitPurchase.quantity.toString() : null;
+  const quantity = isEntireSpace
+    ? unitPurchase.quantity.toString()
+    : (unitPurchase.quantity / seatsSelected || 1).toString();
   const unitPrice = unitPurchase ? formatMoney(intl, unitPurchase.unitPrice) : null;
   const total = unitPurchase ? formatMoney(intl, unitPurchase.lineTotal) : null;
 
   return quantity && total ? (
     <div className={css.lineItem}>
       <span className={css.itemLabel}>
-        <FormattedMessage id={translationKey} values={{ unitPrice, quantity }} />
+        {isEntireSpace ? (
+
+          <FormattedMessage
+          id={translationKey}
+          values={{ unitPrice, quantity, seats: seatsSelected }}
+          />
+          ): (
+          <FormattedMessage
+          id={translationKey}
+          values={{ unitPrice, quantity, seats: seatsSelected }}
+          />  
+          ) }
       </span>
       <span className={css.itemValue}>{total}</span>
     </div>

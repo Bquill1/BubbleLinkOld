@@ -7,7 +7,6 @@ import css from './SectionSpecialConsiderationsMaybe.css';
 
 const SectionSpecialConsiderationsMaybe = props => {
   const { className, rootClassName, publicData } = props;
-  console.log(publicData)
   const classes = classNames(rootClassName || css.root, className);
   return publicData && publicData.specialConsiderations ? (
     <div className={classes}>

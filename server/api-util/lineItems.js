@@ -29,7 +29,7 @@ exports.transactionLineItems = (listing, bookingData) => {
   const isDaily = bookingData.bookingType === "daily"
   console.log(2225552)
   console.log(bookingData)
-  const ogSeats = bookingData.seats
+  const ogSeats = bookingData.seats || bookingData.seatsSelected
   const isEntireSpace = bookingData.spaceRentalAvailability === "entireSpace"
   const unitPrice = bookingData.price || listing.attributes.price;
   const { startDate, endDate } = bookingData;
@@ -45,7 +45,10 @@ exports.transactionLineItems = (listing, bookingData) => {
   const booking = {
     code: bookingUnitType,
     unitPrice,
-    quantity: isDaily ? ogSeats : calculateQuantityFromHours(startDate, endDate) * ogSeats,
+    quantity: isEntireSpace ? 1 : isDaily
+      ? ogSeats
+      : calculateQuantityFromHours(startDate, endDate) * ogSeats,
+      seatsSelected: ogSeats,
     includeFor: ['customer', 'provider'],
   };
   console.log(8888888);
@@ -56,7 +59,7 @@ exports.transactionLineItems = (listing, bookingData) => {
      unitPrice:  new types.Money(0, "EUR"),
      seats: isEntireSpace ? ogSeats || 1 : 1,
      units: 1,
-     includeFor: [ 'provider'],
+     includeFor: [ ],
    };
   const providerCommission = {
     code: 'line-item/provider-commission',

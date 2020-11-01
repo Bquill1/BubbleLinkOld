@@ -12,7 +12,7 @@
 
 // Icons
 export { default as IconAdd } from './IconAdd/IconAdd';
-export { default as IconArrowHead } from './IconBubbleMarker/IconBubbleMarker';
+export { default as IconArrowHead } from './IconArrowHead/IconArrowHead';
 export { default as IconBannedUser } from './IconBannedUser/IconBannedUser';
 export { default as IconBubbleMarker } from './IconBubbleMarker/IconBubbleMarker';
 export { default as IconCard } from './IconCard/IconCard';

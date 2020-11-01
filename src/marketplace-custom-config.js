@@ -84,7 +84,7 @@ export const filters = [
          },
          {
            id: 'capacity',
-           label: 'Capacity',
+           label: 'Guests',
            type: 'SelectNumberFilter',
            group: 'primary',
            // Note: PriceFilter is fixed filter,
@@ -97,7 +97,7 @@ export const filters = [
          },
          {
            id: 'spaceRentalAvailability',
-           label: 'I would like to rent...',
+           label: 'Portion',
            type: 'SelectMultipleFilter',
            group: 'primary',
            queryParamNames: ['pub_spaceRentalAvailability'],
@@ -108,7 +108,7 @@ export const filters = [
              // to make filter customizations a bit easier.
              options: [
                { key: 'entireSpace', label: 'The entire place' },
-               { key: 'individual', label: 'Individual spaces' },
+               { key: 'individual', label: 'Individual space(s)' },
              ],
            },
          },
@@ -189,8 +189,8 @@ export const filters = [
              // to make filter customizations a bit easier.
              options: [
                { key: 'private', label: 'Private space' },
-               { key: 'sharedHost', label: 'Shared with the host' },
-               { key: 'sharedGuest', label: 'Shared with other guests' },
+               { key: 'sharedHost', label: 'May be shared with the host' },
+               { key: 'sharedGuest', label: 'May be shared with other guests' },
              ],
            },
          },

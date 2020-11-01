@@ -13,6 +13,7 @@ import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
 import { BookingPanelOptionButton, Form, LocationAutocompleteInput, Button } from '..';
 import css from './SectionSearchBlock.css';
+import checkoutPageReducer from '../../../../../../../../data/code/js/bquill/src/containers/CheckoutPage/CheckoutPage.duck';
 const identity = v => v;
 
 const { LatLng, LatLngBounds } = sdkTypes;
@@ -71,9 +72,13 @@ const SectionSearchBlockComponent = props => {
   console.log(categoryFilter);
   const spaceRentalAvailabilityFilter = filters.find(f => f.id === 'spaceRentalAvailability');
   const handleFocus = event => {
-    console.log(1111);
     event.target.select();
   };
+  const windowLoaded =  typeof window !== 'undefined'
+  console.log(111111)
+  console.log(windowLoaded)
+const tooltip =  <ReactTooltip id = 'test' /> 
+
   return (
     <div className={classes}>
       <div className={css.searchResultSummary}>{searchBlockHeader}</div>
@@ -175,7 +180,8 @@ const SectionSearchBlockComponent = props => {
                                 data-tip = {'This is the content'}
                                 data-for = 'test'
                                 />
-                                <ReactTooltip id = 'test' />
+                                {tooltip}
+                                {/* <ReactTooltip id = 'test' /> */}
                 </div>
 
                 <BookingPanelOptionButton

@@ -3,6 +3,8 @@ const fs = require('fs');
 const _ = require('lodash');
 const { types } = require('sharetribe-flex-sdk');
 const { renderApp } = require('./importer');
+const getRandomValues = require('get-random-values');
+const crypto = require('crypto');
 
 const buildPath = path.resolve(__dirname, '..', 'build');
 

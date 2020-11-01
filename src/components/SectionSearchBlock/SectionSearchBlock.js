@@ -13,7 +13,6 @@ import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
 import { BookingPanelOptionButton, Form, LocationAutocompleteInput, Button } from '..';
 import css from './SectionSearchBlock.css';
-import checkoutPageReducer from '../../../../../../../../data/code/js/bquill/src/containers/CheckoutPage/CheckoutPage.duck';
 const identity = v => v;
 
 const { LatLng, LatLngBounds } = sdkTypes;

@@ -13,6 +13,7 @@ import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
 import { BookingPanelOptionButton, Form, LocationAutocompleteInput, Button } from '..';
 import css from './SectionSearchBlock.css';
+import checkoutPageReducer from '../../containers/CheckoutPage/CheckoutPage.duck';
 const identity = v => v;
 
 const { LatLng, LatLngBounds } = sdkTypes;
@@ -52,7 +53,9 @@ const SectionSearchBlockComponent = props => {
     'entireSpace'
   );
   const [capacityFilter, setCapacityFilter] = useState(1);
+  console.log(capacityFilter)
   const handleButtonCapacityFilter = val => {
+    console.log(val)
     const newCount = parseInt(capacityFilter) + parseInt(val);
     setCapacityFilter(newCount < 1 ? 1 : newCount > 100 ? 100 : newCount);
   };
@@ -76,15 +79,12 @@ const SectionSearchBlockComponent = props => {
     individual: "I'm happy to share",
   };
   const categoryFilter = filters.find(f => f.id === 'category');
-  console.log(categoryFilter);
   const spaceRentalAvailabilityFilter = filters.find(f => f.id === 'spaceRentalAvailability');
   const handleFocus = event => {
     event.target.select();
   };
   const windowLoaded = typeof window !== 'undefined';
-  console.log(111111);
-  console.log(windowLoaded);
-  const tooltip = <ReactTooltip id="test" />;
+  const tooltip = windowLoaded && <ReactTooltip id="test" />;
 
   return (
     <div className={classes}>
@@ -151,7 +151,7 @@ const SectionSearchBlockComponent = props => {
                         className={css.numberButton}
                         onClick={e => {
                           e.preventDefault();
-                          handleButtonCapacityFilter(capacityFilter - 1);
+                          handleButtonCapacityFilter(- 1);
                         }}
                       >
                         -
@@ -161,6 +161,7 @@ const SectionSearchBlockComponent = props => {
                       className={css.capacityInput}
                       value={capacityFilter}
                       onChange={e => {
+                        e.preventDefault()
                         handleSetCapacityFilter(e.target.value);
                       }}
                       onFocus={handleFocus}
@@ -171,7 +172,7 @@ const SectionSearchBlockComponent = props => {
                         className={css.numberButton}
                         onClick={e => {
                           e.preventDefault();
-                          handleButtonCapacityFilter(capacityFilter + 1);
+                          handleButtonCapacityFilter(1);
                         }}
                       >
                         +

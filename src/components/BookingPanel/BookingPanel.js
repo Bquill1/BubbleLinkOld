@@ -176,7 +176,7 @@ const BookingPanel = props => {
       // check if entire space is selected, and if it is not available
       // checked by comparing seats in slot to original availability
       const dayHasBooking = seats !== originalAvailabilityPlanForDay?.seats;
-      const dayId = dayIdString(resetToStartOfDay(start, timeZone));
+      const dayId = start && timeZone && dayIdString(resetToStartOfDay(start, timeZone));
       console.log(dayHasBooking);
       console.log(daysThatHaveBookings);
       console.log(dayId);

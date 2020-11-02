@@ -24,7 +24,7 @@ const DAYPLAN_TEMPLATE = {
   dayOfWeek: '',
   startTime: '09:00',
   endTime: '17:00',
-  seats: null,
+  seats: 1,
 };
 const HOURS = Array(24).fill();
 const ALL_START_HOURS = [...HOURS].map((v, i) => printHourStrings(i));
@@ -229,7 +229,7 @@ const DailyPlan = props => {
                 <InlineTextButton
                   type="button"
                   className={css.buttonAddNew}
-                  onClick={() => fields.push({ startTime: null, endTime: null })}
+                  onClick={() => fields.push({ startTime: null, endTime: null, seats: 1 })}
                 >
                   <FormattedMessage id="EditListingAvailabilityPlanForm.addAnother" />
                 </InlineTextButton>
@@ -254,7 +254,7 @@ const submit = (onSubmit, weekdays) => values => {
     },
     { ...values }
   );
-
+console.log(sortedValues)
   onSubmit(sortedValues);
 };
 

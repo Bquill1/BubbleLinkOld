@@ -37,8 +37,11 @@ export const BookingBreakdownComponent = props => {
     intl,
     dateType,
     timeZone,
+    isEntireSpace,
+    isDaily,
+    seatsSelected,
   } = props;
-
+  console.log(props);
   const isCustomer = userRole === 'customer';
   const isProvider = userRole === 'provider';
 
@@ -98,8 +101,15 @@ export const BookingBreakdownComponent = props => {
       />
       <LineItemUnitPriceMaybe transaction={transaction} unitType={unitType} intl={intl} />
 
-      <LineItemBasePriceMaybe transaction={transaction} unitType={unitType} intl={intl} />
-      <LineItemUnknownItemsMaybe transaction={transaction} isProvider={isProvider} intl={intl} />
+      <LineItemBasePriceMaybe
+        transaction={transaction}
+        unitType={unitType}
+        intl={intl}
+        isEntireSpace={isEntireSpace}
+        isDaily={isDaily}
+        seatsSelected={seatsSelected}
+      />
+      {/* <LineItemUnknownItemsMaybe transaction={transaction} isProvider={isProvider} intl={intl} /> */}
 
       <LineItemSubTotalMaybe
         transaction={transaction}

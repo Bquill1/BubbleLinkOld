@@ -7,16 +7,11 @@ import css from './ListingPage.css';
 
 const SectionHeading = props => {
   const {
-    priceTitle,
-    prices,
-    formattedPrice,
     richTitle,
-    category,
     hostLink,
     showContactUser,
     onContactUser,
   } = props;
-console.log(props)
   const unitType = config.bookingUnitType;
   const isNightly = unitType === LINE_ITEM_NIGHT;
   const isDaily = unitType === LINE_ITEM_DAY;

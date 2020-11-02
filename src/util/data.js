@@ -1,6 +1,9 @@
 import isArray from 'lodash/isArray';
 import reduce from 'lodash/reduce';
 import { sanitizeEntity } from './sanitize';
+import config from '../config';
+import { types as sdkTypes } from './sdkLoader';
+const { Money } = sdkTypes;
 
 /**
  * Combine the given relationships objects
@@ -16,6 +19,22 @@ export const combinedRelationships = (oldRels, newRels) => {
   return { ...oldRels, ...newRels };
 };
 
+
+// retrieve the lowest available price from a listing
+export const getLowestPrice = listing => {
+  const { publicData } = listing.attributes;
+  const { bookingType_entireSpace, bookingType_individual } = publicData && publicData;
+  const pricesFiltered = [
+    bookingType_entireSpace?.includes('hourly') && publicData.price_entireSpace_hourly,
+    bookingType_entireSpace?.includes('daily') && publicData.price_entireSpace_daily,
+    bookingType_individual?.includes('hourly') && publicData.price_individual_hourly,
+    bookingType_individual?.includes('daily') && publicData.price_individual_daily,
+  ].filter(f => f && f > 0);
+  const lowestPrice = pricesFiltered.length
+    ? new Money(Math.min(...pricesFiltered), config.currency)
+    : listing.attributes.price;
+  return lowestPrice;
+};
 /**
  * Combine the given resource objects
  *

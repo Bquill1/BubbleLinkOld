@@ -151,11 +151,11 @@ export const ManageListingCardComponent = props => {
     : currentListing.attributes.price;
   console.log(lowestPrice);
   const lowestPriceOption = [
-    publicData.price_entireSpace_hourly,
-    publicData.price_entireSpace_daily,
-    publicData.price_individual_hourly,
-    publicData.price_individual_daily,
-  ].findIndex(p => p === lowestPrice.amount);
+    publicData?.price_entireSpace_hourly,
+    publicData?.price_entireSpace_daily,
+    publicData?.price_individual_hourly,
+    publicData?.price_individual_daily,
+  ]?.findIndex(p => p === lowestPrice?.amount);
   const unitTranslation = { 0: 'hr', 2: 'hr', 1: 'day', 3: 'day' };
   console.log(lowestPriceOption);
 

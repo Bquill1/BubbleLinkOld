@@ -52,6 +52,14 @@ const SectionSearchBlockComponent = props => {
     'entireSpace'
   );
   const [capacityFilter, setCapacityFilter] = useState(1);
+  const handleButtonCapacityFilter = val => {
+    const newCount = parseInt(capacityFilter) + parseInt(val);
+    setCapacityFilter(newCount < 1 ? 1 : newCount > 100 ? 100 : newCount);
+  };
+
+  const handleSetCapacityFilter = val => {
+    setCapacityFilter(val < 1 ? 1 : val > 100 ? 100 : val);
+  };
   const searchBlockHeader = <FormattedMessage id="SectionSearchBlock.header" />;
   const searchBlockWhatKindOfPlace = <FormattedMessage id="SectionSearchBlock.whatKindOfPlace" />;
   const searchBlockCapacity = <FormattedMessage id="SectionSearchBlock.capacity" />;
@@ -71,9 +79,13 @@ const SectionSearchBlockComponent = props => {
   console.log(categoryFilter);
   const spaceRentalAvailabilityFilter = filters.find(f => f.id === 'spaceRentalAvailability');
   const handleFocus = event => {
-    console.log(1111);
     event.target.select();
   };
+  const windowLoaded = typeof window !== 'undefined';
+  console.log(111111);
+  console.log(windowLoaded);
+  const tooltip = <ReactTooltip id="test" />;
+
   return (
     <div className={classes}>
       <div className={css.searchResultSummary}>{searchBlockHeader}</div>
@@ -139,7 +151,7 @@ const SectionSearchBlockComponent = props => {
                         className={css.numberButton}
                         onClick={e => {
                           e.preventDefault();
-                          setCapacityFilter(capacityFilter - 1);
+                          handleButtonCapacityFilter(capacityFilter - 1);
                         }}
                       >
                         -
@@ -149,7 +161,7 @@ const SectionSearchBlockComponent = props => {
                       className={css.capacityInput}
                       value={capacityFilter}
                       onChange={e => {
-                        setCapacityFilter(e.target.value);
+                        handleSetCapacityFilter(e.target.value);
                       }}
                       onFocus={handleFocus}
                       type="slider"
@@ -159,7 +171,7 @@ const SectionSearchBlockComponent = props => {
                         className={css.numberButton}
                         onClick={e => {
                           e.preventDefault();
-                          setCapacityFilter(capacityFilter + 1);
+                          handleButtonCapacityFilter(capacityFilter + 1);
                         }}
                       >
                         +
@@ -167,15 +179,17 @@ const SectionSearchBlockComponent = props => {
                     </div>
                   </div>
                 </div>
-                <div className={css.searchResultSummary}>{searchBlockWhatKindOfPlace}
-                <FontAwesomeIcon
-                                className={css.iconClassName}
-                                size={'1x'}
-                                icon={faQuestionCircle}
-                                data-tip = {'This is the content'}
-                                data-for = 'test'
-                                />
-                                <ReactTooltip id = 'test' />
+                <div className={css.searchResultSummary}>
+                  {searchBlockWhatKindOfPlace}
+                  <FontAwesomeIcon
+                    className={css.iconClassName}
+                    size={'1x'}
+                    icon={faQuestionCircle}
+                    data-tip={'This is the content'}
+                    data-for="test"
+                  />
+                  {tooltip}
+                  {/* <ReactTooltip id = 'test' /> */}
                 </div>
 
                 <BookingPanelOptionButton

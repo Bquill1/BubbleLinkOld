@@ -35,8 +35,9 @@ class FieldNumberInputComponent extends Component {
 
   updateValues(event) {
     try {
+      console.log(event)
       const { min, max } = this.props;
-      let targetValue = parseInt(event.target.value.trim());
+      let targetValue = parseInt(event.target.value === "NaN" ? 1 : event.target.value.trim());
       const isInRange = targetValue >= min && targetValue <= max;
       const isSafeValue = targetValue > 0 && Number.isInteger(targetValue) && isInRange;
       if (!isSafeValue) {
@@ -78,6 +79,7 @@ class FieldNumberInputComponent extends Component {
       ...rest
     } = this.props;
     console.log(this.props);
+    console.log(input)
     /* eslint-enable no-unused-vars */
     if (this.state.count === null) {
       this.setState({ count: input.value });
@@ -130,7 +132,7 @@ class FieldNumberInputComponent extends Component {
           </div>
           <input
             className={inputProps.className}
-            value={input.value}
+            value={values || input.value}
             onChange={this.onInputChange}
             type="text"
             onFocus={handleFocus}

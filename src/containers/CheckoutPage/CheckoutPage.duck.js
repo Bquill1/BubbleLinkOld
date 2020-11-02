@@ -188,7 +188,9 @@ export const initiateOrder = (orderParams, transactionId) => (dispatch, getState
         transition,
         params: {
           ...orderParams,
-          protectedData: { bookingData: { price: price.amount, bookingType, spaceRentalAvailability } },
+          protectedData: {
+            bookingData: { price: price.amount, bookingType, spaceRentalAvailability, seats },
+          },
         },
       }
     : {
@@ -196,7 +198,9 @@ export const initiateOrder = (orderParams, transactionId) => (dispatch, getState
         transition,
         params: {
           ...orderParams,
-          protectedData: { bookingData: { price: price.amount, bookingType, spaceRentalAvailability } },
+          protectedData: {
+            bookingData: { price: price.amount, bookingType, spaceRentalAvailability, seats },
+          },
         },
       };
   const queryParams = {

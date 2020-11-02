@@ -9,7 +9,7 @@ import css from './TransactionPanel.css';
 
 // Functional component as a helper to build BookingBreakdown
 const BreakdownMaybe = props => {
-  const { className, rootClassName, breakdownClassName, transaction, transactionRole } = props;
+  const { className, rootClassName, breakdownClassName, transaction, transactionRole, isEntireSpace, isDaily, seatsSelected } = props;
   const loaded = transaction && transaction.id && transaction.booking && transaction.booking.id;
   const listingAttributes = ensureListing(transaction.listing).attributes;
   const timeZone =
@@ -30,6 +30,9 @@ const BreakdownMaybe = props => {
         booking={transaction.booking}
         dateType={DATE_TYPE_DATETIME}
         timeZone={timeZone}
+        isDaily={isDaily}
+        isEntireSpace={isEntireSpace}
+        seatsSelected={seatsSelected}
       />
     </div>
   ) : null;

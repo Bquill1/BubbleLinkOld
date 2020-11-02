@@ -39,7 +39,6 @@ const BlockIcon = props => {
 const ViewBlock = props => {
   const { icon, valueFirst, valueSecond } = props;
 
-  console.log(props);
   return (
     <div className={css.viewBlock}>
       {icon}
@@ -63,7 +62,6 @@ const SectionViewMaybe = props => {
   if (!publicData) {
     return null;
   }
-  console.log(props);
   const { capacity, propertyType, spaceType, category } = publicData;
   const propertyTypeKey = {
     house: <BlockIcon icon={faHome} tip="This space is in the hosts house." />,

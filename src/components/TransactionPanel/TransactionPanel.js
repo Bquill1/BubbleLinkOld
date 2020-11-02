@@ -293,6 +293,7 @@ export class TransactionPanelComponent extends Component {
 
     const isDaily = bookingData?.bookingType === 'daily';
     const isEntireSpace = bookingData?.spaceRentalAvailability === 'entireSpace';
+    const seats = bookingData?.seats;
 
     const unitTranslationKey = isDaily ? 'CheckoutPage.perDay' : 'CheckoutPage.perHour';
     const spaceTranslationKey = isEntireSpace
@@ -377,7 +378,13 @@ export class TransactionPanelComponent extends Component {
                 geolocation={geolocation}
                 showAddress={stateData.showAddress}
               />
-              <BreakdownMaybe transaction={currentTransaction} transactionRole={transactionRole} />
+              <BreakdownMaybe
+                transaction={currentTransaction}
+                transactionRole={transactionRole}
+                isDaily={isDaily}
+                isEntireSpace={isEntireSpace}
+                seatsSelected={seats}
+              />
             </div>
 
             {savePaymentMethodFailed ? (
@@ -467,6 +474,9 @@ export class TransactionPanelComponent extends Component {
                 className={css.breakdownContainer}
                 transaction={currentTransaction}
                 transactionRole={transactionRole}
+                isDaily={isDaily}
+                isEntireSpace={isEntireSpace}
+                seatsSelected={seats}
               />
 
               {stateData.showSaleButtons ? (

@@ -78,7 +78,6 @@ class FieldDateInputComponent extends Component {
     };
     const classes = classNames(rootClassName || css.fieldRoot, className);
     const errorClasses = classNames({ [css.mobileMargins]: useMobileMargins });
-console.log(inputProps)
     return (
       <div className={classes}>
         {label ? (
@@ -92,6 +91,7 @@ console.log(inputProps)
             {label}
           </label>
         ) : null}
+        
         <DateInput className={inputClasses} {...inputProps} renderDayContents={renderDayHtml} />
         {showErrorMessage ? <ValidationError className={errorClasses} fieldMeta={meta} /> : null}
       </div>

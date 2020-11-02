@@ -37,16 +37,21 @@ const endOfRange = (date, timeZone) => {
 };
 
 const getAvailableStartTimes = (intl, timeZone, bookingStart, timeSlotsOnSelectedDate) => {
+  console.log(bookingStart);
+  console.log(timeSlotsOnSelectedDate);
   if (timeSlotsOnSelectedDate.length === 0 || !timeSlotsOnSelectedDate[0] || !bookingStart) {
     return [];
   }
   const bookingStartDate = resetToStartOfDay(bookingStart, timeZone);
 
   const allHours = timeSlotsOnSelectedDate.reduce((availableHours, t) => {
+    console.log(t)
     const startDate = t.attributes.start;
     const endDate = t.attributes.end;
     const nextDate = resetToStartOfDay(bookingStartDate, timeZone, 1);
-
+console.log(startDate);
+console.log(endDate);
+console.log(nextDate);
     // If the start date is after timeslot start, use the start date.
     // Otherwise use the timeslot start time.
     const startLimit = dateIsAfter(bookingStartDate, startDate) ? bookingStartDate : startDate;
@@ -54,10 +59,12 @@ const getAvailableStartTimes = (intl, timeZone, bookingStart, timeSlotsOnSelecte
     // If date next to selected start date is inside timeslot use the next date to get the hours of full day.
     // Otherwise use the end of the timeslot.
     const endLimit = dateIsAfter(endDate, nextDate) ? nextDate : endDate;
-
+console.log(startLimit);
+console.log(endLimit);
     const hours = getStartHours(intl, timeZone, startLimit, endLimit);
     return availableHours.concat(hours);
   }, []);
+  console.log(allHours)
   return allHours;
 };
 
@@ -103,27 +110,6 @@ const getAvailableEndTimes = (
 };
 
 const getTimeSlots = (timeSlots, date, timeZone) => {
-  const ogTimeSlots =
-    timeSlots && timeSlots[0]
-      ? timeSlots.filter(t =>
-          isInRange(date, t.attributes.start, t.attributes.end, 'day', timeZone)
-        )
-      : [];
-  const combinedTimeSlots = ogTimeSlots.reduce((arr, ts) => {
-    if (!arr.length) {
-      return [ts];
-    }
-    const tsStart = ts.attributes.start.getTime();
-    const lastEnd = arr[arr.length - 1].attributes.end.getTime();
-    if (tsStart <= lastEnd) {
-      const tsEnd = ts.attributes.end;
-      arr[arr.length - 1].attributes.end = tsEnd;
-      return [...arr];
-    } else {
-      return [...arr, ts];
-    }
-  }, []);
-
   return timeSlots && timeSlots[0]
     ? timeSlots.filter(t => isInRange(date, t.attributes.start, t.attributes.end, 'day', timeZone))
     : [];
@@ -391,6 +377,8 @@ class FieldDateAndTimeInput extends Component {
       bookingType,
       spaceRentalAvailability,
     } = this.props;
+
+    console.log(this.props)
     const isDaily = bookingType === 'daily';
     const classes = classNames(rootClassName || css.root, className);
 

@@ -32,7 +32,6 @@ export const TopbarContainerComponent = props => {
     onResendVerificationEmail,
     ...rest
   } = props;
-  console.log(props)
 const currentUserIsHost = isAuthenticated && currentUser?.attributes?.profile?.publicData?.isHost;
   return (
     <Topbar

@@ -76,7 +76,7 @@ const EditListingBasicsPanel = props => {
         initialValues={{
           category,
           propertyType,
-          capacity,
+          capacity: capacity || 1,
           spaceType,
         }}
         isNewListingFlow={isNewListingFlow}

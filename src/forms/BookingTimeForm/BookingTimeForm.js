@@ -25,7 +25,6 @@ export class BookingTimeFormComponent extends Component {
   }
 
   handleFormSubmit(e) {
-    console.log(e);
     const { bookingType, spaceRentalAvailability } = this.state;
     const { price, seatsSelected } = this.props;
     this.props.onSubmit({
@@ -60,7 +59,9 @@ export class BookingTimeFormComponent extends Component {
     }
     const { bookingType, spaceRentalAvailability, price, seatsSelected } = this.props;
     const { bookingStartTime, bookingEndTime } = formValues.values;
-
+    if(!!bookingStartTime){
+      this.props.setDateSelected(timestampToDate(bookingStartTime));
+    }
     const startDate = bookingStartTime ? timestampToDate(bookingStartTime) : null;
     const endDate = bookingEndTime ? timestampToDate(bookingEndTime) : null;
     const listingId = this.props.listingId;
@@ -74,7 +75,7 @@ export class BookingTimeFormComponent extends Component {
           price,
           bookingType,
           spaceRentalAvailability,
-          seats: parseInt(seatsSelected) || 1,
+          seatsSelected: parseInt(seatsSelected) || 1,
         },
         // bookingData: {
         //   startDate,
@@ -95,6 +96,7 @@ export class BookingTimeFormComponent extends Component {
 
     const stateBookingType = this.state.bookingType;
     const stateSpaceRentalAvailability = this.state.spaceRentalAvailability;
+    const stateSeatsSelected = this.state.seatsSelected;
 
     const classes = classNames(rootClassName || css.root, className);
 
@@ -146,20 +148,23 @@ export class BookingTimeFormComponent extends Component {
             fetchLineItemsError,
             seatsSelected,
           } = fieldRenderProps;
-          console.log(this.props)
+          console.log(this.props);
           const startTime = values && values.bookingStartTime ? values.bookingStartTime : null;
           const endTime = values && values.bookingEndTime ? values.bookingEndTime : null;
           const isDaily = bookingType === 'daily';
           if (
             bookingType !== stateBookingType ||
-            spaceRentalAvailability !== stateSpaceRentalAvailability
+            spaceRentalAvailability !== stateSpaceRentalAvailability ||
+            seatsSelected !== stateSeatsSelected
           ) {
             this.setState({
               bookingType: bookingType,
               spaceRentalAvailability: spaceRentalAvailability,
+              seatsSelected: seatsSelected,
             });
             this.handleOnChange({ values });
           }
+          const isEntireSpace = this.props.spaceRentalAvailability === 'entireSpace';
           const bookingStartLabel = intl.formatMessage({
             id: 'BookingTimeForm.bookingStartTitle',
           });
@@ -180,7 +185,8 @@ export class BookingTimeFormComponent extends Component {
                   startDate,
                   endDate,
                   timeZone,
-                  seats: seatsSelected,
+                  quantity: stateSeatsSelected,
+                  seats: stateSeatsSelected,
                 }
               : null;
 
@@ -194,7 +200,13 @@ export class BookingTimeFormComponent extends Component {
               <h3 className={css.priceBreakdownTitle}>
                 <FormattedMessage id="BookingTimeForm.priceBreakdownTitle" />
               </h3>
-              <EstimatedBreakdownMaybe bookingData={bookingData} lineItems={this.props.lineItems} />
+              <EstimatedBreakdownMaybe
+                bookingData={bookingData}
+                isEntireSpace={isEntireSpace}
+                isDaily={isDaily}
+                seatsSelected={seatsSelected}
+                lineItems={this.props.lineItems}
+              />
             </div>
           ) : null;
 

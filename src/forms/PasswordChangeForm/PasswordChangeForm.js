@@ -44,7 +44,7 @@ class PasswordChangeFormComponent extends Component {
             form,
             values,
           } = fieldRenderProps;
-
+          console.log(form);
           const user = ensureCurrentUser(currentUser);
 
           if (!user.id) {
@@ -121,11 +121,16 @@ class PasswordChangeFormComponent extends Component {
               </span>
             ) : null;
 
+            const classes = classNames(rootClassName || css.root, className);
           const submittedOnce = Object.keys(this.submittedValues).length > 0;
-          const pristineSinceLastSubmit = submittedOnce && isEqual(values, this.submittedValues);
-          const classes = classNames(rootClassName || css.root, className);
+          const noValues = Object.keys(values).length === 0;
+          const pristineSinceLastSubmit = submittedOnce && noValues;
+          // const pristineSinceLastSubmit = submittedOnce && isEqual(values, this.submittedValues);
           const submitDisabled = invalid || pristineSinceLastSubmit || inProgress;
-
+          console.log(noValues);
+          console.log(submittedOnce);
+          console.log(pristineSinceLastSubmit);
+          console.log(values);
           return (
             <Form
               className={classes}
@@ -133,7 +138,7 @@ class PasswordChangeFormComponent extends Component {
                 this.submittedValues = values;
                 handleSubmit(e)
                   .then(() => {
-                    this.resetTimeoutId = window.setTimeout(form.reset, RESET_TIMEOUT);
+                    this.resetTimeoutId = window.setTimeout(window.location.reload(), RESET_TIMEOUT);
                   })
                   .catch(() => {
                     // Error is handled in duck file already.
@@ -148,11 +153,13 @@ class PasswordChangeFormComponent extends Component {
                   autoComplete="new-password"
                   label={newPasswordLabel}
                   placeholder={newPasswordPlaceholder}
-                  validate={validators.composeValidators(
-                    newPasswordRequired,
-                    passwordMinLength,
-                    passwordMaxLength
-                  )}
+                  validate={
+                       validators.composeValidators(
+                          newPasswordRequired,
+                          passwordMinLength,
+                          passwordMaxLength
+                        )
+                  }
                 />
               </div>
 
@@ -187,6 +194,7 @@ class PasswordChangeFormComponent extends Component {
                   inProgress={inProgress}
                   ready={ready}
                   disabled={submitDisabled}
+                  autofocus
                 >
                   <FormattedMessage id="PasswordChangeForm.saveChanges" />
                 </PrimaryButton>

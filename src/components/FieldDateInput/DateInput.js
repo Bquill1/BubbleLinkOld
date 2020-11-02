@@ -155,7 +155,6 @@ class DateInputComponent extends Component {
     } = this.props;
     /* eslint-enable no-unused-vars */
     const initialMoment = initialDate ? moment(initialDate) : null;
-
     const date =
       value && value.date instanceof Date && value.date.toString() !== 'Invalid Date'
         ? moment(value.date)

@@ -24,6 +24,7 @@ import {
   ensureOwnListing,
   ensureUser,
   userDisplayNameAsString,
+  getLowestPrice,
 } from '../../util/data';
 import { timestampToDate, calculateQuantityFromHours } from '../../util/dates';
 import { richText } from '../../util/richText';
@@ -112,31 +113,24 @@ export class ListingPageComponent extends Component {
       onInitializeCardPaymentData,
       originalAvailabilityPlan,
     } = this.props;
-    console.log(11111111111111);
 
     const listingId = new UUID(params.id);
     const listing = getListing(listingId);
     const isDaily = values.bookingType === 'daily';
     const isEntireSpace = values.spaceRentalAvailability === 'entireSpace';
-    console.log(isEntireSpace);
     const { bookingStartTime, bookingEndTime, seats, ...restOfValues } = values;
-    console.log(values);
     const timeSlotDayString = DAYS_OF_WEEK[values.bookingStartDate.date.getDay()];
     const originalAvailabilityPlanForDay = originalAvailabilityPlan.entries.find(
       p => p.dayOfWeek === timeSlotDayString
     );
-    console.log(originalAvailabilityPlanForDay);
     const bookingStart = timestampToDate(bookingStartTime);
     const bookingEnd = timestampToDate(bookingEndTime);
 
-    console.log(values);
-    console.log(restOfValues);
     const bookingData = {
       quantity: isDaily ? 1 : calculateQuantityFromHours(bookingStart, bookingEnd),
       seats: isEntireSpace ? originalAvailabilityPlanForDay.seats : parseInt(seats),
       ...restOfValues,
     };
-    console.log(bookingData);
     const initialValues = {
       listing,
       bookingData,
@@ -229,7 +223,6 @@ export class ListingPageComponent extends Component {
       fetchLineItemsInProgress,
       fetchLineItemsError,
     } = this.props;
-    console.log(this.props);
     const listingId = new UUID(rawParams.id);
     const isPendingApprovalVariant = rawParams.variant === LISTING_PAGE_PENDING_APPROVAL_VARIANT;
     const isDraftVariant = rawParams.variant === LISTING_PAGE_DRAFT_VARIANT;
@@ -275,7 +268,6 @@ export class ListingPageComponent extends Component {
 
     const getMultiPrices = listing => {
       const publicData = listing?.attributes?.publicData;
-      console.log(publicData);
       const { bookingType_entireSpace, bookingType_individual } = publicData && publicData;
       return {
         entireSpace: {
@@ -386,9 +378,8 @@ export class ListingPageComponent extends Component {
 
     const { formattedPrice, priceTitle } = priceData(price, intl);
     const prices = getMultiPrices(currentListing);
-    console.log(prices);
+    const lowestPrice = formatMoney(intl, getLowestPrice(currentListing))
     const handleBookingSubmit = values => {
-      console.log(values);
       const isCurrentlyClosed = currentListing.attributes.state === LISTING_STATE_CLOSED;
       if (isOwnListing || isCurrentlyClosed) {
         window.scrollTo(0, 0);
@@ -418,7 +409,7 @@ export class ListingPageComponent extends Component {
     const siteTitle = config.siteTitle;
     const schemaTitle = intl.formatMessage(
       { id: 'ListingPage.schemaTitle' },
-      { title, price: formattedPrice, siteTitle }
+      { title, price: lowestPrice, siteTitle }
     );
 
     const hostLink = (
@@ -653,7 +644,6 @@ const mapStateToProps = state => {
     fetchLineItemsError,
     enquiryModalOpenForListingId,
   } = state.ListingPage;
-  console.log(state.ListingPage);
   const { currentUser } = state.user;
 
   const getListing = id => {

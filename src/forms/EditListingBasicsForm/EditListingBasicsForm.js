@@ -164,7 +164,7 @@ const EditListingBasicsFormComponent = props => (
                   label={capacityLabel}
                   min={MIN_GUESTS}
                   max={MAX_GUESTS}
-                  values={values.capacity}
+                  values={values.capacity || 1}
                   validate={numberValidators}
                 />
               </div>

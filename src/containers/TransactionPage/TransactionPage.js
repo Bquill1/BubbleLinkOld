@@ -86,11 +86,26 @@ export const TransactionPageComponent = props => {
     fetchLineItemsError,
     originalAvailabilityPlan,
   } = props;
+  console.log(props)
   const currentTransaction = ensureTransaction(transaction);
   const currentListing = ensureListing(currentTransaction.listing);
   const isProviderRole = transactionRole === PROVIDER;
   const isCustomerRole = transactionRole === CUSTOMER;
+  const protectedData = currentTransaction?.attributes?.protectedData
+  const bookingData = protectedData?.bookingData || {}
+  const {bookingType, seats, spaceRentalAvailability} = bookingData 
+  const isDaily = bookingType === 'daily';
+  const isEntireSpace = spaceRentalAvailability === "entireSpace"
 
+ const unitPurchase = currentTransaction?.attributes?.lineItems?.find(
+   item => item.code === 'line-item/units' && !item.reversal
+ );
+  const quantity = isEntireSpace
+    ? unitPurchase?.quantity.toString()
+    : (unitPurchase?.quantity / seats || 1).toString();
+ console.log(seats);
+ console.log(quantity);
+ console.log(quantity);
   const redirectToCheckoutPageWithInitialValues = (initialValues, listing) => {
     const routes = routeConfiguration();
     // Customize checkout page state with current listing and selected bookingDates
@@ -261,6 +276,9 @@ export const TransactionPageComponent = props => {
       fetchLineItemsInProgress={fetchLineItemsInProgress}
       fetchLineItemsError={fetchLineItemsError}
       originalAvailabilityPlan={originalAvailabilityPlan}
+      isDaily={isDaily}
+      isEntireSpace={isEntireSpace}
+      seatsSelected={seats}
     />
   ) : (
     loadingOrFailedFetching

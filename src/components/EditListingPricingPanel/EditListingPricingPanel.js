@@ -29,8 +29,10 @@ const EditListingPricingPanel = props => {
     updateInProgress,
     isNewListingFlow,
     errors,
+    values,
   } = props;
-console.log(props)
+  console.log(props);
+  console.log(values);
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
   const { price, publicData } = currentListing.attributes;
@@ -42,6 +44,7 @@ console.log(props)
     price_individual_daily = 0,
     price_individual_hourly = 0,
     spaceRentalAvailability,
+    capacity,
   } = publicData;
 
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
@@ -69,6 +72,11 @@ console.log(props)
     { key: 'hourly', label: 'Hourly' },
     { key: 'daily', label: 'Daily' },
   ];
+ const removeDuplicates = (myArr, prop) =>  {
+   return myArr.filter((obj, pos, arr) => {
+     return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+   });
+ }
   const priceCurrencyValid = price instanceof Money ? price.currency === config.currency : true;
   const form = priceCurrencyValid ? (
     <EditListingPricingForm
@@ -85,6 +93,9 @@ console.log(props)
       isNewListingFlow={isNewListingFlow}
       onSubmit={values => {
         console.log(values);
+        const currentAvailabilityPlan = currentListing?.attributes.availabilityPlan;
+        const entries = currentAvailabilityPlan?.entries || [];
+       
         const {
           bookingType_entireSpace,
           bookingType_individual,
@@ -116,7 +127,15 @@ console.log(props)
         ) {
           bookingType_searchOptions.push('daily');
         }
-        console.log(bookingType_searchOptions);
+         const newAvailabilityPlan = bookingType_searchOptions.includes('daily') && currentAvailabilityPlan
+           ? {
+               availabilityPlan: {
+                 ...currentAvailabilityPlan,
+                 entries: removeDuplicates(entries, 'dayOfWeek'),
+               },
+             }
+           : null;
+         console.log(newAvailabilityPlan);
         const updatedValues = {
           price,
           publicData: {
@@ -128,7 +147,9 @@ console.log(props)
             price_individual_daily: price_individual_daily.amount,
             price_individual_hourly: price_individual_hourly.amount,
             spaceRentalAvailability,
+          
           },
+          ...newAvailabilityPlan
         };
         console.log(updatedValues);
 

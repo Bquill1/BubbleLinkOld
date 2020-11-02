@@ -119,7 +119,7 @@ const getEntryBoundaries = (values, dayOfWeek, intl, findStartHours) => index =>
 };
 
 const DailyPlan = props => {
-  const { dayOfWeek, values, capacity, intl } = props;
+  const { dayOfWeek, values, capacity, isDaily, intl } = props;
   const getEntryStartTimes = getEntryBoundaries(values, dayOfWeek, intl, true);
   const getEntryEndTimes = getEntryBoundaries(values, dayOfWeek, intl, false);
 
@@ -221,11 +221,17 @@ const DailyPlan = props => {
                 <InlineTextButton
                   type="button"
                   className={css.buttonSetHours}
-                  onClick={() => fields.push({ startTime: DAYPLAN_TEMPLATE.startTime, endTime: DAYPLAN_TEMPLATE.endTime,seats: capacity })}
+                  onClick={() =>
+                    fields.push({
+                      startTime: DAYPLAN_TEMPLATE.startTime,
+                      endTime: DAYPLAN_TEMPLATE.endTime,
+                      seats: capacity,
+                    })
+                  }
                 >
                   <FormattedMessage id="EditListingAvailabilityPlanForm.setHours" />
                 </InlineTextButton>
-              ) : (
+              ) : !isDaily ? (
                 <InlineTextButton
                   type="button"
                   className={css.buttonAddNew}
@@ -233,7 +239,7 @@ const DailyPlan = props => {
                 >
                   <FormattedMessage id="EditListingAvailabilityPlanForm.addAnother" />
                 </InlineTextButton>
-              )}
+              ) : null}
             </div>
           );
         }}
@@ -254,7 +260,7 @@ const submit = (onSubmit, weekdays) => values => {
     },
     { ...values }
   );
-console.log(sortedValues)
+  console.log(sortedValues);
   onSubmit(sortedValues);
 };
 
@@ -280,8 +286,10 @@ const EditListingAvailabilityPlanFormComponent = props => {
           fetchErrors,
           values,
           newListing,
+          isDaily,
         } = fieldRenderProps;
         console.log(values);
+        console.log(props);
         if (values && newListing && !inProgress) {
           handleSubmit(values);
         }
@@ -321,6 +329,7 @@ const EditListingAvailabilityPlanFormComponent = props => {
                     capacity={capacity}
                     values={values}
                     intl={intl}
+                    isDaily={isDaily}
                   />
                 );
               })}

@@ -24,6 +24,8 @@ import css from './ListingPage.css';
 
 const BlockIcon = props => {
   const { icon, tip, size = '2x', className } = props;
+const windowLoaded = typeof window !== 'undefined';
+const tooltip = windowLoaded && <ReactTooltip />;
   return (
     <>
       <FontAwesomeIcon
@@ -32,7 +34,7 @@ const BlockIcon = props => {
         icon={icon}
         data-tip={tip}
       />
-      <ReactTooltip />
+      {tooltip}
     </>
   );
 };

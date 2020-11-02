@@ -51,13 +51,9 @@ export const EditListingPricingFormComponent = props => (
         bookingTypeOptions,
         spaceRentalAvailabilityOptions,
         values,
-        initialValues,
         isNewListingFlow,
       } = formRenderProps;
       console.log(props);
-      console.log(formRenderProps);
-      console.log(initialValues);
-      console.log(values);
       const unitType = config.bookingUnitType;
 
       const bookingTypeMessage = intl.formatMessage({

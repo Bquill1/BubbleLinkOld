@@ -9,13 +9,13 @@ import css from './BookingDateRangeLengthFilter.css';
 
 const RADIX = 10;
 
-const formatSelectedLabel = (bookingTypesOptions, bookingTypes, startDate, endDate) => {
+const formatSelectedLabel = (bookingTypesOptions, pub_bookingTypes, startDate, endDate) => {
   // Only show the minimum duration label for options whose key
   // matches the given param and that have the short label defined.
   const bookingTypesOption =
-    typeof bookingTypes === 'number'
+    typeof pub_bookingTypes === 'number'
       ? bookingTypesOptions.find(option => {
-          return bookingTypes.toString() === option.key && option.shortLabel;
+          return pub_bookingTypes.toString() === option.key && option.shortLabel;
         })
       : null;
   return bookingTypesOption
@@ -25,13 +25,14 @@ const formatSelectedLabel = (bookingTypesOptions, bookingTypes, startDate, endDa
 
 // Parse query parameter, which should look like "2020-05-28,2020-05-31"
 const parseInitialValues = initialValues => {
-  const { dates, bookingTypes } = initialValues || {};
+  console.log(initialValues)
+  const { dates, pub_bookingTypes } = initialValues || {}; 
   const rawDateValuesFromParams = dates ? dates.split(',') : [];
+  console.log(pub_bookingTypes)
   const [startDate, endDate] = rawDateValuesFromParams.map(v => parseDateFromISO8601(v));
   const initialDates =
     initialValues && startDate && endDate ? { dates: { startDate, endDate } } : { dates: null };
-  const initialbookingTypes = bookingTypes ? parseInt(bookingTypes, RADIX) : null;
-  return { ...initialDates, bookingTypes: initialbookingTypes };
+  return { ...initialDates, pub_bookingTypes: pub_bookingTypes };
 };
 // Format dateRange value for the query. It's given by FieldDateRangeInput:
 // { dates: { startDate, endDate } }
@@ -78,7 +79,7 @@ console.log(this.props)
     const bookingTypesQueryParamName = 'pub_bookingTypes';
 
     const parsedInitialValues = initialValuesRaw ? parseInitialValues(initialValuesRaw) : {};
-    const { dates: initialDates, bookingTypes: initialbookingTypes } = parsedInitialValues;
+    const { dates: initialDates, pub_bookingTypes: initialbookingTypes } = parsedInitialValues;
     const { startDate, endDate } = initialDates || {};
 
     const isDatesSelected = !!initialDates && !!startDate && !!startDate;
@@ -171,9 +172,9 @@ console.log(this.props)
     const selectedDatesInState = this.state.selectedDates;
     const initialValues = {
       dates: selectedDatesInState ? selectedDatesInState : initialDates,
-      bookingTypes: initialbookingTypes,
+      pub_bookingTypes: initialbookingTypes,
     };
-
+console.log(bookingTypesQueryParamName);
     const fields = (
       <>
         <FieldDateRangeController
@@ -183,7 +184,7 @@ console.log(this.props)
           }}
         />
         <FieldSelect
-          id="BookingDateRangeLengthFilter.bookingTypes"
+          id="BookingDateRangeLengthFilter.pub_bookingTypes"
           name={bookingTypesQueryParamName}
           label={bookingTypesLabel}
           className={css.duration}
@@ -259,7 +260,7 @@ BookingDateRangeLengthFilterComponent.propTypes = {
   onSubmit: func.isRequired,
   initialValues: shape({
     dates: string,
-    bookingTypes: string,
+    pub_bookingTypes: string,
   }),
   contentPlacementOffset: number,
 

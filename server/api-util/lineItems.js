@@ -45,7 +45,7 @@ exports.transactionLineItems = (listing, bookingData) => {
   const booking = {
     code: bookingUnitType,
     unitPrice,
-    quantity: isEntireSpace ? 1 : isDaily
+    quantity: isEntireSpace && !isDaily ? calculateQuantityFromHours(startDate, endDate) : isEntireSpace ? 1 : isDaily
       ? ogSeats
       : calculateQuantityFromHours(startDate, endDate) * ogSeats,
       seatsSelected: ogSeats,

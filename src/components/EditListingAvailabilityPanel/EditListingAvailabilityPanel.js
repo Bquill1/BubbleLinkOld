@@ -173,15 +173,17 @@ const EditListingAvailabilityPanel = props => {
     updateInProgress,
     errors,
   } = props;
+  console.log(props)
   // Hooks
   const [isEditPlanModalOpen, setIsEditPlanModalOpen] = useState(false);
   const [isEditExceptionsModalOpen, setIsEditExceptionsModalOpen] = useState(false);
   const [valuesFromLastSubmit, setValuesFromLastSubmit] = useState(null);
-
+  
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
   const capacity = currentListing.attributes.publicData.capacity;
-
+  
+  const isDaily = currentListing.attributes.publicData.bookingTypes.includes("daily")
   const isNextButtonDisabled = false;
   // const isNextButtonDisabled = !currentListing.attributes.availabilityPlan;
   const newListing = !currentListing.attributes.availabilityPlan;
@@ -404,6 +406,7 @@ const EditListingAvailabilityPanel = props => {
             fetchErrors={errors}
             capacity={capacity}
             newListing={newListing}
+            isDaily={isDaily}
           />
         </Modal>
       ) : null}

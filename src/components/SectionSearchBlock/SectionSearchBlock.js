@@ -53,9 +53,9 @@ const SectionSearchBlockComponent = props => {
     'entireSpace'
   );
   const [capacityFilter, setCapacityFilter] = useState(1);
-  console.log(capacityFilter)
+  const [ isFocused, setIsFocused] = useState(false)
+
   const handleButtonCapacityFilter = val => {
-    console.log(val)
     const newCount = parseInt(capacityFilter) + parseInt(val);
     setCapacityFilter(newCount < 1 ? 1 : newCount > 100 ? 100 : newCount);
   };
@@ -84,10 +84,12 @@ const SectionSearchBlockComponent = props => {
     event.target.select();
   };
   const windowLoaded = typeof window !== 'undefined';
-  const tooltip = windowLoaded && <ReactTooltip id="test" />;
-
+  const tooltip = windowLoaded && <ReactTooltip id="test" className={css.tooltip} />;
+const collapsibleCss = classNames({[css.hidden]: !isFocused}, {[css.show]: isFocused})
   return (
-    <div className={classes}>
+    <div className={classes} onFocus={e => setIsFocused(true)} onMouseLeave={e => {
+      console.log(1111)
+      setIsFocused(false)}}>
       <div className={css.searchResultSummary}>{searchBlockHeader}</div>
       <div className={css.filtersWrapper}>
         <FinalForm
@@ -100,15 +102,18 @@ const SectionSearchBlockComponent = props => {
 
             return (
               <Form className={classes} onSubmit={handleSearchSubmit}>
-                <BookingPanelOptionButton
-                  options={categoryFilter.config.options.map(o => {
-                    console.log(o);
-                    return o.key;
-                  })}
-                  activeOption={activeCategoryFilter}
-                  setOption={setActiveCategoryFilter}
-                  labelKey={categoryOptionKey}
-                />
+                <div className={collapsibleCss}>
+                  <BookingPanelOptionButton
+                    options={categoryFilter.config.options.map(o => {
+                      console.log(o);
+                      return o.key;
+                    })}
+                    activeOption={activeCategoryFilter}
+                    setOption={setActiveCategoryFilter}
+                    labelKey={categoryOptionKey}
+                  />
+                </div>
+
                 <Field
                   name="location"
                   format={identity}
@@ -142,65 +147,68 @@ const SectionSearchBlockComponent = props => {
                     );
                   }}
                 />
-                <div className={css.searchResultSummary}>{searchBlockCapacity}</div>
-                <div className={css.capacityWrapper}>
-                  <div className={css.searchResultSummary}></div>
-                  <div className={css.numberWrapper}>
-                    <div className={css.buttonWrapper}>
-                      <Button
-                        className={css.numberButton}
-                        onClick={e => {
+                <div className={collapsibleCss}>
+                  <div className={css.searchResultSummary}>{searchBlockCapacity}</div>
+                  <div className={css.capacityWrapper}>
+                    <div className={css.searchResultSummary}></div>
+                    <div className={css.numberWrapper}>
+                      <div className={css.buttonWrapper}>
+                        <Button
+                          className={css.numberButton}
+                          onClick={e => {
+                            e.preventDefault();
+                            handleButtonCapacityFilter(-1);
+                          }}
+                        >
+                          -
+                        </Button>
+                      </div>
+                      <input
+                        className={css.capacityInput}
+                        value={capacityFilter}
+                        onChange={e => {
                           e.preventDefault();
-                          handleButtonCapacityFilter(- 1);
+                          handleSetCapacityFilter(e.target.value);
                         }}
-                      >
-                        -
-                      </Button>
-                    </div>
-                    <input
-                      className={css.capacityInput}
-                      value={capacityFilter}
-                      onChange={e => {
-                        e.preventDefault()
-                        handleSetCapacityFilter(e.target.value);
-                      }}
-                      onFocus={handleFocus}
-                      type="slider"
-                    />
-                    <div className={css.buttonWrapper}>
-                      <Button
-                        className={css.numberButton}
-                        onClick={e => {
-                          e.preventDefault();
-                          handleButtonCapacityFilter(1);
-                        }}
-                      >
-                        +
-                      </Button>
+                        onFocus={handleFocus}
+                        type="slider"
+                      />
+                      <div className={css.buttonWrapper}>
+                        <Button
+                          className={css.numberButton}
+                          onClick={e => {
+                            e.preventDefault();
+                            handleButtonCapacityFilter(1);
+                          }}
+                        >
+                          +
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className={css.searchResultSummary}>
-                  {searchBlockWhatKindOfPlace}
-                  <FontAwesomeIcon
-                    className={css.iconClassName}
-                    size={'1x'}
-                    icon={faQuestionCircle}
-                    data-tip={'This is the content'}
-                    data-for="test"
-                  />
-                  {tooltip}
-                  {/* <ReactTooltip id = 'test' /> */}
-                </div>
+                  <div className={css.searchResultSummary}>
+                    {searchBlockWhatKindOfPlace}
+                    <FontAwesomeIcon
+                      className={css.iconClassName}
+                      size={'1x'}
+                      icon={faQuestionCircle}
+                      width={300}
+                      data-tip={'This is the content'}
+                      data-for="test"
+                    />
+                    {tooltip}
+                    {/* <ReactTooltip id = 'test' /> */}
+                  </div>
 
-                <BookingPanelOptionButton
-                  options={spaceRentalAvailabilityFilter.config.options.map(o => {
-                    return o.key;
-                  })}
-                  activeOption={activeSpaceRentalAvailabilityFilter}
-                  setOption={setActiveSpaceRentalAvailabilityFilter}
-                  labelKey={spaceRentalAvailabilityKey}
-                />
+                  <BookingPanelOptionButton
+                    options={spaceRentalAvailabilityFilter.config.options.map(o => {
+                      return o.key;
+                    })}
+                    activeOption={activeSpaceRentalAvailabilityFilter}
+                    setOption={setActiveSpaceRentalAvailabilityFilter}
+                    labelKey={spaceRentalAvailabilityKey}
+                  />
+                </div>
 
                 <div className={css.submitButtonWrapper}>
                   <Button

@@ -378,7 +378,8 @@ export class ListingPageComponent extends Component {
 
     const { formattedPrice, priceTitle } = priceData(price, intl);
     const prices = getMultiPrices(currentListing);
-    const lowestPrice = formatMoney(intl, getLowestPrice(currentListing))
+    const lowestPrice = getLowestPrice(currentListing, intl).lowestFormatted;
+    const lowestText = getLowestPrice(currentListing, intl).lowestText;
     const handleBookingSubmit = values => {
       const isCurrentlyClosed = currentListing.attributes.state === LISTING_STATE_CLOSED;
       if (isOwnListing || isCurrentlyClosed) {
@@ -464,7 +465,7 @@ export class ListingPageComponent extends Component {
                   id: listingId.uuid,
                   slug: listingSlug,
                   type: listingType,
-                  tab: "basics",
+                  tab: 'basics',
                 }}
                 imageCarouselOpen={this.state.imageCarouselOpen}
                 onImageCarouselClose={() => this.setState({ imageCarouselOpen: false })}
@@ -535,6 +536,8 @@ export class ListingPageComponent extends Component {
                   fetchLineItemsInProgress={fetchLineItemsInProgress}
                   fetchLineItemsError={fetchLineItemsError}
                   originalAvailabilityPlan={originalAvailabilityPlan}
+                  lowestAvailablePrice={lowestPrice}
+                  lowestText={lowestText}
                 />
               </div>
             </div>

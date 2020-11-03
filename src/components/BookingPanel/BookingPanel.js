@@ -104,13 +104,13 @@ const BookingPanel = props => {
     lineItems,
     fetchLineItemsInProgress,
     fetchLineItemsError,
+    lowestAvailablePrice,
+    lowestText,
   } = props;
   const timeZone =
     listing.attributes.availabilityPlan && listing.attributes.availabilityPlan.timezone;
   const publicData = listing.attributes.publicData;
   const spaceRentalAvailabilityOptions = publicData.spaceRentalAvailability;
-  const bookingType_entireSpace_Options = publicData.bookingType_entireSpace;
-  const bookingType_individual_Options = publicData.bookingType_individual;
   const capacity = publicData.capacity;
   const bookingTypeSpaceOptions = getSpaceOptions(listing);
   const [spaceRentalAvailability, setSpaceRentalAvailability] = useState(
@@ -303,19 +303,20 @@ const BookingPanel = props => {
         showAsModalMaxWidth={MODAL_BREAKPOINT}
         onManageDisableScrolling={onManageDisableScrolling}
       >
-        {spaceRentalAvailabilityButtons}
-        {seatsSelector}
-        {hourDayButtons}
-        <div className={css.modalHeading}>
-          <h1 className={css.title}>{title}</h1>
-        </div>
-        <div className={css.bookingHeading}>
-          <div className={css.bookingHeadingContainer}>
-            {/* <h2 className={titleClasses}>{title}</h2>
-            {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null} */}
+        <div className={css.bookingPanelModalMobileContent}>
+            {spaceRentalAvailabilityButtons}
+            {hourDayButtons}
+            {seatsSelector}
+          <div className={css.modalHeading}>
+            <h1 className={css.title}>{title}</h1>
           </div>
-        </div>
-        {/* <div className={css.desktopPriceContainer}>
+          <div className={css.bookingHeading}>
+            <div className={css.bookingHeadingContainer}>
+              {/* <h2 className={titleClasses}>{title}</h2>
+            {subTitleText ? <div className={css.bookingHelp}>{subTitleText}</div> : null} */}
+            </div>
+          </div>
+          {/* <div className={css.desktopPriceContainer}>
           <div className={css.desktopPriceValue} title={priceTitle}>
             {formattedPrice}
           </div>
@@ -323,42 +324,47 @@ const BookingPanel = props => {
             <FormattedMessage id={unitTranslationKey} />
           </div>
         </div> */}
-        {showBookingTimeForm ? (
-          <BookingTimeForm
-            className={css.bookingForm}
-            formId="BookingPanel"
-            submitButtonWrapperClassName={css.submitButtonWrapper}
-            unitType={unitType}
-            onSubmit={onSubmit}
-            price={price}
-            listing={listing}
-            listingId={listing.id}
-            bookingType={bookingType}
-            spaceRentalAvailability={spaceRentalAvailability}
-            isOwnListing={isOwnListing}
-            monthlyTimeSlots={filteredMonthlyTimeSlots}
-            originalAvailabilityPlan={originalAvailabilityPlan}
-            onFetchTimeSlots={onFetchTimeSlots}
-            startDatePlaceholder={intl.formatDate(TODAY, dateFormattingOptions)}
-            endDatePlaceholder={intl.formatDate(TODAY, dateFormattingOptions)}
-            timeZone={timeZone}
-            onFetchTransactionLineItems={onFetchTransactionLineItems}
-            lineItems={lineItems}
-            fetchLineItemsInProgress={fetchLineItemsInProgress}
-            fetchLineItemsError={fetchLineItemsError}
-            seatsSelected={seatsSelected}
-            dateSelected={dateSelected}
-            setDateSelected={setDateSelected}
-          />
-        ) : null}
+          {showBookingTimeForm ? (
+            <BookingTimeForm
+              className={css.bookingForm}
+              formId="BookingPanel"
+              submitButtonWrapperClassName={css.submitButtonWrapper}
+              unitType={unitType}
+              onSubmit={onSubmit}
+              price={price}
+              listing={listing}
+              listingId={listing.id}
+              bookingType={bookingType}
+              spaceRentalAvailability={spaceRentalAvailability}
+              isOwnListing={isOwnListing}
+              monthlyTimeSlots={filteredMonthlyTimeSlots}
+              originalAvailabilityPlan={originalAvailabilityPlan}
+              onFetchTimeSlots={onFetchTimeSlots}
+              startDatePlaceholder={intl.formatDate(TODAY, dateFormattingOptions)}
+              endDatePlaceholder={intl.formatDate(TODAY, dateFormattingOptions)}
+              timeZone={timeZone}
+              onFetchTransactionLineItems={onFetchTransactionLineItems}
+              lineItems={lineItems}
+              fetchLineItemsInProgress={fetchLineItemsInProgress}
+              fetchLineItemsError={fetchLineItemsError}
+              seatsSelected={seatsSelected}
+              dateSelected={dateSelected}
+              setDateSelected={setDateSelected}
+            />
+          ) : null}
+        </div>
       </ModalInMobile>
       <div className={css.openBookingForm}>
         <div className={css.priceContainer}>
+            <div className={css.perUnit}>
+              From:
+            </div>
           <div className={css.priceValue} title={priceTitle}>
-            {formattedPrice}
+            {lowestAvailablePrice}
           </div>
           <div className={css.perUnit}>
-            <FormattedMessage id={unitTranslationKey} />
+            {/* <FormattedMessage id={unitTranslationKey} /> */}
+            {lowestText}
           </div>
         </div>
 

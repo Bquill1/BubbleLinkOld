@@ -131,20 +131,6 @@ export const getMapCenter = map => mapboxLngLatToSDKLatLng(map.getCenter());
 export const isMapsLibLoaded = () =>
   typeof window !== 'undefined' && window.mapboxgl && window.mapboxgl.accessToken;
 
-const getLowestPrices = listing => {
-  const { publicData } = listing.attributes;
-  const { bookingType_entireSpace, bookingType_individual } = publicData && publicData;
-  const pricesFiltered = [
-    bookingType_entireSpace?.includes('hourly') && publicData.price_entireSpace_hourly,
-    bookingType_entireSpace?.includes('daily') && publicData.price_entireSpace_daily,
-    bookingType_individual?.includes('hourly') && publicData.price_individual_hourly,
-    bookingType_individual?.includes('daily') && publicData.price_individual_daily,
-  ].filter(f => f && f > 0);
-  const lowestPrice = pricesFiltered.length
-    ? new Money(Math.min(...pricesFiltered), config.currency)
-    : listing.attributes.price;
-  return lowestPrice;
-};
 /**
  * Return price labels grouped by listing locations.
  * This is a helper function for SearchMapWithMapbox component.
@@ -191,7 +177,7 @@ const priceLabelsInLocations = (
           // listing,
           listing: {
             ...listing,
-            attributes: { ...listing.attributes, price: { ...getLowestPrice(listing) } },
+            attributes: { ...listing.attributes, price: { ...getLowestPrice(listing).lowest } },
           },
           onListingClicked,
           mapComponentRefreshToken,

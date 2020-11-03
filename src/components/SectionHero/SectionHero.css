@@ -50,8 +50,10 @@
 }
 
 .heroContent {
-  margin: 0 24px 0 24px;
+
+  margin: 0 12px 0 12px;
   display: flex;
+  height: 100%;
   @media (--viewportMedium) {
     margin: 0 7.5vw 0 7.5vw;
   }
@@ -71,7 +73,10 @@
 }
 
 .heroContentLeft {
-display: none;
+/* display: none; */
+position: relative;
+height: 100%;
+width: 100%;
   @media (--viewportMedium) {
 display: inherit;
 

@@ -599,9 +599,10 @@
 
   --formWrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     @media (--viewportSmall) {
       flex-direction: row;
+      
     }
   }
   --formLeft {

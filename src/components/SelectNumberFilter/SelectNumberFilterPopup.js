@@ -3,7 +3,6 @@ import { arrayOf, func, node, number, object, shape, string } from 'prop-types';
 import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { Button } from '../../components';
-import ReactTooltip from 'react-tooltip';
 
 import { Menu, MenuContent, MenuItem, MenuLabel } from '..';
 import css from './SelectNumberFilterPopup.css';
@@ -13,11 +12,7 @@ const optionLabel = (options, key) => {
   return option ? option.label : key;
 };
 const handleFocus = event => {
-  console.log(1111);
   event.target.select();
-};
-const getQueryParamName = queryParamNames => {
-  return Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;
 };
 
 class SelectNumberFilterPopup extends Component {
@@ -51,7 +46,6 @@ class SelectNumberFilterPopup extends Component {
   componentDidMount() {
     const { queryParamNames, initialValues, hasDates } = this.props;
     const queryParamName = hasDates ? queryParamNames[0] : queryParamNames[1];
-    console.log(queryParamName);
     const isCap = queryParamName === 'pub_capacity';
     const initialValue =
       initialValues && initialValues[queryParamName]
@@ -62,7 +56,6 @@ class SelectNumberFilterPopup extends Component {
     if (this.state.count !== initialValue) {
       this.setState({ count: initialValue });
     }
-    // resolve menu label text and class
   }
   render() {
     const {
@@ -85,13 +78,9 @@ class SelectNumberFilterPopup extends Component {
           : initialValues[queryParamName]
         : null;
     const menuLabel = initialValue ? optionLabel(options, initialValue) : label;
-    console.log(menuLabel);
     const menuLabelClass = initialValue ? css.menuLabelSelected : css.menuLabel;
     const inputClasses = classNames(css.input);
     const classes = classNames(rootClassName || css.root, className);
-    console.log(this.state);
-    console.log(initialValues);
-    console.log(initialValue);
     return (
       <Menu
         className={classes}

@@ -262,6 +262,10 @@
   margin-top: 1rem;
   width: 80%;
 }
+.numberWrapper > input {
+text-align: center;
+}
+
 .numberButton {
   display: flex;
   align-items: center;

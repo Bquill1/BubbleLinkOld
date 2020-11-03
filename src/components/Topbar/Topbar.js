@@ -19,6 +19,7 @@ import {
   NamedLink,
   TopbarDesktop,
   TopbarMobileMenu,
+  LogoBubbleText
 } from '../../components';
 import { TopbarSearchForm } from '../../forms';
 
@@ -216,7 +217,8 @@ class TopbarComponent extends Component {
             name="LandingPage"
             title={intl.formatMessage({ id: 'Topbar.logoIcon' })}
           >
-            <Logo format="mobile" />
+            <LogoBubbleText /> 
+            {/* <Logo format="mobile" /> */}
           </NamedLink>
           <Button
             rootClassName={css.searchMenu}

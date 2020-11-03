@@ -25,10 +25,8 @@ const formatSelectedLabel = (bookingTypesOptions, pub_bookingTypes, startDate, e
 
 // Parse query parameter, which should look like "2020-05-28,2020-05-31"
 const parseInitialValues = initialValues => {
-  console.log(initialValues)
   const { dates, pub_bookingTypes } = initialValues || {}; 
   const rawDateValuesFromParams = dates ? dates.split(',') : [];
-  console.log(pub_bookingTypes)
   const [startDate, endDate] = rawDateValuesFromParams.map(v => parseDateFromISO8601(v));
   const initialDates =
     initialValues && startDate && endDate ? { dates: { startDate, endDate } } : { dates: null };
@@ -74,7 +72,6 @@ export class BookingDateRangeLengthFilterComponent extends Component {
       intl,
       ...rest
     } = this.props;
-console.log(this.props)
     const datesQueryParamName = 'dates';
     const bookingTypesQueryParamName = 'pub_bookingTypes';
 
@@ -174,7 +171,6 @@ console.log(this.props)
       dates: selectedDatesInState ? selectedDatesInState : initialDates,
       pub_bookingTypes: initialbookingTypes,
     };
-console.log(bookingTypesQueryParamName);
     const fields = (
       <>
         <FieldDateRangeController

@@ -45,7 +45,7 @@
 
 .home {
   display: flex;
-  padding: calc((var(--topbarHeight) - var(--Topbar_logoHeight)) / 2) 24px;
+  padding: calc((var(--topbarHeight) - var(--Topbar_logoHeight)) / 2) 0;
 }
 
 .logoutButton {

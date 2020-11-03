@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { lazyLoadWithDimensions } from '../../util/contextHelpers';
 import { LINE_ITEM_DAY, LINE_ITEM_NIGHT, propTypes } from '../../util/types';
 import { formatMoney } from '../../util/currency';
-import { ensureListing } from '../../util/data';
+import { ensureListing, getLowestPrice } from '../../util/data';
 import { richText } from '../../util/richText';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { createSlug } from '../../util/urlHelpers';
@@ -70,17 +70,9 @@ export const ListingCardComponent = props => {
     bookingType_individual?.includes('daily') && publicData.price_individual_daily,
   ].filter(f => f && f > 0);
 
-  const lowestPrice = pricesFiltered.length
-    ? new Money(Math.min(...pricesFiltered), config.currency)
-    : currentListing.attributes.price;
-  const lowestPriceOption = [
-    publicData.price_entireSpace_hourly,
-    publicData.price_entireSpace_daily,
-    publicData.price_individual_hourly,
-    publicData.price_individual_daily,
-  ].findIndex(p => p === lowestPrice.amount);
-  const unitTranslation = { 0: 'hr', 2: 'hr', 1: 'day', 3: 'day' };
-
+  const lowestPrice = getLowestPrice(listing, intl).lowest;
+  const lowestText = getLowestPrice(listing, intl).lowestText;
+  console.log(getLowestPrice(listing, intl))
   const price = lowestPrice || currentListing.attributes.price;
   const slug = createSlug(title);
   const firstImage =
@@ -113,7 +105,7 @@ export const ListingCardComponent = props => {
           <div className={css.perUnit}>From:</div>
           <div className={css.priceValue} title={priceTitle}>
             {formattedPrice}
-            <div className={css.perUnit}>/{unitTranslation[lowestPriceOption]}</div>
+            <div className={css.perUnit}>{lowestText}</div>
           </div>
         </div>
         <div className={css.mainInfo}>

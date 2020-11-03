@@ -74,6 +74,7 @@
 
 .perUnit {
   /* Font */
+  display: block;
   @apply --marketplaceTinyFontStyles;
   color: var(--matterColor);
 

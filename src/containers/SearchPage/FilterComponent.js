@@ -25,12 +25,9 @@ const FilterComponent = props => {
     getHandleChangedValueFn,
     ...rest
   } = props;
-  console.log(props)
   const hasDates = !!urlQueryParams['dates']
-  console.log(hasDates)
   const { id, type, queryParamNames, label, config } = filterConfig;
   const { liveEdit, showAsPopup } = rest;
-console.log(queryParamNames)
   const useHistoryPush = liveEdit || showAsPopup;
   const prefix = idPrefix || 'SearchPage';
   const componentId = `${prefix}.${id.toLowerCase()}`;

@@ -5,7 +5,6 @@ import SelectNumberFilterPopup from './SelectNumberFilterPopup';
 
 const SelectNumberFilter = props => {
   const { showAsPopup, ...rest } = props;
-  console.log(props)
   return showAsPopup ? (
     <SelectNumberFilterPopup {...rest} />
   ) : (

@@ -1,0 +1,15 @@
+@import '../../marketplace.css';
+
+.root {
+  stroke: var(--matterColor);
+  fill: var(--matterColor);
+}
+.logoTextWrapper{
+  display: flex;
+  align-items: center;
+  max-width: 150px;
+}
+.logoText{
+  margin-left: .5rem;
+  color: #000;
+}

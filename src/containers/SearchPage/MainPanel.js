@@ -115,8 +115,11 @@ class MainPanel extends Component {
 
   getHandleChangedValueFn(useHistoryPush) {
     const { urlQueryParams, history, sortConfig, filterConfig } = this.props;
-    console.log(useHistoryPush);
+    console.log(urlQueryParams);
+    console.log(history);
     return updatedURLParams => {
+      console.trace();
+      console.log(updatedURLParams);
       const updater = prevState => {
         const { address, bounds } = urlQueryParams;
         const mergedQueryParams = { ...urlQueryParams, ...prevState.currentQueryParams };
@@ -144,7 +147,8 @@ class MainPanel extends Component {
           if (search.pub_capacity && search.dates) {
             search = { ...search, seats: parseInt(search.pub_capacity.split(',')[0]), pub_capacity: null };
           }
-          console.log(search);
+      console.trace();
+      console.log(search);
           history.push(createResourceLocatorString('SearchPage', routeConfiguration(), {}, search));
         }
       };

@@ -9,33 +9,39 @@ import css from './SelectNumberFilterPlain.css';
 const getQueryParamName = queryParamNames => {
   return Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;
 };
+const handleFocus = event => {
+  console.log(1111);
+  event.target.select();
+};
 
 class SelectNumberFilterPlain extends Component {
   constructor(props) {
     super(props);
-    this.state = { isOpen: true, count: 0 };
+    this.state = { isOpen: true, count: 1 };
     this.selectOption = this.selectOption.bind(this);
     this.toggleIsOpen = this.toggleIsOpen.bind(this);
     this.onButtonClick = this.onButtonClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
-  onButtonClick(val) {
+  onButtonClick(queryParamName, otherQueryParamName, val) {
     const newCount = parseInt(this.state.count) + parseInt(val);
-    this.setState({ count: newCount < 1 ? 1 : newCount });
+    this.setState({ count: newCount < 1 ? 1 : newCount > 100 ? 100 : newCount });
+    this.selectOption(queryParamName, otherQueryParamName, newCount);
   }
 
-  onInputChange(queryParamName, val) {
-    this.setState({ count: val });
+  onInputChange(queryParamName, otherQueryParamName, val) {
+    const newCount = val < 1 ? 1 : val > 100 ? 100 : val;
+    this.setState({ count: newCount });
+    this.selectOption(queryParamName, otherQueryParamName, newCount);
   }
-  selectOption(option, e) {
-    const { queryParamNames, onSelect } = this.props;
-    const queryParamName = getQueryParamName(queryParamNames);
-    onSelect({ [queryParamName]: option });
-
-    // blur event target if event is passed
-    if (e && e.currentTarget) {
-      e.currentTarget.blur();
-    }
+  selectOption(queryParamName, otherQueryParamName, option) {
+    console.log(queryParamName);
+    console.log(otherQueryParamName);
+    console.log(option);
+    const isCap = queryParamName === 'pub_capacity';
+    this.setState({ isOpen: false });
+    const param = !option ? option : isCap ? [option, 1000].join(',') : option;
+    this.props.onSelect({ [queryParamName]: param, [otherQueryParamName]: null });
   }
 
   toggleIsOpen() {
@@ -47,23 +53,25 @@ class SelectNumberFilterPlain extends Component {
       rootClassName,
       className,
       label,
+      options,
       queryParamNames,
       initialValues,
-      disabled,
+      hasDates,
     } = this.props;
-
-    const queryParamName = getQueryParamName(queryParamNames);
+    console.log(this.props);
+    const queryParamName = hasDates ? queryParamNames[0] : queryParamNames[1];
+    const otherQueryParamName = hasDates ? queryParamNames[1] : queryParamNames[0];
+    const isCap = queryParamName === 'pub_capacity';
     const initialValue =
-      initialValues && initialValues[queryParamName] ? initialValues[queryParamName] : null;
-    // clear seat search if no dates
-    if (disabled && initialValue) {
-      console.log(111111);
-      this.props.onSelect({ [queryParamName]: null });
-    }
+      initialValues && initialValues[queryParamName]
+        ? isCap
+          ? initialValues[queryParamName].split(',')[0]
+          : initialValues[queryParamName]
+        : null;
     const labelClass = initialValue ? css.filterLabelSelected : css.filterLabel;
 
     const classes = classNames(rootClassName || css.root, className);
-
+    console.log(this.state.count);
     return (
       <div className={classes}>
         <div className={labelClass}>
@@ -80,9 +88,8 @@ class SelectNumberFilterPlain extends Component {
               className={css.numberButton}
               onClick={e => {
                 e.preventDefault();
-                this.onButtonClick(-1);
+                this.onButtonClick(queryParamName, otherQueryParamName, -1);
               }}
-              disabled={disabled}
             >
               -
             </Button>
@@ -91,19 +98,18 @@ class SelectNumberFilterPlain extends Component {
             className={className}
             value={this.state.count}
             onChange={e => {
-              this.onInputChange(queryParamName, e.target.value);
+              this.onInputChange(queryParamName, otherQueryParamName, e.target.value);
             }}
+            onFocus={handleFocus}
             type="slider"
-            disabled={disabled}
           />
           <div className={css.buttonWrapper}>
             <Button
               className={css.numberButton}
               onClick={e => {
                 e.preventDefault();
-                this.onButtonClick(1);
+                this.onButtonClick(queryParamName, otherQueryParamName, 1);
               }}
-              disabled={disabled}
             >
               +
             </Button>

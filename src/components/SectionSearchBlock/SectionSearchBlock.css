@@ -1,6 +1,10 @@
 @import '../../marketplace.css';
 
 .root {
+  position: absolute;
+  height: auto;
+  width: 300px;
+  bottom: -10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -8,12 +12,16 @@
   border-radius: 24px;
   margin-top: 0.5rem;
   font-size: 14px;
-
-  /* sticky result summary in mobile */
-  position: sticky;
-  top: 0;
   z-index: 1;
   box-shadow: var(--boxShadowPopup);
+
+  @media (--viewportMedium) {
+    position: sticky;
+    bottom: none;
+    width: auto;
+
+    top: 0;
+  }
 }
 .searchResultSummary {
   @apply --marketplaceH3FontStyles;
@@ -25,7 +33,6 @@
   justify-content: space-between;
 
   background-color: var(--matterColorBright);
-
 }
 
 .buttons {
@@ -51,7 +58,6 @@
   @apply --marketplaceButtonStyles;
   @apply --marketplaceTinyFontStyles;
   font-weight: var(--fontWeightMedium);
-
 
   /* Avoid stretching button width. */
   flex-basis: 0;
@@ -117,13 +123,6 @@
   }
 }
 
-.filtersWrapper {
-  /* add bottom margin so that the last filter won't be hidden
-   * under the mobile safari bottom bar or the "Show results"
-   * button bar */
-  padding-bottom: 20px;
-}
-
 .showListingsContainer {
   position: fixed;
   bottom: 0;
@@ -152,21 +151,20 @@
   display: flex;
   width: 24px;
   align-self: stretch;
-  background-color: var(--matterColorLight);
+  /* background-color: var(--matterColorLight); */
+  @media (--viewportSmall) {
   border-bottom: 2px solid;
   border-bottom-color: var(--marketplaceColorGrey);
-
+  }
 }
 
 .desktopInput {
+  border: none;
   flex-grow: 1;
   /* Font */
   @apply --marketplaceH4FontStyles;
   height: 50px;
   line-height: unset;
-  border: none;
-  border-bottom: 2px solid;
-  border-bottom-color: var(--marketplaceColorGrey);
   padding-top: 0;
   padding-bottom: 0;
   padding-left: 20px;
@@ -196,6 +194,10 @@
 
   margin-top: 0;
   margin-bottom: 0;
+  @media (--viewportSmall) {
+    border-bottom: 2px solid;
+    border-bottom-color: var(--marketplaceColorGrey);
+  }
   @media (--viewportMedium) {
     margin-top: 0;
     margin-bottom: 0;
@@ -226,7 +228,7 @@
   max-width: 434px;
 }
 .submitButton {
-  margin: 12px;
+  margin: -12px 12px 12px 12px;
   border-radius: 3rem;
   width: 100%;
   box-shadow: var(--boxShadowPopup);
@@ -259,14 +261,10 @@
   border-bottom-color: var(--marketplaceColorGrey);
   padding-top: 10px;
   padding-bottom: 10px;
-
-
-
 }
 .numberWrapper {
   display: inline-flex;
   width: 35%;
-
 }
 .numberButton {
   display: flex;
@@ -283,7 +281,17 @@
   content: '';
   padding-top: 100%;
 }
-.capacityInput{
+.capacityInput {
   text-align: center;
   border: none;
+}
+.tooltip {
+  max-width: 300px;
+}
+
+.hidden {
+  display: none;
+  @media (--viewportSmall) {
+    display: inherit;
+  }
 }

@@ -40,6 +40,7 @@ export { default as ExpandingTextarea } from './ExpandingTextarea/ExpandingTexta
 export { default as Form } from './Form/Form';
 export { default as LimitedAccessBanner } from './LimitedAccessBanner/LimitedAccessBanner';
 export { default as Logo } from './Logo/Logo';
+export { default as LogoBubbleText } from './LogoBubbleText/LogoBubbleText';
 export { default as NamedLink } from './NamedLink/NamedLink';
 export { default as NamedRedirect } from './NamedRedirect/NamedRedirect';
 export { default as NotificationBadge } from './NotificationBadge/NotificationBadge';

@@ -89,7 +89,7 @@ class SelectNumberFilterPopup extends Component {
         onToggleActive={this.onToggleActive}
         isOpen={this.state.isOpen}
       >
-        <MenuLabel className={menuLabelClass}>{menuLabel}</MenuLabel>
+        <MenuLabel className={menuLabelClass}>Guests: {menuLabel}</MenuLabel>
         <MenuContent className={css.menuContent}>
           <MenuItem className={css.inputItem} key={'key'}>
             <div className={css.numberWrapper}>

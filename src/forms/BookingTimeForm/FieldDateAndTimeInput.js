@@ -456,7 +456,7 @@ class FieldDateAndTimeInput extends Component {
           isDayMomentInsideRange(day, timeSlot.attributes.start, timeSlot.attributes.end, timeZone)
         );
       return (
-        <span className="renderedDay" data-tip={a && `Available Spots: ${a.attributes.seats}`}>
+        <span className="renderedDay" data-tip={a && `Available Capacity: ${a.attributes.seats}`}>
           {day.format('D')}
           {a && <ReactTooltip />}
         </span>

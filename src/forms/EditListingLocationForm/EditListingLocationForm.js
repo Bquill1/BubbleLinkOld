@@ -113,14 +113,14 @@ export const EditListingLocationFormComponent = props => (
             )}
           />
 
-          <FieldTextInput
+         {/* <FieldTextInput
             className={css.building}
             type="text"
             name="building"
             id="building"
             label={buildingMessage}
             placeholder={buildingPlaceholderMessage}
-          />
+          />*/}
 
           <MapHelper
             mapClassName={css.editListingLocationMap}

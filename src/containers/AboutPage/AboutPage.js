@@ -159,42 +159,6 @@ Why not sign-up and test out the site to see if it's for you?`,
               image={aboutUsPic2}
               imageLeft
             />
-   {/*         <MultiColumnSection
-              showGraphics={false}
-              title={'Who will rent be renting my space?'}
-              subtitle={'Your renters could be anyone!'}
-              content={[
-                {
-                  content: (
-                    <ul className={css.heroList}>
-                      <li>
-                        Remote workers stuck in unsuitable conditions are looking for inspiring
-                        places to work and network
-                      </li>
-                      <li>
-                        Professionals like physios and therapists are looking for spaces close to
-                        their clients so that they can increase the numbers they see in a day
-                      </li>
-                      <li>Students are looking for quiet spaces to prepare for exams</li>
-                      <li>
-                        Teams are looking for spaces where they can meet outside of the normal
-                        stuffy boardroom
-                      </li>
-                      <li>
-                        Those planning events are looking for that unique space to make it a day,
-                        evening or night to remember
-                      </li>
-                      <li>
-                        Fitness instructors such as yoga teachers and personal trainers are looking
-                        for spaces where they can hold classes in locations that suit their clients
-                      </li>
-                      <li>Interviews, photoshoots, and anything else you can think of!</li>
-                    </ul>
-                  ),
-                },
-              ]}
-            />
-*/}
           </div>
        </LayoutWrapperMain>
 

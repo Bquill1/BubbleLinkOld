@@ -53,7 +53,7 @@ const SectionSearchBlockComponent = props => {
     'entireSpace'
   );
   const [capacityFilter, setCapacityFilter] = useState(1);
-  const [ isFocused, setIsFocused] = useState(false)
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleButtonCapacityFilter = val => {
     const newCount = parseInt(capacityFilter) + parseInt(val);
@@ -85,12 +85,30 @@ const SectionSearchBlockComponent = props => {
   };
   const windowLoaded = typeof window !== 'undefined';
   const tooltip = windowLoaded && <ReactTooltip id="test" className={css.tooltip} />;
-const collapsibleCss = classNames({[css.hidden]: !isFocused}, {[css.show]: isFocused})
+  const collapsibleCss = classNames({ [css.hidden]: !isFocused }, { [css.show]: isFocused });
+
   return (
-    <div className={classes} onFocus={e => setIsFocused(true)} onMouseLeave={e => {
-      console.log(1111)
-      setIsFocused(false)}}>
-      <div className={css.searchResultSummary}>{searchBlockHeader}</div>
+    <div
+      className={classes}
+      onFocus={e => setIsFocused(true)}
+      onMouseLeave={e => {
+        console.log(1111);
+        setIsFocused(false);
+      }}
+    >
+      <div className={css.searchResultSummary}>
+        {searchBlockHeader}
+        <FontAwesomeIcon
+          className={css.iconClassName}
+          size={'1x'}
+          icon={faQuestionCircle}
+          data-tip={
+            '"Other" can include spaces used for exercise, yoga, all types of classes and anything else not in the core categories.'
+          }
+          data-for="type-of-space"
+        />
+        {windowLoaded && <ReactTooltip id="type-of-space" className={css.tooltip} />}
+      </div>
       <div className={css.filtersWrapper}>
         <FinalForm
           {...props}
@@ -192,11 +210,14 @@ const collapsibleCss = classNames({[css.hidden]: !isFocused}, {[css.show]: isFoc
                       className={css.iconClassName}
                       size={'1x'}
                       icon={faQuestionCircle}
-                      width={300}
-                      data-tip={'This is the content'}
-                      data-for="test"
+                      data-tip={
+                        'Hosts with space for more than one guest can rent it in its entirety and/or as individual spaces. If you want the entire space to yourself you can choose this option and pay the full price or else choose to share.'
+                      }
+                      data-for="space-availability"
                     />
-                    {tooltip}
+                    {windowLoaded && (
+                      <ReactTooltip id="space-availability" className={css.tooltip} />
+                    )}
                     {/* <ReactTooltip id = 'test' /> */}
                   </div>
 

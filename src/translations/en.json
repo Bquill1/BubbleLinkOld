@@ -843,7 +843,7 @@
   "SectionSearchBlock.header": "TYPE OF SPACE:",
   "SectionSearchBlock.capacity": "NUMBER OF GUESTS:",
   "SectionSearchBlock.submitButton": "Explore",
-  "SectionSearchBlock.whatKindOfPlace": "PORTION OF SPACE REQUIRED:",
+  "SectionSearchBlock.whatKindOfPlace": "AMOUNT OF SPACE REQUIRED:",
   "SectionSearchBlock.foundResults": "{count, number} {count, plural, one {result} other {results}}",
   "SectionSearchBlock.heading": "Filter spaces",
   "SectionSearchBlock.keywordLabel": "Keyword",

@@ -84,11 +84,20 @@ const SectionSearchBlockComponent = props => {
     event.target.select();
   };
   const windowLoaded = typeof window !== 'undefined';
-  const tooltip = windowLoaded && <ReactTooltip id="test" />;
+  const tooltip = windowLoaded && <ReactTooltip id="test" className={css.tooltip} />;
 
   return (
     <div className={classes}>
-      <div className={css.searchResultSummary}>{searchBlockHeader}</div>
+      <div className={css.searchResultSummary}>{searchBlockHeader}
+      <FontAwesomeIcon
+                          className={css.iconClassName}
+                          size={'1x'}
+                          icon={faQuestionCircle}
+                          data-tip={'"Other" can include spaces used for exercise, yoga, all types of classes and anything else not in the core categories.'}
+                          data-for="test"
+                        />
+                        {tooltip}
+      </div>
       <div className={css.filtersWrapper}>
         <FinalForm
           {...props}
@@ -186,12 +195,11 @@ const SectionSearchBlockComponent = props => {
                     className={css.iconClassName}
                     size={'1x'}
                     icon={faQuestionCircle}
-                    data-tip={'This is the content'}
+                    data-tip={'Hosts with space for more than one guest can rent it in its entirety and/or as individual spaces. If you want the entire space to yourself you can choose this option and pay the full price or else choose to share.'}
                     data-for="test"
                   />
                   {tooltip}
-                  {/* <ReactTooltip id = 'test' /> */}
-                </div>
+                  </div>
 
                 <BookingPanelOptionButton
                   options={spaceRentalAvailabilityFilter.config.options.map(o => {

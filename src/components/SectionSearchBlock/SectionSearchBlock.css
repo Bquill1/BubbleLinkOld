@@ -287,3 +287,10 @@
   text-align: center;
   border: none;
 }
+.tooltip{
+  max-width: 300px;
+  font-size: 12px;
+  font-family: arial;
+  line-height: 1.5;
+
+}

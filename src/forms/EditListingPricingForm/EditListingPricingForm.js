@@ -204,7 +204,6 @@ export const EditListingPricingFormComponent = props => (
                                             id={`price_${c.key}_${b.key}`}
                                             name={`price_${c.key}_${b.key}`}
                                             className={css.priceInput}
-                                            autoFocus
                                             label={messageKey[c.key][b.key]}
                                             placeholder={pricePlaceholderMessage}
                                             currencyConfig={config.currencyConfig}

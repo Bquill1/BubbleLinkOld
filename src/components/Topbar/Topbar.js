@@ -153,7 +153,7 @@ class TopbarComponent extends Component {
       sendVerificationEmailError,
       showGenericError,
     } = this.props;
-
+console.log(this.props)
     const { mobilemenu, mobilesearch, address, origin, bounds } = parse(location.search, {
       latlng: ['origin'],
       latlngBounds: ['bounds'],

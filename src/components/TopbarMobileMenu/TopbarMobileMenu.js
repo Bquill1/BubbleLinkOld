@@ -31,7 +31,7 @@ const TopbarMobileMenu = props => {
     notificationCount,
     onLogout,
   } = props;
-
+console.log(props)
   const user = ensureCurrentUser(currentUser);
 
   if (!isAuthenticated) {
@@ -123,7 +123,7 @@ const TopbarMobileMenu = props => {
       <div className={css.footer}>
         {isAuthenticated && currentUserIsHost ? (
           <NamedLink className={css.createNewListingLink} name="NewListingPage">
-            {currentUserHasListings ? (
+            {currentUserListing ? (
               <FormattedMessage id="TopbarDesktop.addListing" />
             ) : (
               <FormattedMessage id="TopbarDesktop.createListing" />

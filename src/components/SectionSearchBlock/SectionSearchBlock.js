@@ -117,7 +117,7 @@ const SectionSearchBlockComponent = props => {
             console.log(formRenderProps);
             console.log(values);
             const classes = classNames(className, css.searchLink);
-
+console.log(collapsibleCss)
             return (
               <Form className={classes} onSubmit={handleSearchSubmit}>
                 <div className={collapsibleCss}>

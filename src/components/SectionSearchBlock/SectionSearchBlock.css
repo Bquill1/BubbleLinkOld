@@ -26,6 +26,7 @@
 .searchResultSummary {
   @apply --marketplaceH3FontStyles;
   margin: 0.5rem 0.5rem 0 0.5rem;
+  padding: 0.5rem;
   font-size: 14px;
   font-weight: bold;
 
@@ -153,8 +154,8 @@
   align-self: stretch;
   /* background-color: var(--matterColorLight); */
   @media (--viewportSmall) {
-  border-bottom: 2px solid;
-  border-bottom-color: var(--marketplaceColorGrey);
+    border-bottom: 2px solid;
+    border-bottom-color: var(--marketplaceColorGrey);
   }
 }
 
@@ -286,15 +287,26 @@
   border: none;
 }
 
+.show {
+  visibility: visible;
+  transition: transform 0.3s ease-out;
+
+  transform: scaleY(1);
+}
 .hidden {
-  display: none;
+  visibility: hidden;
+  height: 0;
+  transform: scaleY(0);
+  transition: transform 0.3s ease-out;
+  overflow: hidden;
+
   @media (--viewportSmall) {
     display: inherit;
   }
-.tooltip{
+}
+.tooltip {
   max-width: 300px;
   font-size: 12px;
   font-family: arial;
   line-height: 1.5;
-
 }

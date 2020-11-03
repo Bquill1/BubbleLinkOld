@@ -64,6 +64,7 @@ const SectionSearchBlockComponent = props => {
     setCapacityFilter(val < 1 ? 1 : val > 100 ? 100 : val);
   };
   const searchBlockHeader = <FormattedMessage id="SectionSearchBlock.header" />;
+  const smallSearchBlockHeader = <FormattedMessage id="SectionSearchBlock.smallHeader" />;
   const searchBlockWhatKindOfPlace = <FormattedMessage id="SectionSearchBlock.whatKindOfPlace" />;
   const searchBlockCapacity = <FormattedMessage id="SectionSearchBlock.capacity" />;
 
@@ -90,23 +91,27 @@ const SectionSearchBlockComponent = props => {
   return (
     <div
       className={classes}
-      onFocus={e => setIsFocused(true)}
+      // onFocus={e => setIsFocused(true)}
       onMouseLeave={e => {
         console.log(1111);
         setIsFocused(false);
       }}
     >
       <div className={css.searchResultSummary}>
-        {searchBlockHeader}
-        <FontAwesomeIcon
-          className={css.iconClassName}
-          size={'1x'}
-          icon={faQuestionCircle}
-          data-tip={
-            '"Other" can include spaces used for exercise, yoga, all types of classes and anything else not in the core categories.'
-          }
-          data-for="type-of-space"
-        />
+        {isFocused ? (
+          <>
+            {searchBlockHeader}
+            <FontAwesomeIcon
+              className={css.iconClassName}
+              size={'1x'}
+              icon={faQuestionCircle}
+              data-tip={
+                '"Other" can include spaces used for exercise, yoga, all types of classes and anything else not in the core categories.'
+              }
+              data-for="type-of-space"
+            />
+          </>
+        ) : null}
         {windowLoaded && <ReactTooltip id="type-of-space" className={css.tooltip} />}
       </div>
       <div className={css.filtersWrapper}>
@@ -117,7 +122,6 @@ const SectionSearchBlockComponent = props => {
             console.log(formRenderProps);
             console.log(values);
             const classes = classNames(className, css.searchLink);
-console.log(collapsibleCss)
             return (
               <Form className={classes} onSubmit={handleSearchSubmit}>
                 <div className={collapsibleCss}>
@@ -130,42 +134,40 @@ console.log(collapsibleCss)
                     setOption={setActiveCategoryFilter}
                     labelKey={categoryOptionKey}
                   />
-                </div>
 
-                <Field
-                  name="location"
-                  format={identity}
-                  render={({ input, meta }) => {
-                    const { onChange, ...restInput } = input;
+                  <Field
+                    name="location"
+                    format={identity}
+                    render={({ input, meta }) => {
+                      const { onChange, ...restInput } = input;
 
-                    // Merge the standard onChange function with custom behaviur. A better solution would
-                    // be to use the FormSpy component from Final Form and pass this.onChange to the
-                    // onChange prop but that breaks due to insufficient subscription handling.
-                    // See: https://github.com/final-form/react-final-form/issues/159
-                    const searchOnChange = value => {
-                      onChange(value);
-                      onChange(value);
-                    };
+                      // Merge the standard onChange function with custom behaviur. A better solution would
+                      // be to use the FormSpy component from Final Form and pass this.onChange to the
+                      // onChange prop but that breaks due to insufficient subscription handling.
+                      // See: https://github.com/final-form/react-final-form/issues/159
+                      const searchOnChange = value => {
+                        onChange(value);
+                        onChange(value);
+                      };
 
-                    let searchInput = { ...restInput, onChange: searchOnChange };
-                    return (
-                      <LocationAutocompleteInput
-                        className={css.desktopInputRoot}
-                        iconClassName={css.desktopIcon}
-                        inputClassName={css.desktopInput}
-                        predictionsClassName={css.desktopPredictions}
-                        placeholder={intl.formatMessage({ id: 'TopbarSearchForm.placeholder' })}
-                        closeOnBlur={!isMobile}
-                        inputRef={node => {
-                          searchInput = node;
-                        }}
-                        input={searchInput}
-                        meta={meta}
-                      />
-                    );
-                  }}
-                />
-                <div className={collapsibleCss}>
+                      let searchInput = { ...restInput, onChange: searchOnChange };
+                      return (
+                        <LocationAutocompleteInput
+                          className={css.desktopInputRoot}
+                          iconClassName={css.desktopIcon}
+                          inputClassName={css.desktopInput}
+                          predictionsClassName={css.desktopPredictions}
+                          placeholder={intl.formatMessage({ id: 'TopbarSearchForm.placeholder' })}
+                          closeOnBlur={!isMobile}
+                          inputRef={node => {
+                            searchInput = node;
+                          }}
+                          input={searchInput}
+                          meta={meta}
+                        />
+                      );
+                    }}
+                  />
                   <div className={css.searchResultSummary}>{searchBlockCapacity}</div>
                   <div className={css.capacityWrapper}>
                     <div className={css.searchResultSummary}></div>
@@ -234,10 +236,16 @@ console.log(collapsibleCss)
                 <div className={css.submitButtonWrapper}>
                   <Button
                     className={css.submitButton}
-                    type="submit"
+                    type={isFocused ? "submit" : null}
                     onClick={e => {
                       e.preventDefault();
-                      handleSearchSubmit(values);
+                      console.log(!isFocused)
+                      if (!isFocused) {
+                        setIsFocused(true);
+                        
+                      } else {
+                        handleSearchSubmit(values);
+                      }
                     }}
                     inProgress={false}
                     disabled={false}

@@ -86,7 +86,6 @@ export const TransactionPageComponent = props => {
     fetchLineItemsError,
     originalAvailabilityPlan,
   } = props;
-  console.log(props)
   const currentTransaction = ensureTransaction(transaction);
   const currentListing = ensureListing(currentTransaction.listing);
   const isProviderRole = transactionRole === PROVIDER;
@@ -103,9 +102,6 @@ export const TransactionPageComponent = props => {
   const quantity = isEntireSpace
     ? unitPurchase?.quantity.toString()
     : (unitPurchase?.quantity / seats || 1).toString();
- console.log(seats);
- console.log(quantity);
- console.log(quantity);
   const redirectToCheckoutPageWithInitialValues = (initialValues, listing) => {
     const routes = routeConfiguration();
     // Customize checkout page state with current listing and selected bookingDates

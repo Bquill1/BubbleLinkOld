@@ -19,6 +19,7 @@
     position: sticky;
     bottom: none;
     width: auto;
+    margin-bottom: -.5rem;
 
     top: 0;
   }
@@ -234,6 +235,10 @@
   width: 100%;
   box-shadow: var(--boxShadowPopup);
 }
+.submitButton:focus{
+  background-color: var(--marketplaceColor);
+  
+}
 
 /* Search*/
 .submitButtonWrapper {
@@ -295,13 +300,17 @@
 }
 .hidden {
   visibility: hidden;
-  height: 0;
   transform: scaleY(0);
   transition: transform 0.3s ease-out;
   overflow: hidden;
+  height: 0;
 
   @media (--viewportSmall) {
     display: inherit;
+  visibility: visible;
+  height:auto;
+  transform:none;
+  transition: transform 0.3s ease-out;
   }
 }
 .tooltip {

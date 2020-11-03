@@ -841,6 +841,7 @@
   "SearchFiltersMobile.resetAll": "Reset all",
   "SearchFiltersMobile.showListings": "Show {count, number} {count, plural, one {space} other {spaces}}",
   "SectionSearchBlock.header": "TYPE OF SPACE:",
+  "SectionSearchBlock.smallHeader": "SEARCH:",
   "SectionSearchBlock.capacity": "NUMBER OF GUESTS:",
   "SectionSearchBlock.submitButton": "Explore",
   "SectionSearchBlock.whatKindOfPlace": "AMOUNT OF SPACE REQUIRED:",

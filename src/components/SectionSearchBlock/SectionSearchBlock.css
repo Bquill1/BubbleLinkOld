@@ -18,11 +18,14 @@
   @media (--viewportMedium) {
     position: sticky;
     bottom: none;
-    width: auto;
-    margin-bottom: -.5rem;
-
     top: 0;
+    width: auto;
+    margin-bottom: -1rem;
   }
+  @media (--viewportLarge) {
+    margin-bottom: 1rem;
+  }
+
 }
 .searchResultSummary {
   @apply --marketplaceH3FontStyles;
@@ -229,11 +232,16 @@
   );
   max-width: 434px;
 }
+
 .submitButton {
-  margin: -12px 12px 12px 12px;
+  margin: 12px 12px 12px 12px;
   border-radius: 3rem;
   width: 100%;
   box-shadow: var(--boxShadowPopup);
+  @media(--viewportMedium){
+    margin: 0 12px 12px 12px;
+    
+  }
 }
 .submitButton:focus{
   background-color: var(--marketplaceColor);

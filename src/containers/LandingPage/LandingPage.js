@@ -3,6 +3,7 @@ import { bool, object } from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { withViewport } from '../../util/contextHelpers';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
 import { propTypes } from '../../util/types';
@@ -35,6 +36,7 @@ export const LandingPageComponent = props => {
     filterConfig,
     isAuthenticated,
     currentUserIsHost,
+    viewport,
   } = props;
   console.log(props);
   // Schema for search engines (helps them to understand what this page is about)
@@ -44,7 +46,7 @@ export const LandingPageComponent = props => {
   const schemaTitle = intl.formatMessage({ id: 'LandingPage.schemaTitle' }, { siteTitle });
   const schemaDescription = intl.formatMessage({ id: 'LandingPage.schemaDescription' });
   const schemaImage = `${config.canonicalRootURL}${facebookImage}`;
-
+const isMobile = viewport.width < 550
   return (
     <Page
       className={css.root}
@@ -75,6 +77,7 @@ export const LandingPageComponent = props => {
               history={history}
               location={location}
               filterConfig={filterConfig}
+              isMobile={isMobile}
             />
           </div>
           <ul className={css.sections}>
@@ -142,6 +145,8 @@ const mapStateToProps = state => {
 // lifecycle hook.
 //
 // See: https://github.com/ReactTraining/react-router/issues/4671
-const LandingPage = compose(withRouter, connect(mapStateToProps), injectIntl)(LandingPageComponent);
+const LandingPage = compose(withRouter, connect(mapStateToProps),
+  withViewport,
+ injectIntl)(LandingPageComponent);
 
 export default LandingPage;

@@ -8,7 +8,7 @@ import FilterComponent from '../../containers/SearchPage/FilterComponent';
 import css from './SectionHero.css';
 
 const SectionHero = props => {
-  const { rootClassName, className, filterConfig } = props;
+  const { rootClassName, className, filterConfig, isMobile } = props;
 
   const classes = classNames(rootClassName || css.root, className);
 
@@ -19,6 +19,7 @@ const SectionHero = props => {
           <SectionSearchBlock
             onManageDisableScrolling={e => null}
             filters={filterConfig}
+            isMobile={isMobile}
             onSubmit={e => console.log(e)}
           />
         </div>

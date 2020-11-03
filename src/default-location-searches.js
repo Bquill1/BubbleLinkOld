@@ -15,7 +15,7 @@ export default [
       bounds: new LatLngBounds(new LatLng(53.41166, -6.112993), new LatLng(53.298881, -6.386999)),
     },
   },
-  {
+ {/* {
     id: 'default-cork',
     predictionPlace: {
       address: 'Cork, Ireland',
@@ -42,5 +42,5 @@ export default [
       address: 'Waterford, Ireland',
       bounds: new LatLngBounds(new LatLng(52.279827, -7.03399), new LatLng(52.210183, -7.187132)),
     },
-  },
+  },*/}
 ];

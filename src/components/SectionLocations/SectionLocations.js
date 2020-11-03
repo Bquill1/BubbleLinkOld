@@ -62,11 +62,16 @@ const SectionLocations = props => {
           '?address=London%2C%20England&bounds=51.669993%2C0.152641%2C51.384598%2C-0.35167&origin=51.5007325%2C-0.1268141'
         )}
         {locationLink(
+          'Cork',
+          parisImage,
+          '?address=Cork%2C%20Ireland&bounds=51.937444%2C-8.389492%2C51.866048%2C-8.584363&origin=51.8984206%2C-8.474596'
+        )}
+  {/*      {locationLink(
           'Paris',
           parisImage,
           '?address=Paris%2C%20France&bounds=48.9020129995121%2C2.46976999462145%2C48.8156060108013%2C2.22422400085346&origin=48.8737952%2C2.2928388'
         )}
-	{/* {locationLink(
+	 {locationLink(
           'Berlin',
           berlinImage,
           '?address=Berlin%2C%20Germany&bounds=52.6755029827484%2C13.761131997363%2C52.3382670008426%2C13.0883590415111&origin=52.5162778%2C13.3755154'

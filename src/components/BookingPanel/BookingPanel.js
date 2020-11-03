@@ -305,9 +305,9 @@ const BookingPanel = props => {
       >
         <div className={css.bookingPanelModalMobileContent}>
             {spaceRentalAvailabilityButtons}
-            {hourDayButtons}
             {seatsSelector}
-          <div className={css.modalHeading}>
+            {hourDayButtons}
+            <div className={css.modalHeading}>
             <h1 className={css.title}>{title}</h1>
           </div>
           <div className={css.bookingHeading}>

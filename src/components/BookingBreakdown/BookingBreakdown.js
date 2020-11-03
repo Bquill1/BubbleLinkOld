@@ -41,7 +41,6 @@ export const BookingBreakdownComponent = props => {
     isDaily,
     seatsSelected,
   } = props;
-  console.log(props);
   const isCustomer = userRole === 'customer';
   const isProvider = userRole === 'provider';
 

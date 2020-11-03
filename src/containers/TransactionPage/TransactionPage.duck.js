@@ -444,7 +444,6 @@ export const acceptSale = id => (dispatch, getState, sdk) => {
     return Promise.reject(new Error('Accept or decline already in progress'));
   }
   dispatch(acceptSaleRequest());
-
   return sdk.transactions
     .transition({ id, transition: TRANSITION_ACCEPT, params: {} }, { expand: true })
     .then(response => {
@@ -468,7 +467,6 @@ export const declineSale = id => (dispatch, getState, sdk) => {
     return Promise.reject(new Error('Accept or decline already in progress'));
   }
   dispatch(declineSaleRequest());
-
   return sdk.transactions
     .transition({ id, transition: TRANSITION_DECLINE, params: {} }, { expand: true })
     .then(response => {
@@ -479,6 +477,7 @@ export const declineSale = id => (dispatch, getState, sdk) => {
     })
     .catch(e => {
       dispatch(declineSaleError(storableError(e)));
+      console.log(e)
       log.error(e, 'reject-sale-failed', {
         txId: id,
         transition: TRANSITION_DECLINE,

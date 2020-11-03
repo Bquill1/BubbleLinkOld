@@ -64,6 +64,7 @@ const SectionSearchBlockComponent = props => {
     setCapacityFilter(val < 1 ? 1 : val > 100 ? 100 : val);
   };
   const searchBlockHeader = <FormattedMessage id="SectionSearchBlock.header" />;
+  const smallSearchBlockHeader = <FormattedMessage id="SectionSearchBlock.smallHeader" />;
   const searchBlockWhatKindOfPlace = <FormattedMessage id="SectionSearchBlock.whatKindOfPlace" />;
   const searchBlockCapacity = <FormattedMessage id="SectionSearchBlock.capacity" />;
 
@@ -97,16 +98,22 @@ const SectionSearchBlockComponent = props => {
       }}
     >
       <div className={css.searchResultSummary}>
-        {searchBlockHeader}
-        <FontAwesomeIcon
-          className={css.iconClassName}
-          size={'1x'}
-          icon={faQuestionCircle}
-          data-tip={
-            '"Other" can include spaces used for exercise, yoga, all types of classes and anything else not in the core categories.'
-          }
-          data-for="type-of-space"
-        />
+        {isFocused ? (
+          <>
+            {searchBlockHeader}
+            <FontAwesomeIcon
+              className={css.iconClassName}
+              size={'1x'}
+              icon={faQuestionCircle}
+              data-tip={
+                '"Other" can include spaces used for exercise, yoga, all types of classes and anything else not in the core categories.'
+              }
+              data-for="type-of-space"
+            />
+          </>
+        ) : (
+          smallSearchBlockHeader
+        )}
         {windowLoaded && <ReactTooltip id="type-of-space" className={css.tooltip} />}
       </div>
       <div className={css.filtersWrapper}>
@@ -117,7 +124,6 @@ const SectionSearchBlockComponent = props => {
             console.log(formRenderProps);
             console.log(values);
             const classes = classNames(className, css.searchLink);
-console.log(collapsibleCss)
             return (
               <Form className={classes} onSubmit={handleSearchSubmit}>
                 <div className={collapsibleCss}>

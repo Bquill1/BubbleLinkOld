@@ -19,6 +19,7 @@
     position: sticky;
     bottom: none;
     width: auto;
+    margin-bottom: -.5rem;
 
     top: 0;
   }
@@ -302,6 +303,10 @@
 
   @media (--viewportSmall) {
     display: inherit;
+  visibility: visible;
+  height:auto;
+  transform:none;
+  transition: transform 0.3s ease-out;
   }
 }
 .tooltip {

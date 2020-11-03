@@ -45,7 +45,7 @@ export const getLowestPrice = (listing, intl) => {
   const unitTranslation = { 0: 'hr', 2: 'hr', 1: 'day', 3: 'day' };
   return {
     lowest: lowestPrice,
-    lowestFormatted: formatMoney(intl, lowestPrice),
+    lowestFormatted: intl && formatMoney(intl, lowestPrice) || null,
     lowestText: '/' + unitTranslation[lowestPriceOption],
   };
 };

@@ -91,7 +91,7 @@ const SectionSearchBlockComponent = props => {
   return (
     <div
       className={classes}
-      onFocus={e => setIsFocused(true)}
+      // onFocus={e => setIsFocused(true)}
       onMouseLeave={e => {
         console.log(1111);
         setIsFocused(false);
@@ -111,9 +111,7 @@ const SectionSearchBlockComponent = props => {
               data-for="type-of-space"
             />
           </>
-        ) : (
-          smallSearchBlockHeader
-        )}
+        ) : null}
         {windowLoaded && <ReactTooltip id="type-of-space" className={css.tooltip} />}
       </div>
       <div className={css.filtersWrapper}>
@@ -136,42 +134,40 @@ const SectionSearchBlockComponent = props => {
                     setOption={setActiveCategoryFilter}
                     labelKey={categoryOptionKey}
                   />
-                </div>
 
-                <Field
-                  name="location"
-                  format={identity}
-                  render={({ input, meta }) => {
-                    const { onChange, ...restInput } = input;
+                  <Field
+                    name="location"
+                    format={identity}
+                    render={({ input, meta }) => {
+                      const { onChange, ...restInput } = input;
 
-                    // Merge the standard onChange function with custom behaviur. A better solution would
-                    // be to use the FormSpy component from Final Form and pass this.onChange to the
-                    // onChange prop but that breaks due to insufficient subscription handling.
-                    // See: https://github.com/final-form/react-final-form/issues/159
-                    const searchOnChange = value => {
-                      onChange(value);
-                      onChange(value);
-                    };
+                      // Merge the standard onChange function with custom behaviur. A better solution would
+                      // be to use the FormSpy component from Final Form and pass this.onChange to the
+                      // onChange prop but that breaks due to insufficient subscription handling.
+                      // See: https://github.com/final-form/react-final-form/issues/159
+                      const searchOnChange = value => {
+                        onChange(value);
+                        onChange(value);
+                      };
 
-                    let searchInput = { ...restInput, onChange: searchOnChange };
-                    return (
-                      <LocationAutocompleteInput
-                        className={css.desktopInputRoot}
-                        iconClassName={css.desktopIcon}
-                        inputClassName={css.desktopInput}
-                        predictionsClassName={css.desktopPredictions}
-                        placeholder={intl.formatMessage({ id: 'TopbarSearchForm.placeholder' })}
-                        closeOnBlur={!isMobile}
-                        inputRef={node => {
-                          searchInput = node;
-                        }}
-                        input={searchInput}
-                        meta={meta}
-                      />
-                    );
-                  }}
-                />
-                <div className={collapsibleCss}>
+                      let searchInput = { ...restInput, onChange: searchOnChange };
+                      return (
+                        <LocationAutocompleteInput
+                          className={css.desktopInputRoot}
+                          iconClassName={css.desktopIcon}
+                          inputClassName={css.desktopInput}
+                          predictionsClassName={css.desktopPredictions}
+                          placeholder={intl.formatMessage({ id: 'TopbarSearchForm.placeholder' })}
+                          closeOnBlur={!isMobile}
+                          inputRef={node => {
+                            searchInput = node;
+                          }}
+                          input={searchInput}
+                          meta={meta}
+                        />
+                      );
+                    }}
+                  />
                   <div className={css.searchResultSummary}>{searchBlockCapacity}</div>
                   <div className={css.capacityWrapper}>
                     <div className={css.searchResultSummary}></div>
@@ -240,10 +236,16 @@ const SectionSearchBlockComponent = props => {
                 <div className={css.submitButtonWrapper}>
                   <Button
                     className={css.submitButton}
-                    type="submit"
+                    type={isFocused ? "submit" : null}
                     onClick={e => {
                       e.preventDefault();
-                      handleSearchSubmit(values);
+                      console.log(!isFocused)
+                      if (!isFocused) {
+                        setIsFocused(true);
+                        
+                      } else {
+                        handleSearchSubmit(values);
+                      }
                     }}
                     inProgress={false}
                     disabled={false}

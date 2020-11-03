@@ -98,20 +98,16 @@ const SectionSearchBlockComponent = props => {
       }}
     >
       <div className={css.searchResultSummary}>
-        {isFocused ? (
-          <>
-            {searchBlockHeader}
-            <FontAwesomeIcon
-              className={css.iconClassName}
-              size={'1x'}
-              icon={faQuestionCircle}
-              data-tip={
-                '"Other" can include spaces used for exercise, yoga, all types of classes and anything else not in the core categories.'
-              }
-              data-for="type-of-space"
-            />
-          </>
-        ) : null}
+        {searchBlockHeader}
+        <FontAwesomeIcon
+          className={css.iconClassName}
+          size={'1x'}
+          icon={faQuestionCircle}
+          data-tip={
+            '"Other" can include spaces used for exercise, yoga, all types of classes and anything else not in the core categories.'
+          }
+          data-for="type-of-space"
+        />
         {windowLoaded && <ReactTooltip id="type-of-space" className={css.tooltip} />}
       </div>
       <div className={css.filtersWrapper}>
@@ -236,13 +232,12 @@ const SectionSearchBlockComponent = props => {
                 <div className={css.submitButtonWrapper}>
                   <Button
                     className={css.submitButton}
-                    type={isFocused ? "submit" : null}
+                    type={isFocused ? 'submit' : null}
                     onClick={e => {
                       e.preventDefault();
-                      console.log(!isFocused)
+                      console.log(!isFocused);
                       if (!isFocused) {
                         setIsFocused(true);
-                        
                       } else {
                         handleSearchSubmit(values);
                       }

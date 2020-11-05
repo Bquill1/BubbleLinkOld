@@ -95,23 +95,6 @@ const SectionSearchBlockComponent = props => {
       // onFocus={e => setIsFocused(true)}
       onMouseLeave={e => setIsFocused(false)}
     >
-      {isFocused && (
-        <div className={css.searchResultSummary}>
-          {searchBlockHeader}
-          <FontAwesomeIcon
-            className={css.iconClassName}
-            size={'1x'}
-            icon={faQuestionCircle}
-            data-tip={
-              '"Other" can include spaces used for exercise, yoga, all types of classes and anything else not in the core categories.'
-            }
-            data-for="type-of-space"
-          />
-          {windowLoaded && (
-            <ReactTooltip id="type-of-space" className={css.tooltip} place={'top'} />
-          )}
-        </div>
-      )}
       <div className={css.filtersWrapper}>
         <FinalForm
           {...props}
@@ -123,6 +106,23 @@ const SectionSearchBlockComponent = props => {
             return (
               <Form className={classes} onSubmit={handleSearchSubmit}>
                 <div className={collapsibleCss}>
+                  {((isMobile && isFocused) || !isMobile) && (
+                    <div className={css.searchResultSummary}>
+                      {searchBlockHeader}
+                      <FontAwesomeIcon
+                        className={css.iconClassName}
+                        size={'1x'}
+                        icon={faQuestionCircle}
+                        data-tip={
+                          '"Other" can include spaces used for exercise, yoga, all types of classes and anything else not in the core categories.'
+                        }
+                        data-for="type-of-space"
+                      />
+                      {windowLoaded && (
+                        <ReactTooltip id="type-of-space" className={css.tooltip} place={'top'} />
+                      )}
+                    </div>
+                  )}
                   <BookingPanelOptionButton
                     options={categoryFilter.config.options.map(o => {
                       console.log(o);
@@ -196,6 +196,8 @@ const SectionSearchBlockComponent = props => {
                     setOption={setActiveSpaceRentalAvailabilityFilter}
                     labelKey={spaceRentalAvailabilityKey}
                   />
+                </div>
+                {((isMobile && isFocused) || !isMobile) && (
                   <Field
                     name="location"
                     format={identity}
@@ -229,7 +231,7 @@ const SectionSearchBlockComponent = props => {
                       );
                     }}
                   />
-                </div>
+                )}
                 <div className={css.submitButtonWrapper}>
                   <Button
                     className={css.submitButton}

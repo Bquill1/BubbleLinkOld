@@ -20,10 +20,10 @@
     bottom: none;
     top: 0;
     width: auto;
-    margin-bottom: -1rem;
+    margin-bottom: -3rem;
   }
   @media (--viewportLarge) {
-    margin-bottom: 1rem;
+    margin-bottom: -1rem;
   }
 
 }
@@ -145,7 +145,7 @@
 
   background: var(--matterColorLight);
   box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.1);
-  z-index: 11;
+  z-index: 2;
 }
 
 .showListingsButton {
@@ -220,6 +220,7 @@
 .desktopInputRoot {
   height: 54px;
   margin: 0px 0px;
+  z-index: 3;
 }
 .desktopPredictions {
   position: absolute;
@@ -231,7 +232,7 @@
   border-bottom-left-radius: var(--borderRadius);
   border-bottom-right-radius: var(--borderRadius);
   box-shadow: var(--boxShadowPopup);
-  z-index: calc(var(--zIndexPopup) + 1);
+  z-index: calc(var(--zIndexPopup) + 3);
 
   margin-top: calc(
     var(--topbarHeightDesktop) - var(--TopbarSearchForm_inputHeight) +

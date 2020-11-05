@@ -133,39 +133,6 @@ const SectionSearchBlockComponent = props => {
                     labelKey={categoryOptionKey}
                   />
 
-                  <Field
-                    name="location"
-                    format={identity}
-                    render={({ input, meta }) => {
-                      const { onChange, ...restInput } = input;
-
-                      // Merge the standard onChange function with custom behaviur. A better solution would
-                      // be to use the FormSpy component from Final Form and pass this.onChange to the
-                      // onChange prop but that breaks due to insufficient subscription handling.
-                      // See: https://github.com/final-form/react-final-form/issues/159
-                      const searchOnChange = value => {
-                        onChange(value);
-                        onChange(value);
-                      };
-
-                      let searchInput = { ...restInput, onChange: searchOnChange };
-                      return (
-                        <LocationAutocompleteInput
-                          className={css.desktopInputRoot}
-                          iconClassName={css.desktopIcon}
-                          inputClassName={css.desktopInput}
-                          predictionsClassName={css.desktopPredictions}
-                          placeholder={intl.formatMessage({ id: 'TopbarSearchForm.placeholder' })}
-                          closeOnBlur={!isMobile}
-                          inputRef={node => {
-                            searchInput = node;
-                          }}
-                          input={searchInput}
-                          meta={meta}
-                        />
-                      );
-                    }}
-                  />
                   <div className={css.searchResultSummary}>{searchBlockCapacity}</div>
                   <div className={css.capacityWrapper}>
                     <div className={css.searchResultSummary}></div>
@@ -229,8 +196,40 @@ const SectionSearchBlockComponent = props => {
                     setOption={setActiveSpaceRentalAvailabilityFilter}
                     labelKey={spaceRentalAvailabilityKey}
                   />
-                </div>
+                  <Field
+                    name="location"
+                    format={identity}
+                    render={({ input, meta }) => {
+                      const { onChange, ...restInput } = input;
 
+                      // Merge the standard onChange function with custom behaviur. A better solution would
+                      // be to use the FormSpy component from Final Form and pass this.onChange to the
+                      // onChange prop but that breaks due to insufficient subscription handling.
+                      // See: https://github.com/final-form/react-final-form/issues/159
+                      const searchOnChange = value => {
+                        onChange(value);
+                        onChange(value);
+                      };
+
+                      let searchInput = { ...restInput, onChange: searchOnChange };
+                      return (
+                        <LocationAutocompleteInput
+                          className={css.desktopInputRoot}
+                          iconClassName={css.desktopIcon}
+                          inputClassName={css.desktopInput}
+                          predictionsClassName={css.desktopPredictions}
+                          placeholder={intl.formatMessage({ id: 'TopbarSearchForm.placeholder' })}
+                          closeOnBlur={!isMobile}
+                          inputRef={node => {
+                            searchInput = node;
+                          }}
+                          input={searchInput}
+                          meta={meta}
+                        />
+                      );
+                    }}
+                  />
+                </div>
                 <div className={css.submitButtonWrapper}>
                   <Button
                     className={css.submitButton}

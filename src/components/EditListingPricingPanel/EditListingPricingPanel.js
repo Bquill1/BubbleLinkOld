@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
@@ -31,21 +31,9 @@ const EditListingPricingPanel = props => {
     errors,
     values,
   } = props;
-  console.log(props);
-  console.log(values);
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
   const { price, publicData } = currentListing.attributes;
-  const {
-    bookingType_entireSpace,
-    bookingType_individual,
-    price_entireSpace_daily = 0,
-    price_entireSpace_hourly = 0,
-    price_individual_daily = 0,
-    price_individual_hourly = 0,
-    spaceRentalAvailability,
-    capacity,
-  } = publicData;
 
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
   const panelTitle = isPublished ? (
@@ -63,6 +51,16 @@ const EditListingPricingPanel = props => {
     <FormattedMessage id="EditListingPricingPanel.createListingTitle" />
   );
 
+  const [bookingType_entireSpace, setBookingType_entireSpace] = useState(
+    publicData?.bookingType_entireSpace
+  );
+  const [bookingType_individual, setBookingType_individual] = useState(
+    publicData?.bookingType_individual
+  );
+  const [spaceRentalAvailability, setSpaceRentalAvailability] = useState(
+    publicData?.spaceRentalAvailability
+  );
+
   // const bookingTypeOptions = findOptionsForSelectFilter('bookingType', config.custom.filters);
   const spaceRentalAvailabilityOptions = findOptionsForSelectFilter(
     'spaceRentalAvailability',
@@ -72,88 +70,90 @@ const EditListingPricingPanel = props => {
     { key: 'hourly', label: 'Hourly' },
     { key: 'daily', label: 'Daily' },
   ];
- const removeDuplicates = (myArr, prop) =>  {
-   return myArr.filter((obj, pos, arr) => {
-     return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
-   });
- }
+  const removeDuplicates = (myArr, prop) => {
+    return myArr.filter((obj, pos, arr) => {
+      return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+    });
+  };
   const priceCurrencyValid = price instanceof Money ? price.currency === config.currency : true;
+  const handleOnSubmit = values => {
+    const currentAvailabilityPlan = currentListing?.attributes.availabilityPlan;
+    const entries = currentAvailabilityPlan?.entries || [];
+    const {
+      bookingType_entireSpace,
+      bookingType_individual,
+      price_entireSpace_daily,
+      price_entireSpace_hourly,
+      price_individual_daily,
+      price_individual_hourly,
+      spaceRentalAvailability,
+    } = values;
+    const price = [
+      price_entireSpace_daily,
+      price_entireSpace_hourly,
+      price_individual_daily,
+      price_individual_hourly,
+    ].reduce((min, price) => {
+      return min.amount < price.amount ? min : price;
+    });
+    let bookingType_searchOptions = [];
+    if (bookingType_entireSpace?.includes('hourly') || bookingType_individual?.includes('hourly')) {
+      bookingType_searchOptions.push('hourly');
+    }
+    if (bookingType_entireSpace?.includes('daily') || bookingType_individual?.includes('daily')) {
+      bookingType_searchOptions.push('daily');
+    }
+    const newAvailabilityPlan =
+      bookingType_searchOptions.includes('daily') && currentAvailabilityPlan
+        ? {
+            availabilityPlan: {
+              ...currentAvailabilityPlan,
+              entries: removeDuplicates(entries, 'dayOfWeek'),
+            },
+          }
+        : null;
+    console.log(newAvailabilityPlan);
+    const updatedValues = {
+      price,
+      publicData: {
+        bookingType_entireSpace,
+        bookingType_individual,
+        bookingTypes: bookingType_searchOptions,
+        price_entireSpace_daily: price_entireSpace_daily.amount,
+        price_entireSpace_hourly: price_entireSpace_hourly.amount,
+        price_individual_daily: price_individual_daily.amount,
+        price_individual_hourly: price_individual_hourly.amount,
+        spaceRentalAvailability,
+      },
+      ...newAvailabilityPlan,
+    };
+    console.log(updatedValues);
+    onSubmit(updatedValues);
+  };
   const form = priceCurrencyValid ? (
     <EditListingPricingForm
       className={css.form}
       initialValues={{
-        bookingType_entireSpace,
-        bookingType_individual,
-        price_entireSpace_daily: new Money(price_entireSpace_daily, config.currency),
-        price_entireSpace_hourly: new Money(price_entireSpace_hourly, config.currency),
-        price_individual_daily: new Money(price_individual_daily, config.currency),
-        price_individual_hourly: new Money(price_individual_hourly, config.currency),
-        spaceRentalAvailability,
+        bookingType_entireSpace: publicData?.bookingType_entireSpace || [],
+        bookingType_individual: publicData?.bookingType_individual || [],
+        price_entireSpace_daily: new Money(
+          publicData?.price_entireSpace_daily || 100,
+          config.currency
+        ),
+        price_entireSpace_hourly: new Money(
+          publicData?.price_entireSpace_hourly || 100,
+          config.currency
+        ),
+        price_individual_daily: new Money(publicData?.price_individual_daily || 100, config.currency),
+        price_individual_hourly: new Money(
+          publicData?.price_individual_hourly || 100,
+          config.currency
+        ),
+        spaceRentalAvailability: publicData?.spaceRentalAvailability || [],
       }}
       isNewListingFlow={isNewListingFlow}
       onSubmit={values => {
-        console.log(values);
-        const currentAvailabilityPlan = currentListing?.attributes.availabilityPlan;
-        const entries = currentAvailabilityPlan?.entries || [];
-       
-        const {
-          bookingType_entireSpace,
-          bookingType_individual,
-          price_entireSpace_daily,
-          price_entireSpace_hourly,
-          price_individual_daily,
-          price_individual_hourly,
-          spaceRentalAvailability,
-        } = values;
-        const price = [
-          price_entireSpace_daily,
-          price_entireSpace_hourly,
-          price_individual_daily,
-          price_individual_hourly,
-        ].reduce((min, price) => {
-          return min.amount < price.amount ? min : price;
-        });
-        console.log(values);
-        let bookingType_searchOptions = [];
-        if (
-          bookingType_entireSpace?.includes('hourly') ||
-          bookingType_individual?.includes('hourly')
-        ) {
-          bookingType_searchOptions.push('hourly');
-        }
-        if (
-          bookingType_entireSpace?.includes('daily') ||
-          bookingType_individual?.includes('daily')
-        ) {
-          bookingType_searchOptions.push('daily');
-        }
-         const newAvailabilityPlan = bookingType_searchOptions.includes('daily') && currentAvailabilityPlan
-           ? {
-               availabilityPlan: {
-                 ...currentAvailabilityPlan,
-                 entries: removeDuplicates(entries, 'dayOfWeek'),
-               },
-             }
-           : null;
-         console.log(newAvailabilityPlan);
-        const updatedValues = {
-          price,
-          publicData: {
-            bookingType_entireSpace,
-            bookingType_individual,
-            bookingTypes: bookingType_searchOptions,
-            price_entireSpace_daily: price_entireSpace_daily.amount,
-            price_entireSpace_hourly: price_entireSpace_hourly.amount,
-            price_individual_daily: price_individual_daily.amount,
-            price_individual_hourly: price_individual_hourly.amount,
-            spaceRentalAvailability,
-          
-          },
-          ...newAvailabilityPlan
-        };
-        console.log(updatedValues);
-
-        onSubmit(updatedValues);
+        handleOnSubmit(values);
       }}
       onChange={onChange}
       saveActionMsg={submitButtonText}
@@ -164,6 +164,12 @@ const EditListingPricingPanel = props => {
       fetchErrors={errors}
       bookingTypeOptions={bookingTypeOptions}
       spaceRentalAvailabilityOptions={spaceRentalAvailabilityOptions}
+      bookingType_entireSpace={bookingType_entireSpace}
+      setBookingType_entireSpace={setBookingType_entireSpace}
+      bookingType_individual={bookingType_individual}
+      setBookingType_individual={setBookingType_individual}
+      spaceRentalAvailability={spaceRentalAvailability}
+      setSpaceRentalAvailability={setSpaceRentalAvailability}
     />
   ) : (
     <div className={css.priceCurrencyInvalid}>

@@ -92,6 +92,7 @@ class CurrencyInputComponent extends Component {
         usesComma,
         holding: 0,
       };
+      console.log(this.state);
     } catch (e) {
       log.error(e, 'currency-input-init-failed', { currencyConfig, defaultValue, initialValue });
       throw e;
@@ -105,8 +106,10 @@ class CurrencyInputComponent extends Component {
   }
 
   onButtonClick(val) {
+    const newVal = parseInt(this.state.unformattedValue) + parseInt(val);
+    const trueVal = newVal < 1 ? 1 : newVal;
     this.onInputChange({
-      target: { value: '' + (parseInt(this.state.unformattedValue) + parseInt(val)) },
+      target: { value: '' + trueVal },
     });
     this.onInputBlur({});
   }
@@ -115,14 +118,19 @@ class CurrencyInputComponent extends Component {
     console.log(event);
     event.preventDefault && event.preventDefault();
     event.stopPropagation && event.stopPropagation();
+    const newVal = parseInt(event.target.value);
+    const trueVal = newVal < 1 ? 1 : newVal;
+
     // Update value strings on state
-    const { unformattedValue } = this.updateValues(event);
+    console.log(event.target.value);
+    const { unformattedValue } = this.updateValues({ target: { value: '' + trueVal } });
     // Notify parent component about current price change
     const price = getPrice(ensureDotSeparator(unformattedValue), this.props.currencyConfig);
     this.props.input.onChange(price);
   }
 
   onInputBlur(event) {
+    console.log(11111);
     event.preventDefault && event.preventDefault();
     event.stopPropagation && event.stopPropagation();
     const {
@@ -140,14 +148,15 @@ class CurrencyInputComponent extends Component {
       };
     });
   }
-
   onInputFocus(event) {
+    console.log(2222);
     event.preventDefault();
     event.stopPropagation();
     const {
       currencyConfig,
       input: { onFocus },
     } = this.props;
+    console.log(onFocus);
     this.setState(prevState => {
       if (onFocus) {
         // If parent component has provided onFocus function, call it with current price.
@@ -161,6 +170,7 @@ class CurrencyInputComponent extends Component {
   }
 
   updateValues(event) {
+    console.log(event);
     try {
       const { currencyConfig, intl } = this.props;
       const targetValue = event.target.value.trim();
@@ -207,7 +217,7 @@ class CurrencyInputComponent extends Component {
   }
 
   render() {
-    const { className, currencyConfig, defaultValue, placeholder, intl } = this.props;
+    const { className, disabled, currencyConfig, defaultValue, placeholder, intl } = this.props;
     const placeholderText = placeholder || intl.formatNumber(defaultValue, currencyConfig);
     return (
       <div className={css.currencyWrapper}>
@@ -220,6 +230,7 @@ class CurrencyInputComponent extends Component {
             }}
             onBlur={this.onInputBlur}
             onFocus={this.onInputFocus}
+            disabled={disabled}
           >
             -
           </Button>
@@ -233,6 +244,7 @@ class CurrencyInputComponent extends Component {
           onFocus={this.onInputFocus}
           type="slider"
           placeholder={placeholderText}
+          disabled={disabled}
         />
         <div className={css.buttonWrapper}>
           <Button
@@ -243,6 +255,7 @@ class CurrencyInputComponent extends Component {
             }}
             onBlur={this.onInputBlur}
             onFocus={this.onInputFocus}
+            disabled={disabled}
           >
             +
           </Button>
@@ -299,6 +312,7 @@ const FieldCurrencyInputComponent = props => {
 
   const inputProps = { className: inputClasses, id, input, ...rest };
   const classes = classNames(rootClassName, className);
+  console.log(inputProps);
   return (
     <div className={classes}>
       {label ? <label htmlFor={id}>{label}</label> : null}

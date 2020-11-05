@@ -44,9 +44,12 @@ const FieldCheckboxComponent = props => {
     label,
     useSuccessColor,
     validationError,
+    hideCheckbox,
+    labelClassName,
+    selected,
+    selectedClassName,
     ...rest
   } = props;
-
   const classes = classNames(rootClassName || css.root, className);
   const checkboxProps = {
     id,
@@ -55,7 +58,7 @@ const FieldCheckboxComponent = props => {
     type: 'checkbox',
     ...rest,
   };
-
+  console.log(checkboxProps);
   const successColorVariantMaybe = useSuccessColor
     ? {
         checkedClassName: css.checkedSuccess,
@@ -66,11 +69,17 @@ const FieldCheckboxComponent = props => {
   return (
     <span className={classes}>
       <Field {...checkboxProps} />
-      <label htmlFor={id} className={css.label}>
-        <span className={css.checkboxWrapper}>
+      <label htmlFor={id} className={classNames({ [selectedClassName]: selected }, labelClassName || css.label)}>
+        <span className={classNames({ [css.hide]: hideCheckbox }, css.checkboxWrapper)}>
           <IconCheckbox className={svgClassName} {...successColorVariantMaybe} />
         </span>
-        <span className={classNames(css.text, textClassName || css.textRoot, {[css.errorCheckbox] : validationError})}>{label}</span>
+        <span
+          className={classNames(css.text, textClassName , css.textRoot, {
+            [css.errorCheckbox]: validationError,
+          })}
+        >
+          {label}
+        </span>
       </label>
     </span>
   );

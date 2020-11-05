@@ -103,3 +103,24 @@
   flex-direction: column;
   margin-left: 30px;
 }
+.labelClassName{
+  @apply --marketplaceButtonStylesSecondary;
+  margin: 1rem;
+  padding: .5rem;
+  width: auto;
+  min-height: auto;
+  
+
+}
+.selectedClassName{
+  @apply --marketplaceButtonStyles;
+  margin: 1rem;
+  padding: .5rem;
+  width: auto;
+  min-height: auto;
+  color: #fff !important;
+}
+.selectedText{
+  color: #fff !important;
+
+}

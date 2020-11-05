@@ -130,9 +130,6 @@ const EditListingWizardTab = props => {
         : { ...updateValuesWithImages, id: currentListing.id };
       return onUpsertListingDraft(tab, upsertValues)
         .then(r => {
-          console.log(r)
-          console.log(tab)
-            console.log(updateValues)
           if (tab !== AVAILABILITY && tab !== marketplaceTabs[marketplaceTabs.length - 1]) {
             // Create listing flow: smooth scrolling polyfill to scroll to correct tab
             handleCreateFlowTabScrolling(false);
@@ -171,7 +168,6 @@ const EditListingWizardTab = props => {
       isNewListingFlow,
     };
   };
-console.log(panelProps())
   switch (tab) {
     case BASICS: {
       const submitButtonTranslationKey = isNewListingFlow

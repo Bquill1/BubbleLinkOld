@@ -31,7 +31,6 @@ const TopbarMobileMenu = props => {
     notificationCount,
     onLogout,
   } = props;
-console.log(props)
   const user = ensureCurrentUser(currentUser);
 
   if (!isAuthenticated) {

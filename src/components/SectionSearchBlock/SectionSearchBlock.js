@@ -114,7 +114,7 @@ const SectionSearchBlockComponent = props => {
                         size={'1x'}
                         icon={faQuestionCircle}
                         data-tip={
-                          '"Other" can include spaces used for exercise, yoga, all types of classes and anything else not in the core categories.'
+                          '"Other" contains all spaces not in the core categories, try it and see what you can find!'
                         }
                         data-for="type-of-space"
                       />

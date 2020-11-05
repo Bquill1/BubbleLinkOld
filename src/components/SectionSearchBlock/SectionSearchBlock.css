@@ -37,7 +37,7 @@
 .searchResultSummary {
   @apply --marketplaceH3FontStyles;
   margin: 0.5rem 0.5rem 0 0.5rem;
-  padding: 0.5rem;
+  padding: 0.25rem;
   font-size: 14px;
   font-weight: bold;
 
@@ -247,13 +247,13 @@
   width: 100%;
   box-shadow: var(--boxShadowPopup);
   @media(--viewportMedium){
-    margin: 0 12px 12px 12px;
-    
+    margin: 12px 12px 12px 12px;
+
   }
 }
 .submitButton:focus{
   background-color: var(--marketplaceColor);
-  
+
 }
 
 /* Search*/
@@ -281,8 +281,8 @@
   justify-content: left;
   border-bottom: 2px solid;
   border-bottom-color: var(--marketplaceColorGrey);
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 .numberWrapper {
   display: inline-flex;

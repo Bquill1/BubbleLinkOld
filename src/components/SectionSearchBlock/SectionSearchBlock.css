@@ -27,6 +27,13 @@
   }
 
 }
+
+.focusedBlock{
+  position:fixed;
+  bottom: 1vh;
+  z-index: 2;
+
+}
 .searchResultSummary {
   @apply --marketplaceH3FontStyles;
   margin: 0.5rem 0.5rem 0 0.5rem;
@@ -322,7 +329,7 @@
   }
 }
 .tooltip {
-  max-width: 300px;
+  max-width: 280px;
   font-size: 12px;
   font-family: arial;
   line-height: 1.5;

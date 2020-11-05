@@ -49,6 +49,7 @@ const post = (path, body) => {
   return window
     .fetch(url, options)
     .then(res => {
+      console.log(res)
       if (res.status >= 400) {
         const e = new Error('Local API request failed');
         e.apiResponse = res;
@@ -105,5 +106,10 @@ export const transitionPrivileged = body => {
 // Required to check if a date has *any* bookings on it
 //
 export const getAvailabilityPlan = body => {
-  return post('/api/get-availability-plan', body);
+  try{
+
+    return post('/api/get-availability-plan', body);
+  }catch{
+    return null
+  }
 };

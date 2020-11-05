@@ -237,7 +237,10 @@ export const showListing = (listingId, isOwn = false) => (dispatch, getState, sd
 
   return show
     .then(data => {
+      console.log(params)
+      console.log(data)
       return getAvailabilityPlan(listingId).then(r => {
+        console.log(r)
         const originalAvailabilityPlan = r.data;
         console.log(originalAvailabilityPlan)
         dispatch(addOriginalAvailabilityPlan(originalAvailabilityPlan));
@@ -246,6 +249,7 @@ export const showListing = (listingId, isOwn = false) => (dispatch, getState, sd
       });
     })
     .catch(e => {
+      console.log(e)
       dispatch(showListingError(storableError(e)));
     });
 };

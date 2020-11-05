@@ -141,7 +141,7 @@ export const EditListingPricingFormComponent = props => (
           onSubmit={handleSubmit}
           onMouseLeave={_ => {
             if (!isNewListingFlow) {
-              handleSubmit();
+              // handleSubmit();
             }
           }}
           // onBlur={_ => {

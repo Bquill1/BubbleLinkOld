@@ -6,7 +6,7 @@ const integrationSdk =  flexIntegrationSdk.createInstance({
 });
 module.exports = (req, res) => {
   const listingUUID = req.body;
-  
+  console.log(listingUUID)
   const listingPromise = integrationSdk.listings.show({ id: listingUUID.uuid });
 
   listingPromise

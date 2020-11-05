@@ -13,7 +13,6 @@ import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
 import { BookingPanelOptionButton, Form, LocationAutocompleteInput, Button } from '..';
 import css from './SectionSearchBlock.css';
-import checkoutPageReducer from '../../containers/CheckoutPage/CheckoutPage.duck';
 const identity = v => v;
 
 const { LatLng, LatLngBounds } = sdkTypes;
@@ -47,7 +46,6 @@ const SectionSearchBlockComponent = props => {
     history.push(createResourceLocatorString('SearchPage', routeConfiguration(), {}, searchParams));
   };
 
-  const classes = classNames(rootClassName || css.root, className);
   const [activeCategoryFilter, setActiveCategoryFilter] = useState('work');
   const [activeSpaceRentalAvailabilityFilter, setActiveSpaceRentalAvailabilityFilter] = useState(
     'entireSpace'
@@ -63,6 +61,11 @@ const SectionSearchBlockComponent = props => {
   const handleSetCapacityFilter = val => {
     setCapacityFilter(val < 1 ? 1 : val > 100 ? 100 : val);
   };
+
+  const classes = classNames(rootClassName || css.root, className, {
+    [css.focusedBlock]: isFocused,
+  });
+
   const searchBlockHeader = <FormattedMessage id="SectionSearchBlock.header" />;
   const searchBlockWhatKindOfPlace = <FormattedMessage id="SectionSearchBlock.whatKindOfPlace" />;
   const searchBlockCapacity = <FormattedMessage id="SectionSearchBlock.capacity" />;
@@ -84,7 +87,6 @@ const SectionSearchBlockComponent = props => {
     event.target.select();
   };
   const windowLoaded = typeof window !== 'undefined';
-  const tooltip = windowLoaded && <ReactTooltip id="test" className={css.tooltip} />;
   const collapsibleCss = classNames({ [css.hidden]: !isFocused }, { [css.show]: isFocused });
 
   return (
@@ -105,7 +107,9 @@ const SectionSearchBlockComponent = props => {
             }
             data-for="type-of-space"
           />
-          {windowLoaded && <ReactTooltip id="type-of-space" className={css.tooltip} />}
+          {windowLoaded && (
+            <ReactTooltip id="type-of-space" className={css.tooltip} place={'top'} />
+          )}
         </div>
       )}
       <div className={css.filtersWrapper}>

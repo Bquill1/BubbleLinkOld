@@ -100,7 +100,7 @@ display: inherit;
   margin: 0 24px 0 0px;
 
   @media (--viewportMedium) {
-    margin: 0 7.5vw 0 0vw;
+    margin: 0 2.5vw 0 0vw;
   }
 
   /* Special viewport for adjusting the heroContent's placement */
@@ -129,7 +129,7 @@ display: inherit;
 }
 
 .heroSubTitle {
-  @apply --marketplaceH4FontStyles;
+  @apply --marketplaceH3FontStyles;
 
   color: var(--matterColorLight);
   margin: 0 0 32px 0;

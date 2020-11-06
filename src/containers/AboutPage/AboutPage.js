@@ -53,80 +53,34 @@ const isHost = isAuthenticated && currentUser?.attribute?.profile?.publicData?.i
           <TopbarContainer />
         </LayoutWrapperTopbar>
 
-
         <LayoutWrapperMain className={css.s}>
-{/*          <div className={css.heroContainer}>
-
-          <SectionHostHero
-            className={css.hero}
-            history={history}
-            location={location}
-            isAuthenticated={isAuthenticated}
-            currentUser={currentUser}
-            isHost={currentUserIsHost}
-            currentUserHasListings={currentUserHasListings}
-            becomeHost={becomeHost}
-          />
-
-          </div>
-*/}
           <div className={css.staticPageWrapper}>
-      {/*      <MultiColumnSection
-              showGraphics={true}
-              title={'How Do I Become a Host?'}
-              content={[
-                {
-                  title: '1. Sign Up For Free',
-                  content: `Click the "+Become a Host" button above to create your free account.`,
-                },
-                {
-                  title: '2. Create Your Listing',
-                  content: `Our easy to use listing form will then guide you through the process of adding your first space.`,
-                },
-                {
-                  title: '3. Start Renting!',
-                  content: `The BubbleLink users can then search for properties like yours, book them, and the money goes straight to you!`,
-                },
-              ]}
-            />
-            */}
+
             <TextAndImageSection
-              title={'About Bubblelink'}
+              title={'About BubbleLink'}
               subtitle={null}
               content={
 
                 <p className={css.heroList}>
-                  We strive to build a community where our hosts can connect their guests with that perfect space. <br/>
+                  We strive to build a community where our hosts can connect their guests with that perfect space.
+                  Whatever type of space you can think of, we want BubbleLink to be the bridge that connects hosts and guests.<br/>
+                  <br/>
                   Whether it's somewhere to work remotely, to hold a meeting with your team or with clients, to collaborate
                   on college projects, a quiet place to prepare for exams or somewhere to hold a unique event, we want BubbleLink
                   to be your go to place for all your space needs.
                   </p>
-
-
-
               }
               image={aboutUsPic1}
               largeImage
             />
- {/*           <MultiColumnSection
-              showGraphics={false}
-              title={'The BubbleLink concept'}
-              content={[
-                {
-                  title: 'Answer: No!',
-                  content: `There is no subscription cost when you sign-up to BubbleLink. You only pay a fee once your space has been booked.
-Why not sign-up and test out the site to see if it's for you?`,
-                },
-              ]}
-            />
-  */}
+
             <MultiColumnSection
               showGraphics={false}
               title={'The BubbleLink concept'}
               content={[
                 {
                   content: `With the impact of Covid-19 bringing the travel industry to its knees, and the explosion in remote working as a result, we at BubbleLink
-                            saw an urgent need to reimagine how we host and work. We wanted to help hosts who may have traditionally used their spaces for short-term
+                            saw an urgent need to reimagine how we host and work. We wanted to help hosts who may traditionally have used their spaces for short-term
                             rentals to unlock new revenue streams and to take remote workers out of cramped bedrooms and kitchen tables into ideal working spaces.`,
                 },
                 {
@@ -134,7 +88,7 @@ Why not sign-up and test out the site to see if it's for you?`,
                 },
                 {
                  content: `We discovered that there were so many amazing spaces that had never been used for short-term rentals which were ideal for daily letting.
-                 Beautiful homes, grand old buildings, wonderful gardens...all of which we wanted to help our hosts share with the world  `,
+                 Beautiful homes, grand old buildings, wonderful gardens...all of which we wanted to help our hosts share with the world.`,
                  },
               ]}
             />
@@ -146,8 +100,11 @@ Why not sign-up and test out the site to see if it's for you?`,
                   <p>
                    <i> "When Covid-19 hit I found myself working at home for the first time at a cramped kitchen table
                    with a wobbly chair. The building in which I lived was full of empty apartments that had been used for short-term rentals,
-                   a market that had suddenly disappeared. I thought, wouldn't it be so much better for both parties if the space could be used
-                   for day time letting and remote working"
+                   a market that disappeared overnight. I thought, wouldn't it be so much better for both parties if the space could be used
+                   for day time letting and remote working. When I couldn't find a website that offered this service I decided to create my own."<br/>
+                   <br/>
+                   "However, after some research, I quickly realised the idea went far beyond remote working spaces. There were so many diverse spaces with
+                    myriad uses that hosts wanted to share with the world but just needed the right platform to do so. And so BubbleLink was formed!"
                    </i>
                   </p>
                   <br />

@@ -49,6 +49,7 @@
 
 .createListingLink {
   margin-top: 18px;
+  font-weight: bold;
 
   @media (--viewportMedium) {
     margin-top: 24px;

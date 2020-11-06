@@ -63,7 +63,7 @@ const SectionLocations = props => {
         )}
         {locationLink(
           'Cork',
-          parisImage,
+          berlinImage,
           '?address=Cork%2C%20Ireland&bounds=51.937444%2C-8.389492%2C51.866048%2C-8.584363&origin=51.8984206%2C-8.474596'
         )}
   {/*      {locationLink(

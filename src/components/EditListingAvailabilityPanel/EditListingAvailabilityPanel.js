@@ -25,6 +25,9 @@ import css from './EditListingAvailabilityPanel.css';
 const availabilityMessage1 = (
   <FormattedMessage id="EditListingAvailabilityPanel.availabilityMessage1" />
 );
+const availabilityMessage2 = (
+  <FormattedMessage id="EditListingAvailabilityPanel.availabilityMessage2" />
+);
 const WEEKDAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 // We want to sort exceptions on the client-side, maximum pagination page size is 100,
@@ -178,11 +181,11 @@ const EditListingAvailabilityPanel = props => {
   const [isEditPlanModalOpen, setIsEditPlanModalOpen] = useState(false);
   const [isEditExceptionsModalOpen, setIsEditExceptionsModalOpen] = useState(false);
   const [valuesFromLastSubmit, setValuesFromLastSubmit] = useState(null);
-  
+
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
   const capacity = currentListing.attributes.publicData.capacity;
-  
+
   const isDaily = currentListing.attributes.publicData.bookingTypes.includes("daily")
   const isNextButtonDisabled = false;
   // const isNextButtonDisabled = !currentListing.attributes.availabilityPlan;
@@ -293,6 +296,10 @@ const EditListingAvailabilityPanel = props => {
           <EditListingHelperCard
             title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />}
             content={availabilityMessage1}
+          />
+          <EditListingHelperCard
+                      title={<FontAwesomeIcon className={css.iconClassName} size={'2x'} icon={faLightbulb} />}
+                      content={availabilityMessage2}
           />
         </div>
       </div>

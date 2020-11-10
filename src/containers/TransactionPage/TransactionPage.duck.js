@@ -467,9 +467,12 @@ export const declineSale = id => (dispatch, getState, sdk) => {
     return Promise.reject(new Error('Accept or decline already in progress'));
   }
   dispatch(declineSaleRequest());
+  console.log(id)
+  console.log('000')
   return sdk.transactions
     .transition({ id, transition: TRANSITION_DECLINE, params: {} }, { expand: true })
     .then(response => {
+      console.log(111)
       dispatch(addMarketplaceEntities(response));
       dispatch(declineSaleSuccess());
       dispatch(fetchCurrentUserNotifications());

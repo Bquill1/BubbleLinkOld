@@ -47,7 +47,10 @@
   display: flex;
   padding: calc((var(--topbarHeight) - var(--Topbar_logoHeight)) / 2) 0;
 }
-
+.newUserIcon{
+  color:  var(--marketplaceColor);
+  fill:  var(--marketplaceColor);
+}
 .logoutButton {
   margin: 0;
 }

@@ -49,7 +49,6 @@ const post = (path, body) => {
   return window
     .fetch(url, options)
     .then(res => {
-      console.log(res)
       if (res.status >= 400) {
         const e = new Error('Local API request failed');
         e.apiResponse = res;

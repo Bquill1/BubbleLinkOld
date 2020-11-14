@@ -282,12 +282,14 @@
     display: block;
     width: 15%;
     min-height: 12px;
-    margin: 0;
+    margin: 10px;
     font-size: 16px;
+
 
     /* Padding is only for <a> elements where button styles are applied,
 		buttons elements should have zero padding */
     padding: 10px 0 10px 0;
+
 
     @media (--viewportMedium) {
       padding: 20px 0 20px 0;

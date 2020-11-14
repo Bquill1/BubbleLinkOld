@@ -12,7 +12,7 @@ import { createResourceLocatorString, pathByRouteName } from '../../util/routes'
 import { propTypes } from '../../util/types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHouseUser } from '@fortawesome/free-solid-svg-icons';
 
 import {
   Button,
@@ -224,11 +224,13 @@ class TopbarComponent extends Component {
 
           {currentPage === 'LandingPage' && !isAuthenticated ? (
             <NamedLink
-              className={css.searchMenu}
+              className={css.hostButton}
               name="HostPage"
-              title={intl.formatMessage({ id: 'Topbar.logoIcon' })}
-            >
-              <FontAwesomeIcon className={css.newUserIcon} size={'2x'} icon={faUserPlus} />
+              title={intl.formatMessage({ id: 'Topbar.hostingIcon' })}
+            >Host
+
+              {/*<FontAwesomeIcon className={css.newUserIcon} size={'2x'} icon={faHouseUser} />*/}
+
             </NamedLink>
           ) : (
             <Button

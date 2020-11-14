@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   AboutPage,
+  AcceptableUsePage,
   AuthenticationPage,
   BlogPage,
   CheckoutPage,
@@ -305,6 +306,11 @@ const routeConfiguration = () => {
       authPage: 'LoginPage',
       component: props => <PaymentMethodsPage {...props} />,
       loadData: PaymentMethodsPage.loadData,
+    },
+    {
+      path: '/acceptable-use',
+      name: 'AcceptableUsePage',
+      component: props => <AcceptableUsePage {...props} />,
     },
     {
       path: '/terms-of-service',

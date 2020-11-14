@@ -10,6 +10,10 @@ import { withViewport } from '../../util/contextHelpers';
 import { parse, stringify } from '../../util/urlHelpers';
 import { createResourceLocatorString, pathByRouteName } from '../../util/routes';
 import { propTypes } from '../../util/types';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+
 import {
   Button,
   LimitedAccessBanner,
@@ -19,7 +23,7 @@ import {
   NamedLink,
   TopbarDesktop,
   TopbarMobileMenu,
-  LogoBubbleText
+  LogoBubbleText,
 } from '../../components';
 import { TopbarSearchForm } from '../../forms';
 
@@ -121,8 +125,6 @@ class TopbarComponent extends Component {
       } else if (typeof window !== 'undefined') {
         window.location = path;
       }
-
-      console.log('logged out'); // eslint-disable-line
     });
   }
 
@@ -216,16 +218,27 @@ class TopbarComponent extends Component {
             name="LandingPage"
             title={intl.formatMessage({ id: 'Topbar.logoIcon' })}
           >
-            <LogoBubbleText /> 
+            <LogoBubbleText />
             {/* <Logo format="mobile" /> */}
           </NamedLink>
-          <Button
-            rootClassName={css.searchMenu}
-            onClick={this.handleMobileSearchOpen}
-            title={intl.formatMessage({ id: 'Topbar.searchIcon' })}
-          >
-            <SearchIcon className={css.searchMenuIcon} />
-          </Button>
+
+          {currentPage === 'LandingPage' && !isAuthenticated ? (
+            <NamedLink
+              className={css.searchMenu}
+              name="HostPage"
+              title={intl.formatMessage({ id: 'Topbar.logoIcon' })}
+            >
+              <FontAwesomeIcon className={css.newUserIcon} size={'2x'} icon={faUserPlus} />
+            </NamedLink>
+          ) : (
+            <Button
+              rootClassName={css.searchMenu}
+              onClick={this.handleMobileSearchOpen}
+              title={intl.formatMessage({ id: 'Topbar.searchIcon' })}
+            >
+              <SearchIcon className={css.searchMenuIcon} />
+            </Button>
+          )}
         </div>
         <div className={css.desktop}>
           <TopbarDesktop
@@ -344,10 +357,7 @@ TopbarComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
-const Topbar = compose(
-  withViewport,
-  injectIntl
-)(TopbarComponent);
+const Topbar = compose(withViewport, injectIntl)(TopbarComponent);
 
 Topbar.displayName = 'Topbar';
 

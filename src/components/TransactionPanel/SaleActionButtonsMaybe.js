@@ -45,9 +45,7 @@ const SaleActionButtonsMaybe = props => {
         <SecondaryButton
           inProgress={declineInProgress}
           disabled={buttonsDisabled}
-          onClick={e => {
-            console.log(e)
-            e.preventDefault(); onDeclineSale()}}
+          onClick={onDeclineSale}
         >
           <FormattedMessage id="TransactionPanel.declineButton" />
         </SecondaryButton>

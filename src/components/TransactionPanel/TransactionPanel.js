@@ -308,7 +308,7 @@ export class TransactionPanelComponent extends Component {
     const firstImage =
       currentListing.images && currentListing.images.length > 0 ? currentListing.images[0] : null;
 
-    const saleButtons = (<>
+    const saleButtons = (
       <SaleActionButtonsMaybe
         showButtons={stateData.showSaleButtons}
         acceptInProgress={acceptInProgress}
@@ -318,7 +318,6 @@ export class TransactionPanelComponent extends Component {
         onAcceptSale={() => onAcceptSale(currentTransaction.id)}
         onDeclineSale={() => onDeclineSale(currentTransaction.id)}
       />
-      </>
     );
 
     const showSendMessageForm =

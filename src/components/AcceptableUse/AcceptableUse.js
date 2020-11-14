@@ -84,8 +84,8 @@ const PrivacyPolicy = props => {
   <h2>Acceptance of this policy</h2>
   <p>You acknowledge that you have read this Policy and agree to all its terms and conditions. By accessing and using the Website and Services you agree to be bound by this Policy. If you do not agree to abide by the terms of this Policy, you are not authorized to access or use the Website and Services.</p>
   <h2>Contacting us</h2>
-  <p>If you would like to contact us to understand more about this Policy or wish to contact us concerning any matter relating to it, you may send an email to &#115;uppor&#116;&#64;&#109;ybub&#98;&#108;e&#108;&#105;n&#107;.&#99;&#111;m</p>
-  
+  <p>If you would like to contact us to understand more about this Policy or wish to contact us concerning any matter relating to it, you may send an email to <a href="mailto:support@mybubblelink.com">support@mybubblelink.com</a></p>
+
    </div>
       );
 };

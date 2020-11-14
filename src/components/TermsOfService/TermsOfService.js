@@ -120,7 +120,7 @@ const TermsOfService = props => {
       <h2>Acceptance of these terms</h2>
       <p>You acknowledge that you have read this Agreement and agree to all its terms and conditions. By accessing and using the Website and Services you agree to be bound by this Agreement. If you do not agree to abide by the terms of this Agreement, you are not authorized to access or use the Website and Services.</p>
       <h2>Contacting us</h2>
-      <p>If you would like to contact us to understand more about this Agreement or wish to contact us concerning any matter relating to it, you may send an email to &#115;u&#112;p&#111;rt&#64;&#109;ybu&#98;&#98;&#108;elin&#107;.&#99;&#111;m</p>
+      <p>If you would like to contact us to understand more about this Agreement or wish to contact us concerning any matter relating to it, you may send an email to <a href="mailto:support@mybubblelink.com">support@mybubblelink.com</a></p>
 
     </div>
   );

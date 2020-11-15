@@ -50,14 +50,14 @@ const SectionHostHero = props => {
         <div className={css.heroContentRight}>
           <div className={css.callToActionCard}>
             <h1 className={css.ctaTitle}>
-            Hosting at a glance...</h1>
+            Hosting at a glance</h1>
             <div className={css.ctaList}>
               <ul className={css.heroList}>
+              <li>No sign-up charges</li>
                 <li>Set your own prices</li>
-                <li>Manage your own availability</li>
+                <li>Choose your own schedule</li>
                 <li>Offer daily and/or hourly bookings</li>
-                <li>Offer entire space and/or individual seats options</li>
-                <li>No subscription fees</li>
+                <li>Offer entire space and/or individual spaces options</li>
               </ul>
             </div>
             {isAuthenticated && isHost ? (

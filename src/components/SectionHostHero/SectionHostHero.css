@@ -159,6 +159,7 @@ background-size: auto 100%;
 }
 .ctaTitle {
   @apply --marketplaceH2FontStyles;
+  margin: 5px 0 5px 0;
 }
 .ctaList {
   padding-left: 2rem;
@@ -167,6 +168,7 @@ background-size: auto 100%;
 .heroList li {
   list-style-position: outside !important;
   text-indent: -2em;
+  font-size: 14px;
 }
 .heroList li:before {
   content: '';

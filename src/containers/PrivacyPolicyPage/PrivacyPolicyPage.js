@@ -39,10 +39,10 @@ const PrivacyPolicyPageComponent = props => {
     },
 
     {
-      text: intl.formatMessage({ id: 'PrivacyPolicyPage.cookieTabTitle' }),
+      text: intl.formatMessage({ id: 'PrivacyPolicyPage.acceptableTabTitle' }),
       selected: false,
       linkProps: {
-        name: 'TermsOfServicePage',
+        name: 'AcceptableUsePage',
       },
     },
   ];

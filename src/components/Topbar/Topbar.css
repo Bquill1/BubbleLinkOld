@@ -273,3 +273,59 @@
     margin: 0;
   }
 }
+
+.hostButton
+{
+    @apply --marketplaceButtonFontStyles;
+
+    /* Dimensions */
+    display: block;
+    width: 15%;
+    min-height: 12px;
+    margin: 10px;
+    font-size: 16px;
+
+
+    /* Padding is only for <a> elements where button styles are applied,
+		buttons elements should have zero padding */
+    padding: 10px 0 10px 0;
+
+
+    @media (--viewportMedium) {
+      padding: 20px 0 20px 0;
+    }
+
+    /* Borders */
+    border: none;
+    border-radius: var(--borderRadiusButton);
+
+    /* Colors */
+    background-color: var(--marketplaceColor);
+    color: var(--matterColorLight);
+
+    /* Text */
+    text-align: center;
+    text-decoration: none;
+
+    /* Effects */
+    transition: all var(--transitionStyleButton);
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      outline: none;
+      background-color: var(--marketplaceColorDark);
+      text-decoration: none;
+      box-shadow: var(--boxShadowButton);
+    }
+    &:disabled {
+      background-color: var(--matterColorNegative);
+      color: var(--matterColorLight);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    @media (--viewportMedium) {
+      min-height: 65px;
+    }
+  }

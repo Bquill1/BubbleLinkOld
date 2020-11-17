@@ -6,19 +6,14 @@ import { array, bool, func, number, shape, string } from 'prop-types';
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import {
-    Button,
-    LimitedAccessBanner,
-
-
-
-
-
-
-    LogoBubbleText, Modal,
-    ModalMissingInformation,
-    NamedLink,
-    TopbarDesktop,
-    TopbarMobileMenu
+  Button,
+  LimitedAccessBanner,
+  LogoBubbleText,
+  Modal,
+  ModalMissingInformation,
+  NamedLink,
+  TopbarDesktop,
+  TopbarMobileMenu,
 } from '../../components';
 import config from '../../config';
 import { TopbarSearchForm } from '../../forms';
@@ -28,12 +23,26 @@ import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { createResourceLocatorString, pathByRouteName } from '../../util/routes';
 import { propTypes } from '../../util/types';
 import { parse, stringify } from '../../util/urlHelpers';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouseUser } from '@fortawesome/free-solid-svg-icons';
+
+import {
+  Button,
+  LimitedAccessBanner,
+  Logo,
+  Modal,
+  ModalMissingInformation,
+  NamedLink,
+  TopbarDesktop,
+  TopbarMobileMenu,
+  LogoBubbleText,
+} from '../../components';
+import { TopbarSearchForm } from '../../forms';
+
 import MenuIcon from './MenuIcon';
 import SearchIcon from './SearchIcon';
 import css from './Topbar.css';
-
-
-
 
 const MAX_MOBILE_SCREEN_WIDTH = 768;
 
@@ -228,11 +237,12 @@ class TopbarComponent extends Component {
 
           {currentPage === 'LandingPage' && !isAuthenticated ? (
             <NamedLink
-              className={css.searchMenu}
+              className={css.hostButton}
               name="HostPage"
-              title={intl.formatMessage({ id: 'Topbar.logoIcon' })}
+              title={intl.formatMessage({ id: 'Topbar.hostingIcon' })}
             >
-              <FontAwesomeIcon className={css.newUserIcon} size={'2x'} icon={faUserPlus} />
+              Host
+              {/*<FontAwesomeIcon className={css.newUserIcon} size={'2x'} icon={faHouseUser} />*/}
             </NamedLink>
           ) : (
             <Button

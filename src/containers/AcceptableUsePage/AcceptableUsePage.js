@@ -13,33 +13,33 @@ import {
   LayoutWrapperTopbar,
   LayoutWrapperFooter,
   Footer,
-  TermsOfService,
+  AcceptableUse,
 } from '../../components';
 import config from '../../config';
 
-import css from './TermsOfServicePage.css';
+import css from './AcceptableUsePage.css';
 
-const TermsOfServicePageComponent = props => {
+const AcceptableUsePageComponent = props => {
   const { scrollingDisabled, intl } = props;
 
   const tabs = [
         {
-          text: intl.formatMessage({ id: 'TermsOfServicePage.tosTabTitle' }),
-          selected: true,
+          text: intl.formatMessage({ id: 'AcceptableUsePage.tosTabTitle' }),
+          selected: false,
           linkProps: {
             name: 'TermsOfServicePage',
           },
         },
     {
-      text: intl.formatMessage({ id: 'TermsOfServicePage.privacyTabTitle' }),
+      text: intl.formatMessage({ id: 'AcceptableUsePage.privacyTabTitle' }),
       selected: false,
       linkProps: {
         name: 'PrivacyPolicyPage',
       },
     },
     {
-      text: intl.formatMessage({ id: 'TermsOfServicePage.acceptableTabTitle' }),
-      selected: false,
+      text: intl.formatMessage({ id: 'AcceptableUsePage.acceptableTabTitle' }),
+      selected: true,
       linkProps: {
         name: 'AcceptableUsePage',
       },
@@ -47,7 +47,7 @@ const TermsOfServicePageComponent = props => {
 
   ];
   const siteTitle = config.siteTitle;
-  const schemaTitle = intl.formatMessage({ id: 'TermsOfServicePage.schemaTitle' }, { siteTitle });
+  const schemaTitle = intl.formatMessage({ id: 'AcceptableUsePage.schemaTitle' }, { siteTitle });
   const schema = {
     '@context': 'http://schema.org',
     '@type': 'WebPage',
@@ -57,15 +57,15 @@ const TermsOfServicePageComponent = props => {
     <Page title={schemaTitle} scrollingDisabled={scrollingDisabled} schema={schema}>
       <LayoutSideNavigation>
         <LayoutWrapperTopbar>
-          <TopbarContainer currentPage="TermsOfServicePage" />
+          <TopbarContainer currentPage="AcceptableUsePage" />
         </LayoutWrapperTopbar>
         <LayoutWrapperSideNav tabs={tabs} />
         <LayoutWrapperMain>
           <div className={css.content}>
             <h1 className={css.heading}>
-              <FormattedMessage id="TermsOfServicePage.heading" />
+              <FormattedMessage id="AcceptableUsePage.heading" />
             </h1>
-            <TermsOfService />
+            <AcceptableUse />
           </div>
         </LayoutWrapperMain>
         <LayoutWrapperFooter>
@@ -78,7 +78,7 @@ const TermsOfServicePageComponent = props => {
 
 const { bool } = PropTypes;
 
-TermsOfServicePageComponent.propTypes = {
+AcceptableUsePageComponent.propTypes = {
   scrollingDisabled: bool.isRequired,
 
   // from injectIntl
@@ -91,9 +91,9 @@ const mapStateToProps = state => {
   };
 };
 
-const TermsOfServicePage = compose(
+const AcceptableUsePage = compose(
   connect(mapStateToProps),
   injectIntl
-)(TermsOfServicePageComponent);
+)(AcceptableUsePageComponent);
 
-export default TermsOfServicePage;
+export default AcceptableUsePage;

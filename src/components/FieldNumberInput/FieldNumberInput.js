@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
-import { omit } from 'lodash';
-import { bool, func, object, shape, string } from 'prop-types';
-import { Field } from 'react-final-form';
 import classNames from 'classnames';
-import { ValidationError, Button } from '..';
-import { isSafeNumber, isPositive } from '../../util/currency';
-
+import { bool, func, object, shape, string } from 'prop-types';
+import React, { Component } from 'react';
+import { Field } from 'react-final-form';
+import { Button, ValidationError } from '..';
 import css from './FieldNumberInput.css';
-import { getAvailabilityPlan } from '../../util/api';
+
 
 class FieldNumberInputComponent extends Component {
   constructor(props) {

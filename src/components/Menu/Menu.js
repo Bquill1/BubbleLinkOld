@@ -16,12 +16,12 @@
  *
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { MenuContent, MenuLabel } from '../../components';
 import css from './Menu.css';
+
 
 const KEY_CODE_ESCAPE = 27;
 const CONTENT_PLACEMENT_OFFSET = 0;

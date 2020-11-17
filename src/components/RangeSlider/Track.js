@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { array, node, string } from 'prop-types';
 import classNames from 'classnames';
-
+import { array, node, string } from 'prop-types';
+import React, { Component } from 'react';
 import css from './Track.css';
+
 
 class Track extends Component {
   render() {

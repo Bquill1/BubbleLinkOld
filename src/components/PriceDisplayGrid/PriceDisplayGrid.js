@@ -1,8 +1,7 @@
-import React from 'react';
-import { Field } from 'react-final-form';
 import classNames from 'classnames';
-import {  } from '..';
-import css from './PriceDisplayGrid.css'
+import React from 'react';
+import { } from '..';
+import css from './PriceDisplayGrid.css';
 const PriceDisplayGrid = props => {
   const { className, prices } = props;
   const classes = classNames(css.root, className);

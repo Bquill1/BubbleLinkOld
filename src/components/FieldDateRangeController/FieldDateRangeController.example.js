@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form as FinalForm } from 'react-final-form';
-
 import FieldDateRangeController from './FieldDateRangeController';
+
 
 const FormComponent = props => (
   <FinalForm

@@ -11,13 +11,13 @@
  *   </ModalInMobile>
  * </Parent>
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Modal } from '../../components';
 import { withViewport } from '../../util/contextHelpers';
-
 import css from './ModalInMobile.css';
+
 
 class ModalInMobileComponent extends Component {
   constructor(props) {

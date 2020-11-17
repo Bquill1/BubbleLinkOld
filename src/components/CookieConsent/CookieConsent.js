@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
-import { ExternalLink } from '../../components';
 import classNames from 'classnames';
-
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { ExternalLink } from '../../components';
+import { FormattedMessage } from '../../util/reactIntl';
 import css from './CookieConsent.css';
+
 
 class CookieConsent extends Component {
   constructor(props) {

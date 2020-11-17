@@ -1,5 +1,5 @@
-import { createUser, createCurrentUser } from '../../util/test-data';
 import { types as sdkTypes } from '../../util/sdkLoader';
+import { createCurrentUser, createUser } from '../../util/test-data';
 import UserCard from './UserCard';
 
 const { UUID } = sdkTypes;

@@ -1,9 +1,9 @@
-import React from 'react';
-import { bool, func, node, number, string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-
+import { bool, func, node, number, string } from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from '../../util/reactIntl';
 import css from './SearchFiltersPrimary.css';
+
 
 const SearchFiltersPrimaryComponent = props => {
   const {

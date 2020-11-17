@@ -1,6 +1,6 @@
-import React from 'react';
 import { number, object, shape, string } from 'prop-types';
-import { withGoogleMap, GoogleMap, Marker, Circle } from 'react-google-maps';
+import React from 'react';
+import { Circle, GoogleMap, Marker, withGoogleMap } from 'react-google-maps';
 import config from '../../config';
 
 /**

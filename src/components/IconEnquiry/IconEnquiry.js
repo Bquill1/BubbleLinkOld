@@ -1,8 +1,8 @@
-import React from 'react';
-import { string } from 'prop-types';
 import classNames from 'classnames';
-
+import { string } from 'prop-types';
+import React from 'react';
 import css from './IconEnquiry.css';
+
 
 const IconEnquiry = props => {
   const { rootClassName, className } = props;

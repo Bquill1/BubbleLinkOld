@@ -1,9 +1,9 @@
-import React from 'react';
 import { string } from 'prop-types';
+import React from 'react';
+import { TimeRange } from '../../components';
 import { txIsEnquired } from '../../util/transaction';
 import { propTypes } from '../../util/types';
 
-import { TimeRange } from '../../components';
 
 const bookingData = tx => {
   // Attributes: displayStart and displayEnd can be used to differentiate shown time range

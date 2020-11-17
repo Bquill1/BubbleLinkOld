@@ -1,12 +1,10 @@
 import React from 'react';
-import { renderDeep } from '../../util/test-helpers';
 import {
-  fakeIntl,
-  createUser,
-  createCurrentUser,
-  createMessage,
-  createTransaction,
+    createCurrentUser,
+    createMessage,
+    createTransaction, createUser, fakeIntl
 } from '../../util/test-data';
+import { renderDeep } from '../../util/test-helpers';
 import { ActivityFeedComponent } from './ActivityFeed';
 
 const noop = () => null;

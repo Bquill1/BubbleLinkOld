@@ -1,10 +1,10 @@
-import React from 'react';
 import classNames from 'classnames';
-import { getPlacePredictions, getPlaceDetails, locationBounds } from '../../util/googleMaps';
-import { userLocation } from '../../util/maps';
+import React from 'react';
 import config from '../../config';
-
+import { getPlaceDetails, getPlacePredictions, locationBounds } from '../../util/googleMaps';
+import { userLocation } from '../../util/maps';
 import css from './LocationAutocompleteInput.css';
+
 
 export const CURRENT_LOCATION_ID = 'current-location';
 

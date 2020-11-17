@@ -1,57 +1,64 @@
-import React, { Component } from 'react';
-import { array, arrayOf, bool, func, number, object, string } from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { array, arrayOf, bool, func, number, object, string } from 'prop-types';
+import React, { Component } from 'react';
 import {
-  TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
-  txIsAccepted,
-  txIsCanceled,
-  txIsDeclined,
-  txIsEnquired,
-  txIsPaymentExpired,
-  txIsPaymentPending,
-  txIsRequested,
-  txHasBeenDelivered,
-} from '../../util/transaction';
-import { LINE_ITEM_NIGHT, LINE_ITEM_DAY, propTypes } from '../../util/types';
-import {
-  ensureListing,
-  ensureTransaction,
-  ensureUser,
-  userDisplayNameAsString,
-} from '../../util/data';
-import { isMobileSafari } from '../../util/userAgent';
+    AvatarLarge,
+    BookingPanel,
+    NamedLink,
+    ReviewModal,
+    UserDisplayName
+} from '../../components';
+import config from '../../config';
+import { SendMessageForm } from '../../forms';
 import { formatMoney } from '../../util/currency';
 import {
-  AvatarLarge,
-  BookingPanel,
-  NamedLink,
-  ReviewModal,
-  UserDisplayName,
-} from '../../components';
-import { SendMessageForm } from '../../forms';
-import config from '../../config';
+    ensureListing,
+    ensureTransaction,
+    ensureUser,
+    userDisplayNameAsString
+} from '../../util/data';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+import { types as sdkTypes } from '../../util/sdkLoader';
+import {
+    TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
 
+
+
+
+
+
+
+    txHasBeenDelivered, txIsAccepted,
+    txIsCanceled,
+    txIsDeclined,
+    txIsEnquired,
+    txIsPaymentExpired,
+    txIsPaymentPending,
+    txIsRequested
+} from '../../util/transaction';
+import { propTypes } from '../../util/types';
+import { isMobileSafari } from '../../util/userAgent';
 // These are internal components that make this file more readable.
 import AddressLinkMaybe from './AddressLinkMaybe';
 import BreakdownMaybe from './BreakdownMaybe';
 import DetailCardHeadingsMaybe from './DetailCardHeadingsMaybe';
 import DetailCardImage from './DetailCardImage';
 import FeedSection from './FeedSection';
-import SaleActionButtonsMaybe from './SaleActionButtonsMaybe';
 import PanelHeading, {
-  HEADING_ENQUIRED,
-  HEADING_PAYMENT_PENDING,
-  HEADING_PAYMENT_EXPIRED,
-  HEADING_REQUESTED,
-  HEADING_ACCEPTED,
-  HEADING_DECLINED,
-  HEADING_CANCELED,
-  HEADING_DELIVERED,
-} from './PanelHeading';
-import { types as sdkTypes } from '../../util/sdkLoader';
+    HEADING_ACCEPTED,
 
+    HEADING_CANCELED, HEADING_DECLINED,
+
+    HEADING_DELIVERED, HEADING_ENQUIRED,
+
+    HEADING_PAYMENT_EXPIRED, HEADING_PAYMENT_PENDING,
+
+    HEADING_REQUESTED
+} from './PanelHeading';
+import SaleActionButtonsMaybe from './SaleActionButtonsMaybe';
 import css from './TransactionPanel.css';
+
+
 const { Money } = sdkTypes;
 
 // Helper function to get display names for different roles

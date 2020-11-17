@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { propTypes } from '../../util/types';
-
 import css from './SearchMapGroupLabel.css';
+
 
 class SearchMapGroupLabel extends Component {
   shouldComponentUpdate(nextProps) {

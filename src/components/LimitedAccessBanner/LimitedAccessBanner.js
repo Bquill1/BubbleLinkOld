@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { FormattedMessage } from '../../util/reactIntl';
-import { propTypes } from '../../util/types';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Button } from '../../components';
 import { ensureCurrentUser } from '../../util/data';
-
+import { FormattedMessage } from '../../util/reactIntl';
+import { propTypes } from '../../util/types';
 import css from './LimitedAccessBanner.css';
+
 
 // Due to the layout structure, do not render the banner on the following pages
 const disabledPages = ['SearchPage'];

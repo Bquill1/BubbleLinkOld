@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { arrayOf, bool, func, node, object, shape, string } from 'prop-types';
 import classNames from 'classnames';
+import { arrayOf, bool, func, node, object, shape, string } from 'prop-types';
+import React, { Component } from 'react';
 import { FormattedMessage } from '../../util/reactIntl';
-
 import css from './SelectSingleFilterPlain.css';
+
 
 const getQueryParamName = queryParamNames => {
   return Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;

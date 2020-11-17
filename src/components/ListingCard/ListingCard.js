@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { array, string, func } from 'prop-types';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { array, func, string } from 'prop-types';
+import React, { Component } from 'react';
+import { NamedLink, ResponsiveImage } from '../../components';
+import config from '../../config';
 import { lazyLoadWithDimensions } from '../../util/contextHelpers';
-import { LINE_ITEM_DAY, LINE_ITEM_NIGHT, propTypes } from '../../util/types';
 import { formatMoney } from '../../util/currency';
 import { ensureListing, getLowestPrice } from '../../util/data';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import { richText } from '../../util/richText';
-import { findOptionsForSelectFilter } from '../../util/search';
-import { createSlug } from '../../util/urlHelpers';
-import config from '../../config';
-import { NamedLink, ResponsiveImage } from '../../components';
 import { types as sdkTypes } from '../../util/sdkLoader';
-
+import { findOptionsForSelectFilter } from '../../util/search';
+import { propTypes } from '../../util/types';
+import { createSlug } from '../../util/urlHelpers';
 import css from './ListingCard.css';
+
 const { Money } = sdkTypes;
 
 const MIN_LENGTH_FOR_LONG_WORDS = 10;

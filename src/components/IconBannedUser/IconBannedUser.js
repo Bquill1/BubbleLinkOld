@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import css from './IconBannedUser.css';
+
 
 const IconBannedUser = props => {
   const { className } = props;

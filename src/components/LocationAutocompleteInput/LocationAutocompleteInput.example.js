@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Form as FinalForm, Field } from 'react-final-form';
-import { propTypes } from '../../util/types';
+import { Field, Form as FinalForm } from 'react-final-form';
 import { Button } from '../../components';
+import { propTypes } from '../../util/types';
 import LocationAutocompleteInput from './LocationAutocompleteInput';
 
 const identity = v => v;

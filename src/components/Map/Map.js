@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import { bool, number, object, string } from 'prop-types';
 import classNames from 'classnames';
-import { propTypes } from '../../util/types';
+import { bool, number, object, string } from 'prop-types';
+import React, { Component } from 'react';
 import config from '../../config';
-import { StaticMap, DynamicMap, isMapsLibLoaded } from './MapboxMap';
+import { propTypes } from '../../util/types';
 // import { StaticMap, DynamicMap, isMapsLibLoaded } from './GoogleMap';
-
 import css from './Map.css';
+import { isMapsLibLoaded, StaticMap } from './MapboxMap';
 
 export class Map extends Component {
   render() {

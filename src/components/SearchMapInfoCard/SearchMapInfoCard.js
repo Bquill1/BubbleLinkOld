@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { arrayOf, bool, func, string } from 'prop-types';
-import { compose } from 'redux';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { arrayOf, bool, func, string } from 'prop-types';
+import React, { Component } from 'react';
+import { compose } from 'redux';
+import { ResponsiveImage } from '../../components';
 import config from '../../config';
-import { propTypes } from '../../util/types';
 import { formatMoney } from '../../util/currency';
 import { ensureListing } from '../../util/data';
-import { ResponsiveImage } from '../../components';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import { types as sdkTypes } from '../../util/sdkLoader';
-
+import { propTypes } from '../../util/types';
 import css from './SearchMapInfoCard.css';
+
 
 const { Money } = sdkTypes;
 // ListingCard is the listing info without overlayview or carousel controls

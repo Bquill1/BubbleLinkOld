@@ -1,5 +1,5 @@
-import TimeRange from './TimeRange';
 import { fakeIntl } from '../../util/test-data';
+import TimeRange from './TimeRange';
 
 export const DateAndTimeSingleDay = {
   component: TimeRange,

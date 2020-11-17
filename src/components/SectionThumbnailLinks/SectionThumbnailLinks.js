@@ -1,9 +1,9 @@
-import React from 'react';
-import { string, arrayOf, shape, node, object, oneOf, oneOfType } from 'prop-types';
 import classNames from 'classnames';
+import { arrayOf, node, object, oneOf, oneOfType, shape, string } from 'prop-types';
+import React from 'react';
 import { ExternalLink, NamedLink } from '../../components';
-
 import css from './SectionThumbnailLinks.css';
+
 
 const ThumbnailLink = props => {
   const {

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import React, { Component } from 'react';
 import findIndex from 'lodash/findIndex';
 import uniqueId from 'lodash/uniqueId';
+import React, { Component } from 'react';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import AddImages from './AddImages';
 import css from './AddImagesExample.css';

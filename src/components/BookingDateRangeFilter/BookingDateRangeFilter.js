@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
 import { arrayOf, bool, func, node, number, object, string } from 'prop-types';
-import { injectIntl, intlShape } from '../../util/reactIntl';
+import React, { Component } from 'react';
+import { FieldDateRangeController, FilterPlain, FilterPopup } from '../../components';
 import { parseDateFromISO8601, stringifyDateToISO8601 } from '../../util/dates';
-
-import { FieldDateRangeController, FilterPopup, FilterPlain } from '../../components';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import css from './BookingDateRangeFilter.css';
+
 
 const getDatesQueryParamName = queryParamNames => {
   return Array.isArray(queryParamNames)

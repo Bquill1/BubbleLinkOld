@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { number, object, shape, string } from 'prop-types';
-import pick from 'lodash/pick';
-import isEqual from 'lodash/isEqual';
 import polyline from '@mapbox/polyline';
-import { encodeLatLng, stringify } from '../../util/urlHelpers';
+import isEqual from 'lodash/isEqual';
+import pick from 'lodash/pick';
+import { number, object, shape, string } from 'prop-types';
+import React, { Component } from 'react';
+import config from '../../config';
 import { lazyLoadWithDimensions } from '../../util/contextHelpers';
 import { circlePolyline } from '../../util/maps';
-import config from '../../config';
+import { encodeLatLng, stringify } from '../../util/urlHelpers';
 
 const DEFAULT_COLOR = 'FF0000';
 const DEFAULT_STROKE_OPACITY = 0.3;

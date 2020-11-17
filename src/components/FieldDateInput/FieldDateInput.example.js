@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
+import moment from 'moment';
 import React from 'react';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
-import moment from 'moment';
-import { isDayMomentInsideRange } from '../../util/dates';
-import { required, bookingDateRequired, composeValidators } from '../../util/validators';
-import { createTimeSlots } from '../../util/test-data';
 import { Button } from '../../components';
-
+import { isDayMomentInsideRange } from '../../util/dates';
+import { createTimeSlots } from '../../util/test-data';
+import { bookingDateRequired, composeValidators, required } from '../../util/validators';
 import FieldDateInput from './FieldDateInput';
+
 
 const identity = v => v;
 

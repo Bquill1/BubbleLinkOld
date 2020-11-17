@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { bool, func, object, shape, string } from 'prop-types';
-import { Field } from 'react-final-form';
 import classNames from 'classnames';
-import { ValidationError, ExpandingTextarea } from '../../components';
-
+import { bool, func, object, shape, string } from 'prop-types';
+import React, { Component } from 'react';
+import { Field } from 'react-final-form';
+import { ExpandingTextarea, ValidationError } from '../../components';
 import css from './FieldTextInput.css';
+
 
 const CONTENT_MAX_LENGTH = 5000;
 

@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 // External link that opens in a new tab/window, ensuring that the
 // opened page doesn't have access to the current page.

@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { array, bool, func, object, string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { LISTING_STATE_DRAFT } from '../../util/types';
+import { array, bool, func, object, string } from 'prop-types';
+import React, { Component } from 'react';
+import { ListingLink } from '../../components';
 import { EditListingPhotosForm } from '../../forms';
 import { ensureOwnListing } from '../../util/data';
-import { ListingLink } from '../../components';
-
+import { FormattedMessage } from '../../util/reactIntl';
+import { LISTING_STATE_DRAFT } from '../../util/types';
 import css from './EditListingPhotosPanel.css';
+
 
 class EditListingPhotosPanel extends Component {
   render() {

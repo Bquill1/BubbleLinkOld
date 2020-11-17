@@ -2,11 +2,11 @@
  * This is a wrapper component for different Layouts.
  * Topbar should be added to this wrapper.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import PropTypes from 'prop-types';
+import React from 'react';
 import css from './LayoutWrapperTopbar.css';
+
 
 const LayoutWrapperTopbar = props => {
   const { className, rootClassName, children } = props;

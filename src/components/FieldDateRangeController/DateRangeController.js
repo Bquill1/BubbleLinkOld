@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  DayPickerRangeController,
-  isInclusivelyAfterDay,
-  isInclusivelyBeforeDay,
-} from 'react-dates';
 import classNames from 'classnames';
 import moment from 'moment';
-import { START_DATE } from '../../util/dates';
-import config from '../../config';
-
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import {
+    DayPickerRangeController,
+    isInclusivelyAfterDay,
+    isInclusivelyBeforeDay
+} from 'react-dates';
 import { IconArrowHead } from '../../components';
+import config from '../../config';
+import { START_DATE } from '../../util/dates';
 import css from './DateRangeController.css';
+
 
 export const HORIZONTAL_ORIENTATION = 'horizontal';
 export const ANCHOR_LEFT = 'left';

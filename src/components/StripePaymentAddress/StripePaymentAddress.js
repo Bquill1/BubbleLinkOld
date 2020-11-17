@@ -1,12 +1,12 @@
-import React from 'react';
-import { intlShape } from '../../util/reactIntl';
 import { bool, object, string } from 'prop-types';
+import React from 'react';
+import { FieldSelect, FieldTextInput } from '../../components';
 import config from '../../config';
-import * as validators from '../../util/validators';
 import getCountryCodes from '../../translations/countryCodes';
-import { FieldTextInput, FieldSelect } from '../../components';
-
+import { intlShape } from '../../util/reactIntl';
+import * as validators from '../../util/validators';
 import css from './StripePaymentAddress.css';
+
 
 const StripePaymentAddress = props => {
   const { className, intl, disabled, form, fieldId, card } = props;

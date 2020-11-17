@@ -1,15 +1,13 @@
-import React from 'react';
-import { bool, string } from 'prop-types';
+import { faEdit, faHandshake, faSearchLocation } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
+import { bool, string } from 'prop-types';
+import React from 'react';
+import { NamedLink } from '../../components';
 import { FormattedMessage } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
-import { OwnListingLink, NamedLink, IconSearch } from '../../components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchLocation } from '@fortawesome/free-solid-svg-icons';
-import { faHandshake } from '@fortawesome/free-solid-svg-icons';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-
 import css from './SectionHowItWorks.css';
+
 
 const SectionHowItWorks = props => {
   const {

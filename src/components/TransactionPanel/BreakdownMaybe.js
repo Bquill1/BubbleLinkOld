@@ -1,11 +1,11 @@
-import React from 'react';
 import classNames from 'classnames';
-import config from '../../config';
-import { DATE_TYPE_DATETIME } from '../../util/types';
-import { ensureListing } from '../../util/data';
+import React from 'react';
 import { BookingBreakdown } from '../../components';
-
+import config from '../../config';
+import { ensureListing } from '../../util/data';
+import { DATE_TYPE_DATETIME } from '../../util/types';
 import css from './TransactionPanel.css';
+
 
 // Functional component as a helper to build BookingBreakdown
 const BreakdownMaybe = props => {

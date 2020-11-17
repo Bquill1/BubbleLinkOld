@@ -1,27 +1,26 @@
-import React from 'react';
 import { array, arrayOf, bool, func, object, oneOf, shape, string } from 'prop-types';
-import { propTypes } from '../../util/types';
-import { intlShape } from '../../util/reactIntl';
-import routeConfiguration from '../../routeConfiguration';
+import React from 'react';
 import {
-  LISTING_PAGE_PARAM_TYPE_DRAFT,
-  LISTING_PAGE_PARAM_TYPE_NEW,
-  LISTING_PAGE_PARAM_TYPES,
-} from '../../util/urlHelpers';
-import { ensureListing } from '../../util/data';
-import { createResourceLocatorString } from '../../util/routes';
-import {
-  EditListingAvailabilityPanel,
-  EditListingBasicsPanel,
-  EditListingDescriptionPanel,
-  EditListingFeaturesPanel,
-  EditListingLocationPanel,
-  EditListingPhotosPanel,
-  // EditListingPoliciesPanel,
-  EditListingPricingPanel,
+    EditListingAvailabilityPanel,
+    EditListingBasicsPanel,
+    EditListingDescriptionPanel,
+    EditListingFeaturesPanel,
+    EditListingLocationPanel,
+    EditListingPhotosPanel,
+    // EditListingPoliciesPanel,
+    EditListingPricingPanel
 } from '../../components';
-
+import routeConfiguration from '../../routeConfiguration';
+import { ensureListing } from '../../util/data';
+import { intlShape } from '../../util/reactIntl';
+import { createResourceLocatorString } from '../../util/routes';
+import { propTypes } from '../../util/types';
+import {
+    LISTING_PAGE_PARAM_TYPES, LISTING_PAGE_PARAM_TYPE_DRAFT,
+    LISTING_PAGE_PARAM_TYPE_NEW
+} from '../../util/urlHelpers';
 import css from './EditListingWizard.css';
+
 
 
 export const AVAILABILITY = 'availability';

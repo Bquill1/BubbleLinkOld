@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { string, func, arrayOf, shape, number } from 'prop-types';
 import classNames from 'classnames';
-
+import { arrayOf, func, number, shape, string } from 'prop-types';
+import React, { Component } from 'react';
 import { Menu, MenuContent, MenuItem, MenuLabel } from '../../components';
 import css from './SortByPopup.css';
+
 
 const optionLabel = (options, key) => {
   const option = options.find(o => o.key === key);

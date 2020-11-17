@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { withRouter } from 'react-router-dom';
-import { injectIntl, intlShape } from '../../util/reactIntl';
-import classNames from 'classnames';
-import routeConfiguration from '../../routeConfiguration';
-import config from '../../config';
-import { metaTagProps } from '../../util/seo';
-import { canonicalRoutePath } from '../../util/routes';
-import { CookieConsent } from '../../components';
-
 import facebookImage from '../../assets/BubbleLinkFacebook-1200x630.jpg';
 import twitterImage from '../../assets/BubbleLinkTwitter-600x314.jpg';
+import { CookieConsent } from '../../components';
+import config from '../../config';
+import routeConfiguration from '../../routeConfiguration';
+import { injectIntl, intlShape } from '../../util/reactIntl';
+import { canonicalRoutePath } from '../../util/routes';
+import { metaTagProps } from '../../util/seo';
 import css from './Page.css';
+
 
 const preventDefault = e => {
   e.preventDefault();

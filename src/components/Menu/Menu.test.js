@@ -1,6 +1,6 @@
 import React from 'react';
+import { MenuContent, MenuItem, MenuLabel } from '../../components';
 import { renderDeep } from '../../util/test-helpers';
-import { MenuItem, MenuLabel, MenuContent } from '../../components';
 import Menu from './Menu';
 
 describe('Menu', () => {

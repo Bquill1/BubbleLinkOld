@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { arrayOf, number, shape, string } from 'prop-types';
 import classNames from 'classnames';
+import { arrayOf, number, shape, string } from 'prop-types';
+import React, { Component } from 'react';
 import { withDimensions } from '../../util/contextHelpers';
-
 import Handle from './Handle';
-import Track from './Track';
 import css from './RangeSlider.css';
+import Track from './Track';
+
 
 class RangeSliderComponent extends Component {
   constructor(props) {

@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const Form = props => {
   const { children, contentRef, ...restProps } = props;

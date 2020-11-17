@@ -1,8 +1,8 @@
 import React from 'react';
-import { FormattedMessage } from '../../util/reactIntl';
 import { NamedLink } from '../../components';
-
+import { FormattedMessage } from '../../util/reactIntl';
 import css from './ModalMissingInformation.css';
+
 
 const StripeAccountReminder = props => {
   const { className } = props;

@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { bool, func, object, node, number, shape, string } from 'prop-types';
-import classNames from 'classnames';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
-import { withRouter } from 'react-router-dom';
-import { Form as FinalForm, Field } from 'react-final-form';
-import { types as sdkTypes } from '../../util/sdkLoader';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
+import { bool, func, node, number, object, shape, string } from 'prop-types';
+import React, { useState } from 'react';
+import { Field, Form as FinalForm } from 'react-final-form';
+import { withRouter } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
-
+import { BookingPanelOptionButton, Button, Form, LocationAutocompleteInput } from '..';
 import routeConfiguration from '../../routeConfiguration';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { createResourceLocatorString } from '../../util/routes';
-import { BookingPanelOptionButton, Form, LocationAutocompleteInput, Button } from '..';
+import { types as sdkTypes } from '../../util/sdkLoader';
 import css from './SectionSearchBlock.css';
+
 const identity = v => v;
 
 const { LatLng, LatLngBounds } = sdkTypes;

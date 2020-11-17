@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { bool, func, string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { bool, func, string } from 'prop-types';
+import React, { Component } from 'react';
+import { Modal } from '../../components';
 import routeConfiguration from '../../routeConfiguration';
 import { ensureCurrentUser } from '../../util/data';
-import { propTypes } from '../../util/types';
+import { FormattedMessage } from '../../util/reactIntl';
 import { pathByRouteName } from '../../util/routes';
-import { Modal } from '../../components';
-
+import { propTypes } from '../../util/types';
 import EmailReminder from './EmailReminder';
-import StripeAccountReminder from './StripeAccountReminder';
 import css from './ModalMissingInformation.css';
+import StripeAccountReminder from './StripeAccountReminder';
+
 
 const MISSING_INFORMATION_MODAL_WHITELIST = [
   'LoginPage',

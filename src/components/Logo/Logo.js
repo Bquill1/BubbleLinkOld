@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import PropTypes from 'prop-types';
+import React from 'react';
 import config from '../../config';
 import IconLogo from './IconLogo';
-import LogoImage from './saunatime-logo.png';
 import css from './Logo.css';
+import LogoImage from './saunatime-logo.png';
+
 
 const Logo = props => {
   const { className, format, ...rest } = props;

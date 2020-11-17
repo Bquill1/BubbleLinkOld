@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import { string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { propTypes } from '../../util/types';
-import { obfuscatedCoordinates } from '../../util/maps';
+import { string } from 'prop-types';
+import React, { Component } from 'react';
 import { Map } from '../../components';
-import config from '../../config';
-
+import { FormattedMessage } from '../../util/reactIntl';
+import { propTypes } from '../../util/types';
 import css from './MapHelper.css';
+
 
 class MapHelper extends Component {
   constructor(props) {

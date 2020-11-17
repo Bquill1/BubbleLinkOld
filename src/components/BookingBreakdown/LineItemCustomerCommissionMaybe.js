@@ -1,11 +1,11 @@
-import React from 'react';
 import { bool } from 'prop-types';
-import { FormattedMessage, intlShape } from '../../util/reactIntl';
+import React from 'react';
 import { formatMoney } from '../../util/currency';
+import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import { LINE_ITEM_CUSTOMER_COMMISSION, propTypes } from '../../util/types';
-
 import css from './BookingBreakdown.css';
+
 
 const { Money } = sdkTypes;
 

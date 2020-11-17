@@ -1,6 +1,6 @@
-import React from 'react';
-import { oneOf, string } from 'prop-types';
 import classNames from 'classnames';
+import { string } from 'prop-types';
+import React from 'react';
 import { IconBubbleMarker } from '..';
 import css from './LogoBubbleText.css';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { stringify, parse } from '../../util/urlHelpers';
-
+import { parse, stringify } from '../../util/urlHelpers';
 import PriceFilter from './PriceFilter';
+
 
 const URL_PARAM = 'pub_price';
 

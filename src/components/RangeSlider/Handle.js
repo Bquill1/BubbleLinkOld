@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { func, number, string } from 'prop-types';
 import classNames from 'classnames';
-
+import { func, number, string } from 'prop-types';
+import React, { Component } from 'react';
 import css from './Handle.css';
+
 
 class Handle extends Component {
   constructor(props) {

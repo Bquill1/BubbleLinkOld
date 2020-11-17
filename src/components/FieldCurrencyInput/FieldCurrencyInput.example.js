@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
 import { IntlProvider } from '../../util/reactIntl';
 import { currencyConfig } from '../../util/test-data';

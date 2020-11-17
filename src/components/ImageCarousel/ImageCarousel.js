@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { ResponsiveImage, IconSpinner } from '../../components';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { IconSpinner, ResponsiveImage } from '../../components';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
-
 import css from './ImageCarousel.css';
+
 
 const KEY_CODE_LEFT_ARROW = 37;
 const KEY_CODE_RIGHT_ARROW = 39;

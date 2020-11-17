@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { string, func, oneOfType } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
-import truncate from 'lodash/truncate';
 import classNames from 'classnames';
-import { AvatarLarge, NamedLink, InlineTextButton } from '../../components';
-import { ensureUser, ensureCurrentUser } from '../../util/data';
+import truncate from 'lodash/truncate';
+import { func, oneOfType, string } from 'prop-types';
+import React, { Component } from 'react';
+import { AvatarLarge, InlineTextButton, NamedLink } from '../../components';
+import { ensureCurrentUser, ensureUser } from '../../util/data';
+import { FormattedMessage } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
-
 import css from './UserCard.css';
+
 
 // Approximated collapsed size so that there are ~three lines of text
 // in the desktop layout in the host section of the ListingPage.

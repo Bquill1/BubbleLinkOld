@@ -6,18 +6,17 @@
   correct pending-approval variant URL or to the normal ListingPage
   based on the listing state.
 */
+import { node, oneOfType, string } from 'prop-types';
 import React from 'react';
-import { string, oneOfType, node } from 'prop-types';
+import { NamedLink } from '../../components';
 import { richText } from '../../util/richText';
 import { LISTING_STATE_DRAFT, LISTING_STATE_PENDING_APPROVAL, propTypes } from '../../util/types';
 import {
-  LISTING_PAGE_DRAFT_VARIANT,
-  LISTING_PAGE_PENDING_APPROVAL_VARIANT,
-  createSlug,
+    createSlug, LISTING_PAGE_DRAFT_VARIANT,
+    LISTING_PAGE_PENDING_APPROVAL_VARIANT
 } from '../../util/urlHelpers';
-import { NamedLink } from '../../components';
-
 import css from './ListingLink.css';
+
 
 const MIN_LENGTH_FOR_LONG_WORDS = 16;
 

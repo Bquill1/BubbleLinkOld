@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { parse, stringify } from '../../util/urlHelpers';
 import KeywordFilter from './KeywordFilter';
-import { stringify, parse } from '../../util/urlHelpers';
 
 const URL_PARAM = 'keywords';
 

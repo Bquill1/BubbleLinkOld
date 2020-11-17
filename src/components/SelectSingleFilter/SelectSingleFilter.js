@@ -1,5 +1,5 @@
-import React from 'react';
 import { bool } from 'prop-types';
+import React from 'react';
 import SelectSingleFilterPlain from './SelectSingleFilterPlain';
 import SelectSingleFilterPopup from './SelectSingleFilterPopup';
 

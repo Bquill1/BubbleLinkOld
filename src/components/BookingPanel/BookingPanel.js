@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
-import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
-import { array, bool, func, node, object, oneOfType, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
-import { propTypes, LISTING_STATE_CLOSED, LINE_ITEM_NIGHT, LINE_ITEM_DAY } from '../../util/types';
-import { formatMoney } from '../../util/currency';
-import { parse, stringify } from '../../util/urlHelpers';
+import { array, bool, func, node, object, oneOfType, shape, string } from 'prop-types';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import { BookingPanelOptionButton, Button, ModalInMobile } from '../../components';
 import config from '../../config';
-import { ModalInMobile, Button, BookingPanelOptionButton } from '../../components';
 import { BookingTimeForm } from '../../forms';
-import { types as sdkTypes } from '../../util/sdkLoader';
-import { unitDivisor, convertMoneyToNumber, convertUnitToSubUnit } from '../../util/currency';
+import { convertUnitToSubUnit, formatMoney, unitDivisor } from '../../util/currency';
 import {
-  isDayMomentInsideRange,
-  timeOfDayFromLocalToTimeZone,
-  isDate,
-  convertToMoment,
-  resetToStartOfDay,
-  dayIdString,
+    convertToMoment,
+
+    dayIdString, isDayMomentInsideRange,
+
+
+
+    resetToStartOfDay
 } from '../../util/dates';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+import { types as sdkTypes } from '../../util/sdkLoader';
+import { LISTING_STATE_CLOSED, propTypes } from '../../util/types';
+import { parse, stringify } from '../../util/urlHelpers';
 import css from './BookingPanel.css';
 
 // This defines when ModalInMobile shows content as Modal

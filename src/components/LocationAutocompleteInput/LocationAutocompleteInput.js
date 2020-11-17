@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import { func, object, shape, string } from 'prop-types';
+import React, { Component } from 'react';
 import { Field } from 'react-final-form';
 import { ValidationError } from '../../components';
 import LocationAutocompleteInputImpl from './LocationAutocompleteInputImpl.js';

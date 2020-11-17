@@ -2,11 +2,11 @@
  * MenuLabel is the only always visible part of Menu.
  * Clicking it toggles visibility of MenuContent.
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import css from './MenuLabel.css';
+
 
 class MenuLabel extends Component {
   constructor(props) {

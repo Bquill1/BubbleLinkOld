@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
-import { any, arrayOf, bool, func, number, shape, string, oneOfType, object } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
+import { any, arrayOf, bool, func, number, object, oneOfType, shape, string } from 'prop-types';
+import React, { Component } from 'react';
 import { IconSpinner } from '../../components';
-import { propTypes } from '../../util/types';
 import config from '../../config';
-
-import IconHourGlass from './IconHourGlass';
+import { FormattedMessage } from '../../util/reactIntl';
+import { propTypes } from '../../util/types';
+import Geocoder, { CURRENT_LOCATION_ID, GeocoderAttribution } from './GeocoderMapbox';
 import IconCurrentLocation from './IconCurrentLocation';
-import Geocoder, { GeocoderAttribution, CURRENT_LOCATION_ID } from './GeocoderMapbox';
+import IconHourGlass from './IconHourGlass';
 // import Geocoder, { GeocoderAttribution, CURRENT_LOCATION_ID } from './GeocoderGoogleMaps';
-
 import css from './LocationAutocompleteInput.css';
+
 
 // A list of default predictions that can be shown when the user
 // focuses on the autocomplete input without typing a search. This can

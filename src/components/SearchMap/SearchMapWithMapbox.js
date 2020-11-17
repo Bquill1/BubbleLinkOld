@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { arrayOf, func, node, number, shape, string } from 'prop-types';
+import classNames from 'classnames';
 import differenceBy from 'lodash/differenceBy';
 import isEqual from 'lodash/isEqual';
-import classNames from 'classnames';
-import { parse } from '../../util/urlHelpers';
-import { propTypes } from '../../util/types';
+import { arrayOf, func, node, number, shape, string } from 'prop-types';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { SearchMapGroupLabel, SearchMapInfoCard, SearchMapPriceLabel } from '../../components';
 import { ensureListing, getLowestPrice } from '../../util/data';
-import { sdkBoundsToFixedCoordinates, hasSameSDKBounds } from '../../util/maps';
-import { SearchMapInfoCard, SearchMapPriceLabel, SearchMapGroupLabel } from '../../components';
-import config from '../../config';
-
-import { groupedByCoordinates, reducedToArray } from './SearchMap.helpers.js';
+import { hasSameSDKBounds, sdkBoundsToFixedCoordinates } from '../../util/maps';
 import { types as sdkTypes } from '../../util/sdkLoader';
-
+import { propTypes } from '../../util/types';
+import { parse } from '../../util/urlHelpers';
+import { groupedByCoordinates, reducedToArray } from './SearchMap.helpers.js';
 import css from './SearchMapWithMapbox.css';
+
+
 
 const { Money } = sdkTypes;
 export const LABEL_HANDLE = 'SearchMapLabel';

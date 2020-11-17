@@ -1,8 +1,8 @@
-import React from 'react';
-import { node, string } from 'prop-types';
 import classNames from 'classnames';
-
+import { node, string } from 'prop-types';
+import React from 'react';
 import css from './BookingPanelOptionButton.css';
+
 
 const BookingPanelOptionButton = props => {
   const { rootClassName, className, options, activeOption, setOption, labelKey } = props;

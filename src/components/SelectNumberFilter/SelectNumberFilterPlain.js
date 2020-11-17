@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { arrayOf, bool, func, node, object, shape, string } from 'prop-types';
 import classNames from 'classnames';
-import { FormattedMessage } from '../../util/reactIntl';
+import { arrayOf, bool, func, node, object, shape, string } from 'prop-types';
+import React, { Component } from 'react';
 import { Button } from '../../components';
-
+import { FormattedMessage } from '../../util/reactIntl';
 import css from './SelectNumberFilterPlain.css';
+
 
 const getQueryParamName = queryParamNames => {
   return Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;

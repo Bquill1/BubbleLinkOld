@@ -1,11 +1,11 @@
+import { bool, string } from 'prop-types';
 import React from 'react';
-import { string, bool } from 'prop-types';
-import { intlShape, injectIntl } from '../../util/reactIntl';
-
 import config from '../../config';
-
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import SortByPlain from './SortByPlain';
 import SortByPopup from './SortByPopup';
+
+
 
 const SortBy = props => {
   const { sort, showAsPopup, isConflictingFilterActive, intl, ...rest } = props;

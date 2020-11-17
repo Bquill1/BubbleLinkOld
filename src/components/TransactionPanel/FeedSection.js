@@ -1,9 +1,9 @@
-import React from 'react';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import React from 'react';
 import { ActivityFeed } from '../../components';
-
+import { FormattedMessage } from '../../util/reactIntl';
 import css from './TransactionPanel.css';
+
 
 // Functional component as a helper to build ActivityFeed section
 const FeedSection = props => {

@@ -27,8 +27,6 @@ const PROVIDER_COMMISSION_PERCENTAGE = -10;
  */
 exports.transactionLineItems = (listing, bookingData) => {
   const isDaily = bookingData.bookingType === "daily"
-  console.log(2225552)
-  console.log(bookingData)
   const ogSeats = bookingData.seats || bookingData.seatsSelected
   const isEntireSpace = bookingData.spaceRentalAvailability === "entireSpace"
   const unitPrice = bookingData.price || listing.attributes.price;
@@ -51,15 +49,12 @@ exports.transactionLineItems = (listing, bookingData) => {
       seatsSelected: ogSeats,
     includeFor: ['customer', 'provider'],
   };
-  console.log(8888888);
-  console.log(isEntireSpace)
-  console.log(isEntireSpace  ? ogSeats || 1 : 1);
    const spaces = {
      code: 'line-item/entireSpace',
      unitPrice:  new types.Money(0, "EUR"),
      seats: isEntireSpace ? ogSeats || 1 : 1,
      units: 1,
-     includeFor: [ ],
+     includeFor: ['provider' ],
    };
   const providerCommission = {
     code: 'line-item/provider-commission',

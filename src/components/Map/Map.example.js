@@ -1,8 +1,8 @@
 import React from 'react';
-import Map from './Map';
-import { types as sdkTypes } from '../../util/sdkLoader';
-import { obfuscatedCoordinates } from '../../util/maps';
 import config from '../../config';
+import { obfuscatedCoordinates } from '../../util/maps';
+import { types as sdkTypes } from '../../util/sdkLoader';
+import Map from './Map';
 
 const { LatLng } = sdkTypes;
 

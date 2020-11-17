@@ -1,12 +1,12 @@
-import React from 'react';
-import { string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { NamedLink, NamedRedirect } from '..';
+import { string } from 'prop-types';
+import React from 'react';
+import { NamedLink } from '..';
 import routeConfiguration from '../../routeConfiguration';
+import { FormattedMessage } from '../../util/reactIntl';
 import { createResourceLocatorString } from '../../util/routes';
-
 import css from './SectionHostHero.css';
+
 
 const SectionHostHero = props => {
   const {

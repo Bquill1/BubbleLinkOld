@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { lazyLoadWithDimensions } from '../../util/contextHelpers';
-
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { NamedLink } from '../../components';
-
-import css from './SectionLocations.css';
-
+import { lazyLoadWithDimensions } from '../../util/contextHelpers';
+import { FormattedMessage } from '../../util/reactIntl';
+import berlinImage from './images/location_berlin.jpg';
 import dublinImage from './images/location_dublin.jpg';
 import londonImage from './images/location_london.jpg';
-import parisImage from './images/location_paris.jpg';
-import berlinImage from './images/location_berlin.jpg';
+import css from './SectionLocations.css';
+
+
+
 
 class LocationImage extends Component {
   render() {

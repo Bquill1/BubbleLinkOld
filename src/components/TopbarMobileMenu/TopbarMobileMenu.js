@@ -2,22 +2,21 @@
  *  TopbarMobileMenu prints the menu content for authenticated user or
  * shows login actions for those who are not authenticated.
  */
-import React from 'react';
-import { bool, func, number, string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { ACCOUNT_SETTINGS_PAGES } from '../../routeConfiguration';
-import { propTypes } from '../../util/types';
-import { ensureCurrentUser } from '../../util/data';
+import { bool, func, number, string } from 'prop-types';
+import React from 'react';
 import {
-  AvatarLarge,
-  InlineTextButton,
-  NamedLink,
-  NotificationBadge,
-  OwnListingLink,
+    AvatarLarge,
+    InlineTextButton,
+    NamedLink,
+    NotificationBadge
 } from '../../components';
-
+import { ACCOUNT_SETTINGS_PAGES } from '../../routeConfiguration';
+import { ensureCurrentUser } from '../../util/data';
+import { FormattedMessage } from '../../util/reactIntl';
+import { propTypes } from '../../util/types';
 import css from './TopbarMobileMenu.css';
+
 
 const TopbarMobileMenu = props => {
   const {

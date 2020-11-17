@@ -5,16 +5,16 @@
  * you should convert value.date to start date and end date before submitting it to API
  */
 
-import React, { Component } from 'react';
-import { bool, func, object, oneOf, string, arrayOf } from 'prop-types';
-import { Field } from 'react-final-form';
 import classNames from 'classnames';
-import { START_DATE, END_DATE } from '../../util/dates';
-import { propTypes } from '../../util/types';
+import { arrayOf, bool, func, object, oneOf, string } from 'prop-types';
+import React, { Component } from 'react';
+import { Field } from 'react-final-form';
 import { ValidationError } from '../../components';
-
+import { END_DATE, START_DATE } from '../../util/dates';
+import { propTypes } from '../../util/types';
 import DateRangeInput from './DateRangeInput';
 import css from './FieldDateRangeInput.css';
+
 
 const MAX_MOBILE_SCREEN_WIDTH = 768;
 

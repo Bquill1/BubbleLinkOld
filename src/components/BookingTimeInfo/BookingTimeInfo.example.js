@@ -1,12 +1,12 @@
-import BookingTimeInfo from './BookingTimeInfo';
 import {
-  fakeIntl,
-  createBooking,
-  createTransaction,
-  createUser,
-  createListing,
+    createBooking,
+
+
+    createListing, createTransaction,
+    createUser, fakeIntl
 } from '../../util/test-data';
 import { LINE_ITEM_DAY, LINE_ITEM_NIGHT, LINE_ITEM_UNITS } from '../../util/types';
+import BookingTimeInfo from './BookingTimeInfo';
 
 export const DateAndTimeSingleDay = {
   component: BookingTimeInfo,

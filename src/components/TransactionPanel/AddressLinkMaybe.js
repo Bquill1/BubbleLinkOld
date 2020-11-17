@@ -1,8 +1,8 @@
-import React from 'react';
 import classNames from 'classnames';
+import React from 'react';
 import { ExternalLink } from '../../components';
-
 import css from './TransactionPanel.css';
+
 
 // Functional component as a helper to build AddressLinkMaybe
 const AddressLinkMaybe = props => {

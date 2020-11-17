@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { arrayOf, func, node, number, shape, string } from 'prop-types';
 import classNames from 'classnames';
+import { arrayOf, func, node, number, shape, string } from 'prop-types';
+import React, { Component } from 'react';
+import config from '../../config';
+import { PriceFilterForm } from '../../forms';
+import { formatCurrencyMajorUnit } from '../../util/currency';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
-import { formatCurrencyMajorUnit } from '../../util/currency';
-import config from '../../config';
-
-import { PriceFilterForm } from '../../forms';
 import css from './PriceFilterPopup.css';
+
 
 const KEY_CODE_ESCAPE = 27;
 const RADIX = 10;

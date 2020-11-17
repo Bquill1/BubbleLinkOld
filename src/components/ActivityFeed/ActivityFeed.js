@@ -1,37 +1,42 @@
-import React from 'react';
-import { string, arrayOf, bool, func, number } from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
-import dropWhile from 'lodash/dropWhile';
 import classNames from 'classnames';
+import dropWhile from 'lodash/dropWhile';
+import { arrayOf, bool, func, number, string } from 'prop-types';
+import React from 'react';
 import { Avatar, InlineTextButton, ReviewRating, UserDisplayName } from '../../components';
+import { ensureListing, ensureTransaction, ensureUser } from '../../util/data';
 import { formatDate } from '../../util/dates';
-import { ensureTransaction, ensureUser, ensureListing } from '../../util/data';
+import * as log from '../../util/log';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import {
-  TRANSITION_ACCEPT,
-  TRANSITION_CANCEL,
-  TRANSITION_COMPLETE,
-  TRANSITION_DECLINE,
-  TRANSITION_EXPIRE,
-  TRANSITION_CONFIRM_PAYMENT,
-  TRANSITION_REVIEW_1_BY_CUSTOMER,
-  TRANSITION_REVIEW_1_BY_PROVIDER,
-  TRANSITION_REVIEW_2_BY_CUSTOMER,
-  TRANSITION_REVIEW_2_BY_PROVIDER,
-  transitionIsReviewed,
-  txIsDelivered,
-  txIsInFirstReviewBy,
-  txIsReviewed,
-  isCustomerReview,
-  isProviderReview,
-  txRoleIsProvider,
-  txRoleIsCustomer,
-  getUserTxRole,
-  isRelevantPastTransition,
+    getUserTxRole, isCustomerReview,
+    isProviderReview,
+
+
+
+    isRelevantPastTransition, transitionIsReviewed, TRANSITION_ACCEPT,
+    TRANSITION_CANCEL,
+    TRANSITION_COMPLETE,
+
+
+    TRANSITION_CONFIRM_PAYMENT, TRANSITION_DECLINE,
+    TRANSITION_EXPIRE,
+
+    TRANSITION_REVIEW_1_BY_CUSTOMER,
+    TRANSITION_REVIEW_1_BY_PROVIDER,
+    TRANSITION_REVIEW_2_BY_CUSTOMER,
+    TRANSITION_REVIEW_2_BY_PROVIDER,
+
+    txIsDelivered,
+    txIsInFirstReviewBy,
+    txIsReviewed,
+
+
+
+    txRoleIsCustomer, txRoleIsProvider
 } from '../../util/transaction';
 import { propTypes } from '../../util/types';
-import * as log from '../../util/log';
-
 import css from './ActivityFeed.css';
+
 
 const Message = props => {
   const { message, intl } = props;

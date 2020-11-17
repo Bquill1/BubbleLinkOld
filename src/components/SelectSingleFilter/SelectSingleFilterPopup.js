@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { arrayOf, func, node, number, object, shape, string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-
+import { arrayOf, func, node, number, object, shape, string } from 'prop-types';
+import React, { Component } from 'react';
 import { Menu, MenuContent, MenuItem, MenuLabel } from '..';
+import { FormattedMessage } from '../../util/reactIntl';
 import css from './SelectSingleFilterPopup.css';
+
 
 const optionLabel = (options, key) => {
   const option = options.find(o => o.key === key);

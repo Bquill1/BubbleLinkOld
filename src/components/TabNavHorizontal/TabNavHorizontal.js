@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { InlineTextButton, NamedLink } from '../../components';
-
 import css from './TabNavHorizontal.css';
+
 
 export const LIGHT_SKIN = 'light';
 export const DARK_SKIN = 'dark';

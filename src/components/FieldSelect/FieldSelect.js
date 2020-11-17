@@ -1,10 +1,10 @@
-import React from 'react';
-import { func, node, object, string } from 'prop-types';
-import { Field } from 'react-final-form';
 import classNames from 'classnames';
+import { func, node, object, string } from 'prop-types';
+import React from 'react';
+import { Field } from 'react-final-form';
 import { ValidationError } from '../../components';
-
 import css from './FieldSelect.css';
+
 
 const handleChange = (propsOnChange, inputOnChange) => event => {
   // If "onChange" callback is passed through the props,

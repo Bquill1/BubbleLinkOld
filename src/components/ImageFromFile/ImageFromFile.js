@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Promised } from '../../components';
-
+import { FormattedMessage } from '../../util/reactIntl';
 import css from './ImageFromFile.css';
+
 
 // readImage returns a promise which is resolved
 // when FileReader has loaded given file as dataURL

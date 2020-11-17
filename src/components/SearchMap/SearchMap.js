@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import { arrayOf, func, number, string, shape, object } from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
-import routeConfiguration from '../../routeConfiguration';
-import { createResourceLocatorString } from '../../util/routes';
-import { createSlug } from '../../util/urlHelpers';
-import { propTypes } from '../../util/types';
-import { obfuscatedCoordinates } from '../../util/maps';
+import { arrayOf, func, number, object, shape, string } from 'prop-types';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import config from '../../config';
-
-import { hasParentWithClassName } from './SearchMap.helpers.js';
-import SearchMapWithMapbox, {
-  LABEL_HANDLE,
-  INFO_CARD_HANDLE,
-  getMapBounds,
-  getMapCenter,
-  fitMapToBounds,
-  isMapsLibLoaded,
-} from './SearchMapWithMapbox';
+import routeConfiguration from '../../routeConfiguration';
+import { obfuscatedCoordinates } from '../../util/maps';
+import { createResourceLocatorString } from '../../util/routes';
+import { propTypes } from '../../util/types';
+import { createSlug } from '../../util/urlHelpers';
 import ReusableMapContainer from './ReusableMapContainer';
 import css from './SearchMap.css';
+import { hasParentWithClassName } from './SearchMap.helpers.js';
+import SearchMapWithMapbox, {
+    fitMapToBounds, getMapBounds,
+    getMapCenter, INFO_CARD_HANDLE,
+
+
+
+    isMapsLibLoaded, LABEL_HANDLE
+} from './SearchMapWithMapbox';
+
 
 const REUSABLE_MAP_HIDDEN_HANDLE = 'reusableMapHidden';
 

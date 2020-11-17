@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { IconSpinner, IconCheckmark } from '../../components';
-
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { IconCheckmark, IconSpinner } from '../../components';
 import css from './Button.css';
+
 
 class Button extends Component {
   constructor(props) {

@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import { arrayOf, func, number, shape, string } from 'prop-types';
 import classNames from 'classnames';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import debounce from 'lodash/debounce';
-import { FieldTextInput } from '../../components';
-
-import { FilterPopup, FilterPlain } from '../../components';
+import { arrayOf, func, number, shape, string } from 'prop-types';
+import React, { Component } from 'react';
+import { FieldTextInput, FilterPlain, FilterPopup } from '../../components';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import css from './KeywordFilter.css';
+
 
 // When user types, we wait for new keystrokes a while before searching new content
 const DEBOUNCE_WAIT_TIME = 600;

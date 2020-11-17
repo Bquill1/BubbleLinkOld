@@ -1,12 +1,12 @@
 import React from 'react';
-
 // react-dates needs to be initialized before using any react-dates component
 // Since this is currently only component using react-dates we can do it here
 // https://github.com/airbnb/react-dates#initialize
 import 'react-dates/initialize';
-import { renderShallow } from '../../util/test-helpers';
 import { fakeIntl } from '../../util/test-data';
+import { renderShallow } from '../../util/test-helpers';
 import { BookingDateRangeFilterComponent } from './BookingDateRangeFilter';
+
 
 describe('BookingDateRangeFilter', () => {
   it('matches popup snapshot', () => {

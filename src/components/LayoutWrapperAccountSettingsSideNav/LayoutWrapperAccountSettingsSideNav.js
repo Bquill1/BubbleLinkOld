@@ -2,12 +2,12 @@
  * This is a wrapper component for different Layouts.
  * Navigational 'aside' content should be added to this wrapper.
  */
+import { node, number, shape, string } from 'prop-types';
 import React from 'react';
-import { node, number, string, shape } from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage } from '../../util/reactIntl';
-import { withViewport } from '../../util/contextHelpers';
 import { LayoutWrapperSideNav } from '../../components';
+import { withViewport } from '../../util/contextHelpers';
+import { FormattedMessage } from '../../util/reactIntl';
 
 const MAX_HORIZONTAL_NAV_SCREEN_WIDTH = 1023;
 

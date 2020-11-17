@@ -1,23 +1,25 @@
 import Decimal from 'decimal.js';
+import config from '../../config';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import {
-  TRANSITION_ACCEPT,
-  TRANSITION_CANCEL,
-  TRANSITION_COMPLETE,
-  TRANSITION_DECLINE,
-  TRANSITION_EXPIRE,
-  TRANSITION_REQUEST_PAYMENT,
-  TRANSITION_CONFIRM_PAYMENT,
-  TX_TRANSITION_ACTOR_CUSTOMER,
+    TRANSITION_ACCEPT,
+    TRANSITION_CANCEL,
+    TRANSITION_COMPLETE,
+
+
+
+    TRANSITION_CONFIRM_PAYMENT, TRANSITION_DECLINE,
+    TRANSITION_EXPIRE,
+    TRANSITION_REQUEST_PAYMENT,
+
+    TX_TRANSITION_ACTOR_CUSTOMER
 } from '../../util/transaction';
 import {
-  LINE_ITEM_DAY,
-  LINE_ITEM_NIGHT,
-  LINE_ITEM_UNITS,
-  DATE_TYPE_DATE,
-  DATE_TYPE_DATETIME,
+    DATE_TYPE_DATE,
+    DATE_TYPE_DATETIME, LINE_ITEM_DAY,
+    LINE_ITEM_NIGHT,
+    LINE_ITEM_UNITS
 } from '../../util/types';
-import config from '../../config';
 import BookingBreakdown from './BookingBreakdown';
 
 const { UUID, Money } = sdkTypes;

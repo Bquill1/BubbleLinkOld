@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
 import { bool, func, number, shape, string } from 'prop-types';
-import { injectIntl, intlShape } from '../../util/reactIntl';
+import React, { Component } from 'react';
+import { FieldDateRangeController, FieldSelect, FilterPlain, FilterPopup } from '../../components';
 import { parseDateFromISO8601, stringifyDateToISO8601 } from '../../util/dates';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
-
-import { FieldDateRangeController, FieldSelect, FilterPopup, FilterPlain } from '../../components';
 import css from './BookingDateRangeLengthFilter.css';
+
 
 const RADIX = 10;
 

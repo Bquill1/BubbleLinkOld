@@ -1,9 +1,9 @@
-import React from 'react';
-import { string, shape, number, object } from 'prop-types';
 import polyline from '@mapbox/polyline';
+import { number, object, shape, string } from 'prop-types';
+import React from 'react';
+import config from '../../config';
 import { lazyLoadWithDimensions } from '../../util/contextHelpers';
 import { circlePolyline } from '../../util/maps';
-import config from '../../config';
 
 const formatColor = color => {
   return color.replace(/^#/, '');

@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { propTypes } from '../../util/types';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import config from '../../config';
 import { formatMoney } from '../../util/currency';
 import { ensureListing } from '../../util/data';
-import config from '../../config';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import { types as sdkTypes } from '../../util/sdkLoader';
-
+import { propTypes } from '../../util/types';
 import css from './SearchMapPriceLabel.css';
+
 const { Money } = sdkTypes;
 
 class SearchMapPriceLabel extends Component {

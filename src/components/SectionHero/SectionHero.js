@@ -1,11 +1,10 @@
-import React from 'react';
-import { string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { NamedLink, SectionSearchBlock } from '../../components';
-import FilterComponent from '../../containers/SearchPage/FilterComponent';
-
+import { string } from 'prop-types';
+import React from 'react';
+import { SectionSearchBlock } from '../../components';
+import { FormattedMessage } from '../../util/reactIntl';
 import css from './SectionHero.css';
+
 
 const SectionHero = props => {
   const { rootClassName, className, filterConfig, isMobile } = props;

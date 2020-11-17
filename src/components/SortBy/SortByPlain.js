@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { arrayOf, func, shape, string } from 'prop-types';
 import classNames from 'classnames';
-
+import { arrayOf, func, shape, string } from 'prop-types';
+import React, { Component } from 'react';
 import css from './SortByPlain.css';
+
 
 class SortByPlain extends Component {
   constructor(props) {

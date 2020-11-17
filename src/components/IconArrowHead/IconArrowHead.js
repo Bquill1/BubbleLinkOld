@@ -1,8 +1,8 @@
-import React from 'react';
-import { oneOf, string } from 'prop-types';
 import classNames from 'classnames';
-
+import { oneOf, string } from 'prop-types';
+import React from 'react';
 import css from './IconArrowHead.css';
+
 
 const DIRECTION_RIGHT = 'right';
 const DIRECTION_LEFT = 'left';

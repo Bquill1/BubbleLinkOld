@@ -1,9 +1,9 @@
 import React from 'react';
-import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import { formatMoney } from '../../util/currency';
-import { LINE_ITEM_NIGHT, LINE_ITEM_DAY, propTypes } from '../../util/types';
-
+import { FormattedMessage, intlShape } from '../../util/reactIntl';
+import { propTypes } from '../../util/types';
 import css from './BookingBreakdown.css';
+
 
 const LineItemBasePriceMaybe = props => {
   const { transaction, unitType, intl, isEntireSpace, isDaily, seatsSelected } = props;

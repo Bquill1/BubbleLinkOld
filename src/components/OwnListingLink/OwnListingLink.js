@@ -1,12 +1,12 @@
-import React from 'react';
 import { bool, object, string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
-import { ensureOwnListing } from '../../util/data';
-import { propTypes, LISTING_STATE_DRAFT } from '../../util/types';
-import { getListingType, createSlug } from '../../util/urlHelpers';
+import React from 'react';
 import { NamedLink } from '../../components';
-
+import { ensureOwnListing } from '../../util/data';
+import { FormattedMessage } from '../../util/reactIntl';
+import { LISTING_STATE_DRAFT, propTypes } from '../../util/types';
+import { createSlug, getListingType } from '../../util/urlHelpers';
 import css from './OwnListingLink.css';
+
 
 const OwnListingLink = props => {
   const { className, listing, listingFetched, children } = props;

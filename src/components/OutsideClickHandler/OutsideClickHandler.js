@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { func, node, string } from 'prop-types';
 import classNames from 'classnames';
-
+import { func, node, string } from 'prop-types';
+import React, { Component } from 'react';
 import css from './OutsideClickHandler.css';
+
 
 export default class OutsideClickHandler extends Component {
   constructor(props) {

@@ -1,5 +1,5 @@
-import React from 'react';
 import { string } from 'prop-types';
+import React from 'react';
 import { Field } from 'react-final-form';
 import DateRangeController from './DateRangeController';
 

@@ -1,10 +1,10 @@
-import React from 'react';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { createSlug, stringify } from '../../util/urlHelpers';
+import React from 'react';
 import { NamedLink } from '../../components';
-
+import { FormattedMessage } from '../../util/reactIntl';
+import { createSlug, stringify } from '../../util/urlHelpers';
 import css from './TransactionPanel.css';
+
 
 export const HEADING_ENQUIRED = 'enquired';
 export const HEADING_PAYMENT_PENDING = 'pending-payment';

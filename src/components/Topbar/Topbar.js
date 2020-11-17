@@ -1,35 +1,39 @@
-import React, { Component } from 'react';
-import { array, bool, func, number, shape, string } from 'prop-types';
-import { compose } from 'redux';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
-import pickBy from 'lodash/pickBy';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
+import pickBy from 'lodash/pickBy';
+import { array, bool, func, number, shape, string } from 'prop-types';
+import React, { Component } from 'react';
+import { compose } from 'redux';
+import {
+    Button,
+    LimitedAccessBanner,
+
+
+
+
+
+
+    LogoBubbleText, Modal,
+    ModalMissingInformation,
+    NamedLink,
+    TopbarDesktop,
+    TopbarMobileMenu
+} from '../../components';
 import config from '../../config';
+import { TopbarSearchForm } from '../../forms';
 import routeConfiguration from '../../routeConfiguration';
 import { withViewport } from '../../util/contextHelpers';
-import { parse, stringify } from '../../util/urlHelpers';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { createResourceLocatorString, pathByRouteName } from '../../util/routes';
 import { propTypes } from '../../util/types';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-
-import {
-  Button,
-  LimitedAccessBanner,
-  Logo,
-  Modal,
-  ModalMissingInformation,
-  NamedLink,
-  TopbarDesktop,
-  TopbarMobileMenu,
-  LogoBubbleText,
-} from '../../components';
-import { TopbarSearchForm } from '../../forms';
-
+import { parse, stringify } from '../../util/urlHelpers';
 import MenuIcon from './MenuIcon';
 import SearchIcon from './SearchIcon';
 import css from './Topbar.css';
+
+
+
 
 const MAX_MOBILE_SCREEN_WIDTH = 768;
 

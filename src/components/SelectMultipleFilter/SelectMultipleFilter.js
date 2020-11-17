@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import { array, arrayOf, func, node, number, object, string } from 'prop-types';
 import classNames from 'classnames';
+import { array, arrayOf, func, node, number, object, string } from 'prop-types';
+import React, { Component } from 'react';
+import { FieldCheckbox, FilterPlain, FilterPopup } from '../../components';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 import { parseSelectFilterOptions } from '../../util/search';
-import { FieldCheckbox } from '../../components';
-
-import { FilterPopup, FilterPlain } from '../../components';
 import css from './SelectMultipleFilter.css';
+
 
 // SelectMultipleFilter doesn't need array mutators since it doesn't require validation.
 // TODO: Live edit didn't work with FieldCheckboxGroup

@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
-import { bool, func, number, shape, string } from 'prop-types';
 import classNames from 'classnames';
-import { injectIntl, intlShape } from '../../util/reactIntl';
+import { bool, func, number, shape, string } from 'prop-types';
+import React, { useState } from 'react';
 import {
-  IconArrowHead,
-  IconCard,
-  IconClose,
-  IconCheckmark,
-  Button,
-  InlineTextButton,
-  Menu,
-  MenuLabel,
-  MenuItem,
-  MenuContent,
-  Modal,
+    Button, IconArrowHead,
+    IconCard,
+
+    IconCheckmark, IconClose,
+
+
+    InlineTextButton,
+    Menu,
+
+
+    MenuContent, MenuItem, MenuLabel,
+
+
+    Modal
 } from '../../components';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import css from './SavedCardDetails.css';
 
 const DEFAULT_CARD = 'defaultCard';

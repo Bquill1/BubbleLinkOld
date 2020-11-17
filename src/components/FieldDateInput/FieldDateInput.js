@@ -4,14 +4,14 @@
  * NOTE: If you are using this component inside BookingDatesForm,
  * you should convert value.date to start date and end date before submitting it to API
  */
-import React, { Component } from 'react';
-import { bool, func, object, string } from 'prop-types';
-import { Field } from 'react-final-form';
 import classNames from 'classnames';
+import { bool, func, object, string } from 'prop-types';
+import React, { Component } from 'react';
+import { Field } from 'react-final-form';
 import { ValidationError } from '../../components';
-
 import DateInput from './DateInput';
 import css from './FieldDateInput.css';
+
 
 const MAX_MOBILE_SCREEN_WIDTH = 768;
 

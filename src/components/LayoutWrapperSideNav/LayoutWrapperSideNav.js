@@ -2,12 +2,12 @@
  * This is a wrapper component for different Layouts.
  * Navigational 'aside' content should be added to this wrapper.
  */
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { TabNav } from '../../components';
-
 import css from './LayoutWrapperSideNav.css';
+
 
 const LayoutWrapperSideNav = props => {
   const { className, rootClassName, children, tabs } = props;

@@ -1,8 +1,8 @@
-import React from 'react';
-import { string } from 'prop-types';
 import classNames from 'classnames';
-
+import { string } from 'prop-types';
+import React from 'react';
 import css from './IconCard.css';
+
 
 const BRAND_AMEX = 'amex';
 const BRAND_DINERS = 'diners';

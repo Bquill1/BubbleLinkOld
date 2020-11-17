@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
 import {
-  createUser,
-  createCurrentUser,
-  createMessage,
-  createTransaction,
-  createListing,
-  createTxTransition,
-  createReview,
+    createCurrentUser,
+
+
+    createListing, createMessage,
+
+
+
+    createReview, createTransaction,
+
+    createTxTransition, createUser
 } from '../../util/test-data';
 import {
-  TRANSITION_ACCEPT,
-  TRANSITION_COMPLETE,
-  TRANSITION_DECLINE,
-  TRANSITION_EXPIRE_REVIEW_PERIOD,
-  TRANSITION_REQUEST_PAYMENT,
-  TRANSITION_CONFIRM_PAYMENT,
-  TRANSITION_REVIEW_1_BY_CUSTOMER,
-  TRANSITION_REVIEW_1_BY_PROVIDER,
-  TRANSITION_REVIEW_2_BY_CUSTOMER,
-  TRANSITION_REVIEW_2_BY_PROVIDER,
-  TX_TRANSITION_ACTOR_CUSTOMER,
-  TX_TRANSITION_ACTOR_PROVIDER,
+    TRANSITION_ACCEPT,
+    TRANSITION_COMPLETE,
+
+
+
+    TRANSITION_CONFIRM_PAYMENT, TRANSITION_DECLINE,
+    TRANSITION_EXPIRE_REVIEW_PERIOD,
+    TRANSITION_REQUEST_PAYMENT,
+
+    TRANSITION_REVIEW_1_BY_CUSTOMER,
+    TRANSITION_REVIEW_1_BY_PROVIDER,
+    TRANSITION_REVIEW_2_BY_CUSTOMER,
+    TRANSITION_REVIEW_2_BY_PROVIDER,
+    TX_TRANSITION_ACTOR_CUSTOMER,
+    TX_TRANSITION_ACTOR_PROVIDER
 } from '../../util/transaction';
 import ActivityFeed from './ActivityFeed';
 

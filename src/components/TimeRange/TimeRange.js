@@ -1,11 +1,11 @@
-import React from 'react';
-import { instanceOf, string } from 'prop-types';
 import classNames from 'classnames';
-import { isSameDay, formatDateToText } from '../../util/dates';
+import { instanceOf, string } from 'prop-types';
+import React from 'react';
+import { formatDateToText, isSameDay } from '../../util/dates';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 import { DATE_TYPE_DATE, DATE_TYPE_DATETIME, propTypes } from '../../util/types';
-
 import css from './TimeRange.css';
+
 
 export const TimeRangeComponent = props => {
   const { rootClassName, className, startDate, endDate, dateType, timeZone, intl } = props;

@@ -7,13 +7,13 @@
  *   <input type="file" accept="images/*" onChange={handleChange} />
  * </AddImages>
  */
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { ImageFromFile, ResponsiveImage, IconSpinner } from '../../components';
-
+import PropTypes from 'prop-types';
+import React from 'react';
+import { IconSpinner, ImageFromFile, ResponsiveImage } from '../../components';
 import css from './AddImages.css';
 import RemoveImageButton from './RemoveImageButton';
+
 
 const ThumbnailWrapper = props => {
   const { className, image, savedImageAltText, onRemoveImage } = props;

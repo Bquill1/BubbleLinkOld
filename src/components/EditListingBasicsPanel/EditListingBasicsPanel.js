@@ -1,15 +1,15 @@
-import React from 'react';
-import { bool, func, object, string } from 'prop-types';
 import classNames from 'classnames';
-import { FormattedMessage } from '../../util/reactIntl';
+import { bool, func, object, string } from 'prop-types';
+import React from 'react';
+import { ListingLink } from '..';
+import config from '../../config';
+import { EditListingBasicsForm } from '../../forms';
 import { ensureOwnListing } from '../../util/data';
+import { FormattedMessage } from '../../util/reactIntl';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { LISTING_STATE_DRAFT } from '../../util/types';
-import { ListingLink } from '..';
-import { EditListingBasicsForm } from '../../forms';
-import config from '../../config';
-
 import css from './EditListingBasicsPanel.css';
+
 const WEEKDAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 const EditListingBasicsPanel = props => {

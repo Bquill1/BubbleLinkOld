@@ -7,13 +7,13 @@
  *
  */
 
-import React from 'react';
-import { arrayOf, bool, node, shape, string } from 'prop-types';
 import classNames from 'classnames';
+import { arrayOf, bool, node, shape, string } from 'prop-types';
+import React from 'react';
 import { FieldArray } from 'react-final-form-arrays';
 import { FieldCheckbox, ValidationError } from '../../components';
-
 import css from './FieldCheckboxGroup.css';
+
 
 const FieldCheckboxRenderer = props => {
   const { className, rootClassName, listClass, label, id, fields, options, twoColumns, meta } = props;

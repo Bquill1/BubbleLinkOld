@@ -1,13 +1,12 @@
-import React from 'react';
 import Decimal from 'decimal.js';
-import { fakeIntl, createBooking } from '../../util/test-data';
-import { renderDeep } from '../../util/test-helpers';
+import React from 'react';
 import { types as sdkTypes } from '../../util/sdkLoader';
+import { createBooking, fakeIntl } from '../../util/test-data';
+import { renderDeep } from '../../util/test-helpers';
 import {
-  TRANSITION_CANCEL,
-  TRANSITION_REQUEST_PAYMENT,
-  TX_TRANSITION_ACTOR_CUSTOMER,
-  DATE_TYPE_DATE,
+    DATE_TYPE_DATE, TRANSITION_CANCEL,
+    TRANSITION_REQUEST_PAYMENT,
+    TX_TRANSITION_ACTOR_CUSTOMER
 } from '../../util/transaction';
 import { LINE_ITEM_NIGHT } from '../../util/types';
 import { BookingBreakdownComponent } from './BookingBreakdown';

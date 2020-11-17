@@ -1,9 +1,9 @@
-import React from 'react';
-import { node, string } from 'prop-types';
 import classNames from 'classnames';
+import { node, string } from 'prop-types';
+import React from 'react';
 import { Field } from 'react-final-form';
-
 import css from './FieldCheckbox.css';
+
 
 const IconCheckbox = props => {
   const { className, checkedClassName, boxClassName } = props;

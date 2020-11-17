@@ -1,18 +1,18 @@
+import invariant from 'invariant';
+import isEqual from 'lodash/isEqual';
+import { arrayOf, func, node, number, oneOfType, shape, string } from 'prop-types';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import invariant from 'invariant';
-import { arrayOf, func, node, number, oneOfType, shape, string } from 'prop-types';
-import isEqual from 'lodash/isEqual';
-import { withGoogleMap, GoogleMap, OverlayView } from 'react-google-maps';
+import { GoogleMap, OverlayView, withGoogleMap } from 'react-google-maps';
 import { OVERLAY_VIEW } from 'react-google-maps/lib/constants';
-import { types as sdkTypes } from '../../util/sdkLoader';
-import { parse } from '../../util/urlHelpers';
-import { propTypes } from '../../util/types';
+import { SearchMapGroupLabel, SearchMapInfoCard, SearchMapPriceLabel } from '../../components';
 import { ensureListing } from '../../util/data';
-import { sdkBoundsToFixedCoordinates, hasSameSDKBounds } from '../../util/maps';
-import { SearchMapInfoCard, SearchMapPriceLabel, SearchMapGroupLabel } from '../../components';
-
+import { hasSameSDKBounds, sdkBoundsToFixedCoordinates } from '../../util/maps';
+import { types as sdkTypes } from '../../util/sdkLoader';
+import { propTypes } from '../../util/types';
+import { parse } from '../../util/urlHelpers';
 import { groupedByCoordinates, reducedToArray } from './SearchMap.helpers.js';
+
 
 export const LABEL_HANDLE = 'SearchMapLabel';
 export const INFO_CARD_HANDLE = 'SearchMapInfoCard';

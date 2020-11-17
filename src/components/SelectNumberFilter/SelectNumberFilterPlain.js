@@ -47,7 +47,20 @@ class SelectNumberFilterPlain extends Component {
   toggleIsOpen() {
     this.setState({ isOpen: !this.state.isOpen });
   }
-
+  componentDidMount() {
+    const { queryParamNames, initialValues, hasDates } = this.props;
+    const queryParamName = hasDates ? queryParamNames[0] : queryParamNames[1];
+    const isCap = queryParamName === 'pub_capacity';
+    const initialValue =
+      initialValues && initialValues[queryParamName]
+        ? isCap
+          ? initialValues[queryParamName][0]
+          : initialValues[queryParamName]
+        : 0;
+    if (this.state.count !== initialValue) {
+      this.setState({ count: initialValue });
+    }
+  }
   render() {
     const {
       rootClassName,
@@ -68,6 +81,7 @@ class SelectNumberFilterPlain extends Component {
           ? initialValues[queryParamName].split(',')[0]
           : initialValues[queryParamName]
         : null;
+    console.log(initialValue);
     const labelClass = initialValue ? css.filterLabelSelected : css.filterLabel;
 
     const classes = classNames(rootClassName || css.root, className);

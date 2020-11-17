@@ -89,6 +89,8 @@
   "BookingDateRangeFilter.labelPopup": "Dates",
   "BookingDateRangeFilter.labelSelectedPlain": "{dates}",
   "BookingDateRangeFilter.labelSelectedPopup": "{dates}",
+  "BookingDateRangeLengthFilter.labelSelectedPlain": "Dates",
+  "BookingDateRangeLengthFilter.labelSelectedPopup": "Dates",
   "BookingDateRangeLengthFilter.bookingTypesLabel": "I need this space for...",
   "BookingDateRangeLengthFilter.labelSelectedPopup": "Dates",
   "BookingPanel.closedListingButtonText": "Sorry, this listing has been closed.",

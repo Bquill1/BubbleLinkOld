@@ -77,7 +77,7 @@ class SelectNumberFilterPopup extends Component {
           ? initialValues[queryParamName].split(',')[0]
           : initialValues[queryParamName]
         : null;
-    const menuLabel = initialValue ? optionLabel(options, initialValue) : label;
+    const menuLabel = initialValue ? optionLabel(options, initialValue) : null;
     const menuLabelClass = initialValue ? css.menuLabelSelected : css.menuLabel;
     const inputClasses = classNames(css.input);
     const classes = classNames(rootClassName || css.root, className);
@@ -89,7 +89,7 @@ class SelectNumberFilterPopup extends Component {
         onToggleActive={this.onToggleActive}
         isOpen={this.state.isOpen}
       >
-        <MenuLabel className={menuLabelClass}>Guests: {menuLabel}</MenuLabel>
+        <MenuLabel className={menuLabelClass}>Guests {menuLabel && ": " +menuLabel}</MenuLabel>
         <MenuContent className={css.menuContent}>
           <MenuItem className={css.inputItem} key={'key'}>
             <div className={css.numberWrapper}>

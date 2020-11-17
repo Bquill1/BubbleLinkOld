@@ -1,5 +1,3 @@
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import pickBy from 'lodash/pickBy';
 import { array, bool, func, number, shape, string } from 'prop-types';
@@ -23,23 +21,6 @@ import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { createResourceLocatorString, pathByRouteName } from '../../util/routes';
 import { propTypes } from '../../util/types';
 import { parse, stringify } from '../../util/urlHelpers';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouseUser } from '@fortawesome/free-solid-svg-icons';
-
-import {
-  Button,
-  LimitedAccessBanner,
-  Logo,
-  Modal,
-  ModalMissingInformation,
-  NamedLink,
-  TopbarDesktop,
-  TopbarMobileMenu,
-  LogoBubbleText,
-} from '../../components';
-import { TopbarSearchForm } from '../../forms';
-
 import MenuIcon from './MenuIcon';
 import SearchIcon from './SearchIcon';
 import css from './Topbar.css';

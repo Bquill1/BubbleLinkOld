@@ -321,7 +321,7 @@
   "EditListingPricingForm.priceTooLow": "Price should be at least {minPrice}.",
   "EditListingPricingForm.showListingFailed": "Fetching listing data failed",
   "EditListingPricingForm.updateFailed": "Failed to update listing. Please try again.",
-  "EditListingPricingForm.spaceHelper": "BubbleLink gives you full flexibility to set your prices. If your space can accommodate more than one person then you can choose whether to rent it out in its entirety, as individual spaces or offer both options. You decide! If your space can only hold one person then choose entire space.",
+  "EditListingPricingForm.spaceHelper": "BubbleLink gives you full flexibility to set your prices. If your space can accommodate more than one person then you can choose whether to rent it out in its entirety, as individual spaces or offer both options. You decide! If your space can only hold one person then choose entire place.",
   "EditListingPricingForm.timeHelper": "You can offer your space for hourly bookings, daily bookings or both with the flexibility to set prices separately for each combination of booking duration and amount of space.",
   "EditListingPricingPanel.createListingTitle": "Set your pricing",
   "EditListingPricingPanel.listingPriceCurrencyInvalid": "Listing currency is different from the marketplace currency. You cannot edit the price.",

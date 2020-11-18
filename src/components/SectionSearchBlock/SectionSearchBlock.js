@@ -209,6 +209,7 @@ const SectionSearchBlockComponent = props => {
                       // onChange prop but that breaks due to insufficient subscription handling.
                       // See: https://github.com/final-form/react-final-form/issues/159
                       const searchOnChange = value => {
+                        console.log(value)
                         onChange(value);
                         onChange(value);
                       };

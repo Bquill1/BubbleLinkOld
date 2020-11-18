@@ -5,7 +5,6 @@ import { Button } from '../../components';
 import { FormattedMessage } from '../../util/reactIntl';
 import css from './SelectNumberFilterPlain.css';
 
-
 const getQueryParamName = queryParamNames => {
   return Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;
 };
@@ -35,9 +34,6 @@ class SelectNumberFilterPlain extends Component {
     this.selectOption(queryParamName, otherQueryParamName, newCount);
   }
   selectOption(queryParamName, otherQueryParamName, option) {
-    console.log(queryParamName);
-    console.log(otherQueryParamName);
-    console.log(option);
     const isCap = queryParamName === 'pub_capacity';
     this.setState({ isOpen: false });
     const param = !option ? option : isCap ? [option, 1000].join(',') : option;
@@ -83,7 +79,9 @@ class SelectNumberFilterPlain extends Component {
         : null;
     console.log(initialValue);
     const labelClass = initialValue ? css.filterLabelSelected : css.filterLabel;
-
+    if (this.state.count !== initialValue) {
+      this.setState({ count: initialValue });
+    }
     const classes = classNames(rootClassName || css.root, className);
     console.log(this.state.count);
     return (

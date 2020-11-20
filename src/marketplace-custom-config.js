@@ -97,7 +97,7 @@ export const filters = [
          },
          {
            id: 'spaceRentalAvailability',
-           label: 'Portion',
+           label: 'Amount',
            type: 'SelectMultipleFilter',
            group: 'primary',
            queryParamNames: ['pub_spaceRentalAvailability'],
@@ -108,7 +108,7 @@ export const filters = [
              // to make filter customizations a bit easier.
              options: [
                { key: 'entireSpace', label: 'The entire place' },
-               { key: 'individual', label: 'Individual space(s)' },
+               { key: 'individual', label: 'Individual spaces' },
              ],
            },
          },

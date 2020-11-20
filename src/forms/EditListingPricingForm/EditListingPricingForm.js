@@ -49,7 +49,6 @@ export const EditListingPricingFormComponent = props => {
   }
   useTraceUpdate(props);
   console.log(props);
-
   return (
     <FinalForm
       {...props}
@@ -78,46 +77,45 @@ export const EditListingPricingFormComponent = props => {
           setBookingType_individual,
           spaceRentalAvailability,
           setSpaceRentalAvailability,
+          price_entireSpace_hourly,
+          setPrice_entireSpace_hourly,
+          price_entireSpace_daily,
+          setPrice_entireSpace_daily,
+          price_individual_hourly,
+          setPrice_individual_hourly,
+          price_individual_daily,
+          setPrice_individual_daily,
         } = formRenderProps;
-        console.log(spaceRentalAvailability)
+//         if (
+//           JSON.stringify(values) === JSON.stringify(initialValues) &&
+//           values !== {} &&
+//           (JSON.stringify(values?.bookingType_entireSpace) !==
+//             JSON.stringify(bookingType_entireSpace) ||
+//             JSON.stringify(values?.bookingType_individual) !==
+//               JSON.stringify(bookingType_individual) ||
+//             JSON.stringify(values?.spaceRentalAvailability) !==
+//               JSON.stringify(bookingType_individual) || 
+//             price_entireSpace_hourly !== values?.price_entireSpace_hourly ||
+// price_entireSpace_daily !== values?.price_entireSpace_daily ||
+// price_individual_hourly !== values?.price_individual_hourly ||
+// price_individual_daily !== values?.price_individual_daily)
+//         ) {
+//           console.log(values);
+//           console.log(111);
+//           values.bookingType_entireSpace = bookingType_entireSpace;
+//           values.bookingType_individual = bookingType_individual;
+//           values.spaceRentalAvailability = spaceRentalAvailability;
+//         } else {
+//           setBookingType_entireSpace(values.bookingType_entireSpace);
+//           setBookingType_individual(values.bookingType_individual);
+//           setSpaceRentalAvailability(values.spaceRentalAvailability);
+//           setPrice_entireSpace_hourly(values.price_entireSpace_hourly)
+//           setPrice_entireSpace_daily(values.price_entireSpace_daily)
+//           setPrice_individual_hourly(values.price_individual_hourly)
+//           setPrice_individual_daily(values.price_individual_daily)
+//         }
+
         console.log(values);
-        console.log(initialValues);
-        console.log(
-          JSON.stringify(values?.bookingType_entireSpace) !==
-            JSON.stringify(bookingType_entireSpace)
-        );
-        console.log(
-          JSON.stringify(values?.bookingType_individual) !== JSON.stringify(bookingType_individual)
-        );
-        console.log(JSON.stringify(values) !== JSON.stringify(initialValues) && values !== {});
-        if (
-          JSON.stringify(values) === JSON.stringify(initialValues) &&
-          values !== {} &&
-          (JSON.stringify(values?.bookingType_entireSpace) !==
-            JSON.stringify(bookingType_entireSpace) ||
-            JSON.stringify(values?.bookingType_individual) !==
-              JSON.stringify(bookingType_individual) ||
-            JSON.stringify(values?.spaceRentalAvailability) !==
-              JSON.stringify(bookingType_individual))
-        ) {
-          console.log(values);
-          console.log(111);
-          values.bookingType_entireSpace = bookingType_entireSpace;
-          values.bookingType_individual = bookingType_individual;
-          values.spaceRentalAvailability = spaceRentalAvailability;
-        } else {
-          setBookingType_entireSpace(values.bookingType_entireSpace);
-          setBookingType_individual(values.bookingType_individual);
-          setSpaceRentalAvailability(values.spaceRentalAvailability)
-        }
-        console.log(values);
-        const newValues = {
-          ...values,
-          bookingType_entireSpace: bookingType_entireSpace || [],
-          bookingType_individual: bookingType_individual || [],
-          spaceRentalAvailability: spaceRentalAvailability || [],
-        };
-        console.log(newValues);
         const bookingTypeMessage = intl.formatMessage({
           id: 'EditListingPricingForm.bookingTypeMessage',
         });
@@ -181,12 +179,12 @@ export const EditListingPricingFormComponent = props => {
         const classes = classNames(css.root, className);
 
         const missingEntireSpacePrices = !!(
-          newValues.spaceRentalAvailability?.includes('entireSpace') &&
-          !newValues.bookingType_entireSpace?.length
+          values.spaceRentalAvailability?.includes('entireSpace') &&
+          !values.bookingType_entireSpace?.length
         );
         const missingIndividualPrices = !!(
-          newValues.spaceRentalAvailability?.includes('individual') &&
-          !newValues.bookingType_individual?.length
+          values.spaceRentalAvailability?.includes('individual') &&
+          !values.bookingType_individual?.length
         );
         const missingPrices = missingEntireSpacePrices || missingIndividualPrices;
         const submitReady = (updated && pristine) || ready;
@@ -243,7 +241,7 @@ export const EditListingPricingFormComponent = props => {
                               {bookingTypeOptions.map(b => {
                                 return (
                                   <>
-                                    {newValues.spaceRentalAvailability?.includes(c.key) ? (
+                                    {values.spaceRentalAvailability?.includes(c.key) ? (
                                       <>
                                         <FieldCheckbox
                                           id={`${c.key}_bookingType_${b.key}`}

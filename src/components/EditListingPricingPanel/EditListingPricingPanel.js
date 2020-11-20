@@ -11,8 +11,6 @@ import { findOptionsForSelectFilter } from '../../util/search';
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import css from './EditListingPricingPanel.css';
 
-
-
 const { Money } = sdkTypes;
 
 const EditListingPricingPanel = props => {
@@ -61,6 +59,22 @@ const EditListingPricingPanel = props => {
     publicData?.spaceRentalAvailability
   );
 
+  // const [price_entireSpace_hourly, setPrice_entireSpace_hourly] = useState(
+  //   publicData?.price_entireSpace_hourly
+  // );
+
+  // const [price_entireSpace_daily, setPrice_entireSpace_daily] = useState(
+  //   publicData?.price_entireSpace_daily
+  // );
+
+  // const [price_individual_hourly, setPrice_individual_hourly] = useState(
+  //   publicData?.price_individual_hourly
+  // );
+
+  // const [price_individual_daily, setPrice_individual_daily] = useState(
+  //   publicData?.price_individual_daily
+  // );
+
   // const bookingTypeOptions = findOptionsForSelectFilter('bookingType', config.custom.filters);
   const spaceRentalAvailabilityOptions = findOptionsForSelectFilter(
     'spaceRentalAvailability',
@@ -82,11 +96,11 @@ const EditListingPricingPanel = props => {
     const {
       bookingType_entireSpace,
       bookingType_individual,
+      spaceRentalAvailability,
       price_entireSpace_daily,
       price_entireSpace_hourly,
       price_individual_daily,
       price_individual_hourly,
-      spaceRentalAvailability,
     } = values;
     const price = [
       price_entireSpace_daily,
@@ -144,7 +158,10 @@ const EditListingPricingPanel = props => {
           publicData?.price_entireSpace_hourly || 100,
           config.currency
         ),
-        price_individual_daily: new Money(publicData?.price_individual_daily || 100, config.currency),
+        price_individual_daily: new Money(
+          publicData?.price_individual_daily || 100,
+          config.currency
+        ),
         price_individual_hourly: new Money(
           publicData?.price_individual_hourly || 100,
           config.currency
@@ -170,6 +187,15 @@ const EditListingPricingPanel = props => {
       setBookingType_individual={setBookingType_individual}
       spaceRentalAvailability={spaceRentalAvailability}
       setSpaceRentalAvailability={setSpaceRentalAvailability}
+      // price_entireSpace_hourly={price_entireSpace_hourly}
+      // setPrice_entireSpace_hourly={setPrice_entireSpace_hourly}
+      // price_entireSpace_daily={price_entireSpace_daily}
+      // setPrice_entireSpace_daily={setPrice_entireSpace_daily}
+      // price_individual_hourly={price_individual_hourly}
+      // setPrice_individual_hourly={setPrice_individual_hourly}
+      // price_individual_daily={price_individual_daily}
+      // setPrice_individual_daily={setPrice_individual_daily}
+      price
     />
   ) : (
     <div className={css.priceCurrencyInvalid}>

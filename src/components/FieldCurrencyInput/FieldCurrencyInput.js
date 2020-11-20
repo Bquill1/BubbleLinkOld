@@ -125,7 +125,6 @@ class CurrencyInputComponent extends Component {
     const trueVal = newVal < 1 ? 1 : newVal;
 
     // Update value strings on state
-    console.log(event.target.value);
     const { unformattedValue } = this.updateValues({ target: { value: '' + trueVal } });
     // Notify parent component about current price change
     const price = getPrice(ensureDotSeparator(unformattedValue), this.props.currencyConfig);
@@ -133,7 +132,6 @@ class CurrencyInputComponent extends Component {
   }
 
   onInputBlur(event) {
-    console.log(11111);
     event.preventDefault && event.preventDefault();
     event.stopPropagation && event.stopPropagation();
     const {
@@ -152,14 +150,12 @@ class CurrencyInputComponent extends Component {
     });
   }
   onInputFocus(event) {
-    console.log(2222);
     event.preventDefault();
     event.stopPropagation();
     const {
       currencyConfig,
       input: { onFocus },
     } = this.props;
-    console.log(onFocus);
     this.setState(prevState => {
       if (onFocus) {
         // If parent component has provided onFocus function, call it with current price.
@@ -173,7 +169,6 @@ class CurrencyInputComponent extends Component {
   }
 
   updateValues(event) {
-    console.log(event);
     try {
       const { currencyConfig, intl } = this.props;
       const targetValue = event.target.value.trim();
